@@ -1,0 +1,472 @@
+/* ============================================
+   RESPONSIVE DESIGN SYSTEM
+   Mobile-First Breakpoints
+   ============================================ */
+
+/* 
+   BREAKPOINT STRATEGY:
+   - Mobile (default): 320px - 479px
+   - Tablet: 480px - 767px  
+   - Desktop: 768px - 1023px
+   - Large Desktop: 1024px+
+   
+   Mobile-first: Start with mobile styles, add breakpoints for larger screens
+*/
+
+/* ===== MOBILE FIRST (320px - 479px) ===== */
+
+@media (max-width: 479px) {
+  
+  h1 {
+    font-size: 28px;
+    line-height: 1.15;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 16px;
+  }
+  
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 12px 16px;
+  }
+  
+  .section {
+    padding: var(--spacing-xl) 0;
+  }
+}
+
+
+/* ===== TABLET (480px - 767px) ===== */
+
+@media (min-width: 480px) {
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  h2 {
+    font-size: 22px;
+  }
+  
+  .container {
+    max-width: 95%;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .section {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  /* Product grid on tablet: 2 columns */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Hero section adjustments */
+  .hero-content {
+    max-width: 100%;
+  }
+}
+
+
+/* ===== DESKTOP (768px - 1023px) ===== */
+
+@media (min-width: 768px) {
+  
+  h1 {
+    font-size: 32px;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  .container {
+    max-width: 720px;
+    padding-left: var(--page-padding-tablet);
+    padding-right: var(--page-padding-tablet);
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .section {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  /* Product grid on desktop: 3 columns */
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Hero section on desktop */
+  .hero-content {
+    max-width: 600px;
+  }
+  
+  /* Navigation becomes horizontal */
+  .main-nav {
+    display: flex;
+    gap: var(--spacing-lg);
+  }
+  
+  /* Sidebar layouts work on desktop */
+  .layout-with-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: var(--spacing-xl);
+  }
+}
+
+
+/* ===== LARGE DESKTOP (1024px+) ===== */
+
+@media (min-width: 1024px) {
+  
+  h1 {
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-size: 28px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    padding-left: var(--page-padding-desktop);
+    padding-right: var(--page-padding-desktop);
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .section {
+    padding: 80px 0;
+  }
+  
+  /* Product grid on large desktop: 4 columns */
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Category grid expands */
+  .category-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  /* Hero section on large desktop */
+  .hero {
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero-content {
+    max-width: 700px;
+  }
+  
+  /* Sidebar layouts */
+  .layout-with-sidebar {
+    grid-template-columns: 280px 1fr;
+  }
+  
+  /* Two-column sections */
+  .section-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+  }
+}
+
+
+/* ===== EXTRA LARGE DESKTOP (1440px+) ===== */
+
+@media (min-width: 1440px) {
+  
+  .container {
+    max-width: 1400px;
+  }
+  
+  /* Product grid on XL: still 4 columns but with more space */
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xl);
+  }
+  
+  .section {
+    padding: 100px 0;
+  }
+}
+
+
+/* ===== TABLET ONLY (480px - 767px) ===== */
+
+@media (min-width: 480px) and (max-width: 767px) {
+  
+  .hide-tablet {
+    display: none;
+  }
+  
+  .show-only-tablet {
+    display: block;
+  }
+}
+
+
+/* ===== MOBILE ONLY (max 767px) ===== */
+
+@media (max-width: 767px) {
+  
+  .hide-mobile {
+    display: none;
+  }
+  
+  .show-only-mobile {
+    display: block;
+  }
+  
+  /* Stack everything vertically on mobile */
+  .flex-row {
+    flex-direction: column;
+  }
+  
+  /* Full-width buttons on mobile */
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+  }
+  
+  /* Reduce padding in cards on mobile */
+  .card {
+    padding: var(--spacing-md);
+  }
+  
+  /* Stack product details on mobile */
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Navigation drawer instead of full nav on mobile */
+  .main-nav {
+    flex-direction: column;
+  }
+  
+  /* Hero text smaller on mobile */
+  .hero p {
+    font-size: 14px;
+  }
+}
+
+
+/* ===== DESKTOP ONLY (768px+) ===== */
+
+@media (min-width: 768px) {
+  
+  .hide-desktop {
+    display: none;
+  }
+  
+  .show-only-desktop {
+    display: block;
+  }
+  
+  /* Horizontal layouts on desktop */
+  .flex-desktop-row {
+    flex-direction: row;
+  }
+}
+
+
+/* ===== LANDSCAPE ORIENTATION ===== */
+
+@media (orientation: landscape) and (max-height: 600px) {
+  
+  .hero {
+    min-height: 400px;
+  }
+  
+  .section {
+    padding: var(--spacing-lg) 0;
+  }
+}
+
+
+/* ===== ACCESSIBILITY: REDUCED MOTION ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ===== DARK MODE (Future) ===== */
+
+@media (prefers-color-scheme: dark) {
+  
+  /* Add dark mode styles here when needed */
+  /* For now, light mode only */
+}
+
+
+/* ===== HIGH DPI SCREENS ===== */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  
+  /* Optimize images and borders for high-DPI screens */
+  img {
+    image-rendering: crisp-edges;
+  }
+  
+  /* Thinner borders on high-DPI */
+  .card {
+    border-width: 0.5px;
+  }
+}
+
+
+/* ===== TOUCH DEVICES ===== */
+
+@media (hover: none) and (pointer: coarse) {
+  
+  /* Larger touch targets on mobile */
+  .btn,
+  a,
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .btn:hover {
+    transform: none;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+  
+  /* Make interactive elements more obvious */
+  button {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+/* ===== POINTER DEVICES (Desktop/Trackpad) ===== */
+
+@media (hover: hover) and (pointer: fine) {
+  
+  /* Hover effects only on desktop */
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+  
+  .no-print,
+  header,
+  footer,
+  .btn,
+  .cart-link {
+    display: none !important;
+  }
+  
+  .container {
+    max-width: 100%;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  page-break-inside: avoid;
+}
+
+
+/* ===== CUSTOM SCROLLBAR ===== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-navy);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-orange);
+}
