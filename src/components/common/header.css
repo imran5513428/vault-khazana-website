@@ -40,7 +40,10 @@
   letter-spacing: 2px;
   color: var(--secondary-orange);
 }
-
+.header-logo img {
+  display: block;
+  background: transparent;
+}
 .logo-name {
   font-size: 11px;
   letter-spacing: 1px;
