@@ -21,7 +21,7 @@ function Header() {
           <picture>
             <source
               media="(max-width: 767px)"
-              srcSet={`${import.meta.env.BASE_URL}vault-khazana-vertical.png`}
+              srcSet={`${import.meta.env.BASE_URL}images/images/vault-khazana-horizontal.png`}
             />
             <img
               src={`${import.meta.env.BASE_URL}vault-khazana-horizontal.png`}
