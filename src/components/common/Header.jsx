@@ -17,24 +17,24 @@ function Header() {
       <div className="header-container"> 
 
         {/* LOGO */}
-        <Link to="/" className="header-logo">
-          <picture>
-            <source
-              media="(max-width: 767px)"
-              srcSet={`${import.meta.env.BASE_URL}images/images/vault-khazana-horizontal.png`}
-            />
-            <img
-              src={`${import.meta.env.BASE_URL}vault-khazana-horizontal.png`}
-              alt="VAULT KHAZANA - Packaging & Food-Service Supplies"
-              style={{
-                width: '120px',
-                maxHeight: '48px',
-                objectFit: 'contain',
-                display: 'block'
-              }}
-            />
-          </picture>
-        </Link>
+<Link to="/" className="header-logo">
+  <picture>
+    <source
+      media="(max-width: 767px)"
+      srcSet={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
+    />
+    <img
+      src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
+      alt="VAULT KHAZANA - Packaging & Food-Service Supplies"
+      style={{
+        width: '120px',
+        maxHeight: '48px',
+        objectFit: 'contain',
+        display: 'block'
+      }}
+    />
+  </picture>
+</Link>
 
         {/* DESKTOP NAVIGATION */}
         <nav className="header-nav desktop-nav">
