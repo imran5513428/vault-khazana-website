@@ -4,7 +4,7 @@ import useCartStore from '../../store/cartStore';
 import { CATEGORIES } from '../../data/products';
 import './header.css';
 
-function Header() {
+function Header() {                                                               
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
@@ -14,7 +14,7 @@ function Header() {
 
   return (
     <header className="site-header">
-      <div className="header-container">
+      <div className="header-container"> 
 
         {/* LOGO */}
         <Link to="/" className="header-logo">
