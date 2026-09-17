@@ -7,6 +7,7 @@ import './header.css';
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+
   const cartCount = useCartStore((state) => {
     return state.items.reduce((total, item) => total + item.quantity, 0);
   });
@@ -14,21 +15,36 @@ function Header() {
   return (
     <header className="site-header">
       <div className="header-container">
-        
+
         {/* LOGO */}
         <Link to="/" className="header-logo">
-          <span className="logo-vk">VK</span>
-          <span className="logo-name">VAULT KHAZANA</span>
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet={`${import.meta.env.BASE_URL}vault-khazana-vertical.png`}
+            />
+            <img
+              src={`${import.meta.env.BASE_URL}vault-khazana-horizontal.png`}
+              alt="VAULT KHAZANA - Packaging & Food-Service Supplies"
+              style={{
+                width: '120px',
+                maxHeight: '48px',
+                objectFit: 'contain',
+                display: 'block'
+              }}
+            />
+          </picture>
         </Link>
 
         {/* DESKTOP NAVIGATION */}
         <nav className="header-nav desktop-nav">
           <Link to="/" className="nav-link">Home</Link>
-          
+
           <div className="nav-dropdown">
             <button className="nav-link dropdown-toggle">
               Categories ▼
             </button>
+
             <div className="dropdown-menu">
               {CATEGORIES.map((category) => (
                 <Link
@@ -51,10 +67,12 @@ function Header() {
           <button className="search-btn" aria-label="Search">
             🔍
           </button>
-          
+
           <Link to="/cart" className="cart-link">
             <span className="cart-icon">🛒</span>
-            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+            {cartCount > 0 && (
+              <span className="cart-count">{cartCount}</span>
+            )}
           </Link>
 
           {/* MOBILE MENU BUTTON */}
@@ -71,17 +89,25 @@ function Header() {
       {/* MOBILE NAVIGATION */}
       {mobileMenuOpen && (
         <nav className="mobile-nav">
-          <Link to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <Link
+            to="/"
+            className="mobile-nav-link"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             Home
           </Link>
-          
+
           <button
             className="mobile-nav-link dropdown-toggle"
-            onClick={() => setActiveDropdown(activeDropdown === 'categories' ? null : 'categories')}
+            onClick={() =>
+              setActiveDropdown(
+                activeDropdown === 'categories' ? null : 'categories'
+              )
+            }
           >
             Categories {activeDropdown === 'categories' ? '▲' : '▼'}
           </button>
-          
+
           {activeDropdown === 'categories' && (
             <div className="mobile-dropdown">
               {CATEGORIES.map((category) => (
@@ -97,11 +123,19 @@ function Header() {
             </div>
           )}
 
-          <Link to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+          <Link
+            to="/"
+            className="mobile-nav-link"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             Wholesale
           </Link>
-          
-          <Link to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+
+          <Link
+            to="/"
+            className="mobile-nav-link"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             About
           </Link>
         </nav>
