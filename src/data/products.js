@@ -1,4 +1,6 @@
-import { getProductImages } from '../utils/imageHelper';
+const getProductImages = (imageSlug) => [
+  `${import.meta.env.BASE_URL}images/${imageSlug}.jpg`
+];
 
 export const CATEGORIES = [
   {
