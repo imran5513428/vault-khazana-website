@@ -9,9 +9,78 @@ export const CATEGORIES = [
     slug: 'food-containers',
     icon: '📦',
     description: 'Premium food storage and takeaway containers'
+  },
+  {
+    id: 'dips-sauce-cups',
+    name: 'Dips & Sauce Cups',
+    slug: 'dips-sauce-cups',
+    icon: '🥣',
+    description: 'Convenient cups for sauces, dips and condiments'
+  },
+  {
+    id: 'bakery-packaging',
+    name: 'Bakery Packaging',
+    slug: 'bakery-packaging',
+    icon: '🧁',
+    description: 'Packaging for cakes, pastries and bakery products'
+  },
+  {
+    id: 'cups-drinkware',
+    name: 'Cups & Drinkware',
+    slug: 'cups-drinkware',
+    icon: '🥤',
+    description: 'Cups and drinkware for hot and cold beverages'
+  },
+  {
+    id: 'bags',
+    name: 'Bags',
+    slug: 'bags',
+    icon: '🛍️',
+    description: 'Practical bags for takeaway and food service'
+  },
+  {
+    id: 'foil-wrap',
+    name: 'Foil & Wrap',
+    slug: 'foil-wrap',
+    icon: '🧻',
+    description: 'Foil, cling film and wrapping supplies'
+  },
+  {
+    id: 'tissues-kitchen',
+    name: 'Tissues & Kitchen',
+    slug: 'tissues-kitchen',
+    icon: '🧻',
+    description: 'Tissues and everyday kitchen essentials'
+  },
+  {
+    id: 'disposable-cutlery',
+    name: 'Disposable Cutlery',
+    slug: 'disposable-cutlery',
+    icon: '🍴',
+    description: 'Convenient disposable spoons, forks and knives'
+  },
+  {
+    id: 'takeaway-packaging',
+    name: 'Takeaway Packaging',
+    slug: 'takeaway-packaging',
+    icon: '🥡',
+    description: 'Packaging solutions for takeaway food'
+  },
+  {
+    id: 'thermopore',
+    name: 'Thermopore',
+    slug: 'thermopore',
+    icon: '📦',
+    description: 'Insulated thermopore packaging solutions'
+  },
+  {
+    id: 'straws',
+    name: 'Straws',
+    slug: 'straws',
+    icon: '🥤',
+    description: 'Straws for beverages and food service'
   }
 ];
-
 export const PRODUCTS = [
   {
     id: 'h1-6x3-5',
