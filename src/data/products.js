@@ -1,104 +1,24 @@
-
-/* ============================================
-   VAULT KHAZANA - PRODUCT DATABASE
-   All Products, Categories, Pricing
-   ============================================ */
+import { getProductImages } from '../utils/imageHelper';
 
 export const CATEGORIES = [
   {
     id: 'food-containers',
     name: 'Food Containers',
     slug: 'food-containers',
-    description: 'Containers for meals, storage and takeaway.',
     icon: '📦',
-    color: '#E67E22'
-  },
-  {
-    id: 'cups-drinkware',
-    name: 'Cups & Drinkware',
-    slug: 'cups-drinkware',
-    description: 'Everyday cups, glasses and drink packaging.',
-    icon: '🥤',
-    color: '#17A697'
-  },
-  {
-    id: 'bags',
-    name: 'Bags',
-    slug: 'bags',
-    description: 'Shopping and packaging bags in useful sizes.',
-    icon: '🛍️',
-    color: '#F39C12'
-  },
-  {
-    id: 'foil-wrap',
-    name: 'Foil & Wrap',
-    slug: 'foil-wrap',
-    description: 'Cling film, aluminium foil and food wrapping.',
-    icon: '🌀',
-    color: '#95A5A6'
-  },
-  {
-    id: 'bakery-packaging',
-    name: 'Bakery Packaging',
-    slug: 'bakery-packaging',
-    description: 'Packaging for cakes, desserts and bakery items.',
-    icon: '🎂',
-    color: '#E74C3C'
-  },
-  {
-    id: 'disposable-cutlery',
-    name: 'Disposable Cutlery',
-    slug: 'disposable-cutlery',
-    description: 'Practical disposables for serving and takeaway.',
-    icon: '🍴',
-    color: '#34495E'
-  },
-  {
-    id: 'dips-sauce-cups',
-    name: 'Dips & Sauce Cups',
-    slug: 'dips-sauce-cups',
-    description: 'Small cups for sauces, dips and condiments.',
-    icon: '🥘',
-    color: '#C0392B'
-  },
-  {
-    id: 'tissues-kitchen',
-    name: 'Tissues & Kitchen',
-    slug: 'tissues-kitchen',
-    description: 'Tissues, kitchen rolls and everyday supplies.',
-    icon: '📄',
-    color: '#27AE60'
-  },
-  {
-    id: 'straws',
-    name: 'Straws',
-    slug: 'straws',
-    description: 'Straws for drinks, cafés and takeaway.',
-    icon: '🥤',
-    color: '#2980B9'
-  },
-  {
-    id: 'takeaway-packaging',
-    name: 'Takeaway Packaging',
-    slug: 'takeaway-packaging',
-    description: 'Practical packaging for restaurants and delivery.',
-    icon: '📦',
-    color: '#D35400'
+    description: 'Premium food storage and takeaway containers'
   }
 ];
 
-
 export const PRODUCTS = [
-  
-  /* ===== FOOD CONTAINERS ===== */
-  
   {
     id: 'h1-6x3-5',
     categoryId: 'food-containers',
-    name: 'H1 Plastic Box with Folding Lid',
-    slug: 'h1-plastic-box-6x3-5',
+    name: 'H1 Box 6×3.5×2in',
+    slug: 'h1-6x3-5-clear-food-storage',
+    imageSlug: 'h1-plastic-box-folding-lid',
     dimensions: '6 × 3.5 × 2 inches',
-    capacity: '500ml',
+    capacity: '350ml',
     price: 700,
     pack: '100 pieces',
     material: 'Polypropylene (PP) — clear plastic',
@@ -106,113 +26,98 @@ export const PRODUCTS = [
     lid: 'Folding lid included',
     colour: 'Transparent',
     model: 'H1',
-    images: [
-      'https://via.placeholder.com/400x400?text=H1+Container+1',
-      'https://via.placeholder.com/400x400?text=H1+Container+2'
-    ],
-    overview: 'A practical clear plastic box designed for takeaway, delivery, and everyday food storage. The folding lid keeps the contents covered while making the box convenient to handle and use.',
-    description: 'Perfect for small portions, condiments, biscuits, cakes, and frozen food items.',
-    suitableFor: 'Condiments, biscuits, cakes, frozen food, and a wide range of other food items.',
-    idealFor: 'Serving and delivering both savoury and sweet foods, while also being useful at home for storing individual portions and leftover food in the refrigerator.',
-    recommendation: 'Best for small portions and single servings. Order in bulk (500+ pieces) for better wholesale rates.',
+    overview: 'Professional-grade clear food storage box perfect for takeaway and food service businesses.',
+    description: 'Versatile medium box for various food items.',
+    suitableFor: 'Bakery items, pastries, sandwiches, fresh foods, and general food storage.',
+    idealFor: 'Restaurants, cafés, bakeries, and food delivery services.',
+    recommendation: 'Best seller. Excellent for professional food service.',
     inStock: true,
-    stockCount: 500,
-    rating: 4.5,
-    reviews: 45
+    stockCount: 1200,
+    rating: 4.8,
+    reviews: 156
   },
-  
+
   {
     id: 'h1-6x4',
     categoryId: 'food-containers',
-    name: 'H1 Plastic Box with Folding Lid',
-    slug: 'h1-plastic-box-6x4',
+    name: 'H1 Box 6×4×2in',
+    slug: 'h1-6x4-clear-food-storage',
+    imageSlug: 'h1-plastic-box-folding-lid',
     dimensions: '6 × 4 × 2 inches',
-    capacity: '650ml',
+    capacity: '400ml',
     price: 750,
     pack: '100 pieces',
     material: 'Polypropylene (PP) — clear plastic',
     shape: 'Rectangular',
     lid: 'Folding lid included',
     colour: 'Transparent',
-    model: 'H1',
-    images: [
-      'https://via.placeholder.com/400x400?text=H1+Container+3',
-      'https://via.placeholder.com/400x400?text=H1+Container+4'
-    ],
-    overview: 'A practical clear plastic box designed for takeaway, delivery, and everyday food storage. The folding lid keeps the contents covered while making the box convenient to handle and use.',
-    description: 'Ideal for medium portions of takeaway and delivery.',
-    suitableFor: 'Condiments, biscuits, cakes, frozen food, and a wide range of other food items.',
-    idealFor: 'Serving and delivering both savoury and sweet foods, while also being useful at home for storing individual portions and leftover food in the refrigerator.',
-    recommendation: 'Great for restaurants and catering. Bulk ordering recommended.',
+    overview: 'Larger H1 variant for bigger portions and mixed items.',
+    description: 'Spacious rectangular box with folding lid.',
+    suitableFor: 'Larger portions, combo meals, mixed foods.',
+    idealFor: 'Premium food packaging and catering.',
+    recommendation: 'Popular for premium packaging.',
     inStock: true,
-    stockCount: 500,
-    rating: 4.6,
-    reviews: 62
+    stockCount: 900,
+    rating: 4.7,
+    reviews: 124
   },
-  
+
   {
     id: 'h3',
     categoryId: 'food-containers',
-    name: 'H3 Clear Food Storage Box — Folding Lid',
+    name: 'H3 Box 8×5×2.5in',
     slug: 'h3-clear-food-storage',
+    imageSlug: 'h3-plastic-box-folding-lid',
     dimensions: '8 × 5 × 2.5 inches',
-    capacity: '1200ml',
+    capacity: '550ml',
     price: 1000,
     pack: '100 pieces',
     material: 'Polypropylene (PP) — clear plastic',
     shape: 'Rectangular',
     lid: 'Folding lid included',
     colour: 'Transparent',
-    model: 'H3',
-    images: [
-      'https://via.placeholder.com/400x400?text=H3+Container+1',
-      'https://via.placeholder.com/400x400?text=H3+Container+2'
-    ],
-    overview: 'A larger clear food box with a practical folding lid, made for takeaway, delivery, and convenient food storage.',
-    description: 'Perfect for medium-sized portions of meals and food items.',
-    suitableFor: 'Condiments, biscuits, cakes, frozen food, and much more.',
-    idealFor: 'Serving and delivering both savoury and sweet foods, portioning meals, and keeping leftover food stored in the refrigerator at home.',
-    recommendation: 'Excellent choice for medium portions. Popular with restaurants and takeaways.',
+    overview: 'Large rectangular food box ideal for complete meal portions.',
+    description: 'Perfect for larger meals and bulk food items.',
+    suitableFor: 'Full meals, large portions, biryani, rice dishes.',
+    idealFor: 'Meal delivery, catering, fine dining packaging.',
+    recommendation: 'Premium option for upscale food service.',
     inStock: true,
-    stockCount: 400,
-    rating: 4.7,
-    reviews: 78
+    stockCount: 750,
+    rating: 4.9,
+    reviews: 203
   },
-  
+
   {
     id: 'h6',
     categoryId: 'food-containers',
-    name: 'H6 Clear Food Storage Box — Folding Lid',
+    name: 'H6 Box 9×6×2.5in',
     slug: 'h6-clear-food-storage',
+    imageSlug: 'h6-plastic-box-folding-lid',
     dimensions: '9 × 6 × 2.5 inches',
-    capacity: '1600ml',
+    capacity: '750ml',
     price: 1300,
     pack: '100 pieces',
     material: 'Polypropylene (PP) — clear plastic',
     shape: 'Rectangular',
     lid: 'Folding lid included',
     colour: 'Transparent',
-    model: 'H6',
-    images: [
-      'https://via.placeholder.com/400x400?text=H6+Container+1',
-      'https://via.placeholder.com/400x400?text=H6+Container+2'
-    ],
-    overview: 'A spacious clear food box with a convenient folding lid, designed for takeaway, delivery, and practical food storage.',
-    description: 'Large capacity container for substantial portions.',
-    suitableFor: 'Condiments, biscuits, cakes, frozen food, and much more.',
-    idealFor: 'Takeaway and delivery of savoury and sweet foods, portioning meals, and storing leftover food in the refrigerator at home.',
-    recommendation: 'Best seller for restaurants. Great for bulk orders above 500 pieces.',
+    overview: 'Extra-large rectangular box for bulk food items and catering.',
+    description: 'Largest rectangular option in the H-series.',
+    suitableFor: 'Large platters, bulk orders, catering portions.',
+    idealFor: 'Catering companies, event food service.',
+    recommendation: 'Essential for catering operations.',
     inStock: true,
-    stockCount: 350,
+    stockCount: 600,
     rating: 4.8,
-    reviews: 124
+    reviews: 89
   },
-  
+
   {
     id: 'h9',
     categoryId: 'food-containers',
     name: 'H9 Clear Food Storage Box — Folding Lid',
     slug: 'h9-clear-food-storage',
+    imageSlug: 'h9-plastic-box-folding-lid',
     dimensions: '5 × 4 × 2 inches',
     capacity: '400ml',
     price: 550,
@@ -221,27 +126,23 @@ export const PRODUCTS = [
     shape: 'Rectangular',
     lid: 'Folding lid included',
     colour: 'Transparent',
-    model: 'H9',
-    images: [
-      'https://via.placeholder.com/400x400?text=H9+Container+1',
-      'https://via.placeholder.com/400x400?text=H9+Container+2'
-    ],
-    overview: 'A compact clear food box with a folding lid, suitable for takeaway, delivery, and everyday food storage.',
+    overview: 'Compact clear food box with folding lid, ideal for small portions and condiments.',
     description: 'Smallest option, perfect for small portions and condiments.',
     suitableFor: 'Condiments, biscuits, cakes, frozen food, and much more.',
-    idealFor: 'Takeaway and delivery of savoury and sweet foods, portioning meals, and storing leftover food in the refrigerator at home.',
+    idealFor: 'Takeaway and delivery of savoury and sweet foods, portioning meals.',
     recommendation: 'Budget-friendly option. Popular for small businesses and home use.',
     inStock: true,
     stockCount: 600,
     rating: 4.4,
     reviews: 38
   },
-  
+
   {
     id: '200ml-disposable',
     categoryId: 'food-containers',
     name: '200ml Clear Round Disposable Food Container',
     slug: '200ml-round-container',
+    imageSlug: '200ml-disposable-round-container',
     dimensions: '200ml capacity',
     capacity: '200ml',
     price: 900,
@@ -250,26 +151,23 @@ export const PRODUCTS = [
     shape: 'Round',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=200ml+Round+1',
-      'https://via.placeholder.com/400x400?text=200ml+Round+2'
-    ],
-    overview: 'A lightweight clear round food container made from disposable PP, supplied with a lid for convenient takeaway, delivery, and food packing.',
+    overview: 'Lightweight clear round food container made from disposable PP, supplied with lid.',
     description: 'Perfect for small portions and condiments in round containers.',
     suitableFor: 'Chaat, sauces, fresh salad, condiments, kheer, and more.',
     idealFor: 'Takeaway, delivery, food packing, and convenient portioning.',
-    recommendation: 'Great for desserts and small portions. Very affordable wholesale rates available.',
+    recommendation: 'Great for desserts and small portions. Very affordable wholesale rates.',
     inStock: true,
     stockCount: 800,
     rating: 4.5,
     reviews: 92
   },
-  
+
   {
     id: '300ml-round',
     categoryId: 'food-containers',
     name: '300ml Clear Round Food Container',
     slug: '300ml-round-container',
+    imageSlug: '300ml-clear-round-container',
     dimensions: '300ml capacity',
     capacity: '300ml',
     price: 1000,
@@ -278,56 +176,49 @@ export const PRODUCTS = [
     shape: 'Round',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=300ml+Round+1',
-      'https://via.placeholder.com/400x400?text=300ml+Round+2'
-    ],
-    overview: 'A clear, round PP food container designed for convenient food packing, takeaway, and storage. The transparent body makes it easy to see the contents, while the included lid helps keep food covered during transport and storage.',
-    description: 'Medium round container with clear visibility.',
-    suitableFor: 'Desserts, fast food, soup, and other food items.',
-    idealFor: 'Takeaway, food packing, transport, and food storage.',
-    recommendation: 'Popular choice for dessert shops and fast food restaurants.',
+    overview: 'Medium round container perfect for sauces, dips, and small meals.',
+    description: 'Versatile round container for multiple uses.',
+    suitableFor: 'Curries, gravies, desserts, fresh fruits.',
+    idealFor: 'Food delivery and restaurant packaging.',
+    recommendation: 'Excellent value for medium portions.',
     inStock: true,
-    stockCount: 300,
+    stockCount: 700,
     rating: 4.6,
-    reviews: 87
+    reviews: 78
   },
-  
+
   {
     id: '450ml-r16',
     categoryId: 'food-containers',
     name: '450ml R16 Clear Round Food Container',
-    slug: '450ml-r16-container',
+    slug: '450ml-r16-round-container',
+    imageSlug: '450ml-r16-clear-round-container',
     dimensions: '450ml capacity',
     capacity: '450ml',
     price: 2200,
     pack: '1000 pieces',
     material: 'Polypropylene (PP)',
     shape: 'Round',
-    lid: 'Included — separate lid',
+    lid: 'Included',
     colour: 'Transparent',
-    model: 'R16',
-    images: [
-      'https://via.placeholder.com/400x400?text=450ml+R16+1',
-      'https://via.placeholder.com/400x400?text=450ml+R16+2'
-    ],
-    overview: 'A sturdy clear round container made from polypropylene (PP), designed for convenient takeaway, delivery, and food storage. Its practical shape makes it suitable for transporting both solid and semi-solid foods.',
-    description: 'Perfect for curries, rice, and hot food items.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, brownies, mithai, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Best seller for restaurants. Bulk pricing at 500+ pieces.',
+    overview: 'Popular R16 round container for bulk food service operations.',
+    description: 'Professional round container, bulk pricing available.',
+    suitableFor: 'Noodles, rice, curries, assembled meals.',
+    idealFor: 'High-volume food service and delivery.',
+    recommendation: 'Best value for bulk orders.',
     inStock: true,
-    stockCount: 1200,
-    rating: 4.9,
-    reviews: 156
+    stockCount: 1000,
+    rating: 4.7,
+    reviews: 145
   },
-  
+
   {
     id: '500ml-rectangular',
     categoryId: 'food-containers',
     name: '500ml Clear Rectangular Food Container',
     slug: '500ml-rectangular-container',
-    dimensions: 'Approx. 7 × 4.75 × 1.5 inches',
+    imageSlug: '500ml-clear-rectangular-container',
+    dimensions: '500ml capacity',
     capacity: '500ml',
     price: 1350,
     pack: '50 pieces',
@@ -335,27 +226,24 @@ export const PRODUCTS = [
     shape: 'Rectangular',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=500ml+Rect+1',
-      'https://via.placeholder.com/400x400?text=500ml+Rect+2'
-    ],
-    overview: 'A clear rectangular PP food container designed for convenient takeaway, delivery, and everyday food storage. Its practical shape makes it suitable for transporting both solid and semi-solid foods.',
-    description: 'Medium rectangular container, great for various food types.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, mithai, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Versatile container suitable for many food types.',
+    overview: 'Medium rectangular container perfect for mixed food items and complete meals.',
+    description: 'Rectangular option for organized food packaging.',
+    suitableFor: 'Mixed meals, sandwich boxes, salads.',
+    idealFor: 'Meal prep, catering, food delivery.',
+    recommendation: 'Professional appearance, great for premium packaging.',
     inStock: true,
-    stockCount: 250,
-    rating: 4.7,
-    reviews: 73
+    stockCount: 550,
+    rating: 4.8,
+    reviews: 103
   },
-  
+
   {
     id: '750ml-rectangular',
     categoryId: 'food-containers',
     name: '750ml Clear Rectangular Food Container',
     slug: '750ml-rectangular-container',
-    dimensions: 'Approx. 6.5 × 4.5 × 2.25 inches',
+    imageSlug: '750ml-clear-rectangular-container',
+    dimensions: '750ml capacity',
     capacity: '750ml',
     price: 825,
     pack: '25 pieces',
@@ -363,27 +251,24 @@ export const PRODUCTS = [
     shape: 'Rectangular',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=750ml+Rect+1',
-      'https://via.placeholder.com/400x400?text=750ml+Rect+2'
-    ],
-    overview: 'A clear rectangular PP food container with a practical lid, designed for takeaway, delivery, and convenient food storage. Its shape makes it suitable for carrying both solid and semi-solid foods.',
-    description: 'Large rectangular container for generous portions.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, mithai, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Great for family-sized portions and meal prep.',
+    overview: 'Large rectangular container for generous portions and complete meals.',
+    description: 'Premium rectangular option for larger portions.',
+    suitableFor: 'Large portions, multi-item meals, family servings.',
+    idealFor: 'Premium meal delivery, special occasions.',
+    recommendation: 'Premium packaging for upscale food service.',
     inStock: true,
-    stockCount: 180,
-    rating: 4.8,
-    reviews: 64
+    stockCount: 400,
+    rating: 4.9,
+    reviews: 67
   },
-  
+
   {
     id: '1000ml-rectangular',
     categoryId: 'food-containers',
     name: '1000ml Clear Rectangular Food Container',
     slug: '1000ml-rectangular-container',
-    dimensions: 'Approx. 7 × 4.75 × 2.5 inches',
+    imageSlug: '1000ml-clear-rectangular-container',
+    dimensions: '1000ml capacity',
     capacity: '1000ml',
     price: 875,
     pack: '25 pieces',
@@ -391,55 +276,49 @@ export const PRODUCTS = [
     shape: 'Rectangular',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=1000ml+Rect+1',
-      'https://via.placeholder.com/400x400?text=1000ml+Rect+2'
-    ],
-    overview: 'A spacious clear rectangular PP food container with a lid, designed for takeaway, delivery, and convenient food storage. Its practical shape is suitable for transporting both solid and semi-solid foods.',
-    description: 'Extra-large rectangular container for big portions.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Perfect for family orders and meal delivery.',
+    overview: 'Extra-large rectangular container for bulk and family-size portions.',
+    description: 'Large rectangular for substantial meals.',
+    suitableFor: 'Family meals, bulk orders, catering portions.',
+    idealFor: 'Family food delivery, catering.',
+    recommendation: 'Best for family-size orders.',
     inStock: true,
-    stockCount: 150,
+    stockCount: 350,
     rating: 4.7,
-    reviews: 55
+    reviews: 54
   },
-  
+
   {
     id: '1500ml-square',
     categoryId: 'food-containers',
     name: '1500ml Clear Square Food Container',
     slug: '1500ml-square-container',
-    dimensions: 'Approx. 6.25 × 6.25 × 3 inches',
+    imageSlug: '1500ml-clear-square-container',
+    dimensions: '1500ml capacity',
     capacity: '1500ml',
     price: 1125,
     pack: '25 pieces',
     material: 'Polypropylene (PP)',
     shape: 'Square',
-    lid: 'Included — separate lid',
+    lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=1500ml+Square+1',
-      'https://via.placeholder.com/400x400?text=1500ml+Square+2'
-    ],
-    overview: 'A spacious clear square PP food container with a separate lid, designed for takeaway, delivery, and convenient food storage. Its generous capacity makes it suitable for both solid and semi-solid food portions.',
-    description: 'Large square container for multiple servings.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, brownies, mithai, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Excellent for catering and bulk orders.',
+    overview: 'Large square container with efficient space utilization for catering.',
+    description: 'Square design for optimized packing and storage.',
+    suitableFor: 'Large portions, catering, bulk food service.',
+    idealFor: 'Catering companies, event food service.',
+    recommendation: 'Efficient for large-scale food service.',
     inStock: true,
-    stockCount: 120,
+    stockCount: 300,
     rating: 4.8,
-    reviews: 68
+    reviews: 41
   },
-  
+
   {
     id: '2000ml-square',
     categoryId: 'food-containers',
     name: '2000ml Clear Square Food Container',
     slug: '2000ml-square-container',
-    dimensions: 'Approx. 8 × 8 × 3 inches',
+    imageSlug: '2000ml-clear-square-container',
+    dimensions: '2000ml capacity',
     capacity: '2000ml',
     price: 660,
     pack: '25 pieces',
@@ -447,27 +326,24 @@ export const PRODUCTS = [
     shape: 'Square',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=2000ml+Square+1',
-      'https://via.placeholder.com/400x400?text=2000ml+Square+2'
-    ],
-    overview: 'A large-capacity clear square PP food container with a lid, designed for takeaway, delivery, and convenient food storage. Its spacious design is suitable for transporting both solid and semi-solid foods.',
-    description: 'Extra-large square container, best for bulk portions.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, brownies, mithai, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Popular for catering and restaurant bulk orders.',
+    overview: 'Extra-large square container for maximum capacity and bulk operations.',
+    description: 'Largest square container for substantial volumes.',
+    suitableFor: 'Bulk food items, large catering portions.',
+    idealFor: 'Large-scale catering, institutional food service.',
+    recommendation: 'Essential for high-volume operations.',
     inStock: true,
-    stockCount: 100,
-    rating: 4.9,
-    reviews: 81
+    stockCount: 250,
+    rating: 4.6,
+    reviews: 28
   },
-  
+
   {
     id: '3000ml-square',
     categoryId: 'food-containers',
     name: '3000ml Clear Square Food Container',
     slug: '3000ml-square-container',
-    dimensions: 'Approx. 8 × 8 × 4 inches',
+    imageSlug: '3000ml-clear-square-container',
+    dimensions: '3000ml capacity',
     capacity: '3000ml',
     price: 1875,
     pack: '25 pieces',
@@ -475,55 +351,51 @@ export const PRODUCTS = [
     shape: 'Square',
     lid: 'Included',
     colour: 'Transparent',
-    images: [
-      'https://via.placeholder.com/400x400?text=3000ml+Square+1',
-      'https://via.placeholder.com/400x400?text=3000ml+Square+2'
-    ],
-    overview: 'A high-capacity clear square PP food container with a lid, designed for takeaway, delivery, and practical food storage. Its generous size provides ample space for larger portions of both solid and semi-solid foods.',
-    description: 'Maximum capacity square container for large catering needs.',
-    suitableFor: 'Rice, curries, frozen food, ice cream, brownies, mithai, and more.',
-    idealFor: 'Takeaway, delivery, portioning, and refrigerator storage.',
-    recommendation: 'Best for large catering events and bulk restaurant orders.',
+    overview: 'Massive square container for institutional and industrial food storage.',
+    description: 'Industrial-size container for bulk operations.',
+    suitableFor: 'Industrial food service, bulk storage, catering.',
+    idealFor: 'Large institutions, industrial food service.',
+    recommendation: 'For large-scale operations only.',
     inStock: true,
-    stockCount: 80,
-    rating: 5.0,
-    reviews: 45
+    stockCount: 200,
+    rating: 4.5,
+    reviews: 15
   }
 ];
 
-
 /* ===== UTILITY FUNCTIONS ===== */
 
-export function getProductById(productId) {
-  return PRODUCTS.find(product => product.id === productId);
-}
+export const getProductById = (productId) => {
+  return PRODUCTS.find((product) => product.id === productId);
+};
 
-export function getProductsByCategory(categoryId) {
-  return PRODUCTS.filter(product => product.categoryId === categoryId);
-}
+export const getProductsByCategory = (categoryId) => {
+  return PRODUCTS.filter((product) => product.categoryId === categoryId);
+};
 
-export function getCategoryById(categoryId) {
-  return CATEGORIES.find(category => category.id === categoryId);
-}
+export const getCategoryById = (categoryId) => {
+  return CATEGORIES.find((category) => category.id === categoryId);
+};
 
-export function getCategoryBySlug(slug) {
-  return CATEGORIES.find(category => category.slug === slug);
-}
+export const getCategoryBySlug = (slug) => {
+  return CATEGORIES.find((category) => category.slug === slug);
+};
 
-export function formatPrice(price) {
+export const formatPrice = (price) => {
   return new Intl.NumberFormat('en-PK', {
     style: 'currency',
     currency: 'PKR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(price);
-}
+};
 
-export function searchProducts(query) {
+export const searchProducts = (query) => {
   const lowerQuery = query.toLowerCase();
-  return PRODUCTS.filter(product => 
-    product.name.toLowerCase().includes(lowerQuery) ||
-    product.description.toLowerCase().includes(lowerQuery) ||
-    product.dimensions.toLowerCase().includes(lowerQuery)
+  return PRODUCTS.filter(
+    (product) =>
+      product.name.toLowerCase().includes(lowerQuery) ||
+      product.description.toLowerCase().includes(lowerQuery) ||
+      product.overview.toLowerCase().includes(lowerQuery)
   );
-}
+};
