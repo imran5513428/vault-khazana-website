@@ -24,15 +24,16 @@ function Header() {
       srcSet={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
     />
     <img
-      src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
-      alt="VAULT KHAZANA - Packaging & Food-Service Supplies"
-      style={{
-        width: '120px',
-        maxHeight: '48px',
-        objectFit: 'contain',
-        display: 'block'
-      }}
-    />
+  src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
+  alt="VAULT KHAZANA - Packaging & Food-Service Supplies"
+  style={{
+    width: '180px',
+    height: 'auto',
+    maxHeight: '60px',
+    objectFit: 'contain',
+    display: 'block'
+  }}
+/>
   </picture>
 </Link>
 
