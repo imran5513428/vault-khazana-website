@@ -43,8 +43,11 @@
 }
 
 .header-logo img {
+  display: block;
   background-color: transparent;
   border: none;
+  width: auto;
+  height: auto;
 }
 
 .logo-vk {
@@ -53,10 +56,7 @@
   letter-spacing: 2px;
   color: var(--secondary-orange);
 }
-.header-logo img {
-  display: block;
-  background: transparent;
-}
+
 .logo-name {
   font-size: 11px;
   letter-spacing: 1px;
@@ -64,7 +64,6 @@
   color: var(--white);
   font-weight: var(--weight-bold);
 }
-
 /* ===== DESKTOP NAVIGATION ===== */
 
 .desktop-nav {
