@@ -32,6 +32,19 @@
   text-decoration: none;
   gap: 2px;
   flex-shrink: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.header-logo picture {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+.header-logo img {
+  background-color: transparent;
+  border: none;
 }
 
 .logo-vk {
