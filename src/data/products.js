@@ -364,7 +364,9 @@ export const PRODUCTS = [
     reviews: 15
   }
 ];
-
+PRODUCTS.forEach((product) => {
+  product.images = getProductImages(product.imageSlug);
+});
 /* ===== UTILITY FUNCTIONS ===== */
 
 export const getProductById = (productId) => {
