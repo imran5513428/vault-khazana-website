@@ -6,6 +6,16 @@ import { getProductById, getCategoryById } from '../data/products';
 function ProductDetailPage() {
   const { id } = useParams();
   const product = getProductById(id);
+const product = getProductById(id);
+const { getProductImages } = require('../utils/imageHelper'); // Add this
+
+// Later in your JSX where you display images:
+const productImages = getProductImages(product.imageSlug);
+
+// Use like this:
+<img src={productImages.hero} alt={product.name} />
+<img src={productImages.product} alt={product.name} />
+<img src={productImages.detail} alt={product.name} />
   const [selectedImage, setSelectedImage] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
