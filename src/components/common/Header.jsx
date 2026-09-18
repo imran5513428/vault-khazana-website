@@ -19,7 +19,7 @@ function Header() {
         {/* LOGO */}
 <Link to="/" className="header-logo">
   <img
-    src="/images/vault-khazana-horizontal.png"
+    src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
     alt="VAULT KHAZANA"
     style={{
       width: '140px',
