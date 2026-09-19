@@ -1,5 +1,7 @@
 const getProductImages = (imageSlug) => [
-  `${import.meta.env.BASE_URL}images/${imageSlug}.jpg`
+  `${import.meta.env.BASE_URL}images/${imageSlug}-main.jpg`,
+  `${import.meta.env.BASE_URL}images/${imageSlug}-food.jpg`,
+  `${import.meta.env.BASE_URL}images/${imageSlug}-open.jpg`
 ];
 
 export const CATEGORIES = [
