@@ -74,20 +74,17 @@ const handleGallerySelect = (image) => {
 };
 
   const showPreviousSecondary = () => {
-    if (secondaryImages.length === 0) return;
+  if (secondaryImages.length === 0) return;
 
-    setSecondarySlide((current) =>
-      current === 0 ? secondaryImages.length - 1 : current - 1
-    );
-  };
+  setSecondarySlide((current) => {
+    const nextSlide =
+      current === 0 ? secondaryImages.length - 1 : current - 1;
 
-  const showNextSecondary = () => {
-    if (secondaryImages.length === 0) return;
+    setSelectedImage(nextSlide + 1);
 
-    setSecondarySlide((current) =>
-      current === secondaryImages.length - 1 ? 0 : current + 1
-    );
-  };
+    return nextSlide;
+  });
+};
 
   const currentSecondaryImage = secondaryImages[secondarySlide];
 
@@ -123,7 +120,7 @@ const handleGallerySelect = (image) => {
 
               <div className="main-image">
                 <img
-                  src={mainImage}
+                 src={product.images[selectedImage]}
                   alt={product.name}
                 />
               </div>
