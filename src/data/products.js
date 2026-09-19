@@ -1,8 +1,20 @@
-const getProductImages = (imageSlug) => [
-  `${import.meta.env.BASE_URL}images/${imageSlug}-main.jpg`,
-  `${import.meta.env.BASE_URL}images/${imageSlug}-food.jpg`,
-  `${import.meta.env.BASE_URL}images/${imageSlug}-open.jpg`
-];
+const getProductImages = (imageSlug, imageCount = 3) => {
+  const images = [
+    `${import.meta.env.BASE_URL}images/${imageSlug}-main.jpg`,
+    `${import.meta.env.BASE_URL}images/${imageSlug}-food.jpg`,
+    `${import.meta.env.BASE_URL}images/${imageSlug}-open.jpg`
+  ];
+
+  if (imageCount >= 6) {
+    images.push(
+      `${import.meta.env.BASE_URL}images/${imageSlug}-detail.jpg`,
+      `${import.meta.env.BASE_URL}images/${imageSlug}-use.jpg`,
+      `${import.meta.env.BASE_URL}images/${imageSlug}-pack.jpg`
+    );
+  }
+
+  return images;
+};
 
 export const CATEGORIES = [
   {
