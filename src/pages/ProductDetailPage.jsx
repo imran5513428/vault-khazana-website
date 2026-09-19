@@ -123,7 +123,7 @@ const handleGallerySelect = (image) => {
 
               <div className="main-image">
                 <img
-                  src={mainImage}
+                  src={displayedImage}
                   alt={product.name}
                 />
               </div>
