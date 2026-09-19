@@ -196,17 +196,16 @@ min-width: 0;
 /* ===== MAIN IMAGE ===== */
 
 .main-image {
-width: 100%;
-max-width: 520px;
-height: 420px;
-margin: 0 auto;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-background: var(--bg-light);
-border: 1px solid var(--border-light);
-border-radius: var(--radius-large);
+  width: 100%;
+  max-width: 520px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 .main-image img {
