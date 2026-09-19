@@ -59,15 +59,19 @@ function ProductDetailPage() {
     }, 300);
   };
 
-  const handleGallerySelect = (image) => {
-    const originalIndex = product.images.findIndex(
-      (productImage) => productImage === image
-    );
+const handleGallerySelect = (image) => {
+  const originalIndex = product.images.findIndex(
+    (productImage) => productImage === image
+  );
 
-    if (originalIndex >= 0) {
-      setSelectedImage(originalIndex);
+  if (originalIndex >= 0) {
+    setSelectedImage(originalIndex);
+
+    if (originalIndex > 0) {
+      setSecondarySlide(originalIndex - 1);
     }
-  };
+  }
+};
 
   const showPreviousSecondary = () => {
     if (secondaryImages.length === 0) return;
