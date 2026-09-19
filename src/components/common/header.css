@@ -25,30 +25,27 @@
 
 /* ===== LOGO ===== */
 
+/* ===== LOGO ===== */
+
 .header-logo {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
-  gap: 2px;
   flex-shrink: 0;
+  background-color: transparent;
+  padding: 0;
+  border: none;
 }
 
-.logo-vk {
-  font-size: 18px;
-  font-weight: var(--weight-bold);
-  letter-spacing: 2px;
-  color: var(--secondary-orange);
+.header-logo img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  opacity: 1;
+  filter: none;
 }
-
-.logo-name {
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--white);
-  font-weight: var(--weight-bold);
-}
-
 /* ===== DESKTOP NAVIGATION ===== */
 
 .desktop-nav {

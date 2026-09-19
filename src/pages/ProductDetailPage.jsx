@@ -1,4 +1,3 @@
-```jsx
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -383,4 +382,3 @@ function ProductDetailPage() {
 }
 
 export default ProductDetailPage;
-```
