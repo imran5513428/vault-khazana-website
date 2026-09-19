@@ -95,6 +95,7 @@ export const CATEGORIES = [
     description: 'Straws for beverages and food service'
   }
 ];
+
 export const PRODUCTS = [
   {
     id: 'h1-6x3-5',
@@ -445,11 +446,30 @@ export const PRODUCTS = [
     stockCount: 200,
     rating: 4.5,
     reviews: 15
+  },
+
+  {
+    id: 'black-disposable-spoon',
+    categoryId: 'disposable-cutlery',
+    name: 'Heavy-Duty Black Plastic Table Spoons',
+    slug: 'heavy-duty-black-plastic-table-spoons',
+    imageSlug: 'black-disposable-spoon',
+    imageCount: 6,
+    price: 250,
+    pack: '100 pieces',
+    material: 'Polystyrene (PS)',
+    suitableFor: 'Soup, rice, ice cream & more',
+    overview: 'Made from sturdy Polystyrene (PS), these heavy-duty black table spoons are designed for everyday takeaway, delivery and food-service use.',
+    description: 'Their strong construction makes them suitable for a wide range of meals, from soups and rice to ice cream and desserts.',
+    idealFor: 'Takeaway, delivery and everyday food-service use.',
+    inStock: true
   }
 ];
+
 PRODUCTS.forEach((product) => {
-  product.images = getProductImages(product.imageSlug);
+  product.images = getProductImages(product.imageSlug, product.imageCount);
 });
+
 /* ===== UTILITY FUNCTIONS ===== */
 
 export const getProductById = (productId) => {
@@ -479,6 +499,7 @@ export const formatPrice = (price) => {
 
 export const searchProducts = (query) => {
   const lowerQuery = query.toLowerCase();
+
   return PRODUCTS.filter(
     (product) =>
       product.name.toLowerCase().includes(lowerQuery) ||
