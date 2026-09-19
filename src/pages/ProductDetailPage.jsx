@@ -89,8 +89,8 @@ const handleGallerySelect = (image) => {
     );
   };
 
-  const currentSecondaryImage = secondaryImages[secondarySlide];
-
+ const currentSecondaryImage =
+  selectedImage === 0 ? mainImage : secondaryImages[secondarySlide];
   return (
     <div className="product-detail-page">
 
