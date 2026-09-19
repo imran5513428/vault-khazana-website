@@ -72,7 +72,6 @@ const handleGallerySelect = (image) => {
     }
   }
 };
-
   const showPreviousSecondary = () => {
     if (secondaryImages.length === 0) return;
 
