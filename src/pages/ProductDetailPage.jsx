@@ -34,6 +34,7 @@ function ProductDetailPage() {
   const category = getCategoryById(product.categoryId);
 
   const mainImage = product.images?.[0];
+  const displayedImage = product.images?.[selectedImage] || mainImage;
   const secondaryImages = product.images?.slice(1, 6) || [];
 
   // Gallery order:
