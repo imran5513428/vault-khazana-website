@@ -35,7 +35,7 @@ function ProductDetailPage() {
 
   const mainImage = product.images?.[0];
   const displayedImage = product.images?.[selectedImage] || mainImage;
-  const secondaryImages = product.images?.slice(1, 6) || [];
+  const slideImages = [mainImage, ...secondaryImages];
 
   // Gallery order:
   // Secondary 1 → Secondary 2 → Secondary 3 → Secondary 4 → MAIN → Secondary 5
