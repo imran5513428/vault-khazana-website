@@ -565,7 +565,9 @@ overview: 'Color plastic spoons offering a practical and convenient option for p
 description: 'A colorful disposable spoon option for serving desserts, snacks and other everyday foods.',
 idealFor: 'Parties, events, takeaway and everyday food service.',
 inStock: true
-}
+  }
+];
+
 PRODUCTS.forEach((product) => {
   product.images = getProductImages(product.imageSlug, product.imageCount);
 });
