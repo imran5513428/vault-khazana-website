@@ -1,7 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
-import { getProductById, getCategoryById } from '../data/products';
+import {
+  getProductById,
+  getCategoryById,
+  getProductsByCategory
+} from '../data/products';
 
 function ProductDetailPage() {
   const { id } = useParams();
@@ -37,8 +41,15 @@ function ProductDetailPage() {
   const category = getCategoryById(product.categoryId);
 
   const mainImage = product.images?.[0];
-  const displayedImage = product.images?.[selectedImage] || mainImage;
+  const displayedImage =
+    product.images?.[selectedImage] || mainImage;
+
   const secondaryImages = product.images?.slice(1, 6) || [];
+
+  // Other products from the same category, excluding the current product
+  const relatedProducts = getProductsByCategory(product.categoryId).filter(
+    (relatedProduct) => relatedProduct.id !== product.id
+  );
 
   // Gallery order:
   // Secondary 1 → Secondary 2 → Secondary 3 → Secondary 4 → MAIN → Secondary 5
@@ -62,19 +73,21 @@ function ProductDetailPage() {
       setTimeout(() => setIsAdded(false), 2000);
     }, 300);
   };
-const handleMainImageSwipe = (direction) => {
-  const totalImages = product.images?.length || 0;
 
-  if (totalImages <= 1) return;
+  const handleMainImageSwipe = (direction) => {
+    const totalImages = product.images?.length || 0;
 
-  setSelectedImage((current) => {
-    if (direction === 'next') {
-      return current === totalImages - 1 ? 0 : current + 1;
-    }
+    if (totalImages <= 1) return;
 
-    return current === 0 ? totalImages - 1 : current - 1;
-  });
-};
+    setSelectedImage((current) => {
+      if (direction === 'next') {
+        return current === totalImages - 1 ? 0 : current + 1;
+      }
+
+      return current === 0 ? totalImages - 1 : current - 1;
+    });
+  };
+
   const handleGallerySelect = (image) => {
     const originalIndex = product.images.findIndex(
       (productImage) => productImage === image
@@ -111,7 +124,10 @@ const handleMainImageSwipe = (direction) => {
   };
 
   const handleTouchEnd = (event) => {
-    if (touchStartX.current === null || touchStartY.current === null) {
+    if (
+      touchStartX.current === null ||
+      touchStartY.current === null
+    ) {
       return;
     }
 
@@ -135,7 +151,9 @@ const handleMainImageSwipe = (direction) => {
   };
 
   const currentSecondaryImage =
-    selectedImage === 0 ? mainImage : secondaryImages[secondarySlide];
+    selectedImage === 0
+      ? mainImage
+      : secondaryImages[secondarySlide];
 
   return (
     <div className="product-detail-page">
@@ -168,40 +186,53 @@ const handleMainImageSwipe = (direction) => {
               {/* MAIN PRODUCT IMAGE */}
 
               <div
-  className="main-image"
-  onTouchStart={(event) => {
-    touchStartX.current = event.touches[0].clientX;
-    touchStartY.current = event.touches[0].clientY;
-  }}
-  onTouchEnd={(event) => {
-    if (touchStartX.current === null || touchStartY.current === null) {
-      return;
-    }
+                className="main-image"
+                onTouchStart={(event) => {
+                  touchStartX.current =
+                    event.touches[0].clientX;
+                  touchStartY.current =
+                    event.touches[0].clientY;
+                }}
+                onTouchEnd={(event) => {
+                  if (
+                    touchStartX.current === null ||
+                    touchStartY.current === null
+                  ) {
+                    return;
+                  }
 
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
+                  const touchEndX =
+                    event.changedTouches[0].clientX;
+                  const touchEndY =
+                    event.changedTouches[0].clientY;
 
-    const distanceX = touchEndX - touchStartX.current;
-    const distanceY = touchEndY - touchStartY.current;
+                  const distanceX =
+                    touchEndX - touchStartX.current;
+                  const distanceY =
+                    touchEndY - touchStartY.current;
 
-    touchStartX.current = null;
-    touchStartY.current = null;
+                  touchStartX.current = null;
+                  touchStartY.current = null;
 
-    if (Math.abs(distanceX) < 50) return;
-    if (Math.abs(distanceX) <= Math.abs(distanceY)) return;
+                  if (Math.abs(distanceX) < 50) return;
+                  if (
+                    Math.abs(distanceX) <= Math.abs(distanceY)
+                  ) {
+                    return;
+                  }
 
-    if (distanceX < 0) {
-      handleMainImageSwipe('next');
-    } else {
-      handleMainImageSwipe('previous');
-    }
-  }}
->
-  <img
-    src={displayedImage}
-    alt={product.name}
-  />
-</div>
+                  if (distanceX < 0) {
+                    handleMainImageSwipe('next');
+                  } else {
+                    handleMainImageSwipe('previous');
+                  }
+                }}
+              >
+                <img
+                  src={displayedImage}
+                  alt={product.name}
+                />
+              </div>
 
               {/* SIX-IMAGE GALLERY ROW */}
 
@@ -218,7 +249,9 @@ const handleMainImageSwipe = (direction) => {
                             ? 'active'
                             : ''
                         }`}
-                        onClick={() => handleGallerySelect(image)}
+                        onClick={() =>
+                          handleGallerySelect(image)
+                        }
                         aria-label={
                           isMainImage
                             ? 'View main product image'
@@ -285,8 +318,12 @@ const handleMainImageSwipe = (direction) => {
                             ? 'active'
                             : ''
                         }
-                        onClick={() => setSecondarySlide(index)}
-                        aria-label={`Show secondary image ${index + 1}`}
+                        onClick={() =>
+                          setSecondarySlide(index)
+                        }
+                        aria-label={`Show secondary image ${
+                          index + 1
+                        }`}
                       />
                     ))}
                   </div>
@@ -459,6 +496,72 @@ const handleMainImageSwipe = (direction) => {
 
         </div>
       </section>
+
+      {/* ===== RELATED PRODUCTS ===== */}
+
+      {relatedProducts.length > 0 && (
+        <section className="section related-products-section">
+          <div className="container">
+
+            <div className="section-heading">
+              <p className="eyebrow">More from {category?.name}</p>
+              <h2>You May Also Like</h2>
+              <p>
+                Explore other products from this category.
+              </p>
+            </div>
+
+            <div
+              className="related-products-track"
+              style={{
+                display: 'flex',
+                gap: '20px',
+                overflowX: 'auto',
+                overflowY: 'hidden',
+                paddingBottom: '12px',
+                WebkitOverflowScrolling: 'touch'
+              }}
+            >
+              {relatedProducts.map((relatedProduct) => (
+                <Link
+                  key={relatedProduct.id}
+                  to={`/product/${relatedProduct.id}`}
+                  className="product-card"
+                  style={{
+                    flex: '0 0 260px'
+                  }}
+                >
+                  <div className="product-image">
+                    <img
+                      src={relatedProduct.images?.[0]}
+                      alt={relatedProduct.name}
+                    />
+                  </div>
+
+                  <div className="product-info">
+                    <p className="product-category">
+                      {category?.name}
+                    </p>
+
+                    <h3 className="product-name">
+                      {relatedProduct.name}
+                    </h3>
+
+                    <p className="product-price">
+                      Rs {relatedProduct.price.toLocaleString()}
+                    </p>
+
+                    <p className="product-pack">
+                      per {relatedProduct.pack}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      )}
 
     </div>
   );
