@@ -62,7 +62,19 @@ function ProductDetailPage() {
       setTimeout(() => setIsAdded(false), 2000);
     }, 300);
   };
+const handleMainImageSwipe = (direction) => {
+  const totalImages = product.images?.length || 0;
 
+  if (totalImages <= 1) return;
+
+  setSelectedImage((current) => {
+    if (direction === 'next') {
+      return current === totalImages - 1 ? 0 : current + 1;
+    }
+
+    return current === 0 ? totalImages - 1 : current - 1;
+  });
+};
   const handleGallerySelect = (image) => {
     const originalIndex = product.images.findIndex(
       (productImage) => productImage === image
