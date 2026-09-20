@@ -466,6 +466,109 @@ export const PRODUCTS = [
   }
 ];
 
+,
+
+{
+id: 'clear-plastic-spoon',
+categoryId: 'disposable-cutlery',
+name: 'Clear Plastic Table Spoons',
+slug: 'clear-plastic-table-spoons',
+imageSlug: 'clear-plastic-spoon',
+imageCount: 6,
+price: 150,
+pack: '100 pieces',
+material: 'Plastic',
+suitableFor: 'Desserts, snacks, rice & more',
+overview: 'Clear plastic table spoons designed for convenient everyday food-service, takeaway and delivery use.',
+description: 'A simple and practical choice for serving desserts, snacks, rice and a variety of everyday foods.',
+idealFor: 'Takeaway, delivery, parties and everyday food service.',
+inStock: true
+},
+
+{
+id: 'black-disposable-fork',
+categoryId: 'disposable-cutlery',
+name: 'Heavy-Duty Black Plastic Table Forks',
+slug: 'heavy-duty-black-plastic-table-forks',
+imageSlug: 'black-disposable-fork',
+imageCount: 6,
+price: 250,
+pack: '100 pieces',
+material: 'Plastic',
+suitableFor: 'Rice, pasta, salads & more',
+overview: 'Heavy-duty black plastic table forks designed for reliable everyday takeaway, delivery and food-service use.',
+description: 'Strong and practical forks suitable for a wide range of meals, including rice, pasta, salads and other takeaway foods.',
+idealFor: 'Takeaway, delivery and everyday food-service use.',
+inStock: true
+},
+
+{
+id: 'white-disposable-spoon',
+categoryId: 'disposable-cutlery',
+name: 'Heavy-Duty White Plastic Table Spoons',
+slug: 'heavy-duty-white-plastic-table-spoons',
+imageSlug: 'white-disposable-spoon',
+imageCount: 6,
+price: 250,
+pack: '100 pieces',
+material: 'Plastic',
+suitableFor: 'Soup, rice, desserts & more',
+overview: 'Heavy-duty white plastic table spoons designed for dependable everyday food-service, takeaway and delivery use.',
+description: 'Their sturdy construction makes them suitable for soups, rice, desserts and a variety of everyday meals.',
+idealFor: 'Takeaway, delivery, catering and food-service use.',
+inStock: true
+},
+
+{
+id: 'white-disposable-knife',
+categoryId: 'disposable-cutlery',
+name: 'Heavy-Duty White Plastic Table Knives',
+slug: 'heavy-duty-white-plastic-table-knives',
+imageSlug: 'white-disposable-knife',
+imageCount: 6,
+price: 250,
+pack: '100 pieces',
+material: 'Plastic',
+suitableFor: 'Meals, bakery items & more',
+overview: 'Heavy-duty white plastic table knives designed for convenient food-service, takeaway and delivery use.',
+description: 'Practical disposable knives for cutting and serving a variety of meals, bakery items and other foods.',
+idealFor: 'Takeaway, delivery, catering and everyday food service.',
+inStock: true
+},
+
+{
+id: 'white-disposable-fork',
+categoryId: 'disposable-cutlery',
+name: 'Heavy-Duty White Plastic Table Forks',
+slug: 'heavy-duty-white-plastic-table-forks',
+imageSlug: 'white-disposable-fork',
+imageCount: 6,
+price: 250,
+pack: '100 pieces',
+material: 'Plastic',
+suitableFor: 'Rice, pasta, salads & more',
+overview: 'Heavy-duty white plastic table forks designed for reliable everyday food-service, takeaway and delivery use.',
+description: 'Strong and practical forks suitable for rice, pasta, salads and a wide range of takeaway and served meals.',
+idealFor: 'Takeaway, delivery, catering and everyday food service.',
+inStock: true
+},
+
+{
+id: 'color-plastic-spoon',
+categoryId: 'disposable-cutlery',
+name: 'Color Plastic Spoons',
+slug: 'color-plastic-spoons',
+imageSlug: 'color-plastic-spoon',
+imageCount: 6,
+price: 150,
+pack: '100 pieces',
+material: 'Plastic',
+suitableFor: 'Desserts, snacks, parties & more',
+overview: 'Color plastic spoons offering a practical and convenient option for parties, food service and everyday use.',
+description: 'A colorful disposable spoon option for serving desserts, snacks and other everyday foods.',
+idealFor: 'Parties, events, takeaway and everyday food service.',
+inStock: true
+}
 PRODUCTS.forEach((product) => {
   product.images = getProductImages(product.imageSlug, product.imageCount);
 });
