@@ -93,28 +93,32 @@ function ProductDetailPage() {
       (productImage) => productImage === image
     );
 
+    const galleryIndex = galleryImages.findIndex(
+      (galleryImage) => galleryImage === image
+    );
+
     if (originalIndex >= 0) {
       setSelectedImage(originalIndex);
+    }
 
-      if (originalIndex > 0) {
-        setSecondarySlide(originalIndex - 1);
-      }
+    if (galleryIndex >= 0) {
+      setSecondarySlide(galleryIndex);
     }
   };
 
   const showPreviousSecondary = () => {
-    if (secondaryImages.length === 0) return;
+    if (galleryImages.length === 0) return;
 
     setSecondarySlide((current) =>
-      current === 0 ? secondaryImages.length - 1 : current - 1
+      current === 0 ? galleryImages.length - 1 : current - 1
     );
   };
 
   const showNextSecondary = () => {
-    if (secondaryImages.length === 0) return;
+    if (galleryImages.length === 0) return;
 
     setSecondarySlide((current) =>
-      current === secondaryImages.length - 1 ? 0 : current + 1
+      current === galleryImages.length - 1 ? 0 : current + 1
     );
   };
 
@@ -150,10 +154,7 @@ function ProductDetailPage() {
     }
   };
 
-  const currentSecondaryImage =
-    selectedImage === 0
-      ? mainImage
-      : secondaryImages[secondarySlide];
+  const currentSecondaryImage = galleryImages[secondarySlide];
 
   return (
     <div className="product-detail-page">
@@ -293,7 +294,7 @@ function ProductDetailPage() {
                   >
                     <img
                       src={currentSecondaryImage}
-                      alt={`${product.name} secondary image ${
+                      alt={`${product.name} gallery image ${
                         secondarySlide + 1
                       }`}
                     />
@@ -309,7 +310,7 @@ function ProductDetailPage() {
                   </button>
 
                   <div className="secondary-slide-indicator">
-                    {secondaryImages.map((_, index) => (
+                    {galleryImages.map((_, index) => (
                       <button
                         key={index}
                         type="button"
@@ -321,7 +322,7 @@ function ProductDetailPage() {
                         onClick={() =>
                           setSecondarySlide(index)
                         }
-                        aria-label={`Show secondary image ${
+                        aria-label={`Show gallery image ${
                           index + 1
                         }`}
                       />
