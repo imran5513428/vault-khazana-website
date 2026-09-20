@@ -462,11 +462,8 @@ export const PRODUCTS = [
     overview: 'Made from sturdy Polystyrene (PS), these heavy-duty black table spoons are designed for everyday takeaway, delivery and food-service use.',
     description: 'Their strong construction makes them suitable for a wide range of meals, from soups and rice to ice cream and desserts.',
     idealFor: 'Takeaway, delivery and everyday food-service use.',
-    inStock: true
-  }
-];
-
-,
+        inStock: true
+  },
 
 {
 id: 'clear-plastic-spoon',
