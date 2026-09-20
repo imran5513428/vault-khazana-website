@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById, getCategoryById } from '../data/products';
@@ -11,6 +11,9 @@ function ProductDetailPage() {
   const [secondarySlide, setSecondarySlide] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   const addToCart = useCartStore((state) => state.addToCart);
   const quantity = useCartStore((state) => state.getQuantity(id));
@@ -35,7 +38,7 @@ function ProductDetailPage() {
 
   const mainImage = product.images?.[0];
   const displayedImage = product.images?.[selectedImage] || mainImage;
- const secondaryImages = product.images?.slice(1, 6) || [];
+  const secondaryImages = product.images?.slice(1, 6) || [];
 
   // Gallery order:
   // Secondary 1 → Secondary 2 → Secondary 3 → Secondary 4 → MAIN → Secondary 5
@@ -60,19 +63,20 @@ function ProductDetailPage() {
     }, 300);
   };
 
-const handleGallerySelect = (image) => {
-  const originalIndex = product.images.findIndex(
-    (productImage) => productImage === image
-  );
+  const handleGallerySelect = (image) => {
+    const originalIndex = product.images.findIndex(
+      (productImage) => productImage === image
+    );
 
-  if (originalIndex >= 0) {
-    setSelectedImage(originalIndex);
+    if (originalIndex >= 0) {
+      setSelectedImage(originalIndex);
 
-    if (originalIndex > 0) {
-      setSecondarySlide(originalIndex - 1);
+      if (originalIndex > 0) {
+        setSecondarySlide(originalIndex - 1);
+      }
     }
-  }
-};
+  };
+
   const showPreviousSecondary = () => {
     if (secondaryImages.length === 0) return;
 
@@ -89,8 +93,38 @@ const handleGallerySelect = (image) => {
     );
   };
 
- const currentSecondaryImage =
-  selectedImage === 0 ? mainImage : secondaryImages[secondarySlide];
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0].clientX;
+    touchStartY.current = event.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null || touchStartY.current === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const distanceX = touchEndX - touchStartX.current;
+    const distanceY = touchEndY - touchStartY.current;
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    if (Math.abs(distanceX) < 50) return;
+    if (Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+    if (distanceX < 0) {
+      showNextSecondary();
+    } else {
+      showPreviousSecondary();
+    }
+  };
+
+  const currentSecondaryImage =
+    selectedImage === 0 ? mainImage : secondaryImages[secondarySlide];
+
   return (
     <div className="product-detail-page">
 
@@ -178,7 +212,11 @@ const handleGallerySelect = (image) => {
                     ‹
                   </button>
 
-                  <div className="secondary-slide-image">
+                  <div
+                    className="secondary-slide-image"
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
+                  >
                     <img
                       src={currentSecondaryImage}
                       alt={`${product.name} secondary image ${
