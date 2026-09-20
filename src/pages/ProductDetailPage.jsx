@@ -167,12 +167,41 @@ const handleMainImageSwipe = (direction) => {
 
               {/* MAIN PRODUCT IMAGE */}
 
-              <div className="main-image">
-                <img
-                  src={displayedImage}
-                  alt={product.name}
-                />
-              </div>
+              <div
+  className="main-image"
+  onTouchStart={(event) => {
+    touchStartX.current = event.touches[0].clientX;
+    touchStartY.current = event.touches[0].clientY;
+  }}
+  onTouchEnd={(event) => {
+    if (touchStartX.current === null || touchStartY.current === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const distanceX = touchEndX - touchStartX.current;
+    const distanceY = touchEndY - touchStartY.current;
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    if (Math.abs(distanceX) < 50) return;
+    if (Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+    if (distanceX < 0) {
+      handleMainImageSwipe('next');
+    } else {
+      handleMainImageSwipe('previous');
+    }
+  }}
+>
+  <img
+    src={displayedImage}
+    alt={product.name}
+  />
+</div>
 
               {/* SIX-IMAGE GALLERY ROW */}
 
