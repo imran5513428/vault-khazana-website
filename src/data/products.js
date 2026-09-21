@@ -81,11 +81,11 @@ export const CATEGORIES = [
     description: 'Packaging solutions for takeaway food'
   },
   {
-    id: 'thermopore',
-    name: 'Thermopore',
-    slug: 'thermopore',
-    icon: '📦',
-    description: 'Insulated thermopore packaging solutions'
+    id: 'aluminum-containers',
+    name: 'Aluminum Containers',
+    slug: 'aluminum-containers',
+    icon: '🥡',
+    description: 'Food-grade aluminum containers with lids for takeaway, baking and food storage'
   },
   {
     id: 'straws',
@@ -843,47 +843,35 @@ export const PRODUCTS = [
     description: 'A 16OZ glass with dome lid suitable for smoothies, iced coffee, milkshakes and other cold beverages.',
     idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
     inStock: true
-  }
-];
+  },
 
-PRODUCTS.forEach((product) => {
-  product.images = getProductImages(product.imageSlug, product.imageCount);
-});
+  /* =========================================================
+     ALUMINUM CONTAINERS
+     ========================================================= */
 
-/* ===== UTILITY FUNCTIONS ===== */
+  {
+    id: 'f1-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F1 Aluminum Container with Lid',
+    slug: 'f1-aluminum-container-with-lid',
+    imageSlug: 'f1-aluminum-container-with-lid',
+    dimensions: '5 × 4 × 2 inches',
+    capacity: 'Approximately 450ml',
+    price: 19.8,
+    unitPrice: 19.8,
+    packPrice: 990,
+    pack: '50 pieces',
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 5.7–6g',
+    suitableFor: 'Rice, pasta, lasagna, curries, brownies, desserts, salads and frozen meals',
+    overview: 'Compact single-serve aluminum container with lid, designed for everyday takeaway portions, baking and food storage.',
+    description: 'A practical foil container for individual servings and smaller portions. Suitable for takeaway, delivery, meal preparation, baking and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, home cooks and catering of small portions.',
+    inStock: true
+  },
 
-export const getProductById = (productId) => {
-  return PRODUCTS.find((product) => product.id === productId);
-};
-
-export const getProductsByCategory = (categoryId) => {
-  return PRODUCTS.filter((product) => product.categoryId === categoryId);
-};
-
-export const getCategoryById = (categoryId) => {
-  return CATEGORIES.find((category) => category.id === categoryId);
-};
-
-export const getCategoryBySlug = (slug) => {
-  return CATEGORIES.find((category) => category.slug === slug);
-};
-
-export const formatPrice = (price) => {
-  return new Intl.NumberFormat('en-PK', {
-    style: 'currency',
-    currency: 'PKR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(price);
-};
-
-export const searchProducts = (query) => {
-  const lowerQuery = query.toLowerCase();
-
-  return PRODUCTS.filter(
-    (product) =>
-      product.name.toLowerCase().includes(lowerQuery) ||
-      product.description.toLowerCase().includes(lowerQuery) ||
-      product.overview.toLowerCase().includes(lowerQuery)
-  );
-};
+  {
+    id: 'f2-aluminum-container',
+    category
