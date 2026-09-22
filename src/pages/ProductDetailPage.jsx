@@ -48,7 +48,19 @@ function ProductDetailPage() {
   const displayedImage =
     product.images?.[selectedImage] || mainImage;
 
-  const secondaryImages = product.images?.slice(1, 6) || [];
+  /*
+   * UNLIMITED PRODUCT IMAGE SYSTEM
+   *
+   * products.js now controls the number of images.
+   * There is NO fixed 5-image or 6-image limit here.
+   *
+   * If a product has:
+   * 3 images → all 3 are shown
+   * 6 images → all 6 are shown
+   * 10 images → all 10 are shown
+   * 20 images → all 20 are shown
+   */
+  const galleryImages = product.images || [];
 
   // Other products from the same category
   const relatedProducts = getProductsByCategory(
@@ -56,17 +68,6 @@ function ProductDetailPage() {
   ).filter(
     (relatedProduct) => relatedProduct.id !== product.id
   );
-
-  // Gallery order:
-  // Secondary 1 → Secondary 2 → Secondary 3 → Secondary 4 → MAIN → Secondary 5
-  const galleryImages = [
-    secondaryImages[0],
-    secondaryImages[1],
-    secondaryImages[2],
-    secondaryImages[3],
-    mainImage,
-    secondaryImages[4]
-  ].filter(Boolean);
 
   const handleAddToCart = () => {
     setIsAdding(true);
@@ -124,12 +125,24 @@ function ProductDetailPage() {
         ? galleryImages.length - 1
         : current - 1
     );
+
+    setSelectedImage((current) =>
+      current === 0
+        ? galleryImages.length - 1
+        : current - 1
+    );
   };
 
   const showNextSecondary = () => {
     if (galleryImages.length === 0) return;
 
     setSecondarySlide((current) =>
+      current === galleryImages.length - 1
+        ? 0
+        : current + 1
+    );
+
+    setSelectedImage((current) =>
       current === galleryImages.length - 1
         ? 0
         : current + 1
@@ -186,26 +199,34 @@ function ProductDetailPage() {
     ? product.packPrice
     : product.price;
 
-  const detailPackText = isAluminumContainer
-    ? product.pack
-    : product.pack;
+  const detailPackText = product.pack;
 
   /*
-   * Aluminum single-piece price is shown in related
-   * product cards. Other products keep their normal price.
+   * Aluminum single-piece price.
+   *
+   * Prices are now rounded whole numbers.
+   * Example:
+   * 19.8 → Rs 20
+   * 29.5 → Rs 30
+   * 40.8 → Rs 41
+   * 84 → Rs 84
    */
   const getRelatedProductPrice = (relatedProduct) => {
     if (
       relatedProduct.categoryId ===
       'aluminum-containers'
     ) {
-      return `Rs ${Number(
-        relatedProduct.unitPrice ??
-          relatedProduct.price
-      ).toFixed(2)}`;
+      return `Rs ${Math.round(
+        Number(
+          relatedProduct.unitPrice ??
+            relatedProduct.price
+        )
+      ).toLocaleString('en-PK')}`;
     }
 
-    return `Rs ${relatedProduct.price.toLocaleString()}`;
+    return `Rs ${relatedProduct.price.toLocaleString(
+      'en-PK'
+    )}`;
   };
 
   return (
@@ -294,7 +315,7 @@ function ProductDetailPage() {
                 />
               </div>
 
-              {/* SIX-IMAGE GALLERY ROW */}
+              {/* UNLIMITED IMAGE GALLERY */}
 
               {galleryImages.length > 1 && (
                 <div className="thumbnails">
@@ -384,9 +405,10 @@ function ProductDetailPage() {
                             ? 'active'
                             : ''
                         }
-                        onClick={() =>
-                          setSecondarySlide(index)
-                        }
+                        onClick={() => {
+                          setSecondarySlide(index);
+                          setSelectedImage(index);
+                        }}
                         aria-label={`Show gallery image ${
                           index + 1
                         }`}
@@ -411,30 +433,34 @@ function ProductDetailPage() {
                 {product.name}
               </h1>
 
-              <p className="product-dimensions">
-                {product.dimensions}
-              </p>
+              {product.dimensions && (
+                <p className="product-dimensions">
+                  {product.dimensions}
+                </p>
+              )}
 
-              <div className="product-rating">
-                <div className="stars">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`star ${
-                        i < Math.floor(product.rating)
-                          ? 'filled'
-                          : ''
-                      }`}
-                    >
-                      ★
-                    </span>
-                  ))}
+              {product.rating && product.reviews && (
+                <div className="product-rating">
+                  <div className="stars">
+                    {[...Array(5)].map((_, i) => (
+                      <span
+                        key={i}
+                        className={`star ${
+                          i < Math.floor(product.rating)
+                            ? 'filled'
+                            : ''
+                        }`}
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
+
+                  <span className="review-count">
+                    ({product.reviews} reviews)
+                  </span>
                 </div>
-
-                <span className="review-count">
-                  ({product.reviews} reviews)
-                </span>
-              </div>
+              )}
 
               <div className="product-pricing-section">
 
@@ -454,10 +480,13 @@ function ProductDetailPage() {
 
                 {isAluminumContainer && (
                   <p className="product-unit-price">
-                    Rs {Number(
-                      product.unitPrice ??
-                        product.price
-                    ).toFixed(2)} per piece
+                    Rs {Math.round(
+                      Number(
+                        product.unitPrice ??
+                          product.price
+                      )
+                    ).toLocaleString('en-PK')}{' '}
+                    per piece
                   </p>
                 )}
 
@@ -518,8 +547,12 @@ function ProductDetailPage() {
 
                 <dl className="details-list">
 
-                  <dt>Dimensions</dt>
-                  <dd>{product.dimensions}</dd>
+                  {product.dimensions && (
+                    <>
+                      <dt>Dimensions</dt>
+                      <dd>{product.dimensions}</dd>
+                    </>
+                  )}
 
                   {product.capacity && (
                     <>
