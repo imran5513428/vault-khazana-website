@@ -1,19 +1,11 @@
-const getProductImages = (imageSlug, imageCount = 3) => {
-  const images = [
-    `${import.meta.env.BASE_URL}images/${imageSlug}-main.jpg`,
-    `${import.meta.env.BASE_URL}images/${imageSlug}-food.jpg`,
-    `${import.meta.env.BASE_URL}images/${imageSlug}-open.jpg`
-  ];
-
-  if (imageCount >= 6) {
-    images.push(
-      `${import.meta.env.BASE_URL}images/${imageSlug}-detail.jpg`,
-      `${import.meta.env.BASE_URL}images/${imageSlug}-use.jpg`,
-      `${import.meta.env.BASE_URL}images/${imageSlug}-pack.jpg`
-    );
-  }
-
-  return images;
+const getProductImages = (
+  imageSlug,
+  imageSuffixes = ['main', 'food', 'open']
+) => {
+  return imageSuffixes.map(
+    (suffix) =>
+      `${import.meta.env.BASE_URL}images/${imageSlug}-${suffix}.jpg`
+  );
 };
 
 export const CATEGORIES = [
@@ -380,7 +372,6 @@ export const PRODUCTS = [
     slug: '1500ml-square-container',
     imageSlug: '1500ml-clear-square-container',
     dimensions: '1500ml capacity',
-    capacity: '1500ml',
     price: 1125,
     pack: '25 pieces',
     material: 'Polypropylene (PP)',
@@ -405,7 +396,6 @@ export const PRODUCTS = [
     slug: '2000ml-square-container',
     imageSlug: '2000ml-clear-square-container',
     dimensions: '2000ml capacity',
-    capacity: '2000ml',
     price: 660,
     pack: '25 pieces',
     material: 'Polypropylene (PP)',
@@ -430,7 +420,6 @@ export const PRODUCTS = [
     slug: '3000ml-square-container',
     imageSlug: '3000ml-clear-square-container',
     dimensions: '3000ml capacity',
-    capacity: '3000ml',
     price: 1875,
     pack: '25 pieces',
     material: 'Polypropylene (PP)',
@@ -448,13 +437,24 @@ export const PRODUCTS = [
     reviews: 15
   },
 
+  /* =========================================================
+     DISPOSABLE CUTLERY
+     ========================================================= */
+
   {
     id: 'black-disposable-spoon',
     categoryId: 'disposable-cutlery',
     name: 'Heavy-Duty Black Plastic Table Spoons',
     slug: 'heavy-duty-black-plastic-table-spoons',
     imageSlug: 'black-disposable-spoon',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 250,
     pack: '100 pieces',
     material: 'Polystyrene (PS)',
@@ -471,7 +471,14 @@ export const PRODUCTS = [
     name: 'Clear Plastic Table Spoons',
     slug: 'clear-plastic-table-spoons',
     imageSlug: 'clear-plastic-spoon',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 150,
     pack: '100 pieces',
     material: 'Plastic',
@@ -488,7 +495,14 @@ export const PRODUCTS = [
     name: 'Heavy-Duty Black Plastic Table Forks',
     slug: 'heavy-duty-black-plastic-table-forks',
     imageSlug: 'black-disposable-fork',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 250,
     pack: '100 pieces',
     material: 'Plastic',
@@ -505,7 +519,14 @@ export const PRODUCTS = [
     name: 'Heavy-Duty White Plastic Table Spoons',
     slug: 'heavy-duty-white-plastic-table-spoons',
     imageSlug: 'white-disposable-spoon',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 250,
     pack: '100 pieces',
     material: 'Plastic',
@@ -522,7 +543,14 @@ export const PRODUCTS = [
     name: 'Heavy-Duty White Plastic Table Knives',
     slug: 'heavy-duty-white-plastic-table-knives',
     imageSlug: 'white-disposable-knife',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 250,
     pack: '100 pieces',
     material: 'Plastic',
@@ -539,7 +567,14 @@ export const PRODUCTS = [
     name: 'Heavy-Duty White Plastic Table Forks',
     slug: 'heavy-duty-white-plastic-table-forks',
     imageSlug: 'white-disposable-fork',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 250,
     pack: '100 pieces',
     material: 'Plastic',
@@ -556,7 +591,14 @@ export const PRODUCTS = [
     name: 'Color Plastic Spoons',
     slug: 'color-plastic-spoons',
     imageSlug: 'color-plastic-spoon',
-    imageCount: 6,
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
     price: 150,
     pack: '100 pieces',
     material: 'Plastic',
@@ -855,10 +897,18 @@ export const PRODUCTS = [
     name: 'F1 Aluminum Container with Lid',
     slug: 'f1-aluminum-container-with-lid',
     imageSlug: 'f1-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
     dimensions: '5 × 4 × 2 inches',
     capacity: 'Approximately 450ml',
-    price: 19.8,
-    unitPrice: 19.8,
+    price: 20,
+    unitPrice: 20,
     packPrice: 990,
     pack: '50 pieces',
     material: 'Food-grade aluminum foil',
@@ -878,10 +928,18 @@ export const PRODUCTS = [
     name: 'F2 Aluminum Container with Lid',
     slug: 'f2-aluminum-container-with-lid',
     imageSlug: 'f2-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
     dimensions: '8 × 4 × 2.5 inches',
     capacity: 'Approximately 750–900ml',
-    price: 29.5,
-    unitPrice: 29.5,
+    price: 30,
+    unitPrice: 30,
     packPrice: 1475,
     pack: '50 pieces',
     material: 'Food-grade aluminum foil',
@@ -901,10 +959,18 @@ export const PRODUCTS = [
     name: 'F3 Aluminum Container with Lid',
     slug: 'f3-aluminum-container-with-lid',
     imageSlug: 'f3-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
     dimensions: '8.5 × 6 × 2 inches',
     capacity: 'Approximately 1100–1500ml',
-    price: 40.8,
-    unitPrice: 40.8,
+    price: 41,
+    unitPrice: 41,
     packPrice: 2040,
     pack: '50 pieces',
     material: 'Food-grade aluminum foil',
@@ -924,6 +990,14 @@ export const PRODUCTS = [
     name: 'F4 Aluminum Container with Lid',
     slug: 'f4-aluminum-container-with-lid',
     imageSlug: 'f4-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
     dimensions: '9.5 × 9.5 × 2 inches',
     capacity: 'Approximately 1750ml',
     price: 84,
@@ -943,7 +1017,10 @@ export const PRODUCTS = [
 ];
 
 PRODUCTS.forEach((product) => {
-  product.images = getProductImages(product.imageSlug, product.imageCount);
+  product.images = getProductImages(
+    product.imageSlug,
+    product.imageSuffixes
+  );
 });
 
 /* ===== UTILITY FUNCTIONS ===== */
@@ -953,15 +1030,21 @@ export const getProductById = (productId) => {
 };
 
 export const getProductsByCategory = (categoryId) => {
-  return PRODUCTS.filter((product) => product.categoryId === categoryId);
+  return PRODUCTS.filter(
+    (product) => product.categoryId === categoryId
+  );
 };
 
 export const getCategoryById = (categoryId) => {
-  return CATEGORIES.find((category) => category.id === categoryId);
+  return CATEGORIES.find(
+    (category) => category.id === categoryId
+  );
 };
 
 export const getCategoryBySlug = (slug) => {
-  return CATEGORIES.find((category) => category.slug === slug);
+  return CATEGORIES.find(
+    (category) => category.slug === slug
+  );
 };
 
 export const formatPrice = (price) => {
@@ -970,7 +1053,7 @@ export const formatPrice = (price) => {
     currency: 'PKR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
-  }).format(price);
+  }).format(Math.round(price));
 };
 
 export const searchProducts = (query) => {
