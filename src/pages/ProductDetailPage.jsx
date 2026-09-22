@@ -40,14 +40,20 @@ function ProductDetailPage() {
 
   const category = getCategoryById(product.categoryId);
 
+  const isAluminumContainer =
+    product.categoryId === 'aluminum-containers';
+
   const mainImage = product.images?.[0];
+
   const displayedImage =
     product.images?.[selectedImage] || mainImage;
 
   const secondaryImages = product.images?.slice(1, 6) || [];
 
-  // Other products from the same category, excluding the current product
-  const relatedProducts = getProductsByCategory(product.categoryId).filter(
+  // Other products from the same category
+  const relatedProducts = getProductsByCategory(
+    product.categoryId
+  ).filter(
     (relatedProduct) => relatedProduct.id !== product.id
   );
 
@@ -81,10 +87,14 @@ function ProductDetailPage() {
 
     setSelectedImage((current) => {
       if (direction === 'next') {
-        return current === totalImages - 1 ? 0 : current + 1;
+        return current === totalImages - 1
+          ? 0
+          : current + 1;
       }
 
-      return current === 0 ? totalImages - 1 : current - 1;
+      return current === 0
+        ? totalImages - 1
+        : current - 1;
     });
   };
 
@@ -110,7 +120,9 @@ function ProductDetailPage() {
     if (galleryImages.length === 0) return;
 
     setSecondarySlide((current) =>
-      current === 0 ? galleryImages.length - 1 : current - 1
+      current === 0
+        ? galleryImages.length - 1
+        : current - 1
     );
   };
 
@@ -118,7 +130,9 @@ function ProductDetailPage() {
     if (galleryImages.length === 0) return;
 
     setSecondarySlide((current) =>
-      current === galleryImages.length - 1 ? 0 : current + 1
+      current === galleryImages.length - 1
+        ? 0
+        : current + 1
     );
   };
 
@@ -145,7 +159,10 @@ function ProductDetailPage() {
     touchStartY.current = null;
 
     if (Math.abs(distanceX) < 50) return;
-    if (Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+    if (Math.abs(distanceX) <= Math.abs(distanceY)) {
+      return;
+    }
 
     if (distanceX < 0) {
       showNextSecondary();
@@ -154,7 +171,42 @@ function ProductDetailPage() {
     }
   };
 
-  const currentSecondaryImage = galleryImages[secondarySlide];
+  const currentSecondaryImage =
+    galleryImages[secondarySlide];
+
+  /*
+   * Aluminum containers:
+   * Main product detail shows the actual purchasable
+   * 50-piece pack price.
+   *
+   * Other products/categories continue using their
+   * existing product.price value.
+   */
+  const detailPrice = isAluminumContainer
+    ? product.packPrice
+    : product.price;
+
+  const detailPackText = isAluminumContainer
+    ? product.pack
+    : product.pack;
+
+  /*
+   * Aluminum single-piece price is shown in related
+   * product cards. Other products keep their normal price.
+   */
+  const getRelatedProductPrice = (relatedProduct) => {
+    if (
+      relatedProduct.categoryId ===
+      'aluminum-containers'
+    ) {
+      return `Rs ${Number(
+        relatedProduct.unitPrice ??
+          relatedProduct.price
+      ).toFixed(2)}`;
+    }
+
+    return `Rs ${relatedProduct.price.toLocaleString()}`;
+  };
 
   return (
     <div className="product-detail-page">
@@ -191,6 +243,7 @@ function ProductDetailPage() {
                 onTouchStart={(event) => {
                   touchStartX.current =
                     event.touches[0].clientX;
+
                   touchStartY.current =
                     event.touches[0].clientY;
                 }}
@@ -204,20 +257,26 @@ function ProductDetailPage() {
 
                   const touchEndX =
                     event.changedTouches[0].clientX;
+
                   const touchEndY =
                     event.changedTouches[0].clientY;
 
                   const distanceX =
                     touchEndX - touchStartX.current;
+
                   const distanceY =
                     touchEndY - touchStartY.current;
 
                   touchStartX.current = null;
                   touchStartY.current = null;
 
-                  if (Math.abs(distanceX) < 50) return;
+                  if (Math.abs(distanceX) < 50) {
+                    return;
+                  }
+
                   if (
-                    Math.abs(distanceX) <= Math.abs(distanceY)
+                    Math.abs(distanceX) <=
+                    Math.abs(distanceY)
                   ) {
                     return;
                   }
@@ -240,13 +299,15 @@ function ProductDetailPage() {
               {galleryImages.length > 1 && (
                 <div className="thumbnails">
                   {galleryImages.map((image, index) => {
-                    const isMainImage = image === mainImage;
+                    const isMainImage =
+                      image === mainImage;
 
                     return (
                       <button
                         key={`${image}-${index}`}
                         className={`thumbnail ${
-                          image === product.images[selectedImage]
+                          image ===
+                          product.images[selectedImage]
                             ? 'active'
                             : ''
                         }`}
@@ -256,7 +317,9 @@ function ProductDetailPage() {
                         aria-label={
                           isMainImage
                             ? 'View main product image'
-                            : `View product image ${index + 1}`
+                            : `View product image ${
+                                index + 1
+                              }`
                         }
                       >
                         <img
@@ -264,7 +327,9 @@ function ProductDetailPage() {
                           alt={
                             isMainImage
                               ? `${product.name} main image`
-                              : `${product.name} image ${index + 1}`
+                              : `${product.name} image ${
+                                  index + 1
+                                }`
                           }
                         />
                       </button>
@@ -372,19 +437,39 @@ function ProductDetailPage() {
               </div>
 
               <div className="product-pricing-section">
+
                 <p className="product-price">
-                  Rs {product.price.toLocaleString()}
+                  {isAluminumContainer
+                    ? `Rs ${Number(
+                        detailPrice
+                      ).toLocaleString('en-PK')}`
+                    : `Rs ${product.price.toLocaleString(
+                        'en-PK'
+                      )}`}
                 </p>
 
                 <p className="product-pack-info">
-                  per {product.pack}
+                  per {detailPackText}
                 </p>
+
+                {isAluminumContainer && (
+                  <p className="product-unit-price">
+                    Rs {Number(
+                      product.unitPrice ??
+                        product.price
+                    ).toFixed(2)} per piece
+                  </p>
+                )}
+
               </div>
 
               <div className="stock-status">
                 {product.inStock ? (
                   <span className="in-stock">
-                    ✓ In Stock ({product.stockCount} available)
+                    ✓ In Stock
+                    {product.stockCount
+                      ? ` (${product.stockCount} available)`
+                      : ''}
                   </span>
                 ) : (
                   <span className="out-of-stock">
@@ -396,7 +481,9 @@ function ProductDetailPage() {
               <div className="add-to-cart-section">
                 <button
                   onClick={handleAddToCart}
-                  disabled={!product.inStock || isAdding}
+                  disabled={
+                    !product.inStock || isAdding
+                  }
                   className={`btn btn-accent btn-lg add-to-cart-btn ${
                     isAdded ? 'added' : ''
                   }`}
@@ -409,7 +496,8 @@ function ProductDetailPage() {
                     !isAdded &&
                     '🛒 Add to Cart'}
 
-                  {isAdded && '✓ Added to Cart!'}
+                  {isAdded &&
+                    '✓ Added to Cart!'}
                 </button>
 
                 {quantity > 0 && (
@@ -486,7 +574,9 @@ function ProductDetailPage() {
 
               {product.recommendation && (
                 <div className="product-section recommendation">
-                  <strong>💡 Our Recommendation</strong>
+                  <strong>
+                    💡 Our Recommendation
+                  </strong>
                   <p>{product.recommendation}</p>
                 </div>
               )}
@@ -505,8 +595,12 @@ function ProductDetailPage() {
           <div className="container">
 
             <div className="section-heading">
-              <p className="eyebrow">More from {category?.name}</p>
+              <p className="eyebrow">
+                More from {category?.name}
+              </p>
+
               <h2>You May Also Like</h2>
+
               <p>
                 Explore other products from this category.
               </p>
@@ -523,41 +617,50 @@ function ProductDetailPage() {
                 WebkitOverflowScrolling: 'touch'
               }}
             >
-              {relatedProducts.map((relatedProduct) => (
-                <Link
-                  key={relatedProduct.id}
-                  to={`/product/${relatedProduct.id}`}
-                  className="product-card"
-                  style={{
-                    flex: '0 0 260px'
-                  }}
-                >
-                  <div className="product-image">
-                    <img
-                      src={relatedProduct.images?.[0]}
-                      alt={relatedProduct.name}
-                    />
-                  </div>
+              {relatedProducts.map(
+                (relatedProduct) => (
+                  <Link
+                    key={relatedProduct.id}
+                    to={`/product/${relatedProduct.id}`}
+                    className="product-card"
+                    style={{
+                      flex: '0 0 260px'
+                    }}
+                  >
+                    <div className="product-image">
+                      <img
+                        src={
+                          relatedProduct.images?.[0]
+                        }
+                        alt={relatedProduct.name}
+                      />
+                    </div>
 
-                  <div className="product-info">
-                    <p className="product-category">
-                      {category?.name}
-                    </p>
+                    <div className="product-info">
+                      <p className="product-category">
+                        {category?.name}
+                      </p>
 
-                    <h3 className="product-name">
-                      {relatedProduct.name}
-                    </h3>
+                      <h3 className="product-name">
+                        {relatedProduct.name}
+                      </h3>
 
-                    <p className="product-price">
-                      Rs {relatedProduct.price.toLocaleString()}
-                    </p>
+                      <p className="product-price">
+                        {getRelatedProductPrice(
+                          relatedProduct
+                        )}
+                      </p>
 
-                    <p className="product-pack">
-                      per {relatedProduct.pack}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+                      <p className="product-pack">
+                        {relatedProduct.categoryId ===
+                        'aluminum-containers'
+                          ? 'per piece'
+                          : `per ${relatedProduct.pack}`}
+                      </p>
+                    </div>
+                  </Link>
+                )
+              )}
             </div>
 
           </div>
