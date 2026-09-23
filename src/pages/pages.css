@@ -220,6 +220,7 @@
   0%, 100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -589,6 +590,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -600,6 +602,7 @@
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -611,6 +614,7 @@
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -621,11 +625,6 @@
 
 @media (max-width: 479px) {
 
-  /* Mobile homepage starts with shopping */
-  .home-page .hero {
-    display: none;
-  }
-
   .section {
     padding: var(--spacing-xl) 0;
   }
@@ -634,314 +633,50 @@
     padding: 0 var(--spacing-sm);
   }
 
-  /* Categories appear immediately after header */
-  .section-categories {
-    padding-top: 16px;
-  }
+  /* ===== COMPACT MOBILE HERO ===== */
 
-  .section-categories .section-heading {
-    margin-bottom: 12px;
-  }
-
-  .section-categories .section-heading .eyebrow {
-    margin-bottom: 4px;
-  }
-
-  .section-categories .section-heading h2 {
-    font-size: 22px;
-    margin-bottom: 0;
-  }
-
-  .section-categories .section-heading p {
-    display: none;
-  }
-
-  /* 2-column category grid */
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  /* Compact category tiles */
-  .category-card {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: center;
-    gap: 4px 6px;
-    min-height: 86px;
-    padding: 10px 8px;
-    text-align: center;
-    border-width: 1px;
-    border-radius: 12px;
-  }
-
-  .category-card::before {
-    height: 2px;
-  }
-
-  .category-icon {
-    grid-column: 1 / -1;
-    width: 42px;
-    height: 42px;
-    margin: 0 auto;
-    font-size: 28px;
-  }
-
-  .category-name {
-    grid-column: 1 / -1;
-    font-size: 13px;
-    line-height: 1.2;
-    margin: 0;
-  }
-
-  .category-desc {
-    display: none;
-  }
-
-  .category-arrow {
-    display: none;
-  }
-
-  /* Keep existing mobile product grid */
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .section-heading {
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .section-heading h2 {
-    font-size: 22px;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .section-heading p {
-    font-size: 14px;
-  }
-
-  .benefits-grid,
-  .steps-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .benefit-card,
-  .step-card {
-    padding: var(--spacing-md);
-  }
-
-  .benefit-icon {
-    font-size: 36px;
-  }
-
-  .step-number {
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-  }
-
-  .cta-content h2 {
-    font-size: 22px;
-  }
-
-  .wholesale-content h2 {
-    font-size: 24px;
-  }
-}
-
-/* ===== TABLET STYLES (480px-767px) ===== */
-
-@media (min-width: 480px) and (max-width: 767px) {
-
-  /* Mobile/tablet homepage also starts with shopping */
   .home-page .hero {
-    display: none;
+    padding: 20px 0 18px;
   }
 
-  .container {
-    padding: 0 var(--spacing-md);
-  }
-
-  .section-categories {
-    padding-top: 18px;
-  }
-
-  .section-categories .section-heading {
-    margin-bottom: 14px;
-  }
-
-  .section-categories .section-heading .eyebrow {
-    margin-bottom: 4px;
-  }
-
-  .section-categories .section-heading h2 {
-    font-size: 24px;
-    margin-bottom: 0;
-  }
-
-  .section-categories .section-heading p {
-    display: none;
-  }
-
-  /* 3-column category grid */
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  /* Compact category tiles */
-  .category-card {
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-items: center;
-    gap: 6px;
-    min-height: 92px;
-    padding: 12px 8px;
-    text-align: center;
-    border-width: 1px;
-    border-radius: 12px;
-  }
-
-  .category-card::before {
-    height: 2px;
-  }
-
-  .category-icon {
-    width: 44px;
-    height: 44px;
-    font-size: 30px;
-  }
-
-  .category-name {
-    font-size: 14px;
-    line-height: 1.2;
-    margin: 0;
-  }
-
-  .category-desc,
-  .category-arrow {
-    display: none;
-  }
-
-  .benefits-grid,
-  .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-}
-
-/* ===== DESKTOP STYLES (768px+) ===== */
-
-@media (min-width: 768px) {
-  .container {
-    padding: 0 var(--spacing-lg);
-  }
-
-  .hero {
-    padding: var(--spacing-3xl) 0;
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-container {
-    padding: 0 var(--spacing-lg);
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-2xl);
-  }
-
-  .hero-title {
-    font-size: 36px;
-  }
-
-  .hero-accent {
+  .home-page .hero-container {
     display: block;
+    padding: 0 var(--spacing-sm);
   }
 
-  .section-heading h2 {
-    font-size: 28px;
+  .home-page .hero-content {
+    width: 100%;
   }
 
-  .benefits-grid,
-  .steps-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-xl);
+  .home-page .hero-eyebrow {
+    font-size: 11px;
+    margin-bottom: 6px;
+    letter-spacing: 1.5px;
   }
 
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-lg);
+  .home-page .hero-title {
+    font-size: 25px;
+    line-height: 1.18;
+    margin-bottom: 8px;
   }
 
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-lg);
+  .home-page .hero-description {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 12px;
+    max-width: 100%;
   }
 
-  .hero-placeholder {
-    min-height: 350px;
+  .home-page .hero-actions {
+    margin-bottom: 0;
+    gap: 0;
   }
 
-  .placeholder-icon {
-    font-size: 100px;
-  }
-}
-
-/* ===== LARGE DESKTOP (1024px+) ===== */
-
-@media (min-width: 1024px) {
-  .container {
-    padding: 0 var(--spacing-xl);
+  .home-page .hero-button-primary {
+    width: 100%;
+    max-width: none;
+    padding: 11px 18px;
+    font-size: 14px;
   }
 
-  .section {
-    padding: var(--spacing-3xl) 0;
-  }
-
-  .section-heading {
-    margin-bottom: var(--spacing-3xl);
-  }
-
-  .hero-title {
-    font-size: 40px;
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-xl);
-  }
-
-  .category-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-xl);
-  }
-
-  .benefits-grid,
-  .steps-grid {
-    gap: var(--spacing-2xl);
-  }
-
-  .hero-placeholder {
-    min-height: 400px;
-  }
-}
-
-/* ===== EXTRA LARGE DESKTOP (1440px+) ===== */
-
-@media (min-width: 1440px) {
-  .product-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .category-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
+  .home-page .hero-button
