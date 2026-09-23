@@ -35,27 +35,44 @@
   grid-column: 1;
 }
 
+/* ===== FOOTER LOGO ===== */
+
 .footer-logo {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
   margin-bottom: var(--spacing-md);
+  line-height: 0;
 }
 
-.footer-vk {
-  font-size: 18px;
-  font-weight: var(--weight-bold);
-  letter-spacing: 2px;
-  color: var(--secondary-orange);
+.footer-logo img {
+  display: block;
+  width: auto;
+  object-fit: contain;
 }
 
-.footer-name {
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-top: 4px;
+/* Mobile footer logo */
+.footer-logo-mobile {
+  display: block;
+  height: 60px;
+  max-width: 78px;
+
+  /*
+    Temporary visibility correction for the current
+    vertical logo artwork.
+  */
+  filter: brightness(0) invert(1);
 }
+
+/* Desktop footer logo hidden by default */
+.footer-logo-desktop {
+  display: none;
+}
+
+/* ===== FOOTER TEXT ===== */
 
 .footer-tagline {
   font-size: var(--size-small);
@@ -177,15 +194,17 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* ===== MOBILE STYLES ===== */
+/* ===== MOBILE ===== */
 
 @media (max-width: 767px) {
+
   .site-footer {
     padding: var(--spacing-xl) 0 var(--spacing-md);
   }
@@ -217,9 +236,10 @@
   }
 }
 
-/* ===== TABLET STYLES ===== */
+/* ===== TABLET ===== */
 
 @media (min-width: 768px) and (max-width: 1023px) {
+
   .footer-container {
     padding: 0 var(--spacing-lg);
   }
@@ -233,9 +253,27 @@
   }
 }
 
-/* ===== DESKTOP STYLES ===== */
+/* ===== DESKTOP ===== */
+
+@media (min-width: 768px) {
+
+  /* Hide vertical footer logo */
+  .footer-logo-mobile {
+    display: none;
+  }
+
+  /* Show horizontal footer logo */
+  .footer-logo-desktop {
+    display: block;
+    height: 52px;
+    max-width: 190px;
+  }
+}
+
+/* ===== LARGE DESKTOP ===== */
 
 @media (min-width: 1024px) {
+
   .footer-container {
     padding: 0 var(--spacing-xl);
   }
