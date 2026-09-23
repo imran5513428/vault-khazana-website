@@ -25,8 +25,6 @@
 
 /* ===== LOGO ===== */
 
-/* ===== LOGO ===== */
-
 .header-logo {
   display: inline-flex;
   align-items: center;
@@ -36,16 +34,27 @@
   background-color: transparent;
   padding: 0;
   border: none;
+  line-height: 0;
 }
 
-.header-logo img {
+/* Mobile logo is shown by default */
+.header-logo .logo-mobile {
   display: block;
   width: auto;
-  height: auto;
-  max-width: 100%;
-  opacity: 1;
-  filter: none;
+  height: 48px;
+  max-width: 64px;
+  object-fit: contain;
 }
+
+/* Desktop logo is hidden by default */
+.header-logo .logo-desktop {
+  display: none;
+  width: auto;
+  height: 50px;
+  max-width: 180px;
+  object-fit: contain;
+}
+
 /* ===== DESKTOP NAVIGATION ===== */
 
 .desktop-nav {
@@ -259,24 +268,45 @@
 }
 
 .mobile-dropdown-item:hover {
-  background-color: rgba(230, 126, 34, 0.2);
+  background-color: rgba(230, 126, 34, 0.1);
   color: var(--secondary-orange);
-  padding-left: var(--spacing-xl);
 }
 
-/* ===== TABLET (480px+) ===== */
+/* ===== TABLET ===== */
 
 @media (min-width: 480px) {
+
   .header-container {
-    padding: 0 var(--spacing-md);
+    padding: 0 var(--spacing-lg);
+  }
+
+  .header-logo .logo-mobile {
+    height: 52px;
+    max-width: 70px;
+  }
+
+  .header-actions {
+    gap: var(--spacing-lg);
   }
 }
 
-/* ===== DESKTOP (768px+) ===== */
+/* ===== DESKTOP ===== */
 
 @media (min-width: 768px) {
-  .header-container {
-    padding: 0 var(--spacing-lg);
+
+  .site-header {
+    padding: var(--spacing-md) 0;
+  }
+
+  /* Switch to horizontal logo */
+  .header-logo .logo-mobile {
+    display: none;
+  }
+
+  .header-logo .logo-desktop {
+    display: block;
+    height: 50px;
+    max-width: 180px;
   }
 
   .desktop-nav {
@@ -290,11 +320,16 @@
   .mobile-nav {
     display: none;
   }
+
+  .header-container {
+    padding: 0 var(--spacing-lg);
+  }
 }
 
-/* ===== LARGE DESKTOP (1024px+) ===== */
+/* ===== LARGE DESKTOP ===== */
 
 @media (min-width: 1024px) {
+
   .site-header {
     padding: var(--spacing-lg) 0;
   }
@@ -303,12 +338,9 @@
     padding: 0 var(--spacing-xl);
   }
 
-  .header-logo {
-    flex-shrink: 0;
-  }
-
-  .logo-name {
-    font-size: 12px;
+  .header-logo .logo-desktop {
+    height: 52px;
+    max-width: 190px;
   }
 
   .desktop-nav {
