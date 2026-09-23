@@ -50,18 +50,20 @@
   margin-bottom: 14px;
 }
 
-/* MOBILE LOGO */
+/* ===== MOBILE LOGO ===== */
+
 .footer-logo-mobile {
   display: block !important;
-  width: 95px;
+  width: 105px;
   height: auto;
-  max-width: 95px;
+  max-width: 105px;
   flex: 0 0 auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  filter: none;
 }
 
-/* DESKTOP LOGO HIDDEN BY DEFAULT */
+/* ===== DESKTOP LOGO HIDDEN BY DEFAULT ===== */
+
 .footer-logo-desktop {
   display: none !important;
 }
@@ -185,14 +187,14 @@
   }
 
   .footer-logo {
-    width: 95px;
-    max-width: 95px;
+    width: 105px;
+    max-width: 105px;
   }
 
   .footer-logo-mobile {
     display: block !important;
-    width: 95px;
-    max-width: 95px;
+    width: 105px;
+    max-width: 105px;
   }
 
   .footer-logo-desktop {
@@ -227,11 +229,12 @@
 
   .footer-logo-desktop {
     display: block !important;
-    width: 190px;
+    width: 200px;
     height: auto;
-    max-width: 190px;
+    max-width: 200px;
     flex: 0 0 auto;
     object-fit: contain;
+    filter: none;
   }
 }
 
