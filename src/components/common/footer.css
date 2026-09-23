@@ -15,7 +15,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 50px 20px 20px;
+  padding: 42px 20px 20px;
   box-sizing: border-box;
 }
 
@@ -48,7 +48,7 @@
   min-width: 0;
   text-decoration: none;
   overflow: hidden;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .footer-logo-image {
@@ -63,7 +63,8 @@
 /* ===== FOOTER TEXT ===== */
 
 .footer-tagline {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
+  color: #ffffff;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
@@ -72,6 +73,7 @@
 .footer-description {
   margin: 0;
   max-width: 320px;
+  color: #ffffff;
   font-size: 14px;
   line-height: 1.7;
   opacity: 0.85;
@@ -79,26 +81,39 @@
 
 /* ===== FOOTER HEADINGS ===== */
 
-.footer-section h3 {
-  margin: 0 0 16px;
+/*
+   Footer JSX uses .footer-title.
+   Do not use .footer-section h3 here.
+*/
+
+.footer-title {
+  margin: 0 0 14px;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  line-height: 1.4;
 }
 
-/* ===== FOOTER LINKS ===== */
+/* ===== FOOTER NAVIGATION ===== */
 
-.footer-section ul {
-  list-style: none;
-  padding: 0;
+/*
+   Footer JSX uses .footer-nav.
+   Links are direct children, not ul/li elements.
+*/
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
   margin: 0;
+  padding: 0;
 }
 
-.footer-section li {
-  margin-bottom: 10px;
-}
-
-.footer-section a {
+.footer-nav a {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
   color: #ffffff;
   text-decoration: none;
   font-size: 14px;
@@ -107,20 +122,22 @@
   transition: opacity 0.2s ease;
 }
 
-.footer-section a:hover {
+.footer-nav a:hover {
   opacity: 1;
 }
 
 /* ===== FOOTER CONTACT ===== */
 
 .footer-contact p {
-  margin: 0 0 10px;
+  margin: 0 0 9px;
+  color: #ffffff;
   font-size: 14px;
   line-height: 1.6;
   opacity: 0.85;
 }
 
 .footer-contact a {
+  color: #ffffff;
   word-break: break-word;
 }
 
@@ -128,8 +145,8 @@
 
 .footer-bottom {
   width: 100%;
-  margin-top: 40px;
-  padding-top: 20px;
+  margin-top: 34px;
+  padding-top: 18px;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
@@ -140,6 +157,7 @@
 
 .footer-copyright {
   margin: 0;
+  color: #ffffff;
   font-size: 13px;
   opacity: 0.75;
 }
@@ -151,6 +169,7 @@
 }
 
 .footer-legal a {
+  color: #ffffff;
   font-size: 13px;
 }
 
@@ -161,12 +180,12 @@
 @media (max-width: 767px) {
 
   .footer-container {
-    padding: 38px 18px 18px;
+    padding: 28px 18px 18px;
   }
 
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 26px;
   }
 
   .footer-section {
@@ -181,6 +200,7 @@
   .footer-logo {
     width: 110px;
     max-width: 110px;
+    margin-bottom: 12px;
   }
 
   .footer-logo-image {
@@ -188,12 +208,28 @@
     max-width: 110px;
   }
 
+  .footer-tagline {
+    margin-bottom: 8px;
+  }
+
   .footer-description {
     max-width: 100%;
   }
 
+  .footer-title {
+    margin-bottom: 12px;
+  }
+
+  .footer-nav {
+    gap: 8px;
+  }
+
+  .footer-nav a {
+    font-size: 14px;
+  }
+
   .footer-bottom {
-    margin-top: 30px;
+    margin-top: 28px;
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
