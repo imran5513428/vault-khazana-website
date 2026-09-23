@@ -38,7 +38,8 @@
   min-width: 0;
 }
 
-/* Logo container */
+/* ===== LOGO ===== */
+
 .footer-logo {
   display: flex;
   align-items: center;
@@ -50,22 +51,13 @@
   margin-bottom: 14px;
 }
 
-/* ===== MOBILE LOGO ===== */
-
-.footer-logo-mobile {
-  display: block !important;
-  width: 105px;
-  height: auto;
-  max-width: 105px;
+.footer-logo-image {
+  display: block;
+  width: auto;
+  height: 78px;
+  max-width: 110px;
   flex: 0 0 auto;
   object-fit: contain;
-  filter: none;
-}
-
-/* ===== DESKTOP LOGO HIDDEN BY DEFAULT ===== */
-
-.footer-logo-desktop {
-  display: none !important;
 }
 
 /* ===== FOOTER TEXT ===== */
@@ -187,18 +179,13 @@
   }
 
   .footer-logo {
-    width: 105px;
-    max-width: 105px;
+    width: 110px;
+    max-width: 110px;
   }
 
-  .footer-logo-mobile {
-    display: block !important;
-    width: 105px;
-    max-width: 105px;
-  }
-
-  .footer-logo-desktop {
-    display: none !important;
+  .footer-logo-image {
+    height: 78px;
+    max-width: 110px;
   }
 
   .footer-description {
@@ -223,18 +210,14 @@
 
 @media (min-width: 768px) {
 
-  .footer-logo-mobile {
-    display: none !important;
+  .footer-logo {
+    width: 160px;
+    max-width: 160px;
   }
 
-  .footer-logo-desktop {
-    display: block !important;
-    width: 200px;
-    height: auto;
-    max-width: 200px;
-    flex: 0 0 auto;
-    object-fit: contain;
-    filter: none;
+  .footer-logo-image {
+    height: 62px;
+    max-width: 160px;
   }
 }
 
@@ -251,5 +234,15 @@
 
   .footer-content {
     gap: 50px;
+  }
+
+  .footer-logo {
+    width: 165px;
+    max-width: 165px;
+  }
+
+  .footer-logo-image {
+    height: 64px;
+    max-width: 165px;
   }
 }
