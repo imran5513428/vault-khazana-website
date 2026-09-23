@@ -21,14 +21,8 @@ function Footer() {
               aria-label="VAULT KHAZANA Home"
             >
               <img
-                className="footer-logo-mobile"
-                src={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
-                alt="VAULT KHAZANA"
-              />
-
-              <img
-                className="footer-logo-desktop"
-                src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
+                className="footer-logo-image"
+                src={`${import.meta.env.BASE_URL}images/vault-khazana-logo-light.png`}
                 alt="VAULT KHAZANA"
               />
             </Link>
