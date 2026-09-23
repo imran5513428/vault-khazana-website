@@ -40,8 +40,8 @@
 .header-logo img {
   display: block;
   width: auto;
-  height: 50px;
-  max-width: 90px;
+  height: 78px;
+  max-width: 110px;
   object-fit: contain;
 }
 
@@ -266,8 +266,8 @@
   }
 
   .header-logo img {
-    height: 52px;
-    max-width: 94px;
+    height: 78px;
+    max-width: 110px;
   }
 
   .header-actions {
@@ -284,8 +284,8 @@
   }
 
   .header-logo img {
-    height: 50px;
-    max-width: 150px;
+    height: 62px;
+    max-width: 160px;
   }
 
   .desktop-nav {
@@ -318,7 +318,7 @@
   }
 
   .header-logo img {
-    height: 52px;
+    height: 64px;
     max-width: 165px;
   }
 
