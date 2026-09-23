@@ -17,23 +17,22 @@ function Header() {
       <div className="header-container">
 
         {/* LOGO */}
-        <Link to="/" className="header-logo" aria-label="VAULT KHAZANA Home">
+        <Link
+          to="/"
+          className="header-logo"
+          aria-label="VAULT KHAZANA Home"
+        >
           <img
-            className="logo-mobile"
-            src={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
-            alt="VAULT KHAZANA"
-          />
-
-          <img
-            className="logo-desktop"
-            src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
+            src={`${import.meta.env.BASE_URL}images/vault-khazana-logo-light.png`}
             alt="VAULT KHAZANA"
           />
         </Link>
 
         {/* DESKTOP NAVIGATION */}
         <nav className="header-nav desktop-nav">
-          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
 
           <div className="nav-dropdown">
             <button className="nav-link dropdown-toggle">
@@ -53,25 +52,37 @@ function Header() {
             </div>
           </div>
 
-          <Link to="/" className="nav-link">Wholesale</Link>
-          <Link to="/" className="nav-link">About</Link>
+          <Link to="/" className="nav-link">
+            Wholesale
+          </Link>
+
+          <Link to="/" className="nav-link">
+            About
+          </Link>
         </nav>
 
         {/* HEADER ACTIONS */}
         <div className="header-actions">
-          <button className="search-btn" aria-label="Search">
+          <button
+            className="search-btn"
+            aria-label="Search"
+          >
             🔍
           </button>
 
-          <Link to="/cart" className="cart-link">
+          <Link
+            to="/cart"
+            className="cart-link"
+          >
             <span className="cart-icon">🛒</span>
 
             {cartCount > 0 && (
-              <span className="cart-count">{cartCount}</span>
+              <span className="cart-count">
+                {cartCount}
+              </span>
             )}
           </Link>
 
-          {/* MOBILE MENU BUTTON */}
           <button
             className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -85,7 +96,6 @@ function Header() {
       {/* MOBILE NAVIGATION */}
       {mobileMenuOpen && (
         <nav className="mobile-nav">
-
           <Link
             to="/"
             className="mobile-nav-link"
@@ -98,11 +108,14 @@ function Header() {
             className="mobile-nav-link dropdown-toggle"
             onClick={() =>
               setActiveDropdown(
-                activeDropdown === 'categories' ? null : 'categories'
+                activeDropdown === 'categories'
+                  ? null
+                  : 'categories'
               )
             }
           >
-            Categories {activeDropdown === 'categories' ? '▲' : '▼'}
+            Categories{' '}
+            {activeDropdown === 'categories' ? '▲' : '▼'}
           </button>
 
           {activeDropdown === 'categories' && (
@@ -135,7 +148,6 @@ function Header() {
           >
             About
           </Link>
-
         </nav>
       )}
     </header>
