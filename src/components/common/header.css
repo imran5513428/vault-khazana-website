@@ -31,28 +31,35 @@
   justify-content: center;
   text-decoration: none;
   flex-shrink: 0;
-  background-color: transparent;
+  background: transparent;
   padding: 0;
   border: none;
   line-height: 0;
 }
 
-/* Mobile logo is shown by default */
-.header-logo .logo-mobile {
+.header-logo img {
   display: block;
   width: auto;
-  height: 48px;
-  max-width: 64px;
   object-fit: contain;
 }
 
-/* Desktop logo is hidden by default */
+/* Mobile logo */
+.header-logo .logo-mobile {
+  display: block;
+  height: 50px;
+  max-width: 68px;
+
+  /*
+    Temporary visibility correction for the current
+    vertical logo artwork. This can be removed after
+    the final transparent logo file is supplied.
+  */
+  filter: brightness(0) invert(1);
+}
+
+/* Desktop logo hidden on mobile */
 .header-logo .logo-desktop {
   display: none;
-  width: auto;
-  height: 50px;
-  max-width: 180px;
-  object-fit: contain;
 }
 
 /* ===== DESKTOP NAVIGATION ===== */
@@ -79,8 +86,6 @@
 .nav-link:hover {
   color: var(--secondary-orange);
 }
-
-/* ===== DROPDOWN ===== */
 
 .nav-dropdown {
   position: relative;
@@ -195,12 +200,13 @@
   0%, 100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
 }
 
-/* ===== MOBILE MENU BUTTON ===== */
+/* ===== MOBILE MENU ===== */
 
 .mobile-menu-btn {
   display: flex;
@@ -222,7 +228,6 @@
 .mobile-nav {
   display: flex;
   flex-direction: column;
-  gap: 0;
   background-color: var(--primary-navy-dark);
   padding: var(--spacing-md) 0;
   border-top: 1px solid rgba(230, 126, 34, 0.2);
@@ -230,7 +235,7 @@
 
 .mobile-nav-link {
   display: block;
-  padding: var(--spacing-md) var(--spacing-md);
+  padding: var(--spacing-md);
   color: var(--white);
   text-decoration: none;
   font-size: var(--size-body);
@@ -259,9 +264,6 @@
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-size: var(--size-small);
-  border: none;
-  background: none;
-  cursor: pointer;
   text-align: left;
   width: 100%;
   transition: all var(--transition-fast);
@@ -298,11 +300,12 @@
     padding: var(--spacing-md) 0;
   }
 
-  /* Switch to horizontal logo */
+  /* Mobile logo OFF */
   .header-logo .logo-mobile {
     display: none;
   }
 
+  /* Horizontal logo ON */
   .header-logo .logo-desktop {
     display: block;
     height: 50px;
