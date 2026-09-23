@@ -386,6 +386,7 @@
   transition: transform var(--transition-base);
   display: block;
 }
+
 .product-card:hover .product-image img {
   transform: scale(1.05);
 }
@@ -733,7 +734,8 @@
   }
 
   .product-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .cta-content h2 {
@@ -775,8 +777,8 @@
   }
 
   .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 
   .category-grid {
