@@ -40,26 +40,9 @@
 .header-logo img {
   display: block;
   width: auto;
-  object-fit: contain;
-}
-
-/* Mobile logo */
-.header-logo .logo-mobile {
-  display: block;
   height: 50px;
-  max-width: 68px;
-
-  /*
-    Temporary visibility correction for the current
-    vertical logo artwork. This can be removed after
-    the final transparent logo file is supplied.
-  */
-  filter: brightness(0) invert(1);
-}
-
-/* Desktop logo hidden on mobile */
-.header-logo .logo-desktop {
-  display: none;
+  max-width: 90px;
+  object-fit: contain;
 }
 
 /* ===== DESKTOP NAVIGATION ===== */
@@ -282,9 +265,9 @@
     padding: 0 var(--spacing-lg);
   }
 
-  .header-logo .logo-mobile {
+  .header-logo img {
     height: 52px;
-    max-width: 70px;
+    max-width: 94px;
   }
 
   .header-actions {
@@ -300,16 +283,9 @@
     padding: var(--spacing-md) 0;
   }
 
-  /* Mobile logo OFF */
-  .header-logo .logo-mobile {
-    display: none;
-  }
-
-  /* Horizontal logo ON */
-  .header-logo .logo-desktop {
-    display: block;
+  .header-logo img {
     height: 50px;
-    max-width: 180px;
+    max-width: 150px;
   }
 
   .desktop-nav {
@@ -341,9 +317,9 @@
     padding: 0 var(--spacing-xl);
   }
 
-  .header-logo .logo-desktop {
+  .header-logo img {
     height: 52px;
-    max-width: 190px;
+    max-width: 165px;
   }
 
   .desktop-nav {
