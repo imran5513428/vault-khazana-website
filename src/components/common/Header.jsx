@@ -17,7 +17,7 @@ function Header() {
       <div className="header-container">
 
         {/* LOGO */}
-        <Link to="/" className="header-logo">
+        <Link to="/" className="header-logo" aria-label="VAULT KHAZANA Home">
           <img
             className="logo-mobile"
             src={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
@@ -65,6 +65,7 @@ function Header() {
 
           <Link to="/cart" className="cart-link">
             <span className="cart-icon">🛒</span>
+
             {cartCount > 0 && (
               <span className="cart-count">{cartCount}</span>
             )}
@@ -84,6 +85,7 @@ function Header() {
       {/* MOBILE NAVIGATION */}
       {mobileMenuOpen && (
         <nav className="mobile-nav">
+
           <Link
             to="/"
             className="mobile-nav-link"
@@ -133,6 +135,7 @@ function Header() {
           >
             About
           </Link>
+
         </nav>
       )}
     </header>
