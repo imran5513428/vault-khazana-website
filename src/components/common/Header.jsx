@@ -4,7 +4,7 @@ import useCartStore from '../../store/cartStore';
 import { CATEGORIES } from '../../data/products';
 import './header.css';
 
-function Header() {                                                               
+function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
@@ -14,21 +14,22 @@ function Header() {
 
   return (
     <header className="site-header">
-      <div className="header-container"> 
+      <div className="header-container">
 
         {/* LOGO */}
-<Link to="/" className="header-logo">
-  <img
-    src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
-    alt="VAULT KHAZANA"
-    style={{
-      width: '140px',
-      height: 'auto',
-      maxHeight: '50px',
-      objectFit: 'contain'
-    }}
-  />
-</Link>
+        <Link to="/" className="header-logo">
+          <img
+            className="logo-mobile"
+            src={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
+            alt="VAULT KHAZANA"
+          />
+
+          <img
+            className="logo-desktop"
+            src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
+            alt="VAULT KHAZANA"
+          />
+        </Link>
 
         {/* DESKTOP NAVIGATION */}
         <nav className="header-nav desktop-nav">
