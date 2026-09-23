@@ -8,22 +8,39 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-container">
-        
+
         {/* FOOTER CONTENT */}
         <div className="footer-content">
-          
+
           {/* BRAND SECTION */}
           <div className="footer-section footer-brand">
-            <div className="footer-logo">
-              <span className="footer-vk">VK</span>
-              <span className="footer-name">VAULT KHAZANA</span>
-            </div>
+
+            <Link
+              to="/"
+              className="footer-logo"
+              aria-label="VAULT KHAZANA Home"
+            >
+              <img
+                className="footer-logo-mobile"
+                src={`${import.meta.env.BASE_URL}images/vault-khazana-vertical.png`}
+                alt="VAULT KHAZANA"
+              />
+
+              <img
+                className="footer-logo-desktop"
+                src={`${import.meta.env.BASE_URL}images/vault-khazana-horizontal.png`}
+                alt="VAULT KHAZANA"
+              />
+            </Link>
+
             <p className="footer-tagline">
               Packaging & Food-Service Supplies
             </p>
+
             <p className="footer-description">
               Trusted quality disposables delivered nationwide across Pakistan.
             </p>
+
           </div>
 
           {/* NAVIGATION SECTION */}
@@ -64,23 +81,28 @@ function Footer() {
           {/* CONTACT SECTION */}
           <div className="footer-section">
             <h4 className="footer-title">Contact</h4>
+
             <div className="footer-contact">
+
               <p>
                 <strong>Email:</strong><br />
                 <a href="mailto:info@vaultkhazana.com">
                   info@vaultkhazana.com
                 </a>
               </p>
+
               <p>
                 <strong>WhatsApp:</strong><br />
                 <a href="https://wa.me/923001234567">
                   +92 300 1234567
                 </a>
               </p>
+
               <p>
                 <strong>Location:</strong><br />
                 Islamabad, Pakistan
               </p>
+
             </div>
           </div>
 
@@ -89,9 +111,11 @@ function Footer() {
         {/* FOOTER BOTTOM */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
+
             <p className="footer-copyright">
               © {currentYear} VAULT KHAZANA. All rights reserved.
             </p>
+
             <div className="footer-legal">
               <Link to="/">Privacy Policy</Link>
               <span className="separator">•</span>
@@ -99,6 +123,7 @@ function Footer() {
               <span className="separator">•</span>
               <Link to="/">Shipping Policy</Link>
             </div>
+
           </div>
         </div>
 
