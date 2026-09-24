@@ -3,10 +3,69 @@ import { Link } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import './pages.css';
 
+const getDisplayPrice = (product) => {
+  const sellingUnit = product.sellingUnit || 'piece';
+  const packSize = product.packSize
+    ? Number(product.packSize)
+    : null;
+  const pricePerUnit = Number(product.pricePerUnit) || 0;
+
+  if (sellingUnit === 'pack' && packSize) {
+    return pricePerUnit / packSize;
+  }
+
+  return pricePerUnit;
+};
+
+const getDisplayUnit = (product) => {
+  const sellingUnit = product.sellingUnit || 'piece';
+
+  if (sellingUnit === 'kg') {
+    return 'kg';
+  }
+
+  return 'piece';
+};
+
+const getMinimumOrderLabel = (product) => {
+  const sellingUnit = product.sellingUnit || 'piece';
+  const moq = Number(product.moq) || 1;
+  const packSize = product.packSize
+    ? Number(product.packSize)
+    : null;
+
+  if (sellingUnit === 'pack' && packSize) {
+    const minimumPieces = moq * packSize;
+
+    return `Minimum ${minimumPieces} pieces`;
+  }
+
+  if (sellingUnit === 'kg') {
+    return `Minimum ${moq} kg`;
+  }
+
+  return `Minimum ${moq} ${
+    moq === 1 ? 'piece' : 'pieces'
+  }`;
+};
+
+const formatDisplayPrice = (price) => {
+  if (Number.isInteger(price)) {
+    return price.toLocaleString('en-PK');
+  }
+
+  return price.toLocaleString('en-PK', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
+
 function HomePage() {
 
   // Get featured products (best sellers)
-  const featuredProducts = PRODUCTS.filter(p => p.rating >= 4.7).slice(0, 8);
+  const featuredProducts = PRODUCTS.filter(
+    p => p.rating >= 4.7
+  ).slice(0, 8);
 
   // Get products by category for variety section
   const containerProducts = PRODUCTS.filter(
@@ -76,8 +135,13 @@ function HomePage() {
                 <div className="category-icon">{category.icon}</div>
 
                 <div>
-                  <h3 className="category-name">{category.name}</h3>
-                  <p className="category-desc">{category.description}</p>
+                  <h3 className="category-name">
+                    {category.name}
+                  </h3>
+
+                  <p className="category-desc">
+                    {category.description}
+                  </p>
                 </div>
 
                 <span className="category-arrow">→</span>
@@ -99,38 +163,45 @@ function HomePage() {
             </div>
 
             <div className="product-grid">
-              {featuredProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/product/${product.id}`}
-                  className="product-card"
-                >
-                  <div className="product-image">
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                    />
-                  </div>
+              {featuredProducts.map((product) => {
+                const displayPrice = getDisplayPrice(product);
+                const displayUnit = getDisplayUnit(product);
+                const minimumOrder = getMinimumOrderLabel(product);
 
-                  <div className="product-info">
-                    <p className="product-category">
-                      {product.categoryId}
-                    </p>
+                return (
+                  <Link
+                    key={product.id}
+                    to={`/product/${product.id}`}
+                    className="product-card"
+                  >
+                    <div className="product-image">
+                      <img
+                        src={product.images[0]}
+                        alt={product.name}
+                      />
+                    </div>
 
-                    <h3 className="product-name">
-                      {product.name}
-                    </h3>
+                    <div className="product-info">
+                      <p className="product-category">
+                        {product.categoryId}
+                      </p>
 
-                    <p className="product-price">
-                      Rs {product.price.toLocaleString()}
-                    </p>
+                      <h3 className="product-name">
+                        {product.name}
+                      </h3>
 
-                    <p className="product-pack">
-                      per {product.pack}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+                      <p className="product-price">
+                        Rs {formatDisplayPrice(displayPrice)}{' '}
+                        <span>per {displayUnit}</span>
+                      </p>
+
+                      <p className="product-pack">
+                        {minimumOrder}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
 
           </div>
@@ -148,38 +219,45 @@ function HomePage() {
             </div>
 
             <div className="product-grid">
-              {containerProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/product/${product.id}`}
-                  className="product-card"
-                >
-                  <div className="product-image">
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                    />
-                  </div>
+              {containerProducts.map((product) => {
+                const displayPrice = getDisplayPrice(product);
+                const displayUnit = getDisplayUnit(product);
+                const minimumOrder = getMinimumOrderLabel(product);
 
-                  <div className="product-info">
-                    <p className="product-category">
-                      {product.categoryId}
-                    </p>
+                return (
+                  <Link
+                    key={product.id}
+                    to={`/product/${product.id}`}
+                    className="product-card"
+                  >
+                    <div className="product-image">
+                      <img
+                        src={product.images[0]}
+                        alt={product.name}
+                      />
+                    </div>
 
-                    <h3 className="product-name">
-                      {product.name}
-                    </h3>
+                    <div className="product-info">
+                      <p className="product-category">
+                        {product.categoryId}
+                      </p>
 
-                    <p className="product-price">
-                      Rs {product.price.toLocaleString()}
-                    </p>
+                      <h3 className="product-name">
+                        {product.name}
+                      </h3>
 
-                    <p className="product-pack">
-                      per {product.pack}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+                      <p className="product-price">
+                        Rs {formatDisplayPrice(displayPrice)}{' '}
+                        <span>per {displayUnit}</span>
+                      </p>
+
+                      <p className="product-pack">
+                        {minimumOrder}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
 
           </div>
