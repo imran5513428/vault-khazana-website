@@ -15,12 +15,15 @@ function ProductDetailPage() {
   const [secondarySlide, setSecondarySlide] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [quantityError, setQuantityError] = useState('');
 
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
 
   const addToCart = useCartStore((state) => state.addToCart);
-  const quantity = useCartStore((state) => state.getQuantity(id));
+  const cartQuantity = useCartStore((state) =>
+    state.getQuantity(id)
+  );
 
   if (!product) {
     return (
@@ -40,8 +43,30 @@ function ProductDetailPage() {
 
   const category = getCategoryById(product.categoryId);
 
-  const isAluminumContainer =
-    product.categoryId === 'aluminum-containers';
+  /*
+   * PRODUCT SELLING RULES
+   *
+   * These values come directly from products.js.
+   * No category rules are hard-coded here.
+   */
+  const sellingUnit = product.sellingUnit || 'piece';
+  const moq = Number(product.moq) || 1;
+  const step = Number(product.step) || 1;
+  const packSize = product.packSize
+    ? Number(product.packSize)
+    : null;
+  const pricePerUnit = Number(product.pricePerUnit) || 0;
+
+  /*
+   * Start at the product's actual minimum order quantity.
+   *
+   * Food Containers / Aluminum:
+   * 50 → 75 → 100 → 125...
+   *
+   * Cutlery:
+   * 1 → 2 → 3 packs...
+   */
+  const [selectedQuantity, setSelectedQuantity] = useState(moq);
 
   const mainImage = product.images?.[0];
 
@@ -51,14 +76,7 @@ function ProductDetailPage() {
   /*
    * UNLIMITED PRODUCT IMAGE SYSTEM
    *
-   * products.js now controls the number of images.
-   * There is NO fixed 5-image or 6-image limit here.
-   *
-   * If a product has:
-   * 3 images → all 3 are shown
-   * 6 images → all 6 are shown
-   * 10 images → all 10 are shown
-   * 20 images → all 20 are shown
+   * products.js controls the number of images.
    */
   const galleryImages = product.images || [];
 
@@ -69,15 +87,146 @@ function ProductDetailPage() {
     (relatedProduct) => relatedProduct.id !== product.id
   );
 
+  /*
+   * Quantity label shown to the customer.
+   */
+  const getQuantityLabel = (value) => {
+    if (sellingUnit === 'kg') {
+      return `${value} kg`;
+    }
+
+    if (sellingUnit === 'pack') {
+      const packLabel = value === 1 ? 'pack' : 'packs';
+
+      if (packSize) {
+        const totalPieces = value * packSize;
+
+        return `${value} ${packLabel} (${totalPieces} pieces)`;
+      }
+
+      return `${value} ${packLabel}`;
+    }
+
+    return `${value} pieces`;
+  };
+
+  /*
+   * Price/unit label.
+   */
+  const getUnitLabel = () => {
+    if (sellingUnit === 'kg') {
+      return 'kg';
+    }
+
+    if (sellingUnit === 'pack') {
+      return 'pack';
+    }
+
+    return 'piece';
+  };
+
+  /*
+   * Add quantity according to the product's step.
+   */
+  const increaseQuantity = () => {
+    setQuantityError('');
+    setSelectedQuantity((current) => current + step);
+  };
+
+  /*
+   * Reduce quantity according to the product's step.
+   *
+   * MOQ is the lower limit.
+   * The Remove action in the cart is used to delete
+   * the product completely.
+   */
+  const decreaseQuantity = () => {
+    setQuantityError('');
+
+    setSelectedQuantity((current) => {
+      const next = current - step;
+
+      return next < moq ? moq : next;
+    });
+  };
+
+  /*
+   * Direct quantity entry.
+   *
+   * Only valid quantities are accepted.
+   *
+   * Example for MOQ 50 / step 25:
+   * 50, 75, 100, 125 = valid
+   * 51, 52, 74, 76 = invalid
+   */
+  const handleQuantityChange = (event) => {
+    const value = event.target.value;
+
+    if (value === '') {
+      setQuantityError('');
+      return;
+    }
+
+    const numericValue = Number(value);
+
+    if (!Number.isInteger(numericValue)) {
+      setQuantityError('Please enter a whole number.');
+      return;
+    }
+
+    if (numericValue < moq) {
+      setQuantityError(
+        `Minimum order is ${moq} ${
+          sellingUnit === 'kg'
+            ? 'kg'
+            : sellingUnit === 'pack'
+            ? 'pack'
+            : 'pieces'
+        }.`
+      );
+      return;
+    }
+
+    if ((numericValue - moq) % step !== 0) {
+      setQuantityError(
+        step > 1
+          ? `Please use quantities of ${moq}, ${moq + step}, ${
+              moq + step * 2
+            }, and so on.`
+          : 'Please enter a valid quantity.'
+      );
+      return;
+    }
+
+    setQuantityError('');
+    setSelectedQuantity(numericValue);
+  };
+
   const handleAddToCart = () => {
+    setQuantityError('');
     setIsAdding(true);
 
     setTimeout(() => {
-      addToCart(product.id);
+      const result = addToCart(
+        product.id,
+        selectedQuantity
+      );
+
       setIsAdding(false);
+
+      if (!result?.success) {
+        setQuantityError(
+          result?.error ||
+            'Unable to add this product to the cart.'
+        );
+        return;
+      }
+
       setIsAdded(true);
 
-      setTimeout(() => setIsAdded(false), 2000);
+      setTimeout(() => {
+        setIsAdded(false);
+      }, 2000);
     }, 300);
   };
 
@@ -165,8 +314,10 @@ function ProductDetailPage() {
     const touchEndX = event.changedTouches[0].clientX;
     const touchEndY = event.changedTouches[0].clientY;
 
-    const distanceX = touchEndX - touchStartX.current;
-    const distanceY = touchEndY - touchStartY.current;
+    const distanceX =
+      touchEndX - touchStartX.current;
+    const distanceY =
+      touchEndY - touchStartY.current;
 
     touchStartX.current = null;
     touchStartY.current = null;
@@ -188,46 +339,10 @@ function ProductDetailPage() {
     galleryImages[secondarySlide];
 
   /*
-   * Aluminum containers:
-   * Main product detail shows the actual purchasable
-   * 50-piece pack price.
-   *
-   * Other products/categories continue using their
-   * existing product.price value.
+   * Price shown on the product page now comes from
+   * the canonical selling structure.
    */
-  const detailPrice = isAluminumContainer
-    ? product.packPrice
-    : product.price;
-
-  const detailPackText = product.pack;
-
-  /*
-   * Aluminum single-piece price.
-   *
-   * Prices are now rounded whole numbers.
-   * Example:
-   * 19.8 → Rs 20
-   * 29.5 → Rs 30
-   * 40.8 → Rs 41
-   * 84 → Rs 84
-   */
-  const getRelatedProductPrice = (relatedProduct) => {
-    if (
-      relatedProduct.categoryId ===
-      'aluminum-containers'
-    ) {
-      return `Rs ${Math.round(
-        Number(
-          relatedProduct.unitPrice ??
-            relatedProduct.price
-        )
-      ).toLocaleString('en-PK')}`;
-    }
-
-    return `Rs ${relatedProduct.price.toLocaleString(
-      'en-PK'
-    )}`;
-  };
+  const detailPrice = pricePerUnit;
 
   return (
     <div className="product-detail-page">
@@ -465,40 +580,34 @@ function ProductDetailPage() {
               <div className="product-pricing-section">
 
                 <p className="product-price">
-                  {isAluminumContainer
-                    ? `Rs ${Number(
-                        detailPrice
-                      ).toLocaleString('en-PK')}`
-                    : `Rs ${product.price.toLocaleString(
-                        'en-PK'
-                      )}`}
+                  Rs{' '}
+                  {detailPrice.toLocaleString(
+                    'en-PK',
+                    {
+                      maximumFractionDigits: 2
+                    }
+                  )}
                 </p>
 
                 <p className="product-pack-info">
-                  per {detailPackText}
+                  per {getUnitLabel()}
                 </p>
 
-                {isAluminumContainer && (
-                  <p className="product-unit-price">
-                    Rs {Math.round(
-                      Number(
-                        product.unitPrice ??
-                          product.price
-                      )
-                    ).toLocaleString('en-PK')}{' '}
-                    per piece
-                  </p>
-                )}
+                {sellingUnit === 'pack' &&
+                  packSize && (
+                    <p className="product-unit-price">
+                      1 pack = {packSize} pieces
+                    </p>
+                  )}
 
               </div>
+
+              {/* ===== STOCK STATUS ===== */}
 
               <div className="stock-status">
                 {product.inStock ? (
                   <span className="in-stock">
                     ✓ In Stock
-                    {product.stockCount
-                      ? ` (${product.stockCount} available)`
-                      : ''}
                   </span>
                 ) : (
                   <span className="out-of-stock">
@@ -507,11 +616,92 @@ function ProductDetailPage() {
                 )}
               </div>
 
+              {/* ===== QUANTITY + ADD TO CART ===== */}
+
               <div className="add-to-cart-section">
+
+                <div className="product-quantity-section">
+
+                  <label
+                    htmlFor="product-quantity"
+                    className="quantity-label"
+                  >
+                    Quantity
+                  </label>
+
+                  <div className="quantity-controls">
+
+                    <button
+                      type="button"
+                      className="qty-btn"
+                      onClick={decreaseQuantity}
+                      disabled={
+                        selectedQuantity <= moq ||
+                        isAdding ||
+                        !product.inStock
+                      }
+                      aria-label="Decrease quantity"
+                    >
+                      −
+                    </button>
+
+                    <input
+                      id="product-quantity"
+                      type="number"
+                      value={selectedQuantity}
+                      onChange={handleQuantityChange}
+                      min={moq}
+                      step={step}
+                      inputMode="numeric"
+                      className="qty-input"
+                      disabled={
+                        isAdding || !product.inStock
+                      }
+                      aria-describedby={
+                        quantityError
+                          ? 'quantity-error'
+                          : undefined
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      className="qty-btn"
+                      onClick={increaseQuantity}
+                      disabled={
+                        isAdding || !product.inStock
+                      }
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                  <p className="quantity-help">
+                    Minimum: {getQuantityLabel(moq)}
+                    {step > 1 &&
+                      ` • Add in steps of ${step}`}
+                  </p>
+
+                  {quantityError && (
+                    <p
+                      id="quantity-error"
+                      className="quantity-error"
+                      role="alert"
+                    >
+                      {quantityError}
+                    </p>
+                  )}
+
+                </div>
+
                 <button
                   onClick={handleAddToCart}
                   disabled={
-                    !product.inStock || isAdding
+                    !product.inStock ||
+                    isAdding ||
+                    Boolean(quantityError)
                   }
                   className={`btn btn-accent btn-lg add-to-cart-btn ${
                     isAdded ? 'added' : ''
@@ -529,12 +719,12 @@ function ProductDetailPage() {
                     '✓ Added to Cart!'}
                 </button>
 
-                {quantity > 0 && (
+                {cartQuantity > 0 && (
                   <p className="cart-qty">
-                    {quantity} item
-                    {quantity > 1 ? 's' : ''} in cart
+                    {getQuantityLabel(cartQuantity)} in cart
                   </p>
                 )}
+
               </div>
 
               <div className="product-section">
@@ -679,21 +869,31 @@ function ProductDetailPage() {
                       </h3>
 
                       <p className="product-price">
-                        {getRelatedProductPrice(
-                          relatedProduct
-                        )}
+                        Rs{' '}
+                        {Number(
+                          relatedProduct.pricePerUnit ??
+                            relatedProduct.price ??
+                            0
+                        ).toLocaleString('en-PK', {
+                          maximumFractionDigits: 2
+                        })}
                       </p>
 
                       <p className="product-pack">
-                        {relatedProduct.categoryId ===
-                        'aluminum-containers'
-                          ? 'per piece'
-                          : `per ${relatedProduct.pack}`}
+                        per{' '}
+                        {relatedProduct.sellingUnit ===
+                        'kg'
+                          ? 'kg'
+                          : relatedProduct.sellingUnit ===
+                            'pack'
+                          ? 'pack'
+                          : 'piece'}
                       </p>
                     </div>
                   </Link>
                 )
               )}
+
             </div>
 
           </div>
