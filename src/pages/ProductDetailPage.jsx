@@ -339,10 +339,25 @@ function ProductDetailPage() {
     galleryImages[secondarySlide];
 
   /*
-   * Price shown on the product page now comes from
-   * the canonical selling structure.
+   * DISPLAY PRICE
+   *
+   * For fixed-size packs such as paper cups:
+   *
+   * pricePerUnit = full pack price
+   * packSize = number of pieces in the pack
+   *
+   * Example:
+   * Rs 450 / 100 pieces
+   * = Rs 4.50 per piece
+   *
+   * The cart still uses the full pack price.
    */
-  const detailPrice = pricePerUnit;
+  const displayUnitPrice =
+    sellingUnit === 'pack' && packSize
+      ? pricePerUnit / packSize
+      : pricePerUnit;
+
+  const packPrice = pricePerUnit;
 
   return (
     <div className="product-detail-page">
@@ -581,22 +596,36 @@ function ProductDetailPage() {
 
                 <p className="product-price">
                   Rs{' '}
-                  {detailPrice.toLocaleString(
+                  {displayUnitPrice.toLocaleString(
                     'en-PK',
                     {
+                      minimumFractionDigits:
+                        sellingUnit === 'pack' &&
+                        packSize
+                          ? 2
+                          : 0,
                       maximumFractionDigits: 2
                     }
                   )}
                 </p>
 
                 <p className="product-pack-info">
-                  per {getUnitLabel()}
+                  per{' '}
+                  {sellingUnit === 'pack' && packSize
+                    ? 'piece'
+                    : getUnitLabel()}
                 </p>
 
                 {sellingUnit === 'pack' &&
                   packSize && (
                     <p className="product-unit-price">
-                      1 pack = {packSize} pieces
+                      {packSize} pieces = Rs{' '}
+                      {packPrice.toLocaleString(
+                        'en-PK',
+                        {
+                          maximumFractionDigits: 2
+                        }
+                      )}
                     </p>
                   )}
 
