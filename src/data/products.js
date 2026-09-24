@@ -971,9 +971,9 @@ export const PRODUCTS = [
     pack: '50 pieces',
     sellingUnit: 'piece',
     moq: 50,
-    step: 1,
+    step: 25,
     packSize: null,
-    pricePerUnit: 550,
+    pricePerUnit: 11,
     material: 'Transparent plastic',
     suitableFor: 'Juice, milkshakes, smoothies, cold beverages',
     overview: 'Clear plastic glass designed to showcase and serve a range of cold beverages.',
@@ -993,9 +993,9 @@ export const PRODUCTS = [
     pack: '50 pieces',
     sellingUnit: 'piece',
     moq: 50,
-    step: 1,
+    step: 25,
     packSize: null,
-    pricePerUnit: 700,
+    pricePerUnit: 14,
     material: 'Transparent plastic',
     suitableFor: 'Smoothies, iced coffee, milkshakes, cold beverages',
     overview: 'Large transparent plastic glass for generous servings of cold beverages.',
@@ -1015,259 +1015,9 @@ export const PRODUCTS = [
     pack: '50 pieces',
     sellingUnit: 'piece',
     moq: 50,
-    step: 1,
+    step: 25,
     packSize: null,
-    pricePerUnit: 850,
+    pricePerUnit: 17,
     material: 'Transparent plastic',
     suitableFor: 'Large smoothies, shakes, specialty cold drinks',
-    overview: 'Extra-large transparent plastic glass for generous specialty beverage servings.',
-    description: 'A 20OZ clear glass designed for large smoothies, shakes and specialty cold drinks.',
-    idealFor: 'Juice bars, cafés, restaurants, beverage businesses and events.',
-    inStock: true
-  },
-
-  {
-    id: '12oz-plastic-glass-dome-lid',
-    categoryId: 'cups-drinkware',
-    name: '12OZ Plastic Glass with Dome Lid',
-    slug: '12oz-plastic-glass-dome-lid',
-    imageSlug: '12oz-plastic-glass-dome-lid',
-    capacity: '12OZ (Approx. 350ML)',
-    price: 1150,
-    pack: '50 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 1,
-    packSize: null,
-    pricePerUnit: 1150,
-    material: 'Transparent plastic',
-    lid: 'Dome lid included',
-    suitableFor: 'Fresh juice, milkshakes, smoothies, slushes & falooda',
-    overview: 'Transparent plastic glass with dome lid for attractive and convenient cold beverage service.',
-    description: 'A 12OZ glass with dome lid, suitable for juices, milkshakes, smoothies, slushes and falooda.',
-    idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
-    inStock: true
-  },
-
-  {
-    id: '16oz-plastic-glass-dome-lid',
-    categoryId: 'cups-drinkware',
-    name: '16OZ Plastic Glass with Dome Lid',
-    slug: '16oz-plastic-glass-dome-lid',
-    imageSlug: '16oz-plastic-glass-dome-lid',
-    capacity: '16OZ (Approx. 480ML)',
-    price: 1425,
-    pack: '50 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 1,
-    packSize: null,
-    pricePerUnit: 1425,
-    material: 'Transparent plastic',
-    lid: 'Dome lid included',
-    suitableFor: 'Smoothies, iced coffee, milkshakes, cold beverages',
-    overview: 'Large transparent plastic glass with dome lid for generous cold beverage servings.',
-    description: 'A 16OZ glass with dome lid suitable for smoothies, iced coffee, milkshakes and other cold beverages.',
-    idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
-    inStock: true
-  },
-
-  /* =========================================================
-     ALUMINUM CONTAINERS
-     ========================================================= */
-
-  {
-    id: 'f1-aluminum-container',
-    categoryId: 'aluminum-containers',
-    name: 'F1 Aluminum Container with Lid',
-    slug: 'f1-aluminum-container-with-lid',
-    imageSlug: 'f1-aluminum-container-with-lid',
-    imageSuffixes: [
-      'main',
-      'food',
-      'open',
-      'dimension',
-      'cinematic',
-      'catalogue'
-    ],
-    dimensions: '5 × 4 × 2 inches',
-    capacity: 'Approximately 450ml',
-    price: 20,
-    unitPrice: 20,
-    packPrice: 990,
-    pack: '50 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 20,
-    material: 'Food-grade aluminum foil',
-    lid: 'Secure-fitting lid included',
-    shape: 'Rectangular',
-    weight: 'Approximately 5.7–6g',
-    suitableFor: 'Rice, pasta, lasagna, curries, brownies, desserts, salads and frozen meals',
-    overview: 'Compact single-serve aluminum container with lid, designed for everyday takeaway portions, baking and food storage.',
-    description: 'A practical foil container for individual servings and smaller portions. Suitable for takeaway, delivery, meal preparation, baking and food storage.',
-    idealFor: 'Restaurants, cafés, cloud kitchens, home cooks and catering of small portions.',
-    inStock: true
-  },
-
-  {
-    id: 'f2-aluminum-container',
-    categoryId: 'aluminum-containers',
-    name: 'F2 Aluminum Container with Lid',
-    slug: 'f2-aluminum-container-with-lid',
-    imageSlug: 'f2-aluminum-container-with-lid',
-    imageSuffixes: [
-      'main',
-      'food',
-      'open',
-      'dimension',
-      'cinematic',
-      'catalogue'
-    ],
-    dimensions: '8 × 4 × 2.5 inches',
-    capacity: 'Approximately 750–900ml',
-    price: 30,
-    unitPrice: 30,
-    packPrice: 1475,
-    pack: '50 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 30,
-    material: 'Food-grade aluminum foil',
-    lid: 'Secure-fitting lid included',
-    shape: 'Rectangular',
-    weight: 'Approximately 8–9g',
-    suitableFor: 'Rice, pasta, lasagna, biryani, baked goods, frozen meals and side dishes',
-    overview: 'Medium versatile foil container designed for generous single servings and everyday takeaway use.',
-    description: 'A practical aluminum container for takeaway, baking, meal preparation and food storage.',
-    idealFor: 'Restaurants, cafés, cloud kitchens, caterers and home cooks.',
-    inStock: true
-  },
-
-  {
-    id: 'f3-aluminum-container',
-    categoryId: 'aluminum-containers',
-    name: 'F3 Aluminum Container with Lid',
-    slug: 'f3-aluminum-container-with-lid',
-    imageSlug: 'f3-aluminum-container-with-lid',
-    imageSuffixes: [
-      'main',
-      'food',
-      'open',
-      'dimension',
-      'cinematic',
-      'catalogue'
-    ],
-    dimensions: '8.5 × 6 × 2 inches',
-    capacity: 'Approximately 1100–1500ml',
-    price: 41,
-    unitPrice: 41,
-    packPrice: 2040,
-    pack: '50 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 41,
-    material: 'Food-grade aluminum foil',
-    lid: 'Secure-fitting lid included',
-    shape: 'Rectangular',
-    weight: 'Approximately 12g',
-    suitableFor: 'Family portions, sharing meals, lasagna, pasta bakes, curries, roasted dishes, brownies and bulk frozen storage',
-    overview: 'Large family-style foil tray for generous portions, catering and meal preparation.',
-    description: 'A strong aluminum container with reinforced walls, suitable for baking, takeaway, food storage and catering.',
-    idealFor: 'Family meals, catering, restaurants, cloud kitchens and meal-prep businesses.',
-    inStock: true
-  },
-
-  {
-    id: 'f4-aluminum-container',
-    categoryId: 'aluminum-containers',
-    name: 'F4 Aluminum Container with Lid',
-    slug: 'f4-aluminum-container-with-lid',
-    imageSlug: 'f4-aluminum-container-with-lid',
-    imageSuffixes: [
-      'main',
-      'food',
-      'open',
-      'dimension',
-      'cinematic',
-      'catalogue'
-    ],
-    dimensions: '9.5 × 9.5 × 2 inches',
-    capacity: 'Approximately 1750ml',
-    price: 84,
-    unitPrice: 84,
-    packPrice: 4200,
-    pack: '50 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 84,
-    material: 'Food-grade aluminum foil',
-    lid: 'Secure-fitting lid included',
-    shape: 'Rectangular',
-    weight: 'Approximately 17g',
-    suitableFor: 'Family meals, party platters, catering trays, lasagna, pasta, rice, roasted meats, desserts and bulk freezing',
-    overview: 'Extra-large foil container designed for maximum capacity, sharing and catering.',
-    description: 'A heavy-duty aluminum container suitable for large meals, catering, baking, takeaway and freezer storage.',
-    idealFor: 'Catering businesses, restaurants, cloud kitchens, events and large family portions.',
-    inStock: true
-  }
-];
-
-PRODUCTS.forEach((product) => {
-  product.images = getProductImages(
-    product.imageSlug,
-    product.imageSuffixes
-  );
-});
-
-/* ===== UTILITY FUNCTIONS ===== */
-
-export const getProductById = (productId) => {
-  return PRODUCTS.find((product) => product.id === productId);
-};
-
-export const getProductsByCategory = (categoryId) => {
-  return PRODUCTS.filter(
-    (product) => product.categoryId === categoryId
-  );
-};
-
-export const getCategoryById = (categoryId) => {
-  return CATEGORIES.find(
-    (category) => category.id === categoryId
-  );
-};
-
-export const getCategoryBySlug = (slug) => {
-  return CATEGORIES.find(
-    (category) => category.slug === slug
-  );
-};
-
-export const formatPrice = (price) => {
-  return new Intl.NumberFormat('en-PK', {
-    style: 'currency',
-    currency: 'PKR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(Math.round(price));
-};
-
-export const searchProducts = (query) => {
-  const lowerQuery = query.toLowerCase();
-
-  return PRODUCTS.filter(
-    (product) =>
-      product.name.toLowerCase().includes(lowerQuery) ||
-      product.description.toLowerCase().includes(lowerQuery) ||
-      product.overview.toLowerCase().includes(lowerQuery)
-  );
-};
+    overview: 'Extra-large
