@@ -35,12 +35,18 @@ const getQuantityError = (quantity, rules) => {
   }
 
   if (qty < rules.moq) {
+    if (rules.sellingUnit === 'pack' && rules.packSize) {
+      const minimumPieces = rules.moq * Number(rules.packSize);
+
+      return `Minimum order is ${minimumPieces} pieces (${rules.moq} pack).`;
+    }
+
+    if (rules.sellingUnit === 'kg') {
+      return `Minimum order is ${rules.moq} kg.`;
+    }
+
     return `Minimum order is ${rules.moq} ${
-      rules.sellingUnit === 'pack'
-        ? 'pack'
-        : rules.sellingUnit === 'kg'
-          ? 'kg'
-          : 'pieces'
+      rules.moq === 1 ? 'piece' : 'pieces'
     }.`;
   }
 
@@ -94,39 +100,39 @@ const useCartStore = create(
         const product = getProductById(productId);
         const rules = getProductRules(product);
 
-        if (!product || !rules) return false;
+        if (!product || !rules) {
+          return {
+            success: false,
+            error: 'Product information is unavailable.'
+          };
+        }
 
         const requestedQuantity =
           quantity === undefined ? rules.moq : Number(quantity);
 
         if (!isValidQuantity(requestedQuantity, rules)) {
-          return false;
+          return {
+            success: false,
+            error: getQuantityError(requestedQuantity, rules)
+          };
         }
 
-        set((state) => {
-          const existingItem = state.items.find(
-            (item) => item.productId === productId
-          );
+        const existingItem = get().items.find(
+          (item) => item.productId === productId
+        );
 
-          if (!existingItem) {
+        if (existingItem) {
+          const newQuantity =
+            Number(existingItem.quantity) + requestedQuantity;
+
+          if (!isValidQuantity(newQuantity, rules)) {
             return {
-              items: [
-                ...state.items,
-                {
-                  productId,
-                  quantity: requestedQuantity
-                }
-              ]
+              success: false,
+              error: getQuantityError(newQuantity, rules)
             };
           }
 
-          const newQuantity = existingItem.quantity + requestedQuantity;
-
-          if (!isValidQuantity(newQuantity, rules)) {
-            return state;
-          }
-
-          return {
+          set((state) => ({
             items: state.items.map((item) =>
               item.productId === productId
                 ? {
@@ -135,10 +141,28 @@ const useCartStore = create(
                   }
                 : item
             )
-          };
-        });
+          }));
 
-        return true;
+          return {
+            success: true,
+            error: ''
+          };
+        }
+
+        set((state) => ({
+          items: [
+            ...state.items,
+            {
+              productId,
+              quantity: requestedQuantity
+            }
+          ]
+        }));
+
+        return {
+          success: true,
+          error: ''
+        };
       },
 
       removeFromCart: (productId) => {
