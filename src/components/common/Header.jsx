@@ -8,9 +8,9 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-  const cartCount = useCartStore((state) => {
-    return state.items.reduce((total, item) => total + item.quantity, 0);
-  });
+  const cartCount = useCartStore((state) =>
+    state.getCartCount()
+  );
 
   return (
     <header className="site-header">
@@ -85,7 +85,9 @@ function Header() {
 
           <button
             className="mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() =>
+              setMobileMenuOpen(!mobileMenuOpen)
+            }
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? '✕' : '☰'}
@@ -115,7 +117,9 @@ function Header() {
             }
           >
             Categories{' '}
-            {activeDropdown === 'categories' ? '▲' : '▼'}
+            {activeDropdown === 'categories'
+              ? '▲'
+              : '▼'}
           </button>
 
           {activeDropdown === 'categories' && (
@@ -125,7 +129,9 @@ function Header() {
                   key={category.id}
                   to={`/category/${category.slug}`}
                   className="mobile-dropdown-item"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() =>
+                    setMobileMenuOpen(false)
+                  }
                 >
                   {category.icon} {category.name}
                 </Link>
