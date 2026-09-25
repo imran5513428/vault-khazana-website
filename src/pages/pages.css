@@ -208,7 +208,7 @@ width: 100%;
 height: 100%;
 object-fit: cover;
 object-position: center;
-background-color: #111827;
+background-color: transparent;
 border-radius: 8px;
 }
 
