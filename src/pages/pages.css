@@ -208,7 +208,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  background-color: #111827;
+  background-color: transparent;
   border-radius: 8px;
 }
 
@@ -1196,3 +1196,5 @@
     transform: none;
   }
 }
+
+After deployment, hard-refresh the live site and check the hero video. Don't make any other code change yet.
