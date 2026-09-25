@@ -712,7 +712,7 @@ padding: 0 var(--spacing-sm);
 /* ===== COMPACT MOBILE HERO ===== */
 
 .home-page .hero {
-padding: 20px 0 18px;
+padding: 12px 0 10px;
 }
 
 .home-page .hero-container {
@@ -761,11 +761,11 @@ display: none;
 
 .home-page .hero-visual {
 display: flex;
-margin-top: 18px;
+margin-top: 8px;
 }
 
 .home-page .hero-video-frame {
-width: min(100%, 280px);
+width: min(100%, 210px);
 aspect-ratio: 2 / 3;
 }
 
@@ -969,7 +969,7 @@ padding: 0 var(--spacing-md);
 }
 
 .home-page .hero {
-padding: 24px 0 22px;
+padding: 16px 0 14px;
 }
 
 .home-page .hero-container {
@@ -978,11 +978,11 @@ display: block;
 
 .home-page .hero-visual {
 display: flex;
-margin-top: 22px;
+margin-top: 14px;
 }
 
 .home-page .hero-video-frame {
-width: min(100%, 300px);
+width: min(100%, 270px);
 aspect-ratio: 2 / 3;
 }
 
