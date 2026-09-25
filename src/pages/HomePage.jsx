@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import './pages.css';
@@ -61,6 +61,17 @@ const formatDisplayPrice = (price) => {
 };
 
 function HomePage() {
+  const videoRef = useRef(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleVideoSound = () => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
 
   // Get featured products (best sellers)
   const featuredProducts = PRODUCTS.filter(
@@ -84,7 +95,9 @@ function HomePage() {
 
             <h1 className="hero-title">
               Everything you need,
-              <span className="hero-accent"> all in one place.</span>
+              <span className="hero-accent">
+                {' '}all in one place.
+              </span>
             </h1>
 
             <p className="hero-description">
@@ -111,38 +124,45 @@ function HomePage() {
           </div>
 
           {/* HERO VIDEO */}
-          <div
-            className="hero-visual"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden'
-            }}
-          >
-            <video
-              className="hero-video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-label="VAULT KHAZANA packaging and food-service supplies"
-              style={{
-                display: 'block',
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                objectPosition: 'center',
-                borderRadius: 'inherit'
-              }}
-            >
-              <source
-                src={`${import.meta.env.BASE_URL}images/vault-khazana-hero-video.mp4`}
-                type="video/mp4"
-              />
-              Your browser does not support the video element.
-            </video>
+          <div className="hero-visual">
+            <div className="hero-video-frame">
+
+              <video
+                ref={videoRef}
+                className="hero-video"
+                autoPlay
+                muted={isMuted}
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="VAULT KHAZANA packaging and food-service supplies"
+              >
+                <source
+                  src={`${import.meta.env.BASE_URL}images/vault-khazana-hero-video.mp4`}
+                  type="video/mp4"
+                />
+                Your browser does not support the video element.
+              </video>
+
+              <button
+                type="button"
+                className="hero-video-sound"
+                onClick={toggleVideoSound}
+                aria-label={
+                  isMuted
+                    ? 'Turn video sound on'
+                    : 'Turn video sound off'
+                }
+                title={
+                  isMuted
+                    ? 'Turn sound on'
+                    : 'Turn sound off'
+                }
+              >
+                {isMuted ? '🔇' : '🔊'}
+              </button>
+
+            </div>
           </div>
 
         </div>
