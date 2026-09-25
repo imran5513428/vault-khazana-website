@@ -93,25 +93,56 @@ function HomePage() {
             </p>
 
             <div className="hero-actions">
-              <Link to="/" className="hero-button hero-button-primary">
+              <Link
+                to="/"
+                className="hero-button hero-button-primary"
+              >
                 Shop Products
                 <span className="button-arrow">→</span>
               </Link>
 
-              <Link to="/" className="hero-button hero-button-secondary">
+              <Link
+                to="/"
+                className="hero-button hero-button-secondary"
+              >
                 Wholesale Supply
               </Link>
             </div>
           </div>
 
-          {/* HERO VISUAL */}
-          <div className="hero-visual">
-            <div className="hero-placeholder">
-              <div className="placeholder-content">
-                <span className="placeholder-icon">📦</span>
-                <p>Quality Packaging Supplies</p>
-              </div>
-            </div>
+          {/* HERO VIDEO */}
+          <div
+            className="hero-visual"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden'
+            }}
+          >
+            <video
+              className="hero-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="VAULT KHAZANA packaging and food-service supplies"
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'center',
+                borderRadius: 'inherit'
+              }}
+            >
+              <source
+                src={`${import.meta.env.BASE_URL}images/vault-khazana-hero-video.mp4`}
+                type="video/mp4"
+              />
+              Your browser does not support the video element.
+            </video>
           </div>
 
         </div>
@@ -132,7 +163,9 @@ function HomePage() {
                 to={`/category/${category.slug}`}
                 className="category-card"
               >
-                <div className="category-icon">{category.icon}</div>
+                <div className="category-icon">
+                  {category.icon}
+                </div>
 
                 <div>
                   <h3 className="category-name">
@@ -326,7 +359,10 @@ function HomePage() {
               a restaurant, bakery, café or growing operation.
             </p>
 
-            <a href="/" className="btn btn-primary btn-lg">
+            <a
+              href="/"
+              className="btn btn-primary btn-lg"
+            >
               Get Wholesale Quote
             </a>
           </div>
@@ -385,7 +421,10 @@ function HomePage() {
               bulk orders or product guidance.
             </p>
 
-            <a href="/" className="btn btn-accent btn-lg">
+            <a
+              href="/"
+              className="btn btn-accent btn-lg"
+            >
               Contact Us
             </a>
           </div>
