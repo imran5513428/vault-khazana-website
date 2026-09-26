@@ -115,7 +115,7 @@ return (
       <div className="hero-visual">
         <div className="hero-video-frame">
           <img
-            src={`${import.meta.env.BASE_URL}images/vault-khazana-hero.jpg`}
+            src={`${import.meta.env.BASE_URL}images/vault-khazana-hero.png`}
             className="hero-video"
             alt="VAULT KHAZANA packaging and food-service supplies"
           />
