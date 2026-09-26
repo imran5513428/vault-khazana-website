@@ -1,4 +1,6 @@
-const getProductImages = (
+import { getProductImages } from './productImages';
+
+const getLegacyProductImages = (
   imageSlug,
   imageSuffixes = ['main', 'food', 'open']
 ) => {
@@ -1223,8 +1225,11 @@ export const PRODUCTS = [
 
 PRODUCTS.forEach((product) => {
   product.images = getProductImages(
-    product.imageSlug,
-    product.imageSuffixes
+    product.id,
+    getLegacyProductImages(
+      product.imageSlug,
+      product.imageSuffixes
+    )
   );
 });
 
