@@ -92,36 +92,6 @@ export const CATEGORIES = [
 
 export const PRODUCTS = [
   {
-    id: 'h1-6x4',
-    categoryId: 'food-containers',
-    name: 'H1 Box 6×4×2in',
-    slug: 'h1-6x4-clear-food-storage',
-    imageSlug: 'h1-plastic-box-folding-lid',
-    dimensions: '6 × 4 × 2 inches',
-    capacity: '400ml',
-    price: 750,
-    pack: '100 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 7.5,
-    material: 'Polypropylene (PP) — clear plastic',
-    shape: 'Rectangular',
-    lid: 'Folding lid included',
-    colour: 'Transparent',
-    overview: 'Larger H1 variant for bigger portions and mixed items.',
-    description: 'Spacious rectangular box with folding lid.',
-    suitableFor: 'Larger portions, combo meals, mixed foods.',
-    idealFor: 'Premium food packaging and catering.',
-    recommendation: 'Popular for premium packaging.',
-    inStock: true,
-    stockCount: 900,
-    rating: 4.7,
-    reviews: 124
-  },
-
-  {
     id: 'h3',
     categoryId: 'food-containers',
     name: 'H3 Box 8×5×2.5in',
@@ -239,36 +209,6 @@ export const PRODUCTS = [
     stockCount: 700,
     rating: 4.6,
     reviews: 78
-  },
-
-  {
-    id: '450ml-r16',
-    categoryId: 'food-containers',
-    name: '450ml R16 Clear Round Food Container',
-    slug: '450ml-r16-round-container',
-    imageSlug: '450ml-r16-clear-round-container',
-    dimensions: '450ml capacity',
-    capacity: '450ml',
-    price: 2200,
-    pack: '1000 pieces',
-    sellingUnit: 'piece',
-    moq: 50,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 22,
-    material: 'Polypropylene (PP)',
-    shape: 'Round',
-    lid: 'Included',
-    colour: 'Transparent',
-    overview: 'Popular R16 round container for bulk food service operations.',
-    description: 'Professional round container, bulk pricing available.',
-    suitableFor: 'Noodles, rice, curries, assembled meals.',
-    idealFor: 'High-volume food service and delivery.',
-    recommendation: 'Best value for bulk orders.',
-    inStock: true,
-    stockCount: 1000,
-    rating: 4.7,
-    reviews: 145
   },
 
   {
