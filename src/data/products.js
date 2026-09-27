@@ -1443,7 +1443,15 @@ export const PRODUCTS = [
   }
 ];
 
+/* =========================================================
+   APPROVED STORE STANDARD
+   All products are shown as In Stock.
+   No individual inventory quantities are used.
+   ========================================================= */
+
 PRODUCTS.forEach((product) => {
+  product.inStock = true;
+
   product.images = getProductImages(
     product.id,
     getLegacyProductImages(
