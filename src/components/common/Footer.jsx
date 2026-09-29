@@ -87,8 +87,8 @@ function Footer() {
 
               <p>
                 <strong>WhatsApp:</strong><br />
-                <a href="https://wa.me/923001234567">
-                  +92 300 1234567
+                <a href="https://wa.me/923335513428">
+                  +92 333 5513428
                 </a>
               </p>
 
