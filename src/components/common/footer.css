@@ -23,8 +23,8 @@
   width: 100%;
   min-width: 0;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: 40px;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+  gap: 32px;
   box-sizing: border-box;
 }
 
@@ -81,11 +81,6 @@
 
 /* ===== FOOTER HEADINGS ===== */
 
-/*
-   Footer JSX uses .footer-title.
-   Do not use .footer-section h3 here.
-*/
-
 .footer-title {
   margin: 0 0 14px;
   color: #ffffff;
@@ -95,11 +90,6 @@
 }
 
 /* ===== FOOTER NAVIGATION ===== */
-
-/*
-   Footer JSX uses .footer-nav.
-   Links are direct children, not ul/li elements.
-*/
 
 .footer-nav {
   display: flex;
@@ -185,7 +175,7 @@
 
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 26px;
+    gap: 22px;
   }
 
   .footer-section {
@@ -200,7 +190,7 @@
   .footer-logo {
     width: 110px;
     max-width: 110px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .footer-logo-image {
@@ -209,7 +199,7 @@
   }
 
   .footer-tagline {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .footer-description {
@@ -217,11 +207,11 @@
   }
 
   .footer-title {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .footer-nav {
-    gap: 8px;
+    gap: 7px;
   }
 
   .footer-nav a {
@@ -229,22 +219,31 @@
   }
 
   .footer-bottom {
-    margin-top: 28px;
+    margin-top: 24px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
+    gap: 12px;
   }
 
   .footer-legal {
-    gap: 12px;
+    gap: 10px;
   }
 }
 
 /* ============================================
-   TABLET / DESKTOP
+   TABLET
    ============================================ */
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
 
   .footer-logo {
     width: 160px;
@@ -258,7 +257,7 @@
 }
 
 /* ============================================
-   LARGE DESKTOP
+   DESKTOP
    ============================================ */
 
 @media (min-width: 1024px) {
@@ -269,7 +268,8 @@
   }
 
   .footer-content {
-    gap: 50px;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+    gap: 38px;
   }
 
   .footer-logo {
