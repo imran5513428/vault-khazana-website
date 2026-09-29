@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
+import '../styles/checkout.css';
 
 function formatPrice(value) {
   return Number(value || 0).toLocaleString();
@@ -173,7 +174,7 @@ function CheckoutPage() {
       '',
       `Order Subtotal: Rs ${formatPrice(cartTotal)}`,
       'Delivery Charges: To be confirmed based on delivery location',
-      `Payment Method: Cash on Delivery`,
+      'Payment Method: Cash on Delivery',
       `Order Total Before Delivery: Rs ${formatPrice(cartTotal)}`,
       '',
       `Customer Notes: ${formData.notes.trim() || 'None'}`
