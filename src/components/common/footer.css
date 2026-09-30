@@ -8,7 +8,6 @@ max-width: 100%;
 background: #1F3A5C;
 color: #ffffff;
 box-sizing: border-box;
-overflow: hidden;
 }
 
 .footer-container {
@@ -149,13 +148,11 @@ margin-bottom: 0;
 }
 
 .footer-contact a {
-display: inline;
 color: #ffffff;
 min-width: 0;
 min-height: 0;
 padding: 0;
 text-decoration: none;
-white-space: nowrap;
 word-break: normal;
 overflow-wrap: normal;
 }
@@ -203,11 +200,10 @@ font-size: 13px;
 min-width: 0;
 min-height: 0;
 padding: 0;
-text-decoration: none;
 }
 
 /* ============================================
-MOBILE — BALANCED 2 COLUMNS
+MOBILE — BALANCED LAYOUT
 ============================================ */
 
 @media (max-width: 767px) {
@@ -216,13 +212,21 @@ MOBILE — BALANCED 2 COLUMNS
 padding: 24px 16px 16px;
 }
 
+/*
+Use two flexible columns.
+The second column is slightly wider so
+Contact information has enough room.
+*/
 .footer-content {
 width: 100%;
-grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
 gap: 20px 18px;
 }
 
-/* Brand occupies the complete first row */
+/* ==========================================
+BRAND
+========================================== */
+
 .footer-brand {
 grid-column: 1 / -1;
 display: block;
@@ -235,7 +239,10 @@ width: 100%;
 min-width: 0;
 }
 
-/* Keep the lower four sections visually balanced */
+/*
+All four lower sections stretch naturally,
+keeping the two columns visually balanced.
+*/
 .footer-section:nth-child(2),
 .footer-section:nth-child(3),
 .footer-section:nth-child(4),
@@ -297,21 +304,30 @@ MOBILE CONTACT
 ========================================== */
 
 .footer-contact {
-width: max-content;
-max-width: 100%;
+width: 100%;
 min-width: 0;
+margin: 0;
 }
 
 .footer-contact p {
 margin-bottom: 6px;
 line-height: 1.45;
-white-space: nowrap;
+white-space: normal;
 }
 
 .footer-contact a {
+display: inline;
 white-space: nowrap;
 word-break: keep-all;
 overflow-wrap: normal;
+}
+
+/*
+Prevent the entire footer from clipping the
+contact information on narrow screens.
+*/
+.footer-contact p {
+max-width: 100%;
 }
 
 /* ==========================================
@@ -349,6 +365,35 @@ padding: 0;
 }
 
 /* ============================================
+VERY NARROW PHONES
+============================================ */
+
+@media (max-width: 359px) {
+
+.footer-container {
+padding-left: 14px;
+padding-right: 14px;
+}
+
+.footer-content {
+grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+column-gap: 14px;
+}
+
+.footer-contact {
+font-size: 13px;
+}
+
+.footer-contact p {
+font-size: 13px;
+}
+
+.footer-contact a {
+font-size: 13px;
+}
+}
+
+/* ============================================
 TABLET — 2 COLUMNS
 ============================================ */
 
@@ -374,8 +419,7 @@ max-width: 160px;
 }
 
 .footer-contact {
-width: max-content;
-max-width: 100%;
+width: 100%;
 }
 
 .footer-contact a {
