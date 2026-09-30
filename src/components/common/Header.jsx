@@ -193,6 +193,10 @@ function Header() {
             src={`${import.meta.env.BASE_URL}images/vault-khazana-logo-light.png`}
             alt="VAULT KHAZANA"
           />
+
+          <span className="header-tagline">
+            From Packaging to Brand
+          </span>
         </Link>
 
         {/* DESKTOP NAVIGATION */}
