@@ -78,7 +78,6 @@ function HomePage() {
         <div className="hero-container">
 
           <div className="hero-content">
-            <p className="hero-eyebrow">From Packaging to Brand</p>
 
             <h1 className="hero-title">
               From Packaging to Brand
