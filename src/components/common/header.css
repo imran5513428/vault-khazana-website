@@ -27,7 +27,8 @@
 
 .header-logo {
   display: inline-flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   text-decoration: none;
   flex-shrink: 0;
@@ -43,6 +44,17 @@
   height: 78px;
   max-width: 110px;
   object-fit: contain;
+}
+
+.header-tagline {
+  display: block;
+  margin-top: 3px;
+  color: var(--secondary-orange);
+  font-size: 9px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
 }
 
 /* ===== DESKTOP NAVIGATION ===== */
@@ -507,6 +519,11 @@
     max-width: 160px;
   }
 
+  .header-tagline {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+
   .desktop-nav {
     display: flex;
   }
@@ -566,6 +583,47 @@
 /* ===== SMALL MOBILE ===== */
 
 @media (max-width: 479px) {
+
+  .site-header {
+    padding: 7px 0 6px;
+  }
+
+  .header-container {
+    gap: 10px;
+  }
+
+  .header-logo img {
+    height: 68px;
+    max-width: 100px;
+  }
+
+  .header-tagline {
+    font-size: 8px;
+    margin-top: 2px;
+    letter-spacing: 0.25px;
+  }
+
+  .header-actions {
+    gap: 5px;
+  }
+
+  .search-btn,
+  .cart-link,
+  .mobile-menu-btn {
+    padding: 6px;
+  }
+
+  .search-btn {
+    font-size: 18px;
+  }
+
+  .cart-icon {
+    font-size: 20px;
+  }
+
+  .mobile-menu-btn {
+    font-size: 22px;
+  }
 
   .header-search-container {
     padding: 12px 12px 15px;
