@@ -1,371 +1,420 @@
 /* ============================================
-   VAULT KHAZANA - FOOTER
-   ============================================ */
+VAULT KHAZANA - FOOTER
+============================================ */
 
 .site-footer {
-  width: 100%;
-  max-width: 100%;
-  background: #1F3A5C;
-  color: #ffffff;
-  box-sizing: border-box;
-  overflow: hidden;
+width: 100%;
+max-width: 100%;
+background: #1F3A5C;
+color: #ffffff;
+box-sizing: border-box;
+overflow: hidden;
 }
 
 .footer-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 36px 20px 18px;
-  box-sizing: border-box;
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 36px 20px 18px;
+box-sizing: border-box;
 }
 
 .footer-content {
-  width: 100%;
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: 30px;
-  box-sizing: border-box;
+width: 100%;
+min-width: 0;
+display: grid;
+grid-template-columns: 1.5fr 1fr 1fr 1fr 1.25fr;
+gap: 26px;
+box-sizing: border-box;
 }
 
 .footer-section {
-  min-width: 0;
+min-width: 0;
 }
 
 .footer-brand {
-  min-width: 0;
+min-width: 0;
 }
 
 /* ============================================
-   LOGO
-   ============================================ */
+LOGO
+============================================ */
 
 .footer-logo {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  min-width: 0;
-  min-height: 0;
-  text-decoration: none;
-  overflow: hidden;
-  margin-bottom: 10px;
+display: flex;
+align-items: center;
+width: fit-content;
+max-width: 100%;
+min-width: 0;
+min-height: 0;
+text-decoration: none;
+overflow: hidden;
+margin-bottom: 10px;
 }
 
 .footer-logo-image {
-  display: block;
-  width: auto;
-  height: 72px;
-  max-width: 110px;
-  flex: 0 0 auto;
-  object-fit: contain;
+display: block;
+width: auto;
+height: 72px;
+max-width: 110px;
+flex: 0 0 auto;
+object-fit: contain;
 }
 
 /* ============================================
-   TEXT
-   ============================================ */
+TEXT
+============================================ */
 
 .footer-tagline {
-  margin: 0 0 6px;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.45;
+margin: 0 0 6px;
+color: #ffffff;
+font-size: 15px;
+font-weight: 600;
+line-height: 1.45;
 }
 
 .footer-description {
-  margin: 0;
-  max-width: 320px;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.85;
+margin: 0;
+max-width: 320px;
+color: #ffffff;
+font-size: 14px;
+line-height: 1.6;
+opacity: 0.85;
 }
 
 /* ============================================
-   HEADINGS
-   ============================================ */
+HEADINGS
+============================================ */
 
 .footer-title {
-  margin: 0 0 10px;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.4;
+margin: 0 0 10px;
+color: #ffffff;
+font-size: 16px;
+font-weight: 700;
+line-height: 1.4;
 }
 
 /* ============================================
-   NAVIGATION
-   ============================================ */
+NAVIGATION
+============================================ */
 
 .footer-nav {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 6px;
+margin: 0;
+padding: 0;
 }
 
 .footer-nav a {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 14px;
-  line-height: 1.45;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
+display: block;
+width: fit-content;
+max-width: 100%;
+min-width: 0;
+min-height: 0;
+padding: 0;
+color: #ffffff;
+text-decoration: none;
+font-size: 14px;
+line-height: 1.45;
+opacity: 0.85;
+transition: opacity 0.2s ease;
 }
 
 .footer-nav a:hover {
-  opacity: 1;
+opacity: 1;
 }
 
 /* ============================================
-   CONTACT
-   ============================================ */
+CONTACT
+============================================ */
 
 .footer-contact {
-  margin: 0;
+width: 100%;
+min-width: 0;
+margin: 0;
 }
 
 .footer-contact p {
-  margin: 0 0 7px;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1.5;
-  opacity: 0.85;
+margin: 0 0 7px;
+color: #ffffff;
+font-size: 14px;
+line-height: 1.5;
+opacity: 0.85;
 }
 
 .footer-contact p:last-child {
-  margin-bottom: 0;
+margin-bottom: 0;
 }
 
 .footer-contact a {
-  display: inline;
-  color: #ffffff;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
-  word-break: normal;
-  overflow-wrap: normal;
+display: inline;
+color: #ffffff;
+min-width: 0;
+min-height: 0;
+padding: 0;
+text-decoration: none;
+white-space: nowrap;
+word-break: normal;
+overflow-wrap: normal;
 }
 
 /* ============================================
-   FOOTER BOTTOM
-   ============================================ */
+FOOTER BOTTOM
+============================================ */
 
 .footer-bottom {
-  width: 100%;
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  box-sizing: border-box;
+width: 100%;
+margin-top: 28px;
+padding-top: 16px;
+border-top: 1px solid rgba(255, 255, 255, 0.18);
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 18px;
+box-sizing: border-box;
 }
 
 .footer-bottom-content {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 18px;
 }
 
 .footer-copyright {
-  margin: 0;
-  color: #ffffff;
-  font-size: 13px;
-  opacity: 0.75;
+margin: 0;
+color: #ffffff;
+font-size: 13px;
+opacity: 0.75;
 }
 
 .footer-legal {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+display: flex;
+flex-wrap: wrap;
+gap: 14px;
 }
 
 .footer-legal a {
-  color: #ffffff;
-  font-size: 13px;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
+color: #ffffff;
+font-size: 13px;
+min-width: 0;
+min-height: 0;
+padding: 0;
+text-decoration: none;
 }
 
 /* ============================================
-   MOBILE — 2 COLUMNS
-   ============================================ */
+MOBILE — BALANCED 2 COLUMNS
+============================================ */
 
 @media (max-width: 767px) {
 
-  .footer-container {
-    padding: 24px 18px 16px;
-  }
+.footer-container {
+padding: 24px 16px 16px;
+}
 
-  .footer-content {
-    width: 100%;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 17px 24px;
-  }
+.footer-content {
+width: 100%;
+grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+gap: 20px 18px;
+}
 
-  /* Brand occupies the complete first row */
-  .footer-brand {
-    grid-column: 1 / -1;
-    display: block;
-    width: 100%;
-    min-width: 0;
-  }
+/* Brand occupies the complete first row */
+.footer-brand {
+grid-column: 1 / -1;
+display: block;
+width: 100%;
+min-width: 0;
+}
 
-  .footer-section {
-    width: 100%;
-    min-width: 0;
-  }
+.footer-section {
+width: 100%;
+min-width: 0;
+}
 
-  /* Keep Company and Contact visually balanced */
-  .footer-section:nth-child(4),
-  .footer-section:nth-child(5) {
-    align-self: end;
-  }
+/* Keep the lower four sections visually balanced */
+.footer-section:nth-child(2),
+.footer-section:nth-child(3),
+.footer-section:nth-child(4),
+.footer-section:nth-child(5) {
+align-self: stretch;
+}
 
-  .footer-logo {
-    width: 110px;
-    max-width: 110px;
-    min-height: 0;
-    margin-bottom: 8px;
-  }
+/* ==========================================
+MOBILE LOGO
+========================================== */
 
-  .footer-logo-image {
-    height: 72px;
-    max-width: 110px;
-  }
+.footer-logo {
+width: 110px;
+max-width: 110px;
+min-height: 0;
+margin-bottom: 8px;
+}
 
-  .footer-tagline {
-    margin-bottom: 5px;
-  }
+.footer-logo-image {
+height: 72px;
+max-width: 110px;
+}
 
-  .footer-description {
-    max-width: 100%;
-    line-height: 1.55;
-  }
+/* ==========================================
+MOBILE TEXT
+========================================== */
 
-  .footer-title {
-    margin-bottom: 8px;
-  }
+.footer-tagline {
+margin-bottom: 5px;
+}
 
-  .footer-nav {
-    gap: 5px;
-  }
+.footer-description {
+max-width: 100%;
+line-height: 1.55;
+}
 
-  .footer-nav a {
-    font-size: 14px;
-    line-height: 1.4;
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-  }
+.footer-title {
+margin-bottom: 8px;
+}
 
-  .footer-contact {
-    width: 100%;
-    min-width: 0;
-  }
+/* ==========================================
+MOBILE NAVIGATION
+========================================== */
 
-  .footer-contact p {
-    margin-bottom: 6px;
-    line-height: 1.45;
-  }
+.footer-nav {
+gap: 5px;
+}
 
-  .footer-contact a {
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-    word-break: normal;
-    overflow-wrap: anywhere;
-  }
+.footer-nav a {
+font-size: 14px;
+line-height: 1.4;
+min-width: 0;
+min-height: 0;
+padding: 0;
+}
 
-  .footer-bottom {
-    margin-top: 20px;
-    padding-top: 14px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 9px;
-  }
+/* ==========================================
+MOBILE CONTACT
+========================================== */
 
-  .footer-bottom-content {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 9px;
-  }
+.footer-contact {
+width: max-content;
+max-width: 100%;
+min-width: 0;
+}
 
-  .footer-legal {
-    gap: 9px;
-  }
+.footer-contact p {
+margin-bottom: 6px;
+line-height: 1.45;
+white-space: nowrap;
+}
 
-  .footer-legal a {
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-  }
+.footer-contact a {
+white-space: nowrap;
+word-break: keep-all;
+overflow-wrap: normal;
+}
+
+/* ==========================================
+MOBILE BOTTOM
+========================================== */
+
+.footer-bottom {
+margin-top: 22px;
+padding-top: 14px;
+flex-direction: column;
+align-items: flex-start;
+gap: 9px;
+}
+
+.footer-bottom-content {
+flex-direction: column;
+align-items: flex-start;
+justify-content: flex-start;
+gap: 9px;
+}
+
+.footer-copyright {
+line-height: 1.45;
+}
+
+.footer-legal {
+gap: 9px;
+}
+
+.footer-legal a {
+min-width: 0;
+min-height: 0;
+padding: 0;
+}
 }
 
 /* ============================================
-   TABLET
-   ============================================ */
+TABLET — 2 COLUMNS
+============================================ */
 
 @media (min-width: 768px) and (max-width: 1023px) {
 
-  .footer-content {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px;
-  }
+.footer-content {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 28px;
+}
 
-  .footer-brand {
-    grid-column: 1 / -1;
-  }
+.footer-brand {
+grid-column: 1 / -1;
+}
 
-  .footer-logo {
-    width: 160px;
-    max-width: 160px;
-  }
+.footer-logo {
+width: 160px;
+max-width: 160px;
+}
 
-  .footer-logo-image {
-    height: 62px;
-    max-width: 160px;
-  }
+.footer-logo-image {
+height: 62px;
+max-width: 160px;
+}
+
+.footer-contact {
+width: max-content;
+max-width: 100%;
+}
+
+.footer-contact a {
+white-space: nowrap;
+}
 }
 
 /* ============================================
-   DESKTOP — 4 COLUMNS
-   ============================================ */
+DESKTOP — 5 BALANCED COLUMNS
+============================================ */
 
 @media (min-width: 1024px) {
 
-  .footer-container {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
+.footer-container {
+padding-left: 30px;
+padding-right: 30px;
+}
 
-  .footer-content {
-    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-    gap: 36px;
-  }
+.footer-content {
+grid-template-columns: 1.5fr 1fr 1fr 1fr 1.25fr;
+gap: 28px;
+}
 
-  .footer-logo {
-    width: 165px;
-    max-width: 165px;
-  }
+.footer-logo {
+width: 165px;
+max-width: 165px;
+}
 
-  .footer-logo-image {
-    height: 64px;
-    max-width: 165px;
-  }
+.footer-logo-image {
+height: 64px;
+max-width: 165px;
+}
+
+.footer-contact {
+width: max-content;
+max-width: 100%;
+}
+
+.footer-contact a {
+white-space: nowrap;
+}
 }
