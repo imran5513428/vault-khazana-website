@@ -163,22 +163,28 @@ function HomePage() {
             <div className="business-solutions-copy">
 
               <p className="eyebrow">
-                For Food Businesses
+                BUSINESS SOLUTIONS
               </p>
 
               <h2>
-                From Packaging to Brand
+                Put Your Brand on Every Order
               </h2>
 
               <p className="business-solutions-lead">
-                Turn your packaging into part of your brand.
+                Custom packaging that looks like your business.
               </p>
 
               <p className="business-solutions-text">
-                Explore custom packaging, branding and printing support
-                for cafés, restaurants, bakeries, caterers and other
-                food businesses.
+                From printed cups and takeaway bags to branded food
+                packaging and labels, explore packaging, branding and
+                printing support built around your food business.
               </p>
+
+              <div className="business-solutions-tags">
+                <span>Printed Cups</span>
+                <span>Branded Bags</span>
+                <span>Labels &amp; Packaging</span>
+              </div>
 
               <Link
                 to="/business-solutions"
@@ -190,30 +196,43 @@ function HomePage() {
 
             </div>
 
-            {/* LIGHTWEIGHT VISUAL STORY */}
+            {/* COMMERCIAL PACKAGING SHOWCASE */}
             <div
               className="business-solutions-visual"
-              aria-hidden="true"
+              aria-label="Examples of branded packaging solutions"
             >
-              <div className="business-stage business-stage-back">
-                <span>01</span>
-                <strong>PACKAGING</strong>
+
+              <div className="business-visual-glow"></div>
+
+              <div className="business-image-card business-image-main">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/bs-03.jpg`}
+                  alt="Branded paper takeaway bag"
+                  loading="lazy"
+                />
               </div>
 
-              <div className="business-stage business-stage-middle">
-                <span>02</span>
-                <strong>BRANDING</strong>
+              <div className="business-image-card business-image-cup">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/bs-04.jpg`}
+                  alt="Branded disposable cup"
+                  loading="lazy"
+                />
               </div>
 
-              <div className="business-stage business-stage-front">
-                <span>03</span>
-                <strong>PRINTING</strong>
+              <div className="business-image-card business-image-labels">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/bs-01.jpg`}
+                  alt="Printed product labels"
+                  loading="lazy"
+                />
               </div>
 
-              <div className="business-stage business-stage-finish">
-                <span>→</span>
-                <strong>YOUR BRAND</strong>
+              <div className="business-visual-badge">
+                <span>YOUR BRAND</span>
+                <strong>ON EVERY ORDER</strong>
               </div>
+
             </div>
 
           </div>
