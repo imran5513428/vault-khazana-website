@@ -323,6 +323,163 @@ margin-left: auto;
 transform: translateX(4px);
 }
 
+/* ===== BUSINESS SOLUTIONS GATEWAY ===== */
+
+.section-business-solutions {
+background: var(--primary-navy);
+color: var(--white);
+overflow: hidden;
+}
+
+.business-solutions-shell {
+position: relative;
+display: grid;
+grid-template-columns: 1fr;
+gap: var(--spacing-2xl);
+align-items: center;
+min-height: 430px;
+padding: var(--spacing-xl) 0;
+}
+
+.business-solutions-copy {
+position: relative;
+z-index: 2;
+max-width: 600px;
+}
+
+.business-solutions-copy .eyebrow {
+display: inline-block;
+color: var(--secondary-orange);
+margin-bottom: var(--spacing-md);
+}
+
+.business-solutions-copy h2 {
+font-size: var(--size-h2);
+font-weight: var(--weight-bold);
+line-height: 1.15;
+color: var(--white);
+margin-bottom: var(--spacing-md);
+}
+
+.business-solutions-lead {
+font-size: 20px;
+font-weight: var(--weight-semibold);
+line-height: 1.45;
+color: var(--white);
+margin-bottom: var(--spacing-sm);
+}
+
+.business-solutions-text {
+font-size: var(--size-body);
+line-height: var(--line-body);
+color: rgba(255, 255, 255, 0.82);
+max-width: 560px;
+margin-bottom: var(--spacing-xl);
+}
+
+.business-solutions-button {
+width: fit-content;
+}
+
+.business-solutions-button span {
+display: inline-block;
+transition: transform var(--transition-fast);
+}
+
+.business-solutions-button:hover span {
+transform: translateX(4px);
+}
+
+.business-solutions-visual {
+position: relative;
+width: 100%;
+max-width: 560px;
+height: 300px;
+margin: 0 auto;
+}
+
+.business-stage {
+position: absolute;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+width: 190px;
+height: 128px;
+padding: 18px;
+border: 1px solid rgba(255, 255, 255, 0.18);
+border-radius: 18px;
+background: rgba(255, 255, 255, 0.06);
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+transition: transform var(--transition-base);
+}
+
+.business-stage span {
+font-size: 11px;
+font-weight: var(--weight-bold);
+letter-spacing: 1.5px;
+color: var(--secondary-orange);
+}
+
+.business-stage strong {
+font-size: 16px;
+letter-spacing: 1.2px;
+color: var(--white);
+}
+
+.business-stage-back {
+top: 5px;
+left: 4%;
+transform: rotate(-8deg);
+}
+
+.business-stage-middle {
+top: 48px;
+left: 27%;
+transform: rotate(3deg);
+background: rgba(230, 126, 34, 0.12);
+}
+
+.business-stage-front {
+top: 110px;
+left: 48%;
+transform: rotate(-3deg);
+border-color: rgba(230, 126, 34, 0.45);
+}
+
+.business-stage-finish {
+top: 168px;
+left: 18%;
+width: 250px;
+height: 92px;
+transform: rotate(4deg);
+background: var(--secondary-orange);
+border-color: var(--secondary-orange);
+box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.business-stage-finish span,
+.business-stage-finish strong {
+color: var(--white);
+}
+
+.business-solutions-shell:hover .business-stage-back {
+transform: translate(-4px, -4px) rotate(-8deg);
+}
+
+.business-solutions-shell:hover .business-stage-middle {
+transform: translate(2px, -6px) rotate(3deg);
+}
+
+.business-solutions-shell:hover .business-stage-front {
+transform: translate(5px, -8px) rotate(-3deg);
+}
+
+.business-solutions-shell:hover .business-stage-finish {
+transform: translate(4px, -5px) rotate(4deg);
+}
+
 /* ===== PRODUCT GRID ===== */
 
 .product-grid {
@@ -795,6 +952,115 @@ margin: 0;
 display: none;
 }
 
+/* ===== BUSINESS SOLUTIONS ===== */
+
+.section-business-solutions {
+padding: 26px 0;
+}
+
+.business-solutions-shell {
+display: flex;
+flex-direction: column;
+gap: 20px;
+min-height: auto;
+padding: 0;
+}
+
+.business-solutions-copy {
+max-width: none;
+}
+
+.business-solutions-copy .eyebrow {
+font-size: 10px;
+letter-spacing: 1.4px;
+margin-bottom: 7px;
+}
+
+.business-solutions-copy h2 {
+font-size: 25px;
+line-height: 1.18;
+margin-bottom: 8px;
+}
+
+.business-solutions-lead {
+font-size: 15px;
+line-height: 1.4;
+margin-bottom: 7px;
+}
+
+.business-solutions-text {
+font-size: 12px;
+line-height: 1.5;
+margin-bottom: 14px;
+}
+
+.business-solutions-button {
+width: 100%;
+font-size: 13px;
+padding: 11px 14px;
+}
+
+.business-solutions-visual {
+height: 205px;
+max-width: 100%;
+margin-top: 2px;
+}
+
+.business-stage {
+width: 135px;
+height: 88px;
+padding: 12px;
+border-radius: 13px;
+}
+
+.business-stage span {
+font-size: 8px;
+letter-spacing: 1.1px;
+}
+
+.business-stage strong {
+font-size: 11px;
+letter-spacing: 0.7px;
+}
+
+.business-stage-back {
+top: 2px;
+left: 1%;
+}
+
+.business-stage-middle {
+top: 30px;
+left: 24%;
+}
+
+.business-stage-front {
+top: 66px;
+left: 47%;
+}
+
+.business-stage-finish {
+top: 113px;
+left: 15%;
+width: 175px;
+height: 67px;
+}
+
+.business-solutions-shell:hover .business-stage-back {
+transform: rotate(-8deg);
+}
+
+.business-solutions-shell:hover .business-stage-middle {
+transform: rotate(3deg);
+}
+
+.business-solutions-shell:hover .business-stage-front {
+transform: rotate(-3deg);
+}
+
+.business-solutions-shell:hover .business-stage-finish {
+transform: rotate(4deg);
+}
+
 /* ===== PRODUCTS ===== */
 
 .product-grid {
@@ -916,6 +1182,7 @@ margin-bottom: 5px;
 font-size: 11px;
 line-height: 1.45;
 }
+
 }
 
 /* ===== 480-767px ===== */
@@ -1009,6 +1276,83 @@ font-size: 14px;
 display: none;
 }
 
+/* ===== BUSINESS SOLUTIONS ===== */
+
+.section-business-solutions {
+padding: 32px 0;
+}
+
+.business-solutions-shell {
+display: flex;
+flex-direction: column;
+gap: 24px;
+min-height: auto;
+padding: 0;
+}
+
+.business-solutions-copy {
+max-width: 100%;
+}
+
+.business-solutions-copy h2 {
+font-size: 30px;
+}
+
+.business-solutions-lead {
+font-size: 17px;
+}
+
+.business-solutions-text {
+font-size: 14px;
+}
+
+.business-solutions-button {
+width: auto;
+max-width: 300px;
+}
+
+.business-solutions-visual {
+height: 245px;
+max-width: 500px;
+}
+
+.business-stage {
+width: 155px;
+height: 105px;
+padding: 14px;
+border-radius: 15px;
+}
+
+.business-stage span {
+font-size: 9px;
+}
+
+.business-stage strong {
+font-size: 13px;
+}
+
+.business-stage-back {
+top: 2px;
+left: 3%;
+}
+
+.business-stage-middle {
+top: 38px;
+left: 25%;
+}
+
+.business-stage-front {
+top: 82px;
+left: 48%;
+}
+
+.business-stage-finish {
+top: 137px;
+left: 17%;
+width: 205px;
+height: 76px;
+}
+
 .product-grid {
 grid-template-columns: repeat(3, 1fr);
 gap: 12px;
@@ -1036,6 +1380,7 @@ gap: 12px;
 grid-template-columns: repeat(2, 1fr);
 gap: 12px;
 }
+
 }
 
 /* ============================================
@@ -1080,6 +1425,44 @@ object-fit: contain;
 grid-template-columns: repeat(3, 1fr);
 }
 
+/* ===== BUSINESS SOLUTIONS ===== */
+
+.business-solutions-shell {
+grid-template-columns: 1fr 1fr;
+gap: var(--spacing-xl);
+min-height: 390px;
+}
+
+.business-solutions-copy {
+max-width: 520px;
+}
+
+.business-solutions-copy h2 {
+font-size: 34px;
+}
+
+.business-solutions-lead {
+font-size: 18px;
+}
+
+.business-solutions-text {
+font-size: 14px;
+}
+
+.business-solutions-visual {
+height: 285px;
+}
+
+.business-stage {
+width: 175px;
+height: 118px;
+}
+
+.business-stage-finish {
+width: 230px;
+height: 86px;
+}
+
 .product-grid {
 grid-template-columns: repeat(3, 1fr);
 }
@@ -1091,6 +1474,7 @@ grid-template-columns: repeat(4, 1fr);
 .steps-grid {
 grid-template-columns: repeat(4, 1fr);
 }
+
 }
 
 /* ============================================
@@ -1121,9 +1505,48 @@ aspect-ratio: 16 / 9;
 grid-template-columns: repeat(4, 1fr);
 }
 
+/* ===== BUSINESS SOLUTIONS ===== */
+
+.business-solutions-shell {
+grid-template-columns: 1fr 1fr;
+gap: var(--spacing-3xl);
+min-height: 430px;
+}
+
+.business-solutions-copy {
+max-width: 600px;
+}
+
+.business-solutions-copy h2 {
+font-size: var(--size-h2);
+}
+
+.business-solutions-lead {
+font-size: 20px;
+}
+
+.business-solutions-text {
+font-size: var(--size-body);
+}
+
+.business-solutions-visual {
+height: 300px;
+}
+
+.business-stage {
+width: 190px;
+height: 128px;
+}
+
+.business-stage-finish {
+width: 250px;
+height: 92px;
+}
+
 .product-grid {
 grid-template-columns: repeat(4, 1fr);
 }
+
 }
 
 /* ============================================
@@ -1145,6 +1568,7 @@ width: 100%;
 max-width: 600px;
 aspect-ratio: 16 / 9;
 }
+
 }
 
 /* ============================================
@@ -1167,4 +1591,21 @@ transform: none;
 .product-card:hover .product-image img {
 transform: none;
 }
+
+.business-solutions-shell:hover .business-stage-back {
+transform: rotate(-8deg);
+}
+
+.business-solutions-shell:hover .business-stage-middle {
+transform: rotate(3deg);
+}
+
+.business-solutions-shell:hover .business-stage-front {
+transform: rotate(-3deg);
+}
+
+.business-solutions-shell:hover .business-stage-finish {
+transform: rotate(4deg);
+}
+
 }
