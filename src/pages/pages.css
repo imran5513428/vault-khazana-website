@@ -1515,9 +1515,9 @@ grid-template-columns: repeat(4, 1fr);
 /* ===== BUSINESS SOLUTIONS ===== */
 
 .business-solutions-shell {
-grid-template-columns: 0.9fr 1.1fr;
+grid-template-columns: 0.85fr 1.15fr;
 gap: var(--spacing-3xl);
-min-height: 500px;
+min-height: 520px;
 }
 
 .business-solutions-copy {
@@ -1538,20 +1538,21 @@ font-size: var(--size-body);
 
 .business-solutions-visual {
 height: auto;
-max-width: 620px;
+max-width: 700px;
+justify-self: end;
 }
 
 .business-solutions-showcase-image {
 width: 100%;
 height: auto;
-max-width: 620px;
+max-width: 700px;
 object-fit: contain;
 object-position: center;
 }
 
 .business-visual-glow {
-width: 350px;
-height: 350px;
+width: 370px;
+height: 370px;
 }
 
 .product-grid {
@@ -1580,13 +1581,23 @@ max-width: 600px;
 aspect-ratio: 16 / 9;
 }
 
+.business-solutions-shell {
+grid-template-columns: 0.82fr 1.18fr;
+min-height: 540px;
+}
+
 .business-solutions-visual {
-max-width: 680px;
+max-width: 760px;
 height: auto;
 }
 
 .business-solutions-showcase-image {
-max-width: 680px;
+max-width: 760px;
+}
+
+.business-visual-glow {
+width: 390px;
+height: 390px;
 }
 
 }
@@ -1620,3 +1631,20 @@ drop-shadow(0 5px 10px rgba(31, 58, 92, 0.08));
 }
 
 }
+
+What I changed
+
+Only the desktop Business Solutions layout:
+
+- "0.9fr / 1.1fr" → "0.85fr / 1.15fr"
+- Desktop minimum section height → 520px
+- Showcase max-width → 700px
+- Showcase is aligned toward the right with "justify-self: end"
+- Large desktop gets 0.82fr / 1.18fr
+- Large desktop showcase → 760px
+- Large desktop section → 540px
+- Glow was increased slightly to match the larger visual.
+
+The image still uses "width: 100%; height: auto", so it will not be stretched or distorted.
+
+Now do only this: replace "pages.css", deploy, and check the desktop Business Solutions section. Don't change the image or any other file yet.
