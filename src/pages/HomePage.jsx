@@ -196,42 +196,20 @@ function HomePage() {
 
             </div>
 
-            {/* COMMERCIAL PACKAGING SHOWCASE */}
+            {/* ALL 6 BUSINESS SOLUTIONS ASSETS */}
             <div
               className="business-solutions-visual"
-              aria-label="Examples of branded packaging solutions"
+              aria-label="Branded packaging, printing and business solutions showcase"
             >
 
               <div className="business-visual-glow"></div>
 
-              <div className="business-image-card business-image-main">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/bs-03.jpg`}
-                  alt="Branded paper takeaway bag"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="business-image-card business-image-cup">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/bs-04.jpg`}
-                  alt="Branded disposable cup"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="business-image-card business-image-labels">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/bs-01.jpg`}
-                  alt="Printed product labels"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="business-visual-badge">
-                <span>YOUR BRAND</span>
-                <strong>ON EVERY ORDER</strong>
-              </div>
+              <img
+                src={`${import.meta.env.BASE_URL}images/business-solutions-showcase.png`}
+                className="business-solutions-showcase-image"
+                alt="Branded packaging, labels, printed materials and business solutions showcase"
+                loading="lazy"
+              />
 
             </div>
 
