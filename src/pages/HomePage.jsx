@@ -41,10 +41,12 @@ const getMinimumOrderLabel = (product) => {
   }
 
   if (sellingUnit === 'kg') {
-    return "Minimum ${moq} kg";
+    return `Minimum ${moq} kg`;
   }
 
-  return "Minimum ${moq} ${ moq === 1 ? 'piece' : 'pieces' }";
+  return `Minimum ${moq} ${
+    moq === 1 ? 'piece' : 'pieces'
+  }`;
 };
 
 const formatDisplayPrice = (price) => {
@@ -64,11 +66,6 @@ function HomePage() {
   const featuredProducts = PRODUCTS.filter(
     p => p.rating >= 4.7
   ).slice(0, 8);
-
-  // Get products by category for variety section
-  const containerProducts = PRODUCTS.filter(
-    p => p.categoryId === 'food-containers'
-  ).slice(0, 6);
 
   return (
     <div className="home-page">
@@ -157,6 +154,73 @@ function HomePage() {
         </div>
       </section>
 
+      {/* BUSINESS SOLUTIONS GATEWAY */}
+      <section className="section section-business-solutions">
+        <div className="container">
+
+          <div className="business-solutions-shell">
+
+            <div className="business-solutions-copy">
+
+              <p className="eyebrow">
+                For Food Businesses
+              </p>
+
+              <h2>
+                From Packaging to Brand
+              </h2>
+
+              <p className="business-solutions-lead">
+                Turn your packaging into part of your brand.
+              </p>
+
+              <p className="business-solutions-text">
+                Explore custom packaging, branding and printing support
+                for cafés, restaurants, bakeries, caterers and other
+                food businesses.
+              </p>
+
+              <Link
+                to="/business-solutions"
+                className="btn btn-accent business-solutions-button"
+              >
+                Explore Business Solutions
+                <span aria-hidden="true">→</span>
+              </Link>
+
+            </div>
+
+            {/* LIGHTWEIGHT VISUAL STORY */}
+            <div
+              className="business-solutions-visual"
+              aria-hidden="true"
+            >
+              <div className="business-stage business-stage-back">
+                <span>01</span>
+                <strong>PACKAGING</strong>
+              </div>
+
+              <div className="business-stage business-stage-middle">
+                <span>02</span>
+                <strong>BRANDING</strong>
+              </div>
+
+              <div className="business-stage business-stage-front">
+                <span>03</span>
+                <strong>PRINTING</strong>
+              </div>
+
+              <div className="business-stage business-stage-finish">
+                <span>→</span>
+                <strong>YOUR BRAND</strong>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
       {/* FEATURED PRODUCTS SECTION */}
       {featuredProducts.length > 0 && (
         <section className="section section-featured">
@@ -187,6 +251,7 @@ function HomePage() {
                     </div>
 
                     <div className="product-info">
+
                       <p className="product-category">
                         {product.categoryId}
                       </p>
@@ -203,62 +268,7 @@ function HomePage() {
                       <p className="product-pack">
                         {minimumOrder}
                       </p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
 
-          </div>
-        </section>
-      )}
-
-      {/* FOOD CONTAINERS SECTION */}
-      {containerProducts.length > 0 && (
-        <section className="section section-containers">
-          <div className="container">
-
-            <div className="section-heading">
-              <p className="eyebrow">Popular Category</p>
-              <h2>Food Containers</h2>
-            </div>
-
-            <div className="product-grid">
-              {containerProducts.map((product) => {
-                const displayPrice = getDisplayPrice(product);
-                const displayUnit = getDisplayUnit(product);
-                const minimumOrder = getMinimumOrderLabel(product);
-
-                return (
-                  <Link
-                    key={product.id}
-                    to={`/product/${product.id}`}
-                    className="product-card"
-                  >
-                    <div className="product-image">
-                      <img
-                        src={product.images[0]}
-                        alt={product.name}
-                      />
-                    </div>
-
-                    <div className="product-info">
-                      <p className="product-category">
-                        {product.categoryId}
-                      </p>
-
-                      <h3 className="product-name">
-                        {product.name}
-                      </h3>
-
-                      <p className="product-price">
-                        Rs {formatDisplayPrice(displayPrice)}{' '}
-                        <span>per {displayUnit}</span>
-                      </p>
-
-                      <p className="product-pack">
-                        {minimumOrder}
-                      </p>
                     </div>
                   </Link>
                 );
@@ -282,7 +292,9 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">🚚</div>
+
               <h3>Nationwide Delivery</h3>
+
               <p>
                 Reliable shipping to locations across Pakistan.
               </p>
@@ -290,7 +302,9 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">✓</div>
+
               <h3>Quality Products</h3>
+
               <p>
                 Practical packaging supplies for food-service needs.
               </p>
@@ -298,7 +312,9 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">💰</div>
+
               <h3>Competitive Prices</h3>
+
               <p>
                 Clear pricing for everyday and bulk purchasing.
               </p>
@@ -306,13 +322,16 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">📞</div>
+
               <h3>Easy Support</h3>
+
               <p>
                 Contact us for bulk orders, questions or special requests.
               </p>
             </div>
 
           </div>
+
         </div>
       </section>
 
@@ -321,9 +340,14 @@ function HomePage() {
         <div className="container">
 
           <div className="wholesale-content">
-            <p className="eyebrow">For Businesses</p>
 
-            <h2>Buying in bulk?</h2>
+            <p className="eyebrow">
+              For Businesses
+            </p>
+
+            <h2>
+              Buying in bulk?
+            </h2>
 
             <p>
               Get the quantities, packaging options and support
@@ -337,6 +361,7 @@ function HomePage() {
             >
               Get Wholesale Quote
             </a>
+
           </div>
 
         </div>
@@ -347,37 +372,67 @@ function HomePage() {
         <div className="container">
 
           <div className="section-heading">
-            <p className="eyebrow">Simple Process</p>
-            <h2>How it works</h2>
+            <p className="eyebrow">
+              Simple Process
+            </p>
+
+            <h2>
+              How it works
+            </h2>
           </div>
 
           <div className="steps-grid">
 
             <div className="step-card">
               <div className="step-number">1</div>
-              <h3>Browse</h3>
-              <p>Explore our range of packaging supplies.</p>
+
+              <h3>
+                Browse
+              </h3>
+
+              <p>
+                Explore our range of packaging supplies.
+              </p>
             </div>
 
             <div className="step-card">
               <div className="step-number">2</div>
-              <h3>Choose</h3>
-              <p>Select the products and quantities you need.</p>
+
+              <h3>
+                Choose
+              </h3>
+
+              <p>
+                Select the products and quantities you need.
+              </p>
             </div>
 
             <div className="step-card">
               <div className="step-number">3</div>
-              <h3>Order</h3>
-              <p>Add products to your cart and proceed to checkout.</p>
+
+              <h3>
+                Order
+              </h3>
+
+              <p>
+                Add products to your cart and proceed to checkout.
+              </p>
             </div>
 
             <div className="step-card">
               <div className="step-number">4</div>
-              <h3>Receive</h3>
-              <p>Get your order delivered to your location.</p>
+
+              <h3>
+                Receive
+              </h3>
+
+              <p>
+                Get your order delivered to your location.
+              </p>
             </div>
 
           </div>
+
         </div>
       </section>
 
@@ -386,7 +441,10 @@ function HomePage() {
         <div className="container">
 
           <div className="cta-content">
-            <h2>Need help choosing?</h2>
+
+            <h2>
+              Need help choosing?
+            </h2>
 
             <p>
               Get in touch with our team for questions,
@@ -399,6 +457,7 @@ function HomePage() {
             >
               Contact Us
             </a>
+
           </div>
 
         </div>
