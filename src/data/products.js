@@ -934,4 +934,478 @@ export const PRODUCTS = [
   },
 
   {
-    id: '16oz-paper
+    id: '16oz-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '16OZ Paper Cup',
+    slug: '16oz-paper-cup',
+    imageSlug: '16oz-paper-cup',
+    capacity: '16OZ (Approx. 480ML)',
+    price: 825,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 825,
+    material: 'Paper',
+    suitableFor: 'Large coffee, iced drinks, frappes, hot beverages',
+    overview: 'Large paper cup suitable for generous hot and cold beverage servings.',
+    description: 'A spacious 16OZ paper cup for large coffee, iced drinks, frappes and other beverages.',
+    idealFor: 'Cafés, coffee shops, takeaway and beverage businesses.',
+    inStock: true
+  },
+
+  {
+    id: '8oz-double-wall-ripple-cup',
+    categoryId: 'cups-drinkware',
+    name: '8OZ Double-Wall Ripple Cup',
+    slug: '8oz-double-wall-ripple-cup',
+    imageSlug: '8oz-double-wall-ripple-cup',
+    capacity: '8OZ (Approx. 240ML)',
+    price: 1425,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 1425,
+    material: 'Paper — double-wall ripple',
+    suitableFor: 'Regular coffee, cappuccino, hot tea',
+    overview: 'Double-wall ripple paper cup designed for comfortable serving of hot beverages.',
+    description: 'An 8OZ ripple-wall cup for regular coffee, cappuccino and hot tea.',
+    idealFor: 'Cafés, coffee shops, takeaway and premium beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-double-wall-ripple-cup',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Double-Wall Ripple Cup',
+    slug: '12oz-double-wall-ripple-cup',
+    imageSlug: '12oz-double-wall-ripple-cup',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 1750,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 1750,
+    material: 'Paper — double-wall ripple',
+    suitableFor: 'Medium latte, regular coffee, hot beverages',
+    overview: 'Double-wall ripple paper cup designed for larger hot beverage servings.',
+    description: 'A 12OZ ripple-wall cup suitable for medium lattes, regular coffee and hot beverages.',
+    idealFor: 'Cafés, coffee shops, takeaway and premium beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '200ml-paper-cup-with-handles',
+    categoryId: 'cups-drinkware',
+    name: '200ML Paper Cup with Handles (8OZ)',
+    slug: '200ml-paper-cup-with-handles',
+    imageSlug: '200ml-paper-cup-with-handles',
+    capacity: '200ML (Approx. 7OZ)',
+    price: 750,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 750,
+    material: 'Paper',
+    suitableFor: 'Hot beverages like coffee, tea, and hot chocolate',
+    overview: 'Convenient paper cup with handles for comfortable serving of hot beverages.',
+    description: 'A 200ML handled paper cup designed for coffee, tea and hot chocolate.',
+    idealFor: 'Cafés, takeaway, events and hot beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '4oz-ice-cream-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '4OZ Ice-Cream Paper Cup',
+    slug: '4oz-ice-cream-paper-cup',
+    imageSlug: '4oz-ice-cream-paper-cup',
+    capacity: '4OZ (Approx. 120ML)',
+    price: 525,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 525,
+    material: 'Paper',
+    suitableFor: 'Single-scoop ice cream, gelato, frozen desserts',
+    overview: 'Compact dessert cup designed for individual servings of ice cream and frozen desserts.',
+    description: 'A convenient 4OZ paper cup for single-scoop ice cream, gelato and frozen desserts.',
+    idealFor: 'Ice-cream shops, dessert businesses, cafés and events.',
+    inStock: true
+  },
+
+  {
+    id: '6oz-ice-cream-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '6OZ Ice-Cream Paper Cup',
+    slug: '6oz-ice-cream-paper-cup',
+    imageSlug: '6oz-ice-cream-paper-cup',
+    capacity: '6OZ (Approx. 180ML)',
+    price: 650,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 650,
+    material: 'Paper',
+    suitableFor: 'Large single scoop, sundaes, frozen desserts',
+    overview: 'Medium dessert cup for generous single servings and frozen treats.',
+    description: 'A 6OZ paper cup suitable for large single scoops, sundaes and frozen desserts.',
+    idealFor: 'Ice-cream shops, dessert businesses, cafés and events.',
+    inStock: true
+  },
+
+  {
+    id: '8oz-ice-cream-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '8OZ Ice-Cream Paper Cup',
+    slug: '8oz-ice-cream-paper-cup',
+    imageSlug: '8oz-ice-cream-paper-cup',
+    capacity: '8OZ (Approx. 240ML)',
+    price: 775,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 775,
+    material: 'Paper',
+    suitableFor: 'Double-scoop ice cream, parfaits, dessert bowls',
+    overview: 'Larger dessert cup designed for double scoops, parfaits and generous frozen desserts.',
+    description: 'An 8OZ paper cup for double-scoop ice cream, parfaits and dessert servings.',
+    idealFor: 'Ice-cream shops, dessert businesses, cafés and events.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-transparent-plastic-glass',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Transparent Plastic Glass',
+    slug: '12oz-transparent-plastic-glass',
+    imageSlug: '12oz-transparent-plastic-glass',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 550,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 11,
+    material: 'Transparent plastic',
+    suitableFor: 'Juice, milkshakes, smoothies, cold beverages',
+    overview: 'Clear plastic glass designed to showcase and serve a range of cold beverages.',
+    description: 'A 12OZ transparent glass suitable for juice, milkshakes, smoothies and cold drinks.',
+    idealFor: 'Juice bars, cafés, restaurants, events and takeaway.',
+    inStock: true
+  },
+
+  {
+    id: '16oz-transparent-plastic-glass',
+    categoryId: 'cups-drinkware',
+    name: '16OZ Transparent Plastic Glass',
+    slug: '16oz-transparent-plastic-glass',
+    imageSlug: '16oz-transparent-plastic-glass',
+    capacity: '16OZ (Approx. 480ML)',
+    price: 700,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 14,
+    material: 'Transparent plastic',
+    suitableFor: 'Smoothies, iced coffee, milkshakes, cold beverages',
+    overview: 'Large transparent plastic glass for generous servings of cold beverages.',
+    description: 'A 16OZ clear glass suitable for smoothies, iced coffee, milkshakes and cold drinks.',
+    idealFor: 'Juice bars, cafés, restaurants, events and takeaway.',
+    inStock: true
+  },
+
+  {
+    id: '20oz-transparent-plastic-glass',
+    categoryId: 'cups-drinkware',
+    name: '20OZ Transparent Plastic Glass',
+    slug: '20oz-transparent-plastic-glass',
+    imageSlug: '20oz-transparent-plastic-glass',
+    capacity: '20OZ (Approx. 600ML)',
+    price: 850,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 17,
+    material: 'Transparent plastic',
+    suitableFor: 'Large smoothies, shakes, specialty cold drinks',
+    overview: 'Extra-large transparent plastic glass for generous specialty beverage servings.',
+    description: 'A 20OZ clear glass designed for large smoothies, shakes and specialty cold drinks.',
+    idealFor: 'Juice bars, cafés, restaurants, beverage businesses and events.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-plastic-glass-dome-lid',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Plastic Glass with Dome Lid',
+    slug: '12oz-plastic-glass-dome-lid',
+    imageSlug: '12oz-plastic-glass-dome-lid',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 1150,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 23,
+    material: 'Transparent plastic',
+    lid: 'Dome lid included',
+    suitableFor: 'Fresh juice, milkshakes, smoothies, slushes & falooda',
+    overview: 'Transparent plastic glass with dome lid for attractive and convenient cold beverage service.',
+    description: 'A 12OZ glass with dome lid, suitable for juices, milkshakes, smoothies, slushes and falooda.',
+    idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
+    inStock: true
+  },
+
+  {
+    id: '16oz-plastic-glass-dome-lid',
+    categoryId: 'cups-drinkware',
+    name: '16OZ Plastic Glass with Dome Lid',
+    slug: '16oz-plastic-glass-dome-lid',
+    imageSlug: '16oz-plastic-glass-dome-lid',
+    capacity: '16OZ (Approx. 480ML)',
+    price: 1425,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 28.5,
+    material: 'Transparent plastic',
+    lid: 'Dome lid included',
+    suitableFor: 'Smoothies, iced coffee, milkshakes, cold beverages',
+    overview: 'Large transparent plastic glass with dome lid for generous cold beverage servings.',
+    description: 'A 16OZ glass with dome lid suitable for smoothies, iced coffee, milkshakes and other cold beverages.',
+    idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
+    inStock: true
+  },
+
+  /* =========================================================
+     ALUMINUM CONTAINERS
+     ========================================================= */
+
+  {
+    id: 'f1-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F1 Aluminum Container with Lid',
+    slug: 'f1-aluminum-container-with-lid',
+    imageSlug: 'f1-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '5 × 4 × 2 inches',
+    capacity: 'Approximately 450ml',
+    price: 20,
+    unitPrice: 20,
+    packPrice: 990,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 20,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 5.7–6g',
+    suitableFor: 'Rice, pasta, lasagna, curries, brownies, desserts, salads and frozen meals',
+    overview: 'Compact single-serve aluminum container with lid, designed for everyday takeaway portions, baking and food storage.',
+    description: 'A practical foil container for individual servings and smaller portions. Suitable for takeaway, delivery, meal preparation, baking and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, home cooks and catering of small portions.',
+    inStock: true
+  },
+
+  {
+    id: 'f2-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F2 Aluminum Container with Lid',
+    slug: 'f2-aluminum-container-with-lid',
+    imageSlug: 'f2-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '8 × 4 × 2.5 inches',
+    capacity: 'Approximately 750–900ml',
+    price: 30,
+    unitPrice: 30,
+    packPrice: 1475,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 30,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 8–9g',
+    suitableFor: 'Rice, pasta, lasagna, biryani, baked goods, frozen meals and side dishes',
+    overview: 'Medium versatile foil container designed for generous single servings and everyday takeaway use.',
+    description: 'A practical aluminum container for takeaway, baking, meal preparation and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, caterers and home cooks.',
+    inStock: true
+  },
+
+  {
+    id: 'f3-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F3 Aluminum Container with Lid',
+    slug: 'f3-aluminum-container-with-lid',
+    imageSlug: 'f3-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '8.5 × 6 × 2 inches',
+    capacity: 'Approximately 1100–1500ml',
+    price: 41,
+    unitPrice: 41,
+    packPrice: 2040,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 41,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 12g',
+    suitableFor: 'Family portions, sharing meals, lasagna, pasta bakes, curries, roasted dishes, brownies and bulk frozen storage',
+    overview: 'Large family-style foil tray for generous portions, catering and meal preparation.',
+    description: 'A strong aluminum container with reinforced walls, suitable for baking, takeaway, food storage and catering.',
+    idealFor: 'Family meals, catering, restaurants, cloud kitchens and meal-prep businesses.',
+    inStock: true
+  },
+
+  {
+    id: 'f4-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F4 Aluminum Container with Lid',
+    slug: 'f4-aluminum-container-with-lid',
+    imageSlug: 'f4-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '9.5 × 9.5 × 2 inches',
+    capacity: 'Approximately 1750ml',
+    price: 84,
+    unitPrice: 84,
+    packPrice: 4200,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 84,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 17g',
+    suitableFor: 'Family meals, party platters, catering trays, lasagna, pasta, rice, roasted meats, desserts and bulk freezing',
+    overview: 'Extra-large foil container designed for maximum capacity, sharing and catering.',
+    description: 'A heavy-duty aluminum container suitable for large meals, catering, baking, takeaway and freezer storage.',
+    idealFor: 'Catering businesses, restaurants, cloud kitchens, events and large family portions.',
+    inStock: true
+  }
+];
+
+/* =========================================================
+   APPROVED STORE STANDARD
+   All products are shown as In Stock.
+   No individual inventory quantities are used.
+   ========================================================= */
+
+PRODUCTS.forEach((product) => {
+  product.inStock = true;
+
+  product.images = getProductImages(
+    product.imageFolder || product.id,
+    getLegacyProductImages(
+      product.imageSlug,
+      product.imageSuffixes
+    )
+  );
+});
+
+/* ===== UTILITY FUNCTIONS ===== */
+
+export const getProductById = (productId) => {
+  return PRODUCTS.find((product) => product.id === productId);
+};
+
+export const getProductsByCategory = (categoryId) => {
+  return PRODUCTS.filter(
+    (product) => product.categoryId === categoryId
+  );
+};
+
+export const getCategoryById = (categoryId) => {
+  return CATEGORIES.find(
+    (category) => category.id === categoryId
+  );
+};
+
+export const getCategoryBySlug = (slug) => {
+  return CATEGORIES.find(
+    (category) => category.slug === slug
+  );
+};
+
+export const formatPrice = (price) => {
+  return new Intl.NumberFormat('en-PK', {
+    style: 'currency',
+    currency: 'PKR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(Math.round(price));
+};
+
+export const searchProducts = (query) => {
+  const lowerQuery = query.toLowerCase();
+
+  return PRODUCTS.filter(
+    (product) =>
+      product.name.toLowerCase().includes(lowerQuery) ||
+      product.description.toLowerCase().includes(lowerQuery) ||
+      product.overview.toLowerCase().includes(lowerQuery)
+  );
+};
