@@ -7,7 +7,7 @@
 
   Each product has its own folder:
 
-  src/assets/products/<product-id>/
+  src/assets/products/<product-folder>/
 
   Example:
 
@@ -70,9 +70,6 @@ export const getProductImages = (
     MAIN IMAGE
 
     01.jpg is always treated as the main image.
-
-    This is deliberately based on the exact filename
-    because the main image needs one predictable identity.
   */
 
   const mainImage = productImages.find(
@@ -86,16 +83,6 @@ export const getProductImages = (
     Every other image is accepted automatically.
 
     Their filenames do NOT matter.
-
-    Examples:
-
-      side-view.jpg
-      with-lid.jpg
-      food-example.jpg
-      pack.jpg
-      abc123.jpg
-
-    They are all valid gallery images.
   */
 
   const secondaryImages = productImages
@@ -120,11 +107,6 @@ export const getProductImages = (
     01.jpg first
     ↓
     every other discovered image
-
-    This gives ProductDetailPage.jsx a simple array:
-
-    images[0] = main image
-    images[1+] = gallery images
   */
 
   if (mainImage) {
@@ -139,13 +121,6 @@ export const getProductImages = (
 
   /*
     SAFETY FALLBACK
-
-    If 01.jpg has not yet been uploaded for a product,
-    use the existing fallback image system instead
-    of breaking the product page.
-
-    Once 01.jpg is uploaded, the new automatic system
-    takes over automatically.
   */
 
   return fallbackImages;
