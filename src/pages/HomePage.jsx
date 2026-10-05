@@ -116,10 +116,15 @@ function HomePage() {
               </Link>
 
               <Link
-                to="/"
+                to="/business-solutions"
                 className="hero-button hero-button-secondary"
+                style={{
+                  display: 'inline-flex',
+                  marginTop: '8px'
+                }}
               >
-                Wholesale Supply
+                Business Solutions
+                <span className="button-arrow">→</span>
               </Link>
             </div>
           </div>
