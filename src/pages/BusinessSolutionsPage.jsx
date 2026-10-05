@@ -382,7 +382,8 @@ function BusinessSolutionsPage() {
               </p>
 
               <Link
-                to="/category/food-containers"
+                to="/"
+                state={{ scrollTo: 'shop-by-category' }}
                 className="btn btn-primary"
               >
                 Shop Packaging <span>→</span>
@@ -525,6 +526,7 @@ function BusinessSolutionsPage() {
 
               <Link
                 to="/"
+                state={{ scrollTo: 'shop-by-category' }}
                 className="btn btn-primary btn-lg"
               >
                 Continue Shopping
