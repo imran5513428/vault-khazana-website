@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './business-solutions.css';
 
@@ -70,6 +70,8 @@ const processSteps = [
 
 function BusinessSolutionsPage() {
   const [activeImage, setActiveImage] = useState(0);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   const imageBase =
     `${import.meta.env.BASE_URL}images/images-business-solution/`;
@@ -89,6 +91,49 @@ function BusinessSolutionsPage() {
       (current) =>
         (current + 1) % imageFiles.length
     );
+  };
+
+  const handleTouchStart = (event) => {
+    const touch = event.touches[0];
+
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (
+      touchStartX.current === null ||
+      touchStartY.current === null
+    ) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+
+    const deltaX =
+      touch.clientX - touchStartX.current;
+
+    const deltaY =
+      touch.clientY - touchStartY.current;
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    /* Ignore mostly-vertical gestures so normal page scrolling
+       remains natural on mobile. */
+    if (Math.abs(deltaX) < 45) {
+      return;
+    }
+
+    if (Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      nextImage();
+    } else {
+      previousImage();
+    }
   };
 
   return (
@@ -182,7 +227,11 @@ function BusinessSolutionsPage() {
 
           <div className="bs-gallery">
 
-            <div className="bs-gallery-main">
+            <div
+              className="bs-gallery-main"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               <img
                 src={`${imageBase}${imageFiles[activeImage]}`}
                 alt="Selected food-brand packaging and printing work"
