@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import './pages.css';
 
@@ -61,6 +61,26 @@ const formatDisplayPrice = (price) => {
 };
 
 function HomePage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo !== 'shop-by-category') return;
+
+    const scrollToCategories = () => {
+      const section = document.getElementById('shop-by-category');
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    };
+
+    const frame = window.requestAnimationFrame(scrollToCategories);
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [location]);
 
   // Get featured products (best sellers)
   const featuredProducts = PRODUCTS.filter(
@@ -88,6 +108,7 @@ function HomePage() {
             <div className="hero-actions">
               <Link
                 to="/"
+                state={{ scrollTo: 'shop-by-category' }}
                 className="hero-button hero-button-primary"
               >
                 Shop Products
@@ -118,7 +139,10 @@ function HomePage() {
       </section>
 
       {/* CATEGORIES SECTION */}
-      <section className="section section-categories">
+      <section
+        className="section section-categories"
+        id="shop-by-category"
+      >
         <div className="container">
 
           <div className="section-heading">
