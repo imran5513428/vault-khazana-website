@@ -10,6 +10,7 @@ import CategoryPage from './pages/CategoryPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
+import BusinessSolutionsPage from './pages/BusinessSolutionsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route
+              path="/business-solutions"
+              element={<BusinessSolutionsPage />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
@@ -35,4 +40,4 @@ function App() {
   );
 }
 
-export default App;                                                                                                                              
+export default App;
