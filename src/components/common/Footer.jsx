@@ -54,7 +54,7 @@ function Footer() {
             <nav className="footer-nav">
               <Link to="/">Wholesale Pricing</Link>
               <Link to="/">Bulk Orders</Link>
-              <Link to="/">Business Solutions</Link>
+              <Link to="/business-solutions">Business Solutions</Link>
               <Link to="/">For Restaurants</Link>
             </nav>
           </div>
