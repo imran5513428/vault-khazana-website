@@ -532,4 +532,1022 @@ export const PRODUCTS = [
     pricePerUnit: 22,
     material: 'Food-grade PET or Polypropylene',
     shape: 'Rectangular',
-    lid: 'Integrated hinged snap
+    lid: 'Integrated hinged snap-lock lid',
+    colour: 'Transparent',
+    overview: 'Crystal-clear one-piece hinged food container with secure snap-lock closure and excellent product visibility.',
+    description: 'Clear one-piece hinged plastic takeout and food container with a secure snap-lock lid. Made from food-grade PET or polypropylene, it provides excellent product visibility and a neat presentation. Its stackable design and leak-resistant perimeter seal make it suitable for cold or room-temperature foods.',
+    suitableFor: 'Sandwiches, salads, desserts, prepared meals and bakery items.',
+    idealFor: 'Takeaway counters, bakeries, cafés, restaurants and food delivery.',
+    recommendation: 'A clean presentation-focused container for foods where product visibility matters.'
+  },
+
+  {
+    id: 'G35',
+    categoryId: 'food-containers',
+    name: 'G-35 Clear Round Hinged Container',
+    slug: 'g35-clear-round-hinged-container',
+    imageSlug: 'G35',
+    price: 40,
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 40,
+    material: 'Food-grade PET or PS',
+    shape: 'Round',
+    lid: 'Matching hinged lid',
+    colour: 'Transparent',
+    model: 'G-35',
+    overview: 'Clear round hinged packaging designed to present bakery and dessert items attractively while keeping the contents protected.',
+    description: 'Disposable round plastic packaging designed in a clamshell-style or base-and-matching-lid format for cakes, tarts, pies, pastries and similar bakery items. The crystal-clear material provides excellent product visibility, while the integrated or matching lid keeps the contents protected.',
+    suitableFor: 'Cakes, tarts, pies, pastries and other bakery products.',
+    idealFor: 'Bakeries, dessert shops, cafés, home bakers and takeaway counters.',
+    recommendation: 'A presentation-friendly choice for individual bakery and dessert packaging.'
+  },
+
+  {
+    id: 'h6',
+    categoryId: 'food-containers',
+    name: 'H6 Clear Hinged Plastic Container',
+    slug: 'h6-clear-hinged-plastic-container',
+    imageSlug: 'h6',
+    dimensions: '9 × 6 × 2.5 inches',
+    capacity: '750ml',
+    price: 13,
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 13,
+    material: 'Clear plastic',
+    shape: 'Rectangular',
+    lid: 'Integrated hinged lid',
+    colour: 'Transparent',
+    overview: 'Large clear hinged container offering generous space for food portions while keeping the contents visible.',
+    description: 'Our H6 Plastic Box with Folding Lid is ideal for takeaway and delivery of a range of savoury and sweet food items. You can also use it to store portions and leftover food in your refrigerator at home.',
+    suitableFor: 'Condiments, biscuits, cakes, frozen food and much more.',
+    idealFor: 'Takeaway, delivery, bakeries, restaurants and refrigerator storage.',
+    recommendation: 'A spacious hinged option for businesses handling larger portions.'
+  },
+
+  {
+    id: 'h2',
+    categoryId: 'food-containers',
+    name: 'H2 Clear Hinged Plastic Container',
+    slug: 'h2-clear-hinged-plastic-container',
+    imageSlug: 'h2',
+    dimensions: '6 × 4 × 2 inches',
+    price: 8,
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 8,
+    material: 'Clear plastic',
+    shape: 'Rectangular',
+    lid: 'Integrated hinged lid',
+    colour: 'Transparent',
+    overview: 'Compact clear hinged container designed for convenient packing of smaller food portions and bakery items.',
+    description: 'Our H2 Plastic Box with Folding Lid is ideal for takeaway and delivery of a range of savoury and sweet food items. You can also use it to store portions and leftover food in your refrigerator at home.',
+    suitableFor: 'Condiments, biscuits, cakes, frozen food and much more.',
+    idealFor: 'Takeaway, delivery, bakeries, cafés and refrigerator storage.',
+    recommendation: 'A simple and economical choice for smaller food portions.'
+  },
+
+  {
+    id: 'snd',
+    categoryId: 'food-containers',
+    name: 'SND Clear Hinged Box',
+    slug: 'snd-clear-hinged-box',
+    imageSlug: 'snd',
+    price: 13,
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 13,
+    material: 'Food-grade PET',
+    shape: 'Rectangular hinged clamshell',
+    lid: 'Integrated hinged snap-lock lid',
+    colour: 'Transparent',
+    overview: 'Clear hinged clamshell box designed for neat food presentation, easy handling and secure everyday takeaway packaging.',
+    description: 'This clear plastic hinged clamshell is a one-piece takeout container, typically made from food-grade PET. It features an integrated hinged lid, crystal-clear material for excellent product visibility, a contoured curved top section for additional height, ribbed or fluted sidewalls for added strength, and secure snap-lock closures. The one-piece construction means there is no separate lid to lose, and the container can be stacked when empty or filled.',
+    suitableFor: 'Sandwiches, prepared foods, bakery items and other takeaway portions.',
+    idealFor: 'Cafés, bakeries, restaurants, takeaway counters and food delivery.',
+    recommendation: 'A practical clear clamshell for businesses that want both visibility and convenient packing.'
+  },
+
+  /* =========================================================
+     DISPOSABLE CUTLERY
+     ========================================================= */
+
+  {
+    id: 'black-disposable-spoon',
+    categoryId: 'disposable-cutlery',
+    name: 'Heavy-Duty Black Plastic Table Spoons',
+    slug: 'heavy-duty-black-plastic-table-spoons',
+    imageSlug: 'black-disposable-spoon',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 250,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 250,
+    material: 'Polystyrene (PS)',
+    suitableFor: 'Soup, rice, ice cream & more',
+    overview: 'Made from sturdy Polystyrene (PS), these heavy-duty black table spoons are designed for everyday takeaway, delivery and food-service use.',
+    description: 'Their strong construction makes them suitable for a wide range of meals, from soups and rice to ice cream and desserts.',
+    idealFor: 'Takeaway, delivery and everyday food-service use.',
+    inStock: true
+  },
+
+  {
+    id: 'clear-plastic-spoon',
+    categoryId: 'disposable-cutlery',
+    name: 'Clear Plastic Table Spoons',
+    slug: 'clear-plastic-table-spoons',
+    imageSlug: 'clear-plastic-spoon',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 150,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 150,
+    material: 'Plastic',
+    suitableFor: 'Desserts, snacks, rice & more',
+    overview: 'Clear plastic table spoons designed for convenient everyday food-service, takeaway and delivery use.',
+    description: 'A simple and practical choice for serving desserts, snacks, rice and a variety of everyday foods.',
+    idealFor: 'Takeaway, delivery, parties and everyday food service.',
+    inStock: true
+  },
+
+  {
+    id: 'black-disposable-fork',
+    categoryId: 'disposable-cutlery',
+    name: 'Heavy-Duty Black Plastic Table Forks',
+    slug: 'heavy-duty-black-plastic-table-forks',
+    imageSlug: 'black-disposable-fork',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 250,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 250,
+    material: 'Plastic',
+    suitableFor: 'Rice, pasta, salads & more',
+    overview: 'Heavy-duty black plastic table forks designed for reliable everyday takeaway, delivery and food-service use.',
+    description: 'Strong and practical forks suitable for a wide range of meals, including rice, pasta, salads and other takeaway foods.',
+    idealFor: 'Takeaway, delivery and everyday food-service use.',
+    inStock: true
+  },
+
+  {
+    id: 'white-disposable-spoon',
+    categoryId: 'disposable-cutlery',
+    name: 'Heavy-Duty White Plastic Table Spoons',
+    slug: 'heavy-duty-white-plastic-table-spoons',
+    imageSlug: 'white-disposable-spoon',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 250,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 250,
+    material: 'Plastic',
+    suitableFor: 'Soup, rice, desserts & more',
+    overview: 'Heavy-duty white plastic table spoons designed for dependable everyday food-service, takeaway and delivery use.',
+    description: 'Their sturdy construction makes them suitable for soups, rice, desserts and a variety of everyday meals.',
+    idealFor: 'Takeaway, delivery, catering and food-service use.',
+    inStock: true
+  },
+
+  {
+    id: 'white-disposable-knife',
+    categoryId: 'disposable-cutlery',
+    name: 'Heavy-Duty White Plastic Table Knives',
+    slug: 'heavy-duty-white-plastic-table-knives',
+    imageSlug: 'white-disposable-knife',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 250,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 250,
+    material: 'Plastic',
+    suitableFor: 'Meals, bakery items & more',
+    overview: 'Heavy-duty white plastic table knives designed for convenient food-service, takeaway and delivery use.',
+    description: 'Practical disposable knives for cutting and serving a variety of meals, bakery items and other foods.',
+    idealFor: 'Takeaway, delivery, catering and everyday food service.',
+    inStock: true
+  },
+
+  {
+    id: 'white-disposable-fork',
+    categoryId: 'disposable-cutlery',
+    name: 'Heavy-Duty White Plastic Table Forks',
+    slug: 'heavy-duty-white-plastic-table-forks',
+    imageSlug: 'white-disposable-fork',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 250,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 250,
+    material: 'Plastic',
+    suitableFor: 'Rice, pasta, salads & more',
+    overview: 'Heavy-duty white plastic table forks designed for reliable everyday food-service use.',
+    description: 'Strong and practical forks suitable for rice, pasta, salads and a wide range of takeaway and served meals.',
+    idealFor: 'Takeaway, delivery, catering and everyday food service.',
+    inStock: true
+  },
+
+  {
+    id: 'color-plastic-spoon',
+    categoryId: 'disposable-cutlery',
+    name: 'Color Plastic Spoons',
+    slug: 'color-plastic-spoons',
+    imageSlug: 'color-plastic-spoon',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'detail',
+      'use',
+      'pack'
+    ],
+    price: 150,
+    pack: '100 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 150,
+    material: 'Plastic',
+    suitableFor: 'Desserts, snacks, parties & more',
+    overview: 'Color plastic spoons offering a practical and convenient option for parties, food service and everyday use.',
+    description: 'A colorful disposable spoon option for serving desserts, snacks and other everyday foods.',
+    idealFor: 'Parties, events, takeaway and everyday food service.',
+    inStock: true
+  },
+
+  /* =========================================================
+     CUPS & DRINKWARE
+     ========================================================= */
+
+  {
+    id: '6oz-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '6OZ Paper Cup',
+    slug: '6oz-paper-cup',
+    imageSlug: '6oz-paper-cup',
+    capacity: '6OZ (Approx. 180ML)',
+    price: 450,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 450,
+    material: 'Paper',
+    suitableFor: 'Small coffee, cortado, karak chai, hot tea',
+    overview: 'Compact paper cup designed for smaller hot beverages and everyday serving.',
+    description: 'A practical 6OZ paper cup for small coffee, cortado, karak chai and hot tea.',
+    idealFor: 'Cafés, tea shops, offices, takeaway and everyday beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '7oz-paper-cup-200ml',
+    categoryId: 'cups-drinkware',
+    name: '7OZ Paper Cup (200ML)',
+    slug: '7oz-paper-cup-200ml',
+    imageSlug: '7oz-paper-cup-200ml',
+    capacity: '7OZ (Approx. 200ML)',
+    price: 500,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 500,
+    material: 'Paper',
+    suitableFor: 'Regular coffee, tea, hot chocolate',
+    overview: 'Everyday paper cup sized for regular servings of hot beverages.',
+    description: 'A versatile 7OZ paper cup suitable for regular coffee, tea and hot chocolate.',
+    idealFor: 'Cafés, offices, tea shops, takeaway and beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '8oz-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '8OZ Paper Cup',
+    slug: '8oz-paper-cup',
+    imageSlug: '8oz-paper-cup',
+    capacity: '8OZ (Approx. 240ML)',
+    price: 575,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 575,
+    material: 'Paper',
+    suitableFor: 'Medium coffee, cappuccino, tea, hot beverages',
+    overview: 'Medium-size paper cup suitable for everyday hot beverage service.',
+    description: 'A practical 8OZ cup for medium coffee, cappuccino, tea and other hot beverages.',
+    idealFor: 'Cafés, coffee shops, offices, takeaway and events.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Paper Cup',
+    slug: '12oz-paper-cup',
+    imageSlug: '12oz-paper-cup',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 700,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 700,
+    material: 'Paper',
+    suitableFor: 'Medium latte, regular coffee, tea, hot drinks',
+    overview: 'Larger paper cup designed for generous servings of hot beverages.',
+    description: 'A versatile 12OZ paper cup for medium lattes, regular coffee, tea and hot drinks.',
+    idealFor: 'Cafés, coffee shops, takeaway and beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '16oz-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '16OZ Paper Cup',
+    slug: '16oz-paper-cup',
+    imageSlug: '16oz-paper-cup',
+    capacity: '16OZ (Approx. 480ML)',
+    price: 825,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 825,
+    material: 'Paper',
+    suitableFor: 'Large coffee, iced drinks, frappes, hot beverages',
+    overview: 'Large paper cup suitable for generous hot and cold beverage servings.',
+    description: 'A spacious 16OZ paper cup for large coffee, iced drinks, frappes and other beverages.',
+    idealFor: 'Cafés, coffee shops, takeaway and beverage businesses.',
+    inStock: true
+  },
+
+  {
+    id: '8oz-double-wall-ripple-cup',
+    categoryId: 'cups-drinkware',
+    name: '8OZ Double-Wall Ripple Cup',
+    slug: '8oz-double-wall-ripple-cup',
+    imageSlug: '8oz-double-wall-ripple-cup',
+    capacity: '8OZ (Approx. 240ML)',
+    price: 1425,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 1425,
+    material: 'Paper — double-wall ripple',
+    suitableFor: 'Regular coffee, cappuccino, hot tea',
+    overview: 'Double-wall ripple paper cup designed for comfortable serving of hot beverages.',
+    description: 'An 8OZ ripple-wall cup for regular coffee, cappuccino and hot tea.',
+    idealFor: 'Cafés, coffee shops, takeaway and premium beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-double-wall-ripple-cup',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Double-Wall Ripple Cup',
+    slug: '12oz-double-wall-ripple-cup',
+    imageSlug: '12oz-double-wall-ripple-cup',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 1750,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 1750,
+    material: 'Paper — double-wall ripple',
+    suitableFor: 'Medium latte, regular coffee, hot beverages',
+    overview: 'Double-wall ripple paper cup designed for larger hot beverage servings.',
+    description: 'A 12OZ ripple-wall cup suitable for medium lattes, regular coffee and hot beverages.',
+    idealFor: 'Cafés, coffee shops, takeaway and premium beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '200ml-paper-cup-with-handles',
+    categoryId: 'cups-drinkware',
+    name: '200ML Paper Cup with Handles (8OZ)',
+    slug: '200ml-paper-cup-with-handles',
+    imageSlug: '200ml-paper-cup-with-handles',
+    capacity: '200ML (Approx. 7OZ)',
+    price: 750,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 750,
+    material: 'Paper',
+    suitableFor: 'Hot beverages like coffee, tea, and hot chocolate',
+    overview: 'Convenient paper cup with handles for comfortable serving of hot beverages.',
+    description: 'A 200ML handled paper cup designed for coffee, tea and hot chocolate.',
+    idealFor: 'Cafés, takeaway, events and hot beverage service.',
+    inStock: true
+  },
+
+  {
+    id: '4oz-ice-cream-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '4OZ Ice-Cream Paper Cup',
+    slug: '4oz-ice-cream-paper-cup',
+    imageSlug: '4oz-ice-cream-paper-cup',
+    capacity: '4OZ (Approx. 120ML)',
+    price: 525,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 525,
+    material: 'Paper',
+    suitableFor: 'Single-scoop ice cream, gelato, frozen desserts',
+    overview: 'Compact dessert cup designed for individual servings of ice cream and frozen desserts.',
+    description: 'A convenient 4OZ paper cup for single-scoop ice cream, gelato and frozen desserts.',
+    idealFor: 'Ice-cream shops, dessert businesses, cafés and events.',
+    inStock: true
+  },
+
+  {
+    id: '6oz-ice-cream-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '6OZ Ice-Cream Paper Cup',
+    slug: '6oz-ice-cream-paper-cup',
+    imageSlug: '6oz-ice-cream-paper-cup',
+    capacity: '6OZ (Approx. 180ML)',
+    price: 650,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 650,
+    material: 'Paper',
+    suitableFor: 'Large single scoop, sundaes, frozen desserts',
+    overview: 'Medium dessert cup for generous single servings and frozen treats.',
+    description: 'A 6OZ paper cup suitable for large single scoops, sundaes and frozen desserts.',
+    idealFor: 'Ice-cream shops, dessert businesses, cafés and events.',
+    inStock: true
+  },
+
+  {
+    id: '8oz-ice-cream-paper-cup',
+    categoryId: 'cups-drinkware',
+    name: '8OZ Ice-Cream Paper Cup',
+    slug: '8oz-ice-cream-paper-cup',
+    imageSlug: '8oz-ice-cream-paper-cup',
+    capacity: '8OZ (Approx. 240ML)',
+    price: 775,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 100,
+    pricePerUnit: 775,
+    material: 'Paper',
+    suitableFor: 'Double-scoop ice cream, parfaits, dessert bowls',
+    overview: 'Larger dessert cup designed for double scoops, parfaits and generous frozen desserts.',
+    description: 'An 8OZ paper cup for double-scoop ice cream, parfaits and dessert servings.',
+    idealFor: 'Ice-cream shops, dessert businesses, cafés and events.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-transparent-plastic-glass',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Transparent Plastic Glass',
+    slug: '12oz-transparent-plastic-glass',
+    imageSlug: '12oz-transparent-plastic-glass',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 550,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 11,
+    material: 'Transparent plastic',
+    suitableFor: 'Juice, milkshakes, smoothies, cold beverages',
+    overview: 'Clear plastic glass designed to showcase and serve a range of cold beverages.',
+    description: 'A 12OZ transparent glass suitable for juice, milkshakes, smoothies and cold drinks.',
+    idealFor: 'Juice bars, cafés, restaurants, events and takeaway.',
+    inStock: true
+  },
+
+  {
+    id: '16oz-transparent-plastic-glass',
+    categoryId: 'cups-drinkware',
+    name: '16OZ Transparent Plastic Glass',
+    slug: '16oz-transparent-plastic-glass',
+    imageSlug: '16oz-transparent-plastic-glass',
+    capacity: '16OZ (Approx. 480ML)',
+    price: 700,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 14,
+    material: 'Transparent plastic',
+    suitableFor: 'Smoothies, iced coffee, milkshakes, cold beverages',
+    overview: 'Large transparent plastic glass for generous servings of cold beverages.',
+    description: 'A 16OZ clear glass suitable for smoothies, iced coffee, milkshakes and cold drinks.',
+    idealFor: 'Juice bars, cafés, restaurants, events and takeaway.',
+    inStock: true
+  },
+
+  {
+    id: '20oz-transparent-plastic-glass',
+    categoryId: 'cups-drinkware',
+    name: '20OZ Transparent Plastic Glass',
+    slug: '20oz-transparent-plastic-glass',
+    imageSlug: '20oz-transparent-plastic-glass',
+    capacity: '20OZ (Approx. 600ML)',
+    price: 850,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 17,
+    material: 'Transparent plastic',
+    suitableFor: 'Large smoothies, shakes, specialty cold drinks',
+    overview: 'Extra-large transparent plastic glass for generous specialty beverage servings.',
+    description: 'A 20OZ clear glass designed for large smoothies, shakes and specialty cold drinks.',
+    idealFor: 'Juice bars, cafés, restaurants, beverage businesses and events.',
+    inStock: true
+  },
+
+  {
+    id: '12oz-plastic-glass-dome-lid',
+    categoryId: 'cups-drinkware',
+    name: '12OZ Plastic Glass with Dome Lid',
+    slug: '12oz-plastic-glass-dome-lid',
+    imageSlug: '12oz-plastic-glass-dome-lid',
+    capacity: '12OZ (Approx. 350ML)',
+    price: 1150,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 23,
+    material: 'Transparent plastic',
+    lid: 'Dome lid included',
+    suitableFor: 'Fresh juice, milkshakes, smoothies, slushes & falooda',
+    overview: 'Transparent plastic glass with dome lid for attractive and convenient cold beverage service.',
+    description: 'A 12OZ glass with dome lid, suitable for juices, milkshakes, smoothies, slushes and falooda.',
+    idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
+    inStock: true
+  },
+
+  {
+    id: '16oz-plastic-glass-dome-lid',
+    categoryId: 'cups-drinkware',
+    name: '16OZ Plastic Glass with Dome Lid',
+    slug: '16oz-plastic-glastic-glass-dome-lid',
+    imageSlug: '16oz-plastic-glastic-glass-dome-lid',
+    capacity: '16OZ (Approx. 480ML)',
+    price: 1425,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 50,
+    step: 25,
+    packSize: null,
+    pricePerUnit: 28.5,
+    material: 'Transparent plastic',
+    lid: 'Dome lid included',
+    suitableFor: 'Smoothies, iced coffee, milkshakes, cold beverages',
+    overview: 'Large transparent plastic glass with dome lid for generous cold beverage servings.',
+    description: 'A 16OZ glass with dome lid suitable for smoothies, iced coffee, milkshakes and other cold beverages.',
+    idealFor: 'Juice bars, cafés, dessert shops, takeaway and beverage businesses.',
+    inStock: true
+  },
+
+  /* =========================================================
+     TISSUES & KITCHEN
+     ========================================================= */
+
+  {
+    id: 'rahat-silk-soft-tissue',
+    categoryId: 'tissues-kitchen',
+    name: 'Rahat Silk-Soft Tissue — 2 Ply, 200 Tissues',
+    slug: 'rahat-silk-soft-tissue',
+    price: 210,
+    pack: '1 unit — 200 tissues',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 210,
+    overview: 'Rahat Silk-Soft Tissue offers a soft, smooth feel for comfortable everyday use. This red and white pack features Arabic-language packaging and contains 200 tissues with a 2-ply construction.',
+    description: 'Rahat Silk-Soft Tissue offers a soft, smooth feel for comfortable everyday use. The pack contains 200 tissues with a 2-ply construction.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday use.',
+    idealFor: 'Everyday facial tissue use at home, in offices and other personal-care settings.',
+    inStock: true
+  },
+
+  {
+    id: 'klienex-soft-tissue',
+    categoryId: 'tissues-kitchen',
+    name: 'Klienex Soft High Quality Tissue',
+    slug: 'klienex-soft-tissue',
+    price: 180,
+    pack: '1 unit — up to 300 sheets',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 180,
+    overview: 'Premium-quality folded facial tissues in attractive red rose-design packaging. Made in Pakistan and designed for convenient everyday cleaning and personal hygiene.',
+    description: 'Premium-quality folded facial tissues designed for convenient everyday cleaning and personal hygiene.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday cleaning.',
+    idealFor: 'Everyday facial tissue use and convenient personal hygiene.',
+    inStock: true
+  },
+
+  {
+    id: 'tux-premium-tissues-550',
+    categoryId: 'tissues-kitchen',
+    name: 'Tux Premium Tissues — Ultra Soft, Hypo-Allergenic, 2 Ply, 550 Sheets',
+    slug: 'tux-premium-tissues-550',
+    price: 440,
+    pack: '1 unit — 550 sheets',
+    sellingUnit: 'piece',
+    moq: 2,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 440,
+    material: '100% virgin wood pulp',
+    overview: 'Tux Ultra Soft Premium Tissues are made from 100% virgin wood pulp and designed to provide a luxuriously soft feel with reliable strength and absorbency. Their hypo-allergenic formulation makes them suitable for all skin types and everyday hygiene.',
+    description: 'Tux Ultra Soft Premium Tissues feature a 2-ply construction, hypo-allergenic formulation and easy-pull design for everyday hygiene.',
+    suitableFor: 'Home use, office use, personal hygiene, everyday cleaning and all skin types.',
+    idealFor: 'Everyday facial tissue use where softness and absorbency are important.',
+    inStock: true
+  },
+
+  {
+    id: 'tux-pop-up-tissues',
+    categoryId: 'tissues-kitchen',
+    name: 'Tux Premium Tissues — Pop Up Box, 150 Soft Pulls',
+    slug: 'tux-pop-up-tissues',
+    price: 210,
+    pack: '1 unit — 150 soft pulls',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 210,
+    overview: 'Tux Pop Up Premium Tissues come in a convenient dispenser box with soft tissues designed for easy everyday use. The box is marked Hypo-Allergenic and Certified Skin Safe.',
+    description: 'Convenient pop-up tissue box with soft tissues marked Hypo-Allergenic and Certified Skin Safe for easy everyday use.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday use.',
+    idealFor: 'Convenient facial tissue use at desks, counters, homes and offices.',
+    inStock: true
+  },
+
+  {
+    id: 'flora-vanilla-magic-tissues',
+    categoryId: 'tissues-kitchen',
+    name: 'Flora Perfumed Facial Tissues — Vanilla Magic, 2 Ply, 550 Tissues',
+    slug: 'flora-vanilla-magic-tissues',
+    price: 260,
+    pack: '1 unit — 550 tissues',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 260,
+    material: '100% virgin pulp',
+    overview: 'Flora Vanilla Magic is a premium perfumed facial tissue with a silky-soft feel, made from 100% virgin pulp. Its Vanilla Magic fragrance and 2-ply construction make it suitable for comfortable everyday use.',
+    description: 'Flora Vanilla Magic features a Vanilla Magic fragrance, 2-ply construction and a silky-soft feel for comfortable everyday use.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday use.',
+    idealFor: 'Everyday facial tissue use for customers who prefer a perfumed tissue.',
+    inStock: true
+  },
+
+  {
+    id: 'rose-petal-smart-pack',
+    categoryId: 'tissues-kitchen',
+    name: 'Rose Petal Smart Pack — Ultra Soft Tissue, 2 Ply, 550 Tissues',
+    slug: 'rose-petal-smart-pack',
+    price: 440,
+    pack: '1 unit — 550 tissues',
+    sellingUnit: 'piece',
+    moq: 2,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 440,
+    overview: 'Rose Petal Ultra Soft Smart Pack tissues are designed to provide a soft and gentle feel for comfortable everyday use. The convenient pack contains 550 tissues, making it a practical choice for home and on-the-go use.',
+    description: 'Ultra-soft 2-ply facial tissues in a convenient Smart Pack format for everyday use.',
+    suitableFor: 'Home use, office use, personal hygiene, travel and on-the-go use.',
+    idealFor: 'Everyday facial tissue use at home, work or while travelling.',
+    inStock: true
+  },
+
+  {
+    id: 'jasmine-party-pack',
+    categoryId: 'tissues-kitchen',
+    name: 'Jasmine Tissues — Party Pack, Pink',
+    slug: 'jasmine-party-pack',
+    price: 220,
+    pack: '1 unit — Party Pack',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 220,
+    overview: 'Jasmine Party Pack is a convenient pink, napkin-style tissue pack with square-folded tissues. The pack is manufactured by Zamoung Textile Company and also identifies International Marketing Company and Deans Industries Pakistan.',
+    description: 'A pink Party Pack of square-folded, napkin-style tissues for convenient table and everyday use.',
+    suitableFor: 'Home use, everyday use, parties, gatherings and table use.',
+    idealFor: 'Table settings, gatherings and everyday household use.',
+    inStock: true
+  },
+
+  /* =========================================================
+     ALUMINUM CONTAINERS
+     ========================================================= */
+
+  {
+    id: 'f1-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F1 Aluminum Container with Lid',
+    slug: 'f1-aluminum-container-with-lid',
+    imageSlug: 'f1-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '5 × 4 × 2 inches',
+    capacity: 'Approximately 450ml',
+    price: 20,
+    unitPrice: 20,
+    packPrice: 990,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 20,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 5.7–6g',
+    suitableFor: 'Rice, pasta, lasagna, curries, brownies, desserts, salads and frozen meals',
+    overview: 'Compact single-serve aluminum container with lid, designed for everyday takeaway portions, baking and food storage.',
+    description: 'A practical foil container for individual servings and smaller portions. Suitable for takeaway, delivery, meal preparation, baking and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, home cooks and catering of small portions.',
+    inStock: true
+  },
+
+  {
+    id: 'f2-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F2 Aluminum Container with Lid',
+    slug: 'f2-aluminum-container-with-lid',
+    imageSlug: 'f2-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '8 × 4 × 2.5 inches',
+    capacity: 'Approximately 750–900ml',
+    price: 30,
+    unitPrice: 30,
+    packPrice: 1475,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 30,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 8–9g',
+    suitableFor: 'Rice, pasta, lasagna, biryani, baked goods, frozen meals and side dishes',
+    overview: 'Medium versatile foil container designed for generous single servings and everyday takeaway use.',
+    description: 'A practical aluminum container for takeaway, baking, meal preparation and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, caterers and home cooks.',
+    inStock: true
+  },
+
+  {
+    id: 'f3-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F3 Aluminum Container with Lid',
+    slug: 'f3-aluminum-container-with-lid',
+    imageSlug: 'f3-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '8.5 × 6 × 2 inches',
+    capacity: 'Approximately 1100–1500ml',
+    price: 41,
+    unitPrice: 41,
+    packPrice: 2040,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 41,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 12g',
+    suitableFor: 'Family portions, sharing meals, lasagna, pasta bakes, curries, roasted dishes, brownies and bulk frozen storage',
+    overview: 'Large family-style foil tray for generous portions, catering and meal preparation.',
+    description: 'A strong aluminum container with reinforced walls, suitable for baking, takeaway, food storage and catering.',
+    idealFor: 'Family meals, catering, restaurants, cloud kitchens and meal-prep businesses.',
+    inStock: true
+  },
+
+  {
+    id: 'f4-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F4 Aluminum Container with Lid',
+    slug: 'f4-aluminum-container-with-lid',
+    imageSlug: 'f4-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '9.5 × 9.5 × 2 inches',
+    capacity: 'Approximately 1750ml',
+    price: 84,
+    unitPrice: 84,
+    packPrice: 4200,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 84,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 17g',
+    suitableFor: 'Family meals, party platters, catering trays, lasagna, pasta, rice, roasted meats, desserts and bulk freezing',
+    overview: 'Extra-large foil container designed for maximum capacity, sharing and catering.',
+    description: 'A heavy-duty aluminum container suitable for large meals, catering, baking, takeaway and freezer storage.',
+    idealFor: 'Catering businesses, restaurants, cloud kitchens, events and large family portions.',
+    inStock: true
+  }
+];
+
+/* =========================================================
+   APPROVED STORE STANDARD
+   All products are shown as In Stock.
+   No individual inventory quantities are used.
+   ========================================================= */
+
+PRODUCTS.forEach((product) => {
+  product.inStock = true;
+
+  product.images = getProductImages(
+    product.imageFolder || product.id,
+    getLegacyProductImages(
+      product.imageSlug,
+      product.imageSuffixes
+    )
+  );
+});
+
+/* ===== UTILITY FUNCTIONS ===== */
+
+export const getProductById = (productId) => {
+  return PRODUCTS.find((product) => product.id === productId);
+};
+
+export const getProductsByCategory = (categoryId) => {
+  return PRODUCTS.filter(
+    (product) => product.categoryId === categoryId
+  );
+};
+
+export const getCategoryById = (categoryId) => {
+  return CATEGORIES.find(
+    (category) => category.id === categoryId
+  );
+};
+
+export const getCategoryBySlug = (slug) => {
+  return CATEGORIES.find(
+    (category) => category.slug === slug
+  );
+};
+
+export const formatPrice = (price) => {
+  return new Intl.NumberFormat('en-PK', {
+    style: 'currency',
+    currency: 'PKR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(Math.round(price));
+};
+
+export const searchProducts = (query) => {
+  const lowerQuery = query.toLowerCase();
+
+  return PRODUCTS.filter(
+    (product) =>
+      product.name.toLowerCase().includes(lowerQuery) ||
+      product.description.toLowerCase().includes(lowerQuery) ||
+      product.overview.toLowerCase().includes(lowerQuery)
+  );
+};
