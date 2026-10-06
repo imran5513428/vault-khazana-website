@@ -638,6 +638,73 @@ export const PRODUCTS = [
   },
 
   /* =========================================================
+     DIPS & SAUCE CUPS
+     ========================================================= */
+
+  {
+    id: 'disposable-dip-sauce-30ml',
+    categoryId: 'dips-sauce-cups',
+    name: 'Disposable Dip Sauce Cup — 30 ML with Attached Lid',
+    slug: 'disposable-dip-sauce-30ml',
+    price: 150,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 50,
+    pricePerUnit: 150,
+    lid: 'Attached lid',
+    capacity: '30 ML (approximately 1 Oz)',
+    overview: 'A convenient disposable dip sauce cup with an attached lid and approximately 30 ML capacity. Ideal for serving sauces, dips and condiments with takeaway and food-service orders.',
+    description: 'A convenient disposable dip sauce cup with an attached lid and approximately 30 ML capacity. Supplied in a pack of 50 pieces.',
+    suitableFor: 'Sauces, dips, ketchup, mayonnaise, chutneys and condiments.',
+    idealFor: 'Takeaway, food delivery, restaurants, cafés and fast-food businesses.',
+    inStock: true
+  },
+
+  {
+    id: 'disposable-dip-sauce-60ml',
+    categoryId: 'dips-sauce-cups',
+    name: 'Disposable Dip Sauce Cup — 60 ML with Attached Lid',
+    slug: 'disposable-dip-sauce-60ml',
+    price: 225,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 50,
+    pricePerUnit: 225,
+    lid: 'Attached lid',
+    capacity: '60 ML (approximately 2 Oz)',
+    overview: 'A convenient disposable dip sauce cup with an attached lid and approximately 60 ML capacity. Ideal for serving sauces, dips and condiments with takeaway and food-service orders.',
+    description: 'A convenient disposable dip sauce cup with an attached lid and approximately 60 ML capacity. Supplied in a pack of 50 pieces.',
+    suitableFor: 'Sauces, dips, ketchup, mayonnaise, chutneys and condiments.',
+    idealFor: 'Takeaway, food delivery, restaurants, cafés and fast-food businesses.',
+    inStock: true
+  },
+
+  {
+    id: 'disposable-dip-sauce-90ml',
+    categoryId: 'dips-sauce-cups',
+    name: 'Disposable Dip Sauce Cup — 90 ML with Attached Lid',
+    slug: 'disposable-dip-sauce-90ml',
+    price: 400,
+    pack: '50 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 50,
+    pricePerUnit: 400,
+    lid: 'Attached lid',
+    capacity: '90 ML (approximately 3 Oz)',
+    overview: 'A convenient disposable dip sauce cup with an attached lid and approximately 90 ML capacity. Ideal for serving sauces, dips and condiments with takeaway and food-service orders.',
+    description: 'A convenient disposable dip sauce cup with an attached lid and approximately 90 ML capacity. Supplied in a pack of 50 pieces.',
+    suitableFor: 'Sauces, dips, ketchup, mayonnaise, chutneys and condiments.',
+    idealFor: 'Takeaway, food delivery, restaurants, cafés and fast-food businesses.',
+    inStock: true
+  },
+
+  /* =========================================================
      DISPOSABLE CUTLERY
      ========================================================= */
 
