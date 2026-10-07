@@ -749,40 +749,47 @@ export const PRODUCTS = [
     name: 'Food Cling Wrap Sheet',
     slug: 'food-cling-wrap-sheet',
     imageSlug: 'food-cling-wrap-sheet',
-    price: 200,
+    price: 350,
     sellingUnit: 'piece',
     moq: 1,
     step: 1,
     packSize: null,
-    pricePerUnit: 200,
+    pricePerUnit: 350,
     variants: [
       {
         id: '30x30-meter',
-        label: '30 × 30 Meter',
-        dimensions: '30 × 30 Meter',
-        price: 200,
-        pricePerUnit: 200
-      },
-      {
-        id: '30x500-gm',
-        label: '30 × 500 gm',
-        dimensions: '30 × 500 gm',
-        price: 400,
-        pricePerUnit: 400
-      },
-      {
-        id: '30x700-gm',
-        label: '30 × 700 gm',
-        dimensions: '30 × 700 gm',
-        price: 700,
-        pricePerUnit: 700
-      },
-      {
-        id: '45x30-meter',
-        label: '45 × 30 Meter',
-        dimensions: '45 × 30 Meter',
+        label: '30 × 30 m',
+        dimensions: '30 × 30 m',
         price: 350,
         pricePerUnit: 350
+      },
+      {
+        id: '30x50-meter',
+        label: '30 × 50 m',
+        dimensions: '30 × 50 m',
+        price: 500,
+        pricePerUnit: 500
+      },
+      {
+        id: '30x300-meter',
+        label: '30 × 300 m',
+        dimensions: '30 × 300 m',
+        price: 2000,
+        pricePerUnit: 2000
+      },
+      {
+        id: '45x50-meter',
+        label: '45 × 50 m',
+        dimensions: '45 × 50 m',
+        price: 650,
+        pricePerUnit: 650
+      },
+      {
+        id: '45x300-meter',
+        label: '45 × 300 m',
+        dimensions: '45 × 300 m',
+        price: 2000,
+        pricePerUnit: 2000
       }
     ],
     overview: 'Food cling wrap available in practical sizes for covering, wrapping and protecting food from water, dust and other exposure.',
