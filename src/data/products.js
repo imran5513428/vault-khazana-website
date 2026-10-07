@@ -705,6 +705,94 @@ export const PRODUCTS = [
   },
 
   /* =========================================================
+     FOIL & WRAP
+     ========================================================= */
+
+  {
+    id: 'aluminum-foil-sheet',
+    categoryId: 'foil-wrap',
+    name: 'Aluminum Foil Sheet',
+    slug: 'aluminum-foil-sheet',
+    imageSlug: 'aluminum-foil-sheet',
+    price: 200,
+    sellingUnit: 'piece',
+    moq: 1,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 200,
+    variants: [
+      {
+        id: '30x3-meter',
+        label: '30 × 3 Meter',
+        dimensions: '30 × 3 Meter',
+        price: 200,
+        pricePerUnit: 200
+      },
+      {
+        id: '45x3-meter',
+        label: '45 × 3 Meter',
+        dimensions: '45 × 3 Meter',
+        price: 300,
+        pricePerUnit: 300
+      }
+    ],
+    overview: 'Food-grade aluminum foil available in two practical roll sizes for cooking, baking, roasting, grilling and food wrapping.',
+    description: 'Aluminum foil sheet available in 30 × 3 Meter and 45 × 3 Meter options. Choose the required size before adding the product to your cart.',
+    suitableFor: 'Cooking, baking, roasting, grilling, BBQ, food wrapping and food storage.',
+    idealFor: 'Home kitchens, restaurants, BBQ businesses, catering and food-service operations.',
+    inStock: true
+  },
+
+  {
+    id: 'food-cling-wrap-sheet',
+    categoryId: 'foil-wrap',
+    name: 'Food Cling Wrap Sheet',
+    slug: 'food-cling-wrap-sheet',
+    imageSlug: 'food-cling-wrap-sheet',
+    price: 200,
+    sellingUnit: 'piece',
+    moq: 1,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 200,
+    variants: [
+      {
+        id: '30x30-meter',
+        label: '30 × 30 Meter',
+        dimensions: '30 × 30 Meter',
+        price: 200,
+        pricePerUnit: 200
+      },
+      {
+        id: '30x500-gm',
+        label: '30 × 500 gm',
+        dimensions: '30 × 500 gm',
+        price: 400,
+        pricePerUnit: 400
+      },
+      {
+        id: '30x700-gm',
+        label: '30 × 700 gm',
+        dimensions: '30 × 700 gm',
+        price: 700,
+        pricePerUnit: 700
+      },
+      {
+        id: '45x30-meter',
+        label: '45 × 30 Meter',
+        dimensions: '45 × 30 Meter',
+        price: 350,
+        pricePerUnit: 350
+      }
+    ],
+    overview: 'Food cling wrap available in practical sizes for covering, wrapping and protecting food from water, dust and other exposure.',
+    description: 'Food cling wrap sheet available in multiple size options. Choose the required size before adding the product to your cart.',
+    suitableFor: 'Covering food, wrapping sandwiches and snacks, protecting prepared meals, refrigerator storage and food preparation.',
+    idealFor: 'Home kitchens, restaurants, cafés, bakeries, catering and food-service operations.',
+    inStock: true
+  },
+
+  /* =========================================================
      DISPOSABLE CUTLERY
      ========================================================= */
 
