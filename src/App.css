@@ -399,6 +399,120 @@ color: var(--text-secondary);
 font-size: 14px;
 }
 
+/* ============================================
+VARIANT / SIZE SELECTOR
+============================================ */
+
+.product-variant-section {
+margin: 22px 0 24px;
+}
+
+.variant-label {
+display: block;
+margin-bottom: 12px;
+color: var(--primary-navy);
+font-size: 15px;
+font-weight: var(--weight-bold);
+line-height: 1.3;
+}
+
+.variant-options {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 10px;
+width: 100%;
+}
+
+.variant-option {
+position: relative;
+width: 100%;
+min-width: 0;
+min-height: 68px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: center;
+gap: 5px;
+padding: 12px 38px 12px 14px;
+border: 1.5px solid var(--border-light);
+border-radius: var(--radius-medium);
+background: var(--white);
+color: var(--text-dark);
+text-align: left;
+transition:
+border-color var(--transition-fast),
+background-color var(--transition-fast),
+box-shadow var(--transition-fast),
+transform var(--transition-fast);
+overflow: hidden;
+}
+
+.variant-option:hover:not(:disabled) {
+border-color: var(--secondary-orange);
+background: #FFF9F4;
+box-shadow: 0 4px 12px rgba(31, 58, 92, 0.08);
+transform: translateY(-1px);
+}
+
+.variant-option.active {
+border-color: var(--primary-navy);
+background: #F4F7FA;
+box-shadow:
+0 0 0 1px var(--primary-navy),
+0 5px 14px rgba(31, 58, 92, 0.10);
+}
+
+.variant-option.active::after {
+content: '✓';
+position: absolute;
+top: 9px;
+right: 10px;
+width: 20px;
+height: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+background: var(--primary-navy);
+color: var(--white);
+font-size: 12px;
+font-weight: var(--weight-bold);
+line-height: 1;
+}
+
+.variant-option-label {
+display: block;
+width: 100%;
+min-width: 0;
+color: var(--primary-navy);
+font-size: 14px;
+font-weight: var(--weight-semibold);
+line-height: 1.35;
+white-space: normal;
+overflow-wrap: anywhere;
+}
+
+.variant-option-price {
+display: block;
+width: 100%;
+min-width: 0;
+color: var(--secondary-orange);
+font-size: 14px;
+font-weight: var(--weight-bold);
+line-height: 1.3;
+white-space: nowrap;
+}
+
+.variant-option.active .variant-option-price {
+color: var(--primary-navy);
+}
+
+.variant-option:disabled {
+cursor: not-allowed;
+opacity: 0.6;
+transform: none;
+}
+
 /* ===== PRICE ===== */
 
 .product-pricing-section {
@@ -581,6 +695,46 @@ font-size: 28px;
 font-size: 26px;
 }
 
+/* ===== MOBILE VARIANT SELECTOR ===== */
+
+.product-variant-section {
+margin: 18px 0 22px;
+}
+
+.variant-label {
+font-size: 14px;
+margin-bottom: 10px;
+}
+
+.variant-options {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 8px;
+}
+
+.variant-option {
+min-height: 66px;
+padding: 11px 34px 11px 12px;
+border-radius: 10px;
+}
+
+.variant-option-label {
+font-size: 13px;
+line-height: 1.3;
+}
+
+.variant-option-price {
+font-size: 13px;
+line-height: 1.25;
+}
+
+.variant-option.active::after {
+top: 7px;
+right: 7px;
+width: 18px;
+height: 18px;
+font-size: 11px;
+}
+
 .details-list {
 grid-template-columns: 1fr;
 row-gap: 4px;
@@ -589,6 +743,30 @@ row-gap: 4px;
 .details-list dd {
 margin-bottom: 10px;
 }
+}
+
+/* ===== VERY SMALL PHONES ===== */
+
+@media (max-width: 359px) {
+
+.variant-options {
+grid-template-columns: 1fr;
+gap: 8px;
+}
+
+.variant-option {
+min-height: 62px;
+padding: 10px 36px 10px 12px;
+}
+
+.variant-option-label {
+font-size: 13px;
+}
+
+.variant-option-price {
+font-size: 13px;
+}
+
 }
 
 /* ===== TABLET AND DESKTOP ===== */
@@ -604,6 +782,30 @@ gap: 48px;
 .product-gallery {
 position: sticky;
 top: 24px;
+}
+
+/* ===== DESKTOP VARIANT SELECTOR ===== */
+
+.product-variant-section {
+max-width: 560px;
+}
+
+.variant-options {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 12px;
+}
+
+.variant-option {
+min-height: 72px;
+padding: 13px 42px 13px 15px;
+}
+
+.variant-option-label {
+font-size: 14px;
+}
+
+.variant-option-price {
+font-size: 14px;
 }
 }
 
@@ -653,9 +855,9 @@ background: var(--secondary-orange);
 }
 
 * {
-  scrollbar-color: var(--primary-navy) var(--bg-light);
-  scrollbar-width: thin;
-  }
+scrollbar-color: var(--primary-navy) var(--bg-light);
+scrollbar-width: thin;
+}
 
 /* ============================================
 FOCUS STYLES
