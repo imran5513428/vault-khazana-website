@@ -21,6 +21,25 @@ function ProductDetailPage() {
   const touchStartY = useRef(null);
 
   const addToCart = useCartStore((state) => state.addToCart);
+  const getQuantity = useCartStore((state) => state.getQuantity);
+
+  if (!product) {
+    return (
+      <div className="product-detail-page">
+        <div className="container">
+          <div className="product-not-found">
+            <h1>Product Not Found</h1>
+            <p>The product you're looking for doesn't exist.</p>
+            <Link to="/" className="btn btn-primary">
+              ← Back to Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const category = getCategoryById(product.categoryId);
 
   /*
    * VARIANT SUPPORT
@@ -28,7 +47,7 @@ function ProductDetailPage() {
    * Products without variants behave exactly as before.
    * Products with variants use the first variant by default.
    */
-  const variants = Array.isArray(product?.variants)
+  const variants = Array.isArray(product.variants)
     ? product.variants
     : [];
 
@@ -40,60 +59,6 @@ function ProductDetailPage() {
     variants.find(
       (variant) => variant.id === selectedVariantId
     ) || null;
-
-  /*
-   * If the product changes while this component remains mounted,
-   * reset the variant to the first available option.
-   */
-  useEffect(() => {
-    const nextVariants = Array.isArray(product?.variants)
-      ? product.variants
-      : [];
-
-    setSelectedVariantId(
-      nextVariants.length > 0
-        ? nextVariants[0].id
-        : null
-    );
-
-    setSelectedQuantity(
-      Number(product?.moq) || 1
-    );
-
-    setQuantityError('');
-    setIsAdded(false);
-    setSelectedImage(0);
-    setSecondarySlide(0);
-  }, [product?.id]);
-
-  const getQuantity = useCartStore(
-    (state) => state.getQuantity
-  );
-
-  const cartQuantity = getQuantity(
-    id,
-    selectedVariant?.id
-  );
-
-  if (!product) {
-    return (
-      <div className="product-detail-page">
-        <div className="container">
-          <div className="product-not-found">
-            <h1>Product Not Found</h1>
-            <p>
-              The product you're looking for doesn't exist.
-            </p>
-            <Link to="/" className="btn btn-primary">
-              ← Back to Home
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const category = getCategoryById(product.categoryId);
 
   /*
    * PRODUCT SELLING RULES
@@ -123,7 +88,7 @@ function ProductDetailPage() {
         : Number(product.pricePerUnit) || 0;
 
   /*
-   * Variant dimensions take priority over the base product
+   * Variant dimensions take priority over base product
    * dimensions when available.
    */
   const displayedDimensions =
@@ -136,6 +101,35 @@ function ProductDetailPage() {
   const [selectedQuantity, setSelectedQuantity] =
     useState(moq);
 
+  /*
+   * Reset variant/quantity when the product changes.
+   */
+  useEffect(() => {
+    const nextVariants = Array.isArray(product?.variants)
+      ? product.variants
+      : [];
+
+    setSelectedVariantId(
+      nextVariants.length > 0
+        ? nextVariants[0].id
+        : null
+    );
+
+    setSelectedQuantity(
+      Number(product?.moq) || 1
+    );
+
+    setQuantityError('');
+    setIsAdded(false);
+    setSelectedImage(0);
+    setSecondarySlide(0);
+  }, [product?.id]);
+
+  const cartQuantity = getQuantity(
+    id,
+    selectedVariant?.id
+  );
+
   const mainImage = product.images?.[0];
 
   const displayedImage =
@@ -147,6 +141,12 @@ function ProductDetailPage() {
    * products.js controls the number of images.
    */
   const galleryImages = product.images || [];
+
+  /*
+   * Current secondary image.
+   */
+  const currentSecondaryImage =
+    galleryImages[secondarySlide];
 
   /*
    * Other products from the same category.
@@ -268,9 +268,6 @@ function ProductDetailPage() {
 
   /*
    * Variant selection.
-   *
-   * Changing variant keeps the quantity unchanged.
-   * The selected variant becomes the cart identity.
    */
   const handleVariantChange = (variantId) => {
     setSelectedVariantId(variantId);
@@ -278,6 +275,9 @@ function ProductDetailPage() {
     setIsAdded(false);
   };
 
+  /*
+   * Add product/selected variant to cart.
+   */
   const handleAddToCart = () => {
     setQuantityError('');
     setIsAdding(true);
@@ -378,6 +378,7 @@ function ProductDetailPage() {
   const handleTouchStart = (event) => {
     touchStartX.current =
       event.touches[0].clientX;
+
     touchStartY.current =
       event.touches[0].clientY;
   };
@@ -392,11 +393,13 @@ function ProductDetailPage() {
 
     const touchEndX =
       event.changedTouches[0].clientX;
+
     const touchEndY =
       event.changedTouches[0].clientY;
 
     const distanceX =
       touchEndX - touchStartX.current;
+
     const distanceY =
       touchEndY - touchStartY.current;
 
@@ -421,11 +424,9 @@ function ProductDetailPage() {
   /*
    * DISPLAY PRICE
    *
-   * For fixed-size packs such as paper cups:
-   * pricePerUnit = full pack price
-   * packSize = number of pieces in the pack
-   *
-   * Variant products use their selected variant price.
+   * Variant products use the selected variant price.
+   * Existing fixed-price products continue using
+   * their existing pricePerUnit.
    */
   const displayUnitPrice =
     sellingUnit === 'pack' && packSize
@@ -697,17 +698,12 @@ function ProductDetailPage() {
 
               {variants.length > 0 && (
                 <div className="product-variant-section">
-                  <label
-                    className="variant-label"
-                    htmlFor="product-variant"
-                  >
+
+                  <label className="variant-label">
                     Choose Size
                   </label>
 
-                  <div
-                    className="variant-options"
-                    id="product-variant"
-                  >
+                  <div className="variant-options">
                     {variants.map((variant) => (
                       <button
                         key={variant.id}
@@ -749,6 +745,7 @@ function ProductDetailPage() {
                       </button>
                     ))}
                   </div>
+
                 </div>
               )}
 
