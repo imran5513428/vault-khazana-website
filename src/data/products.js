@@ -335,7 +335,7 @@ export const PRODUCTS = [
     categoryId: 'food-containers',
     name: '2000ml Clear Square Food Container',
     slug: '2000ml-square-container',
-    imageSlug: '2000ml-clear-square-container',
+    imageSlug: '2000ml-square-container',
     dimensions: '2000ml capacity',
     capacity: '2000ml',
     price: 660,
@@ -365,9 +365,8 @@ export const PRODUCTS = [
     categoryId: 'food-containers',
     name: '3000ml Clear Square Food Container',
     slug: '3000ml-square-container',
-    imageSlug: '3000ml-clear-square-container',
+    imageSlug: '3000ml-square-container',
     dimensions: '3000ml capacity',
-    capacity: '3000ml',
     price: 1875,
     pack: '25 pieces',
     sellingUnit: 'piece',
@@ -771,25 +770,11 @@ export const PRODUCTS = [
         pricePerUnit: 500
       },
       {
-        id: '30x300-meter',
-        label: '30 × 300 m',
-        dimensions: '30 × 300 m',
-        price: 2000,
-        pricePerUnit: 2000
-      },
-      {
         id: '45x50-meter',
         label: '45 × 50 m',
         dimensions: '45 × 50 m',
         price: 650,
         pricePerUnit: 650
-      },
-      {
-        id: '45x300-meter',
-        label: '45 × 300 m',
-        dimensions: '45 × 300 m',
-        price: 2000,
-        pricePerUnit: 2000
       }
     ],
     overview: 'Food cling wrap available in practical sizes for covering, wrapping and protecting food from water, dust and other exposure.',
