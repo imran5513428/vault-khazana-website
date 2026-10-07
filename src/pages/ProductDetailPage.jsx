@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import {
@@ -21,8 +21,58 @@ function ProductDetailPage() {
   const touchStartY = useRef(null);
 
   const addToCart = useCartStore((state) => state.addToCart);
-  const cartQuantity = useCartStore((state) =>
-    state.getQuantity(id)
+
+  /*
+   * VARIANT SUPPORT
+   *
+   * Products without variants behave exactly as before.
+   * Products with variants use the first variant by default.
+   */
+  const variants = Array.isArray(product?.variants)
+    ? product.variants
+    : [];
+
+  const [selectedVariantId, setSelectedVariantId] = useState(
+    variants.length > 0 ? variants[0].id : null
+  );
+
+  const selectedVariant =
+    variants.find(
+      (variant) => variant.id === selectedVariantId
+    ) || null;
+
+  /*
+   * If the product changes while this component remains mounted,
+   * reset the variant to the first available option.
+   */
+  useEffect(() => {
+    const nextVariants = Array.isArray(product?.variants)
+      ? product.variants
+      : [];
+
+    setSelectedVariantId(
+      nextVariants.length > 0
+        ? nextVariants[0].id
+        : null
+    );
+
+    setSelectedQuantity(
+      Number(product?.moq) || 1
+    );
+
+    setQuantityError('');
+    setIsAdded(false);
+    setSelectedImage(0);
+    setSecondarySlide(0);
+  }, [product?.id]);
+
+  const getQuantity = useCartStore(
+    (state) => state.getQuantity
+  );
+
+  const cartQuantity = getQuantity(
+    id,
+    selectedVariant?.id
   );
 
   if (!product) {
@@ -31,7 +81,9 @@ function ProductDetailPage() {
         <div className="container">
           <div className="product-not-found">
             <h1>Product Not Found</h1>
-            <p>The product you're looking for doesn't exist.</p>
+            <p>
+              The product you're looking for doesn't exist.
+            </p>
             <Link to="/" className="btn btn-primary">
               ← Back to Home
             </Link>
@@ -55,18 +107,34 @@ function ProductDetailPage() {
   const packSize = product.packSize
     ? Number(product.packSize)
     : null;
-  const pricePerUnit = Number(product.pricePerUnit) || 0;
+
+  /*
+   * Variant price takes priority when a variant is selected.
+   * Existing products without variants continue using
+   * product.pricePerUnit.
+   */
+  const pricePerUnit =
+    selectedVariant &&
+    selectedVariant.pricePerUnit !== undefined
+      ? Number(selectedVariant.pricePerUnit)
+      : selectedVariant &&
+          selectedVariant.price !== undefined
+        ? Number(selectedVariant.price)
+        : Number(product.pricePerUnit) || 0;
+
+  /*
+   * Variant dimensions take priority over the base product
+   * dimensions when available.
+   */
+  const displayedDimensions =
+    selectedVariant?.dimensions ||
+    product.dimensions;
 
   /*
    * Start at the product's actual minimum order quantity.
-   *
-   * Food Containers / Aluminum:
-   * 50 → 75 → 100 → 125...
-   *
-   * Cutlery:
-   * 1 → 2 → 3 packs...
    */
-  const [selectedQuantity, setSelectedQuantity] = useState(moq);
+  const [selectedQuantity, setSelectedQuantity] =
+    useState(moq);
 
   const mainImage = product.images?.[0];
 
@@ -80,7 +148,9 @@ function ProductDetailPage() {
    */
   const galleryImages = product.images || [];
 
-  // Other products from the same category
+  /*
+   * Other products from the same category.
+   */
   const relatedProducts = getProductsByCategory(
     product.categoryId
   ).filter(
@@ -130,15 +200,13 @@ function ProductDetailPage() {
    */
   const increaseQuantity = () => {
     setQuantityError('');
-    setSelectedQuantity((current) => current + step);
+    setSelectedQuantity(
+      (current) => current + step
+    );
   };
 
   /*
    * Reduce quantity according to the product's step.
-   *
-   * MOQ is the lower limit.
-   * The Remove action in the cart is used to delete
-   * the product completely.
    */
   const decreaseQuantity = () => {
     setQuantityError('');
@@ -152,12 +220,6 @@ function ProductDetailPage() {
 
   /*
    * Direct quantity entry.
-   *
-   * Only valid quantities are accepted.
-   *
-   * Example for MOQ 50 / step 25:
-   * 50, 75, 100, 125 = valid
-   * 51, 52, 74, 76 = invalid
    */
   const handleQuantityChange = (event) => {
     const value = event.target.value;
@@ -170,7 +232,9 @@ function ProductDetailPage() {
     const numericValue = Number(value);
 
     if (!Number.isInteger(numericValue)) {
-      setQuantityError('Please enter a whole number.');
+      setQuantityError(
+        'Please enter a whole number.'
+      );
       return;
     }
 
@@ -180,8 +244,8 @@ function ProductDetailPage() {
           sellingUnit === 'kg'
             ? 'kg'
             : sellingUnit === 'pack'
-            ? 'pack'
-            : 'pieces'
+              ? 'pack'
+              : 'pieces'
         }.`
       );
       return;
@@ -190,9 +254,9 @@ function ProductDetailPage() {
     if ((numericValue - moq) % step !== 0) {
       setQuantityError(
         step > 1
-          ? `Please use quantities of ${moq}, ${moq + step}, ${
-              moq + step * 2
-            }, and so on.`
+          ? `Please use quantities of ${moq}, ${
+              moq + step
+            }, ${moq + step * 2}, and so on.`
           : 'Please enter a valid quantity.'
       );
       return;
@@ -202,6 +266,18 @@ function ProductDetailPage() {
     setSelectedQuantity(numericValue);
   };
 
+  /*
+   * Variant selection.
+   *
+   * Changing variant keeps the quantity unchanged.
+   * The selected variant becomes the cart identity.
+   */
+  const handleVariantChange = (variantId) => {
+    setSelectedVariantId(variantId);
+    setQuantityError('');
+    setIsAdded(false);
+  };
+
   const handleAddToCart = () => {
     setQuantityError('');
     setIsAdding(true);
@@ -209,7 +285,8 @@ function ProductDetailPage() {
     setTimeout(() => {
       const result = addToCart(
         product.id,
-        selectedQuantity
+        selectedQuantity,
+        selectedVariant?.id
       );
 
       setIsAdding(false);
@@ -299,8 +376,10 @@ function ProductDetailPage() {
   };
 
   const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0].clientX;
-    touchStartY.current = event.touches[0].clientY;
+    touchStartX.current =
+      event.touches[0].clientX;
+    touchStartY.current =
+      event.touches[0].clientY;
   };
 
   const handleTouchEnd = (event) => {
@@ -311,8 +390,10 @@ function ProductDetailPage() {
       return;
     }
 
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
+    const touchEndX =
+      event.changedTouches[0].clientX;
+    const touchEndY =
+      event.changedTouches[0].clientY;
 
     const distanceX =
       touchEndX - touchStartX.current;
@@ -324,7 +405,9 @@ function ProductDetailPage() {
 
     if (Math.abs(distanceX) < 50) return;
 
-    if (Math.abs(distanceX) <= Math.abs(distanceY)) {
+    if (
+      Math.abs(distanceX) <= Math.abs(distanceY)
+    ) {
       return;
     }
 
@@ -335,22 +418,14 @@ function ProductDetailPage() {
     }
   };
 
-  const currentSecondaryImage =
-    galleryImages[secondarySlide];
-
   /*
    * DISPLAY PRICE
    *
    * For fixed-size packs such as paper cups:
-   *
    * pricePerUnit = full pack price
    * packSize = number of pieces in the pack
    *
-   * Example:
-   * Rs 450 / 100 pieces
-   * = Rs 4.50 per piece
-   *
-   * The cart still uses the full pack price.
+   * Variant products use their selected variant price.
    */
   const displayUnitPrice =
     sellingUnit === 'pack' && packSize
@@ -368,7 +443,9 @@ function ProductDetailPage() {
             <Link to="/">Home</Link>
             <span>/</span>
 
-            <Link to={`/category/${category?.slug}`}>
+            <Link
+              to={`/category/${category?.slug}`}
+            >
               {category?.name || 'Products'}
             </Link>
 
@@ -413,10 +490,12 @@ function ProductDetailPage() {
                     event.changedTouches[0].clientY;
 
                   const distanceX =
-                    touchEndX - touchStartX.current;
+                    touchEndX -
+                    touchStartX.current;
 
                   const distanceY =
-                    touchEndY - touchStartY.current;
+                    touchEndY -
+                    touchStartY.current;
 
                   touchStartX.current = null;
                   touchStartY.current = null;
@@ -435,7 +514,9 @@ function ProductDetailPage() {
                   if (distanceX < 0) {
                     handleMainImageSwipe('next');
                   } else {
-                    handleMainImageSwipe('previous');
+                    handleMainImageSwipe(
+                      'previous'
+                    );
                   }
                 }}
               >
@@ -449,43 +530,47 @@ function ProductDetailPage() {
 
               {galleryImages.length > 1 && (
                 <div className="thumbnails">
-                  {galleryImages.map((image, index) => {
-                    const isMainImage =
-                      image === mainImage;
+                  {galleryImages.map(
+                    (image, index) => {
+                      const isMainImage =
+                        image === mainImage;
 
-                    return (
-                      <button
-                        key={`${image}-${index}`}
-                        className={`thumbnail ${
-                          image ===
-                          product.images[selectedImage]
-                            ? 'active'
-                            : ''
-                        }`}
-                        onClick={() =>
-                          handleGallerySelect(image)
-                        }
-                        aria-label={
-                          isMainImage
-                            ? 'View main product image'
-                            : `View product image ${
-                                index + 1
-                              }`
-                        }
-                      >
-                        <img
-                          src={image}
-                          alt={
+                      return (
+                        <button
+                          key={`${image}-${index}`}
+                          className={`thumbnail ${
+                            image ===
+                            product.images[
+                              selectedImage
+                            ]
+                              ? 'active'
+                              : ''
+                          }`}
+                          onClick={() =>
+                            handleGallerySelect(image)
+                          }
+                          aria-label={
                             isMainImage
-                              ? `${product.name} main image`
-                              : `${product.name} image ${
+                              ? 'View main product image'
+                              : `View product image ${
                                   index + 1
                                 }`
                           }
-                        />
-                      </button>
-                    );
-                  })}
+                        >
+                          <img
+                            src={image}
+                            alt={
+                              isMainImage
+                                ? `${product.name} main image`
+                                : `${product.name} image ${
+                                    index + 1
+                                  }`
+                            }
+                          />
+                        </button>
+                      );
+                    }
+                  )}
                 </div>
               )}
 
@@ -497,7 +582,9 @@ function ProductDetailPage() {
                   <button
                     type="button"
                     className="secondary-slide-arrow secondary-slide-prev"
-                    onClick={showPreviousSecondary}
+                    onClick={
+                      showPreviousSecondary
+                    }
                     aria-label="Previous product image"
                   >
                     ‹
@@ -505,7 +592,9 @@ function ProductDetailPage() {
 
                   <div
                     className="secondary-slide-image"
-                    onTouchStart={handleTouchStart}
+                    onTouchStart={
+                      handleTouchStart
+                    }
                     onTouchEnd={handleTouchEnd}
                   >
                     <img
@@ -526,24 +615,30 @@ function ProductDetailPage() {
                   </button>
 
                   <div className="secondary-slide-indicator">
-                    {galleryImages.map((_, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        className={
-                          secondarySlide === index
-                            ? 'active'
-                            : ''
-                        }
-                        onClick={() => {
-                          setSecondarySlide(index);
-                          setSelectedImage(index);
-                        }}
-                        aria-label={`Show gallery image ${
-                          index + 1
-                        }`}
-                      />
-                    ))}
+                    {galleryImages.map(
+                      (_, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          className={
+                            secondarySlide === index
+                              ? 'active'
+                              : ''
+                          }
+                          onClick={() => {
+                            setSecondarySlide(
+                              index
+                            );
+                            setSelectedImage(
+                              index
+                            );
+                          }}
+                          aria-label={`Show gallery image ${
+                            index + 1
+                          }`}
+                        />
+                      )
+                    )}
                   </div>
 
                 </div>
@@ -563,32 +658,97 @@ function ProductDetailPage() {
                 {product.name}
               </h1>
 
-              {product.dimensions && (
+              {displayedDimensions && (
                 <p className="product-dimensions">
-                  {product.dimensions}
+                  {displayedDimensions}
                 </p>
               )}
 
-              {product.rating && product.reviews && (
-                <div className="product-rating">
-                  <div className="stars">
-                    {[...Array(5)].map((_, i) => (
-                      <span
-                        key={i}
-                        className={`star ${
-                          i < Math.floor(product.rating)
-                            ? 'filled'
+              {product.rating &&
+                product.reviews && (
+                  <div className="product-rating">
+                    <div className="stars">
+                      {[...Array(5)].map(
+                        (_, i) => (
+                          <span
+                            key={i}
+                            className={`star ${
+                              i <
+                              Math.floor(
+                                product.rating
+                              )
+                                ? 'filled'
+                                : ''
+                            }`}
+                          >
+                            ★
+                          </span>
+                        )
+                      )}
+                    </div>
+
+                    <span className="review-count">
+                      ({product.reviews} reviews)
+                    </span>
+                  </div>
+                )}
+
+              {/* ===== VARIANT / SIZE SELECTOR ===== */}
+
+              {variants.length > 0 && (
+                <div className="product-variant-section">
+                  <label
+                    className="variant-label"
+                    htmlFor="product-variant"
+                  >
+                    Choose Size
+                  </label>
+
+                  <div
+                    className="variant-options"
+                    id="product-variant"
+                  >
+                    {variants.map((variant) => (
+                      <button
+                        key={variant.id}
+                        type="button"
+                        className={`variant-option ${
+                          selectedVariantId ===
+                          variant.id
+                            ? 'active'
                             : ''
                         }`}
+                        onClick={() =>
+                          handleVariantChange(
+                            variant.id
+                          )
+                        }
+                        disabled={isAdding}
+                        aria-pressed={
+                          selectedVariantId ===
+                          variant.id
+                        }
                       >
-                        ★
-                      </span>
+                        <span className="variant-option-label">
+                          {variant.label}
+                        </span>
+
+                        <span className="variant-option-price">
+                          Rs{' '}
+                          {Number(
+                            variant.price ??
+                              variant.pricePerUnit ??
+                              0
+                          ).toLocaleString(
+                            'en-PK',
+                            {
+                              maximumFractionDigits: 0
+                            }
+                          )}
+                        </span>
+                      </button>
                     ))}
                   </div>
-
-                  <span className="review-count">
-                    ({product.reviews} reviews)
-                  </span>
                 </div>
               )}
 
@@ -611,7 +771,8 @@ function ProductDetailPage() {
 
                 <p className="product-pack-info">
                   per{' '}
-                  {sellingUnit === 'pack' && packSize
+                  {sellingUnit === 'pack' &&
+                  packSize
                     ? 'piece'
                     : getUnitLabel()}
                 </p>
@@ -684,7 +845,8 @@ function ProductDetailPage() {
                       inputMode="numeric"
                       className="qty-input"
                       disabled={
-                        isAdding || !product.inStock
+                        isAdding ||
+                        !product.inStock
                       }
                       aria-describedby={
                         quantityError
@@ -698,7 +860,8 @@ function ProductDetailPage() {
                       className="qty-btn"
                       onClick={increaseQuantity}
                       disabled={
-                        isAdding || !product.inStock
+                        isAdding ||
+                        !product.inStock
                       }
                       aria-label="Increase quantity"
                     >
@@ -708,7 +871,8 @@ function ProductDetailPage() {
                   </div>
 
                   <p className="quantity-help">
-                    Minimum: {getQuantityLabel(moq)}
+                    Minimum:{' '}
+                    {getQuantityLabel(moq)}
                     {step > 1 &&
                       ` • Add in steps of ${step}`}
                   </p>
@@ -750,7 +914,10 @@ function ProductDetailPage() {
 
                 {cartQuantity > 0 && (
                   <p className="cart-qty">
-                    {getQuantityLabel(cartQuantity)} in cart
+                    {getQuantityLabel(
+                      cartQuantity
+                    )}{' '}
+                    in cart
                   </p>
                 )}
 
@@ -766,10 +933,12 @@ function ProductDetailPage() {
 
                 <dl className="details-list">
 
-                  {product.dimensions && (
+                  {displayedDimensions && (
                     <>
                       <dt>Dimensions</dt>
-                      <dd>{product.dimensions}</dd>
+                      <dd>
+                        {displayedDimensions}
+                      </dd>
                     </>
                   )}
 
@@ -829,7 +998,9 @@ function ProductDetailPage() {
                   <strong>
                     💡 Our Recommendation
                   </strong>
-                  <p>{product.recommendation}</p>
+                  <p>
+                    {product.recommendation}
+                  </p>
                 </div>
               )}
 
@@ -854,7 +1025,8 @@ function ProductDetailPage() {
               <h2>You May Also Like</h2>
 
               <p>
-                Explore other products from this category.
+                Explore other products from this
+                category.
               </p>
             </div>
 
@@ -884,7 +1056,9 @@ function ProductDetailPage() {
                         src={
                           relatedProduct.images?.[0]
                         }
-                        alt={relatedProduct.name}
+                        alt={
+                          relatedProduct.name
+                        }
                       />
                     </div>
 
@@ -903,9 +1077,12 @@ function ProductDetailPage() {
                           relatedProduct.pricePerUnit ??
                             relatedProduct.price ??
                             0
-                        ).toLocaleString('en-PK', {
-                          maximumFractionDigits: 2
-                        })}
+                        ).toLocaleString(
+                          'en-PK',
+                          {
+                            maximumFractionDigits: 2
+                          }
+                        )}
                       </p>
 
                       <p className="product-pack">
@@ -915,8 +1092,8 @@ function ProductDetailPage() {
                           ? 'kg'
                           : relatedProduct.sellingUnit ===
                             'pack'
-                          ? 'pack'
-                          : 'piece'}
+                            ? 'pack'
+                            : 'piece'}
                       </p>
                     </div>
                   </Link>
