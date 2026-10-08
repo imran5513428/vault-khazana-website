@@ -492,6 +492,24 @@ white-space: normal;
 overflow-wrap: anywhere;
 }
 
+/* ===== VARIANT QUANTITY / ORDER BASIS ===== */
+
+.variant-option-quantity {
+display: block;
+width: 100%;
+min-width: 0;
+color: var(--text-secondary);
+font-size: 13px;
+font-weight: var(--weight-medium);
+line-height: 1.3;
+white-space: normal;
+overflow-wrap: anywhere;
+}
+
+.variant-option.active .variant-option-quantity {
+color: var(--text-dark);
+}
+
 .variant-option-price {
 display: block;
 width: 100%;
@@ -722,6 +740,11 @@ font-size: 13px;
 line-height: 1.3;
 }
 
+.variant-option-quantity {
+font-size: 12px;
+line-height: 1.25;
+}
+
 .variant-option-price {
 font-size: 13px;
 line-height: 1.25;
@@ -763,6 +786,10 @@ padding: 10px 36px 10px 12px;
 font-size: 13px;
 }
 
+.variant-option-quantity {
+font-size: 12px;
+}
+
 .variant-option-price {
 font-size: 13px;
 }
@@ -802,6 +829,10 @@ padding: 13px 42px 13px 15px;
 
 .variant-option-label {
 font-size: 14px;
+}
+
+.variant-option-quantity {
+font-size: 13px;
 }
 
 .variant-option-price {
