@@ -702,11 +702,11 @@ export const PRODUCTS = [
   {
     id: 'clear-press-seal-storage-bags',
     categoryId: 'bags',
-    name: 'Clear Press-Seal Storage Bags',
+    name: 'Zip Lock Sealed Bags',
     slug: 'clear-press-seal-storage-bags',
     imageSlug: 'clear-press-seal-storage-bags',
     price: 70,
-    pack: '25 pieces',
+    pack: 'pack of 25',
     sellingUnit: 'pack',
     moq: 1,
     step: 1,
@@ -714,8 +714,8 @@ export const PRODUCTS = [
     pricePerUnit: 70,
     material: 'Transparent plastic',
     shape: 'Flat storage bag',
-    closure: 'Press-seal closure',
-    colour: 'Transparent',
+    closure: 'Secure press-seal zip closure',
+    colour: 'Clear',
     variants: [
       {
         id: '2x2-5-inch',
@@ -781,8 +781,8 @@ export const PRODUCTS = [
         pricePerUnit: 450
       }
     ],
-    overview: 'Versatile transparent bags with a convenient press-seal closure, making it easy to store, organize and protect everyday items while keeping contents clearly visible.',
-    description: 'Clear press-seal bags for convenient storage, organization and packaging. The transparent construction keeps contents visible while the press-seal closure provides a practical way to keep items enclosed.',
+    overview: 'Clear, resealable bags designed for neat storage, organization and everyday packaging. The transparent material keeps contents visible, while the secure zip closure makes the bags easy to open, close and reuse.',
+    description: 'Transparent plastic bags. Secure press-seal zip closure. Clear finish for easy identification of contents. Multiple sizes available for different storage and packaging needs.',
     suitableFor: 'Dry foods, snacks, spices, freezer items, small accessories, stationery, jewellery, clothing organization and general retail packaging.',
     idealFor: 'Households, retailers, food businesses, storage and everyday organization.',
     recommendation: 'A practical choice when visibility and quick access are important.',
@@ -1089,7 +1089,7 @@ export const PRODUCTS = [
         label: '12 × 16 in',
         dimensions: '12 × 16 inches',
         capacity: 'Approx. 2 KG',
-        orderQuantity: '1 KG',
+        orderQuantity: '1kg',
         price: 530,
         pricePerUnit: 530
       },
@@ -1098,7 +1098,7 @@ export const PRODUCTS = [
         label: '14 × 18 in',
         dimensions: '14 × 18 inches',
         capacity: 'Approx. 3–5 KG',
-        orderQuantity: '1.25 KG',
+        orderQuantity: '1.25kg',
         price: 663,
         pricePerUnit: 663
       },
@@ -1107,7 +1107,7 @@ export const PRODUCTS = [
         label: '17 × 23 in',
         dimensions: '17 × 23 inches',
         capacity: 'Approx. 8–10 KG',
-        orderQuantity: '1.5 KG',
+        orderQuantity: '1.5kg',
         price: 795,
         pricePerUnit: 795
       }
