@@ -26,25 +26,25 @@ export const CATEGORIES = [
     description: 'Convenient cups for sauces, dips and condiments'
   },
   {
-    id: 'bakery-packaging',
-    name: 'Bakery Packaging',
-    slug: 'bakery-packaging',
-    icon: '🧁',
-    description: 'Packaging for cakes, pastries and bakery products'
+    id: 'food-service-essentials',
+    name: 'Food Service Essentials',
+    slug: 'food-service-essentials',
+    icon: '🧤',
+    description: 'Practical supplies for food preparation, handling, hygiene and everyday food-service operations'
   },
   {
     id: 'cups-drinkware',
     name: 'Cups & Drinkware',
     slug: 'cups-drinkware',
     icon: '🥤',
-    description: 'Cups and drinkware for hot and cold beverages'
+    description: 'Cups, drinkware and straws for hot and cold beverages'
   },
   {
     id: 'bags',
-    name: 'Bags',
+    name: 'Bags & Packaging',
     slug: 'bags',
     icon: '🛍️',
-    description: 'Practical bags for takeaway and food service'
+    description: 'Practical bags for food, storage, waste and everyday packaging'
   },
   {
     id: 'foil-wrap',
@@ -80,13 +80,6 @@ export const CATEGORIES = [
     slug: 'aluminum-containers',
     icon: '🥡',
     description: 'Food-grade aluminum containers with lids for takeaway, baking and food storage'
-  },
-  {
-    id: 'straws',
-    name: 'Straws',
-    slug: 'straws',
-    icon: '🥤',
-    description: 'Straws for beverages and food service'
   }
 ];
 
