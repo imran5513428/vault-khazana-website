@@ -696,6 +696,557 @@ export const PRODUCTS = [
   },
 
   /* =========================================================
+     BAGS & PACKAGING
+     ========================================================= */
+
+  {
+    id: 'clear-press-seal-storage-bags',
+    categoryId: 'bags',
+    name: 'Clear Press-Seal Storage Bags',
+    slug: 'clear-press-seal-storage-bags',
+    imageSlug: 'clear-press-seal-storage-bags',
+    price: 70,
+    pack: '25 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 25,
+    pricePerUnit: 70,
+    material: 'Transparent plastic',
+    shape: 'Flat storage bag',
+    closure: 'Press-seal closure',
+    colour: 'Transparent',
+    variants: [
+      {
+        id: '2x2-5-inch',
+        label: '2 × 2.5 in',
+        dimensions: '2 × 2.5 inches',
+        price: 70,
+        pricePerUnit: 70
+      },
+      {
+        id: '3x4-inch',
+        label: '3 × 4 in',
+        dimensions: '3 × 4 inches',
+        price: 90,
+        pricePerUnit: 90
+      },
+      {
+        id: '4x5-inch',
+        label: '4 × 5 in',
+        dimensions: '4 × 5 inches',
+        price: 120,
+        pricePerUnit: 120
+      },
+      {
+        id: '5x7-inch',
+        label: '5 × 7 in',
+        dimensions: '5 × 7 inches',
+        price: 150,
+        pricePerUnit: 150
+      },
+      {
+        id: '6x8-inch',
+        label: '6 × 8 in',
+        dimensions: '6 × 8 inches',
+        price: 180,
+        pricePerUnit: 180
+      },
+      {
+        id: '6x10-inch',
+        label: '6 × 10 in',
+        dimensions: '6 × 10 inches',
+        price: 200,
+        pricePerUnit: 200
+      },
+      {
+        id: '8x10-inch',
+        label: '8 × 10 in',
+        dimensions: '8 × 10 inches',
+        price: 250,
+        pricePerUnit: 250
+      },
+      {
+        id: '10x12-inch',
+        label: '10 × 12 in',
+        dimensions: '10 × 12 inches',
+        price: 350,
+        pricePerUnit: 350
+      },
+      {
+        id: '10x14-inch',
+        label: '10 × 14 in',
+        dimensions: '10 × 14 inches',
+        price: 450,
+        pricePerUnit: 450
+      }
+    ],
+    overview: 'Versatile transparent bags with a convenient press-seal closure, making it easy to store, organize and protect everyday items while keeping contents clearly visible.',
+    description: 'Clear press-seal bags for convenient storage, organization and packaging. The transparent construction keeps contents visible while the press-seal closure provides a practical way to keep items enclosed.',
+    suitableFor: 'Dry foods, snacks, spices, freezer items, small accessories, stationery, jewellery, clothing organization and general retail packaging.',
+    idealFor: 'Households, retailers, food businesses, storage and everyday organization.',
+    recommendation: 'A practical choice when visibility and quick access are important.',
+    inStock: true
+  },
+
+  {
+    id: 'clear-self-seal-garment-bags',
+    categoryId: 'bags',
+    name: 'Clear Self-Seal Garment Bags',
+    slug: 'clear-self-seal-garment-bags',
+    imageSlug: 'clear-self-seal-garment-bags',
+    price: 70,
+    pack: '25 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 25,
+    pricePerUnit: 70,
+    material: 'Clear BOPP plastic',
+    shape: 'Garment packaging bag',
+    closure: 'Peel-and-seal adhesive flap',
+    colour: 'Transparent',
+    variants: [
+      {
+        id: '3x4-inch',
+        label: '3 × 4 in',
+        dimensions: '3 × 4 inches',
+        price: 70,
+        pricePerUnit: 70
+      },
+      {
+        id: '4x5-inch',
+        label: '4 × 5 in',
+        dimensions: '4 × 5 inches',
+        price: 90,
+        pricePerUnit: 90
+      },
+      {
+        id: '5x7-inch',
+        label: '5 × 7 in',
+        dimensions: '5 × 7 inches',
+        price: 120,
+        pricePerUnit: 120
+      },
+      {
+        id: '6x8-inch',
+        label: '6 × 8 in',
+        dimensions: '6 × 8 inches',
+        price: 150,
+        pricePerUnit: 150
+      },
+      {
+        id: '7x10-inch',
+        label: '7 × 10 in',
+        dimensions: '7 × 10 inches',
+        price: 180,
+        pricePerUnit: 180
+      },
+      {
+        id: '9x12-inch',
+        label: '9 × 12 in',
+        dimensions: '9 × 12 inches',
+        price: 200,
+        pricePerUnit: 200
+      },
+      {
+        id: '11x14-inch',
+        label: '11 × 14 in',
+        dimensions: '11 × 14 inches',
+        price: 250,
+        pricePerUnit: 250
+      },
+      {
+        id: '12x16-inch',
+        label: '12 × 16 in',
+        dimensions: '12 × 16 inches',
+        price: 300,
+        pricePerUnit: 300
+      },
+      {
+        id: '14x18-inch',
+        label: '14 × 18 in',
+        dimensions: '14 × 18 inches',
+        price: 350,
+        pricePerUnit: 350
+      },
+      {
+        id: '18x24-inch',
+        label: '18 × 24 in',
+        dimensions: '18 × 24 inches',
+        price: 450,
+        pricePerUnit: 450
+      }
+    ],
+    overview: 'A neat and practical way to pack clothing for retail, delivery and storage. The clear construction keeps garments visible, while the peel-and-seal adhesive flap provides a clean finish and keeps the packed item securely enclosed.',
+    description: 'Clear garment packaging bags designed for clothing retail, delivery and storage. Insert the garment, remove the protective strip from the adhesive flap, fold the flap over and press it closed.',
+    suitableFor: 'Shirts, T-shirts, dresses, children’s clothing, uniforms, suits, linens and other garments.',
+    idealFor: 'Clothing stores, boutiques, online fashion sellers, garment businesses and organized home storage.',
+    recommendation: 'A clean retail-ready packaging option when product visibility and presentation matter.',
+    inStock: true
+  },
+
+  {
+    id: 'self-seal-courier-bags-document-pocket',
+    categoryId: 'bags',
+    name: 'Self-Seal Courier Bags with Document Pocket',
+    slug: 'self-seal-courier-bags-document-pocket',
+    imageSlug: 'self-seal-courier-bags-document-pocket',
+    price: 200,
+    pack: '20 bags',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 20,
+    pricePerUnit: 200,
+    material: 'Durable plastic',
+    closure: 'Self-adhesive peel-and-seal closure',
+    features: [
+      'Built-in transparent document pocket',
+      'Water-resistant design',
+      'Self-adhesive secure closure',
+      'Lightweight and easy to handle'
+    ],
+    variants: [
+      {
+        id: '8x11-inch',
+        label: '8 × 11 in',
+        dimensions: '8 × 11 inches',
+        price: 200,
+        pricePerUnit: 200
+      },
+      {
+        id: '12x16-inch',
+        label: '12 × 16 in',
+        dimensions: '12 × 16 inches',
+        price: 350,
+        pricePerUnit: 350
+      },
+      {
+        id: '14x19-inch',
+        label: '14 × 19 in',
+        dimensions: '14 × 19 inches',
+        price: 600,
+        pricePerUnit: 600
+      },
+      {
+        id: '18x24-inch',
+        label: '18 × 24 in',
+        dimensions: '18 × 24 inches',
+        price: 700,
+        pricePerUnit: 700
+      }
+    ],
+    overview: 'Lightweight shipping bags designed for secure order dispatch, with a built-in transparent pocket for invoices, waybills and shipping labels. The self-adhesive closure creates a clean, secure seal without requiring additional tape.',
+    description: 'Practical courier bags for business dispatches and e-commerce orders. The front transparent pocket keeps shipping paperwork visible and attached to the parcel.',
+    suitableFor: 'E-commerce orders, courier shipments, clothing and accessories, documents, cosmetics, small electronics, retail products and samples.',
+    idealFor: 'Online sellers, courier operations, retail businesses, offices and professional dispatch.',
+    recommendation: 'A convenient shipping solution for businesses that need attached and visible order paperwork.',
+    inStock: true
+  },
+
+  {
+    id: 'heavy-duty-black-waste-bags',
+    categoryId: 'bags',
+    name: 'Heavy-Duty Black Waste Bags',
+    slug: 'heavy-duty-black-waste-bags',
+    imageSlug: 'heavy-duty-black-waste-bags',
+    price: 250,
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: null,
+    material: 'Black plastic',
+    colour: 'Black',
+    variants: [
+      {
+        id: '18x24-inch',
+        label: '18 × 24 in',
+        dimensions: '18 × 24 inches',
+        quantity: 'Approx. 25–30 pieces',
+        price: 250,
+        pricePerUnit: 250
+      },
+      {
+        id: '20x30-inch',
+        label: '20 × 30 in',
+        dimensions: '20 × 30 inches',
+        quantity: 'Approx. 20–25 pieces',
+        price: 250,
+        pricePerUnit: 250
+      },
+      {
+        id: '24x36-inch',
+        label: '24 × 36 in',
+        dimensions: '24 × 36 inches',
+        quantity: 'Approx. 15–20 pieces',
+        price: 250,
+        pricePerUnit: 250
+      },
+      {
+        id: '30x50-inch',
+        label: '30 × 50 in',
+        dimensions: '30 × 50 inches',
+        quantity: 'Approx. 10–15 pieces',
+        price: 250,
+        pricePerUnit: 250
+      }
+    ],
+    overview: 'Strong black waste bags for everyday rubbish collection, available in four sizes ranging from smaller household bins to larger commercial waste containers.',
+    description: 'Practical black waste bags for collecting and disposing of everyday rubbish. The available sizes make them suitable for household, office, commercial and larger cleanup requirements.',
+    suitableFor: 'Household and kitchen bins, bathroom and bedroom bins, offices, shops, restaurants, hotels, commercial kitchens, events and general cleanup.',
+    idealFor: 'Homes, offices, shops, restaurants, commercial spaces and cleanup operations.',
+    recommendation: 'Choose the size according to your bin or waste-collection requirement.',
+    inStock: true
+  },
+
+  {
+    id: 'off-white-waste-bags',
+    categoryId: 'bags',
+    name: 'Off-White Waste Bags',
+    slug: 'off-white-waste-bags',
+    imageSlug: 'off-white-waste-bags',
+    price: 525,
+    sellingUnit: 'kg',
+    moq: 1,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 525,
+    material: 'Plastic',
+    colour: 'Off-white',
+    variants: [
+      {
+        id: '18x24-inch',
+        label: '18 × 24 in',
+        dimensions: '18 × 24 inches',
+        price: 525,
+        pricePerUnit: 525
+      },
+      {
+        id: '20x30-inch',
+        label: '20 × 30 in',
+        dimensions: '20 × 30 inches',
+        price: 525,
+        pricePerUnit: 525
+      },
+      {
+        id: '24x36-inch',
+        label: '24 × 36 in',
+        dimensions: '24 × 36 inches',
+        price: 525,
+        pricePerUnit: 525
+      },
+      {
+        id: '30x50-inch',
+        label: '30 × 50 in',
+        dimensions: '30 × 50 inches',
+        price: 525,
+        pricePerUnit: 525
+      }
+    ],
+    overview: 'Practical off-white waste bags for everyday rubbish collection, available in four useful sizes and sold by weight.',
+    description: 'Off-white plastic waste bags designed for routine waste collection and disposal in homes, workplaces and commercial environments.',
+    suitableFor: 'Household bins, kitchen waste, offices, shops, restaurants, commercial spaces, events and general cleanup.',
+    idealFor: 'Homes, offices, shops, restaurants and commercial waste collection.',
+    recommendation: 'A straightforward everyday waste-bag option sold by the kilogram.',
+    inStock: true
+  },
+
+  {
+    id: 'everyday-shopping-bags',
+    categoryId: 'bags',
+    name: 'Everyday Shopping Bags',
+    slug: 'everyday-shopping-bags',
+    imageSlug: 'everyday-shopping-bags',
+    price: 133,
+    sellingUnit: 'weight',
+    moq: 250,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 133,
+    material: 'Plastic',
+    variants: [
+      {
+        id: '8x11-inch',
+        label: '8 × 11 in',
+        dimensions: '8 × 11 inches',
+        capacity: 'Approx. ½ KG',
+        orderQuantity: '250g',
+        price: 133,
+        pricePerUnit: 133
+      },
+      {
+        id: '10x14-inch',
+        label: '10 × 14 in',
+        dimensions: '10 × 14 inches',
+        capacity: 'Approx. 1 KG',
+        orderQuantity: '500g',
+        price: 265,
+        pricePerUnit: 265
+      },
+      {
+        id: '12x16-inch',
+        label: '12 × 16 in',
+        dimensions: '12 × 16 inches',
+        capacity: 'Approx. 2 KG',
+        orderQuantity: '1 KG',
+        price: 530,
+        pricePerUnit: 530
+      },
+      {
+        id: '14x18-inch',
+        label: '14 × 18 in',
+        dimensions: '14 × 18 inches',
+        capacity: 'Approx. 3–5 KG',
+        orderQuantity: '1.25 KG',
+        price: 663,
+        pricePerUnit: 663
+      },
+      {
+        id: '17x23-inch',
+        label: '17 × 23 in',
+        dimensions: '17 × 23 inches',
+        capacity: 'Approx. 8–10 KG',
+        orderQuantity: '1.5 KG',
+        price: 795,
+        pricePerUnit: 795
+      }
+    ],
+    overview: 'Practical shopping bags for groceries and everyday purchases, available in multiple sizes with different approximate carrying capacities.',
+    description: 'Everyday plastic shopping bags designed for convenient retail and grocery use. Options range from smaller bags for lighter purchases to larger sizes for heavier shopping.',
+    suitableFor: 'Groceries, convenience stores, retail purchases, takeaway items and everyday shopping.',
+    idealFor: 'Grocery stores, convenience stores, markets, retail shops and everyday business use.',
+    recommendation: 'A flexible everyday shopping-bag range with sizes suited to different purchase loads.',
+    inStock: true
+  },
+
+  {
+    id: 'large-handle-shopping-bags',
+    categoryId: 'bags',
+    name: 'Large Handle Shopping Bags',
+    slug: 'large-handle-shopping-bags',
+    imageSlug: 'large-handle-shopping-bags',
+    price: 200,
+    pack: '10 pieces',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: 10,
+    pricePerUnit: 200,
+    material: 'Plastic',
+    features: [
+      'Large shopping format',
+      'Comfortable integrated handles',
+      'Designed for heavier and bulky purchases',
+      'Available in four sizes'
+    ],
+    variants: [
+      {
+        id: '18x26-inch',
+        label: '18 × 26 in',
+        dimensions: '18 × 26 inches',
+        capacity: 'Up to 10 KG',
+        price: 200,
+        pricePerUnit: 200
+      },
+      {
+        id: '20x30-inch',
+        label: '20 × 30 in',
+        dimensions: '20 × 30 inches',
+        capacity: 'Up to 15 KG',
+        price: 300,
+        pricePerUnit: 300
+      },
+      {
+        id: '24x36-inch',
+        label: '24 × 36 in',
+        dimensions: '24 × 36 inches',
+        capacity: 'Up to 20 KG',
+        price: 400,
+        pricePerUnit: 400
+      },
+      {
+        id: '30x40-inch',
+        label: '30 × 40 in',
+        dimensions: '30 × 40 inches',
+        capacity: 'Up to 25 KG',
+        price: 600,
+        pricePerUnit: 600
+      }
+    ],
+    overview: 'Large shopping bags with comfortable handles, designed for groceries, retail purchases and larger or heavier items.',
+    description: 'Large plastic shopping bags with integrated handles for convenient carrying. Available in four sizes for different shopping loads and larger purchases.',
+    suitableFor: 'Groceries, bulky purchases, heavier retail items, market shopping and household shopping.',
+    idealFor: 'Grocery stores, supermarkets, markets, retail shops and businesses handling larger purchases.',
+    recommendation: 'A useful choice when customers need more carrying capacity than a standard shopping bag.',
+    inStock: true
+  },
+
+  {
+    id: 'everyday-shopping-bags-250g',
+    categoryId: 'bags',
+    name: 'Everyday Shopping Bags — 250g Pack',
+    slug: 'everyday-shopping-bags-250g',
+    imageSlug: 'everyday-shopping-bags-250g',
+    price: 150,
+    pack: '250g pack',
+    sellingUnit: 'pack',
+    moq: 1,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 150,
+    material: 'Plastic',
+    variants: [
+      {
+        id: '8x11-inch',
+        label: '8 × 11 in',
+        dimensions: '8 × 11 inches',
+        capacity: 'Approx. ½ KG',
+        price: 150,
+        pricePerUnit: 150
+      },
+      {
+        id: '10x14-inch',
+        label: '10 × 14 in',
+        dimensions: '10 × 14 inches',
+        capacity: 'Approx. 1 KG',
+        price: 150,
+        pricePerUnit: 150
+      },
+      {
+        id: '12x16-inch',
+        label: '12 × 16 in',
+        dimensions: '12 × 16 inches',
+        capacity: 'Approx. 2 KG',
+        price: 150,
+        pricePerUnit: 150
+      },
+      {
+        id: '14x18-inch',
+        label: '14 × 18 in',
+        dimensions: '14 × 18 inches',
+        capacity: 'Approx. 3–5 KG',
+        price: 150,
+        pricePerUnit: 150
+      },
+      {
+        id: '17x23-inch',
+        label: '17 × 23 in',
+        dimensions: '17 × 23 inches',
+        capacity: 'Approx. 8–10 KG',
+        price: 150,
+        pricePerUnit: 150
+      }
+    ],
+    overview: 'Lightweight everyday shopping bags available in multiple sizes, supplied as 250g packs for practical retail and grocery use.',
+    description: 'Practical plastic shopping bags for everyday purchases, with multiple size options to suit different carrying requirements.',
+    suitableFor: 'Groceries, convenience stores, retail shops, markets, household shopping and everyday purchases.',
+    idealFor: 'Grocery stores, convenience stores, markets and general retail businesses.',
+    recommendation: 'A straightforward lightweight shopping-bag option for everyday retail use.',
+    inStock: true
+  },
+
+  /* =========================================================
      FOIL & WRAP
      ========================================================= */
 
