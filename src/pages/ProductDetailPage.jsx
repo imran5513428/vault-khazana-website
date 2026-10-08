@@ -181,11 +181,26 @@ function ProductDetailPage() {
   };
 
   /*
-   * Price/unit label.
+   * Price basis label.
+   *
+   * Weight-based products can use variant-specific
+   * order quantities such as 250g, 500g or 1kg.
    */
-  const getUnitLabel = () => {
+  const getPriceBasisLabel = () => {
     if (sellingUnit === 'kg') {
       return 'kg';
+    }
+
+    if (sellingUnit === 'weight') {
+      return (
+        selectedVariant?.orderQuantity ||
+        product.pack ||
+        'weight'
+      );
+    }
+
+    if (sellingUnit === 'pack' && product.pack) {
+      return product.pack.replace(/\s+pack$/i, '');
     }
 
     if (sellingUnit === 'pack') {
@@ -729,6 +744,14 @@ function ProductDetailPage() {
                           {variant.label}
                         </span>
 
+                        {(variant.quantity ||
+                          variant.orderQuantity) && (
+                          <span className="variant-option-quantity">
+                            {variant.quantity ||
+                              variant.orderQuantity}
+                          </span>
+                        )}
+
                         <span className="variant-option-price">
                           Rs{' '}
                           {Number(
@@ -767,11 +790,7 @@ function ProductDetailPage() {
                 </p>
 
                 <p className="product-pack-info">
-                  per{' '}
-                  {sellingUnit === 'pack' &&
-                  packSize
-                    ? 'piece'
-                    : getUnitLabel()}
+                  per {getPriceBasisLabel()}
                 </p>
 
                 {sellingUnit === 'pack' &&
@@ -939,12 +958,22 @@ function ProductDetailPage() {
                     </>
                   )}
 
-                  {product.capacity && (
+                  {selectedVariant?.capacity && (
                     <>
                       <dt>Capacity</dt>
-                      <dd>{product.capacity}</dd>
+                      <dd>
+                        {selectedVariant.capacity}
+                      </dd>
                     </>
                   )}
+
+                  {product.capacity &&
+                    !selectedVariant?.capacity && (
+                      <>
+                        <dt>Capacity</dt>
+                        <dd>{product.capacity}</dd>
+                      </>
+                    )}
 
                   {product.material && (
                     <>
@@ -974,8 +1003,12 @@ function ProductDetailPage() {
                     </>
                   )}
 
-                  <dt>Pack Size</dt>
-                  <dd>{product.pack}</dd>
+                  {product.pack && (
+                    <>
+                      <dt>Pack Size</dt>
+                      <dd>{product.pack}</dd>
+                    </>
+                  )}
 
                 </dl>
               </div>
@@ -1088,9 +1121,20 @@ function ProductDetailPage() {
                         'kg'
                           ? 'kg'
                           : relatedProduct.sellingUnit ===
-                            'pack'
-                            ? 'pack'
-                            : 'piece'}
+                            'weight'
+                            ? relatedProduct.variants?.[0]
+                                ?.orderQuantity ||
+                              relatedProduct.pack ||
+                              'weight'
+                            : relatedProduct.sellingUnit ===
+                              'pack'
+                              ? relatedProduct.pack
+                                ? relatedProduct.pack.replace(
+                                    /\s+pack$/i,
+                                    ''
+                                  )
+                                : 'pack'
+                              : 'piece'}
                       </p>
                     </div>
                   </Link>
