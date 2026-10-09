@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
@@ -36,7 +37,6 @@ const getMinimumOrderLabel = (product) => {
 
   if (sellingUnit === 'pack' && packSize) {
     const minimumPieces = moq * packSize;
-
     return `Minimum ${minimumPieces} pieces`;
   }
 
@@ -90,49 +90,50 @@ function HomePage() {
   return (
     <div className="home-page">
 
-      {/* COMPACT HERO SECTION */}
+      {/* STATIC HERO IMAGE WITH INTEGRATED COPY */}
       <section className="hero">
         <div className="hero-container">
 
-          <div className="hero-content">
-
-            <h1 className="hero-title">
-              From Packaging to Brand
-            </h1>
-
-            <p className="hero-description">
-              Shop everyday food-service packaging or create custom packaging
-              for your business.
-            </p>
-
-            <div className="hero-actions">
-              <Link
-                to="/"
-                state={{ scrollTo: 'shop-by-category' }}
-                className="hero-button hero-button-primary"
-              >
-                Shop Products
-                <span className="button-arrow">→</span>
-              </Link>
-
-              <Link
-                to="/business-solutions"
-                className="hero-button hero-button-secondary"
-              >
-                Business Solutions
-                <span className="button-arrow">→</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* HERO IMAGE */}
           <div className="hero-visual">
             <div className="hero-video-frame">
+
               <img
                 src={`${import.meta.env.BASE_URL}images/vault-khazana-hero.png`}
                 className="hero-video"
                 alt="VAULT KHAZANA packaging and food-service supplies"
+                fetchPriority="high"
               />
+
+              <div className="hero-content">
+
+                <h1 className="hero-title">
+                  From Packaging to Brand
+                </h1>
+
+                <p className="hero-description">
+                  Shop everyday food-service packaging or create custom packaging for your business.
+                </p>
+
+                <div className="hero-actions">
+                  <Link
+                    to="/"
+                    state={{ scrollTo: 'shop-by-category' }}
+                    className="hero-button hero-button-primary"
+                  >
+                    Shop Products
+                    <span className="button-arrow" aria-hidden="true">→</span>
+                  </Link>
+
+                  <Link
+                    to="/business-solutions"
+                    className="hero-button hero-button-secondary"
+                  >
+                    Business Solutions
+                    <span className="button-arrow" aria-hidden="true">→</span>
+                  </Link>
+                </div>
+
+              </div>
             </div>
           </div>
 
@@ -221,7 +222,7 @@ function HomePage() {
 
             </div>
 
-            {/* ALL 6 BUSINESS SOLUTIONS ASSETS */}
+            {/* EXISTING BUSINESS SOLUTIONS SHOWCASE */}
             <div
               className="business-solutions-visual"
               aria-label="Branded packaging, printing and business solutions showcase"
