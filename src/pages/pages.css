@@ -1,3 +1,4 @@
+
 /* ============================================
 VAULT KHAZANA - PAGE STYLES
 Homepage and All Pages
@@ -1655,13 +1656,46 @@ The same navy background visually unifies both areas.
 ========================================================= */
 
 .home-page .hero {
+position: relative;
+isolation: isolate;
 padding: 0;
-background: #1F3A5C;
+background: linear-gradient(112deg, #1F3A5C 0%, #1F3A5C 54%, #172D49 100%);
 color: #FFFFFF;
 overflow: hidden;
 }
 
+/* Restrained geometric accents add depth without competing with the products. */
+.home-page .hero::before {
+content: "";
+position: absolute;
+z-index: -1;
+width: clamp(260px, 40vw, 560px);
+height: clamp(260px, 40vw, 560px);
+left: -7%;
+top: 50%;
+transform: translateY(-50%) rotate(28deg);
+border: 1px solid rgba(203, 161, 87, 0.28);
+border-radius: 40px;
+pointer-events: none;
+}
+
+.home-page .hero::after {
+content: "";
+position: absolute;
+z-index: 0;
+right: -100px;
+top: -130px;
+width: clamp(240px, 32vw, 420px);
+height: clamp(240px, 32vw, 420px);
+border: 1px solid rgba(203, 161, 87, 0.22);
+border-radius: 50%;
+box-shadow: 0 0 0 28px rgba(203, 161, 87, 0.035), 0 0 0 58px rgba(203, 161, 87, 0.025);
+pointer-events: none;
+}
+
 .home-page .hero-container {
+position: relative;
+z-index: 1;
 display: block;
 width: 100%;
 max-width: 1280px;
@@ -1688,7 +1722,7 @@ min-height: 440px;
 margin: 0;
 aspect-ratio: auto;
 overflow: hidden;
-background: #1F3A5C;
+background: transparent;
 border-radius: 0;
 }
 
