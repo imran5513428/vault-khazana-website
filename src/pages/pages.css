@@ -1649,10 +1649,10 @@ HOVER SAFETY FOR TOUCH DEVICES
 
 /* =========================================================
 HOMEPAGE HERO — STATIC IMAGE + BLENDED COPY
-
-Desktop: static image on the left, copy on the right.
+Trioflex-inspired composition, adapted to VAULT KHAZANA.
+Desktop: tall static product image on the left, copy on the right.
 Mobile: image first, copy and buttons below.
-Flat navy background with no separate text panel.
+One flat navy background; no separate text panel or carousel.
 ========================================================= */
 
 .home-page .hero {
@@ -1664,7 +1664,6 @@ Flat navy background with no separate text panel.
   overflow: hidden;
 }
 
-/* Remove decorative shapes and retain the clean navy background. */
 .home-page .hero::before,
 .home-page .hero::after {
   content: none;
@@ -1678,7 +1677,7 @@ Flat navy background with no separate text panel.
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 28px;
 }
 
 .home-page .hero-visual {
@@ -1690,13 +1689,13 @@ Flat navy background with no separate text panel.
 
 .home-page .hero-video-frame {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  grid-template-rows: minmax(420px, auto);
+  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+  grid-template-rows: minmax(460px, auto);
   align-items: center;
   width: 100%;
   max-width: none;
-  height: clamp(440px, 42vw, 580px);
-  min-height: 420px;
+  height: clamp(480px, 43vw, 570px);
+  min-height: 460px;
   margin: 0;
   aspect-ratio: auto;
   overflow: hidden;
@@ -1704,7 +1703,6 @@ Flat navy background with no separate text panel.
   border-radius: 0;
 }
 
-/* Keep the complete existing product image visible on the left. */
 .home-page .hero-video {
   grid-column: 1;
   grid-row: 1;
@@ -1712,14 +1710,13 @@ Flat navy background with no separate text panel.
   width: 100%;
   height: 100%;
   min-height: 0;
-  padding: 12px;
+  padding: 14px 8px 14px 0;
   object-fit: contain;
   object-position: center;
   background: transparent;
   border-radius: 0;
 }
 
-/* Copy sits directly on the shared navy background. */
 .home-page .hero-content {
   position: relative;
   grid-column: 2;
@@ -1727,10 +1724,10 @@ Flat navy background with no separate text panel.
   top: auto;
   right: auto;
   width: auto;
-  max-width: 620px;
+  max-width: 590px;
   min-width: 0;
   margin: 0;
-  padding: clamp(24px, 3.5vw, 52px);
+  padding: clamp(24px, 3.2vw, 46px);
   transform: none;
   animation: none;
   text-align: left;
@@ -1794,6 +1791,8 @@ Flat navy background with no separate text panel.
   line-height: 1.25;
   white-space: normal;
   text-align: center;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
 .home-page .hero-button-primary {
@@ -1823,131 +1822,20 @@ Flat navy background with no separate text panel.
   outline-offset: 4px;
 }
 
-/* ===== HERO: MOBILE IMAGE FIRST, COPY BELOW ===== */
-
-@media (max-width: 767px) {
-
-  .home-page .hero {
-    padding: 0;
-  }
-
-  .home-page .hero-container {
-    padding: 0;
-  }
-
-  .home-page .hero-video-frame {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 250px auto;
-    width: 100%;
-    height: auto;
-    min-height: 0;
-    aspect-ratio: auto;
-  }
-
-  .home-page .hero-video {
-    grid-column: 1;
-    grid-row: 1;
-    width: 100%;
-    height: 250px;
-    min-height: 0;
-    padding: 8px 14px 0;
-    object-fit: contain;
-    object-position: center;
-  }
-
-  .home-page .hero-content {
-    grid-column: 1;
-    grid-row: 2;
-    width: 100%;
-    max-width: none;
-    padding: 18px 20px 28px;
-    margin: 0;
-    text-align: left;
-  }
-
-  .home-page .hero-eyebrow {
-    font-size: 11px;
-    margin-bottom: 8px;
-  }
-
-  .home-page .hero-title {
-    font-size: clamp(28px, 7vw, 36px);
-    line-height: 1.13;
-    margin-bottom: 12px;
-  }
-
-  .home-page .hero-description {
-    max-width: 560px;
-    font-size: 15px;
-    line-height: 1.5;
-    margin-bottom: 18px;
-  }
-
-  .home-page .hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .home-page .hero-button,
-  .home-page .hero-button-primary,
-  .home-page .hero-button-secondary {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    min-height: 46px;
-    padding: 12px 18px;
-    font-size: 14px;
-  }
-
-}
-
-/* ===== HERO: VERY SMALL PHONES ===== */
-
-@media (max-width: 360px) {
-
-  .home-page .hero-video-frame {
-    grid-template-rows: 220px auto;
-  }
-
-  .home-page .hero-video {
-    height: 220px;
-    padding: 8px 8px 0;
-  }
-
-  .home-page .hero-content {
-    padding: 16px 16px 24px;
-  }
-
-  .home-page .hero-title {
-    font-size: 27px;
-  }
-
-  .home-page .hero-description {
-    font-size: 14px;
-  }
-
-}
-
-/* ===== HERO: TABLET REFINEMENTS ===== */
-
+/* Tablet layout */
 @media (min-width: 768px) and (max-width: 1023px) {
-
   .home-page .hero-container {
     padding: 0 18px;
   }
 
   .home-page .hero-video-frame {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    grid-template-rows: minmax(400px, auto);
-    height: 440px;
-    min-height: 400px;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    height: 460px;
+    min-height: 460px;
   }
 
   .home-page .hero-video {
-    padding: 8px;
+    padding: 12px 0 12px 0;
   }
 
   .home-page .hero-content {
@@ -1955,7 +1843,7 @@ Flat navy background with no separate text panel.
   }
 
   .home-page .hero-title {
-    font-size: clamp(30px, 3.8vw, 40px);
+    font-size: clamp(30px, 4vw, 40px);
   }
 
   .home-page .hero-description {
@@ -1973,62 +1861,119 @@ Flat navy background with no separate text panel.
   .home-page .hero-button-secondary {
     width: 100%;
     max-width: 260px;
-    min-width: 0;
   }
-
 }
 
-@media (min-width: 1024px) {
+/* Mobile: full-width image first, copy directly underneath */
+@media (max-width: 767px) {
+  .home-page .hero {
+    padding: 0;
+  }
 
   .home-page .hero-container {
-    padding: 0 28px;
+    padding: 0;
   }
 
   .home-page .hero-video-frame {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(230px, 62vw) auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
   }
 
+  .home-page .hero-video {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: 12px 14px 4px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .home-page .hero-content {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    max-width: none;
+    padding: 18px 20px 30px;
+    text-align: left;
+  }
+
+  .home-page .hero-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .home-page .hero-title {
+    margin-bottom: 12px;
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 1.12;
+  }
+
+  .home-page .hero-description {
+    max-width: 560px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .home-page .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .home-page .hero-button,
+  .home-page .hero-button-primary,
+  .home-page .hero-button-secondary {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+  }
 }
 
-/* =========================================================
-CATEGORY GRID — RESPONSIVE CARD WIDTHS
-Narrow phones: one column; tablets: two; desktop: four.
-========================================================= */
+@media (max-width: 360px) {
+  .home-page .hero-video-frame {
+    grid-template-rows: 220px auto;
+  }
 
+  .home-page .hero-content {
+    padding: 16px 16px 26px;
+  }
+
+  .home-page .hero-title {
+    font-size: 27px;
+  }
+
+  .home-page .hero-description {
+    font-size: 14px;
+  }
+}
+
+/* Keep category cards responsive on small screens. */
 @media (max-width: 640px) {
-
   .home-page .category-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .home-page .category-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 14px;
-    min-height: 76px;
-    padding: 12px 14px;
-    text-align: left;
-    border-width: 1px;
+    gap: 10px;
+    padding: 12px;
   }
 
   .home-page .category-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0;
+    width: 44px;
+    height: 44px;
     font-size: 30px;
-    flex: 0 0 48px;
-  }
-
-  .home-page .category-card > div:nth-child(2) {
-    min-width: 0;
-    flex: 1;
   }
 
   .home-page .category-name {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.3;
     margin: 0;
   }
@@ -2045,11 +1990,9 @@ Narrow phones: one column; tablets: two; desktop: four.
     margin-left: auto;
     font-size: 22px;
   }
-
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
-
   .home-page .category-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
@@ -2073,28 +2016,22 @@ Narrow phones: one column; tablets: two; desktop: four.
   .home-page .category-desc {
     font-size: 12px;
   }
-
 }
 
 @media (min-width: 1024px) {
-
   .home-page .category-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-
 }
 
 @media (min-width: 1440px) {
-
   .home-page .category-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-
 }
 
 /* Respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
-
   .home-page .hero-content,
   .home-page .hero-visual,
   .home-page .hero-button,
@@ -2103,5 +2040,4 @@ Narrow phones: one column; tablets: two; desktop: four.
     animation: none;
     transition: none;
   }
-
 }
