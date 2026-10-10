@@ -1,9 +1,9 @@
 
 /* =========================================================
    VAULT KHAZANA — HOMEPAGE HERO
-   Desktop: complete product image on the left, copy on right
+   Desktop: full-frame image with copy layered over the right
    Mobile: image first, text directly underneath
-   No carousel, no separate text card, no dark image overlay
+   No carousel, separate text card, or dark image overlay
    ========================================================= */
 
 .home-page .hero {
@@ -18,6 +18,7 @@
   background: #1F3A5C !important;
   color: #FFFFFF !important;
   isolation: isolate;
+  box-sizing: border-box !important;
 }
 
 .home-page .hero::before,
@@ -43,7 +44,7 @@
   animation: none !important;
 }
 
-/* ===== DESKTOP HERO FRAME ===== */
+/* ===== DESKTOP: FULL HERO FRAME ===== */
 
 .home-page .hero-video-frame {
   position: relative !important;
@@ -59,36 +60,40 @@
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+  box-sizing: border-box !important;
 }
 
-/* Show the complete image without cropping or dimming it.
-   Transparent areas reveal the flat navy hero background. */
+/*
+  IMPORTANT:
+  The image element now spans the WHOLE frame.
+  It is no longer restricted to the left 55% or 50%.
+  Keep the image proportions intact and align its content left.
+  Transparent areas show the flat navy background.
+*/
 
 .home-page .hero-video {
   position: absolute !important;
   top: 0 !important;
-  right: auto !important;
+  right: 0 !important;
   bottom: 0 !important;
   left: 0 !important;
   display: block !important;
-  width: 55% !important;
+  width: 100% !important;
   height: 100% !important;
   min-height: 0 !important;
   max-height: none !important;
   margin: 0 !important;
-  padding: 10px !important;
+  padding: 0 !important;
   object-fit: contain !important;
-  object-position: center !important;
+  object-position: left center !important;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   transform: none !important;
   animation: none !important;
-  z-index: 0;
+  z-index: 0 !important;
 }
-
-/* No gradient overlay: keep product colours and details clear. */
 
 .home-page .hero-video-frame::before,
 .home-page .hero-video-frame::after {
@@ -96,7 +101,7 @@
   display: none !important;
 }
 
-/* ===== DESKTOP TEXT ===== */
+/* ===== DESKTOP TEXT OVER THE IMAGE ===== */
 
 .home-page .hero-content {
   position: absolute !important;
@@ -106,7 +111,7 @@
   left: auto !important;
   z-index: 2 !important;
   display: block !important;
-  width: 40% !important;
+  width: min(40%, 560px) !important;
   max-width: 560px !important;
   min-width: 0 !important;
   margin: 0 !important;
@@ -119,6 +124,7 @@
   border-radius: 0 !important;
   box-shadow: none !important;
   overflow-wrap: anywhere;
+  box-sizing: border-box !important;
 }
 
 .home-page .hero-title::before {
@@ -194,6 +200,7 @@
     background-color 160ms ease,
     border-color 160ms ease,
     color 160ms ease;
+  box-sizing: border-box !important;
 }
 
 .home-page .hero-button-primary {
@@ -241,14 +248,18 @@
     height: 470px !important;
   }
 
+  /* Keep the image full-frame on tablet too. */
   .home-page .hero-video {
-    width: 50% !important;
-    padding: 8px !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    object-position: left center !important;
   }
 
   .home-page .hero-content {
     right: 24px !important;
     width: 44% !important;
+    max-width: 440px !important;
     padding: 12px 0 !important;
   }
 
@@ -280,7 +291,7 @@
   }
 }
 
-/* ===== MOBILE: IMAGE THEN TEXT, NO EMPTY FIXED-HEIGHT SPACE ===== */
+/* ===== MOBILE: IMAGE THEN TEXT, NO EMPTY FIXED-HEIGHT GAP ===== */
 
 @media (max-width: 767px) {
   .home-page .hero {
@@ -309,7 +320,7 @@
     aspect-ratio: auto !important;
   }
 
-  /* Natural image height prevents the oversized blank gap. */
+  /* Natural image height avoids a large empty fixed-height area. */
 
   .home-page .hero-video {
     position: relative !important;
@@ -347,6 +358,7 @@
     transform: none !important;
     text-align: left !important;
     background: #1F3A5C !important;
+    box-sizing: border-box !important;
   }
 
   .home-page .hero-title::before {
