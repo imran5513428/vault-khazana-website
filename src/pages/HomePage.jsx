@@ -1,7 +1,9 @@
+
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import './pages.css';
+import '../styles/home-hero.css';
 
 const getDisplayPrice = (product) => {
   const sellingUnit = product.sellingUnit || 'piece';
