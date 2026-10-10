@@ -1,392 +1,450 @@
-/* ============================================
-VAULT KHAZANA — HOMEPAGE HERO
-Static Trioflex-inspired layout
-Desktop: image left, copy right
-Mobile: image first, copy below
-============================================ */
+
+/* =========================================================
+   VAULT KHAZANA — HOMEPAGE HERO
+   Static, full-frame hero with integrated overlay content
+   Desktop: product image left, copy overlaid on the right
+   Mobile: product image and copy inside one continuous frame
+   No carousel, separate panel, or text card
+   ========================================================= */
+
+/* ===== HERO SECTION ===== */
 
 .home-page .hero {
-display: block !important;
-position: relative !important;
-isolation: isolate;
-width: 100%;
-min-height: 0 !important;
-height: auto !important;
-margin: 0;
-padding: 0 !important;
-background: #1F3A5C !important;
-color: #FFFFFF;
-overflow: hidden;
+  position: relative !important;
+  display: block !important;
+  isolation: isolate;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #1F3A5C !important;
+  color: #FFFFFF !important;
 }
 
 .home-page .hero::before,
 .home-page .hero::after {
-content: none !important;
-display: none !important;
+  content: none !important;
+  display: none !important;
 }
 
+/* Full-width hero frame */
+
 .home-page .hero-container {
-display: block !important;
-position: relative;
-width: 100%;
-max-width: 1280px;
-margin: 0 auto;
-padding: 0 28px !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 1;
 }
 
 .home-page .hero-visual {
-display: block !important;
-width: 100%;
-margin: 0;
-animation: none !important;
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 !important;
+  animation: none !important;
 }
 
-/* DESKTOP: TALL STATIC IMAGE + COPY BESIDE IT */
+/* ===== FULL HERO IMAGE FRAME ===== */
 
 .home-page .hero-video-frame {
-display: grid !important;
-grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-grid-template-rows: minmax(470px, auto) !important;
-align-items: center;
-gap: 16px;
-position: relative !important;
-width: 100%;
-max-width: none !important;
-height: clamp(470px, 43vw, 560px) !important;
-min-height: 0 !important;
-margin: 0;
-padding: 0;
-aspect-ratio: auto !important;
-overflow: hidden;
-background: transparent !important;
-border: 0 !important;
-border-radius: 0 !important;
-box-shadow: none !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: clamp(500px, 46vw, 650px) !important;
+  min-height: 500px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  aspect-ratio: auto !important;
+  background: #1F3A5C !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-/* IMAGE */
+/* The image stays proportional and forms the visual layer.
+   The navy background remains visible through transparent areas. */
 
 .home-page .hero-video {
-display: block !important;
-position: relative !important;
-grid-column: 1 !important;
-grid-row: 1 !important;
-width: 100% !important;
-height: 100% !important;
-min-height: 0 !important;
-max-height: none !important;
-margin: 0;
-padding: 12px 0;
-object-fit: contain;
-object-position: center;
-background: transparent !important;
-border: 0 !important;
-border-radius: 0 !important;
-box-shadow: none !important;
-transform: none !important;
-animation: none !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  animation: none !important;
+  z-index: 0;
 }
 
-/* COPY: SAME NAVY BACKGROUND, NO CARD OR PANEL */
+/* ===== SUBTLE FULL-FRAME CONTRAST =====
+   This is a transparent gradient, not a separate panel.
+   It helps white text remain readable over the artwork. */
+
+.home-page .hero-video-frame::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background: linear-gradient(
+    90deg,
+    rgba(31, 58, 92, 0) 0%,
+    rgba(31, 58, 92, 0.04) 35%,
+    rgba(31, 58, 92, 0.48) 58%,
+    rgba(31, 58, 92, 0.88) 100%
+  ) !important;
+  z-index: 1;
+}
+
+/* ===== INTEGRATED HERO COPY ===== */
 
 .home-page .hero-content {
-display: block !important;
-position: relative !important;
-grid-column: 2 !important;
-grid-row: 1 !important;
-top: auto !important;
-right: auto !important;
-bottom: auto !important;
-left: auto !important;
-width: 100% !important;
-max-width: 560px !important;
-min-width: 0;
-margin: 0 !important;
-padding: 28px 12px 28px 24px !important;
-transform: none !important;
-text-align: left !important;
-animation: none !important;
-background: transparent !important;
-border: 0 !important;
-border-radius: 0 !important;
-box-shadow: none !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: clamp(28px, 6vw, 100px) !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: min(43%, 570px) !important;
+  max-width: 570px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 24px 0 !important;
+  transform: translateY(-50%) !important;
+  text-align: left !important;
+  animation: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-/* BRAND DESCRIPTOR — WITHOUT CHANGING THE HEADLINE */
+/* Brand descriptor: keep the approved headline unchanged */
 
 .home-page .hero-title::before {
-content: "PACKAGING & FOOD-SERVICE SUPPLIES";
-display: block;
-margin: 0 0 16px;
-color: #E67E22;
-font-size: 12px;
-font-weight: 700;
-line-height: 1.5;
-letter-spacing: 1.8px;
-text-transform: uppercase;
+  content: "PACKAGING & FOOD-SERVICE SUPPLIES";
+  display: block;
+  margin: 0 0 18px;
+  color: #E67E22;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
 }
 
-/* HEADLINE */
+/* Headline */
 
 .home-page .hero-title {
-margin: 0 0 18px !important;
-color: #FFFFFF !important;
-font-size: clamp(36px, 4vw, 54px) !important;
-font-weight: 750;
-line-height: 1.1 !important;
-letter-spacing: -1px;
-overflow-wrap: break-word;
+  margin: 0 0 18px !important;
+  color: #FFFFFF !important;
+  font-size: clamp(34px, 4vw, 56px) !important;
+  font-weight: 750 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -1px !important;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
-/* DESCRIPTION */
+/* Description */
 
 .home-page .hero-description {
-max-width: 500px;
-margin: 0 0 26px !important;
-color: rgba(255, 255, 255, 0.93) !important;
-font-size: clamp(16px, 1.4vw, 19px) !important;
-line-height: 1.6 !important;
+  max-width: 500px !important;
+  margin: 0 0 26px !important;
+  color: rgba(255, 255, 255, 0.96) !important;
+  font-size: clamp(16px, 1.35vw, 19px) !important;
+  line-height: 1.6 !important;
 }
 
-/* CTA BUTTONS */
+/* ===== CALL-TO-ACTION BUTTONS ===== */
 
 .home-page .hero-actions {
-display: flex !important;
-flex-direction: row !important;
-flex-wrap: wrap;
-align-items: center;
-gap: 12px;
-width: 100%;
-margin: 0 !important;
-padding: 0;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .home-page .hero-button,
 .home-page .hero-button-primary,
 .home-page .hero-button-secondary {
-display: inline-flex !important;
-position: relative;
-align-items: center;
-justify-content: center;
-gap: 8px;
-width: auto !important;
-min-width: 170px;
-max-width: 100%;
-min-height: 48px;
-margin: 0;
-padding: 12px 18px;
-border-radius: 7px;
-font-size: 14px;
-font-weight: 700;
-line-height: 1.35;
-text-align: center;
-text-decoration: none;
-white-space: normal;
-transition: background-color 160ms ease, border-color 160ms ease;
+  position: relative;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: 13px 18px !important;
+  border-radius: 7px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
 .home-page .hero-button-primary {
-background: #E67E22 !important;
-border: 2px solid #E67E22 !important;
-color: #FFFFFF !important;
+  background: #E67E22 !important;
+  border: 2px solid #E67E22 !important;
+  color: #FFFFFF !important;
 }
 
 .home-page .hero-button-primary:hover {
-background: #D65D0A !important;
-border-color: #D65D0A !important;
-color: #FFFFFF !important;
+  background: #D65D0A !important;
+  border-color: #D65D0A !important;
+  color: #FFFFFF !important;
 }
 
 .home-page .hero-button-secondary {
-background: transparent !important;
-border: 2px solid rgba(255, 255, 255, 0.9) !important;
-color: #FFFFFF !important;
+  background: transparent !important;
+  border: 2px solid rgba(255, 255, 255, 0.95) !important;
+  color: #FFFFFF !important;
 }
 
 .home-page .hero-button-secondary:hover {
-background: rgba(255, 255, 255, 0.1) !important;
-border-color: #FFFFFF !important;
-color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
 }
 
 .home-page .hero-button:focus-visible {
-outline: 3px solid #FFFFFF;
-outline-offset: 4px;
+  outline: 3px solid #FFFFFF;
+  outline-offset: 4px;
 }
 
 .home-page .button-arrow {
-display: inline-block;
-transition: transform 160ms ease;
+  display: inline-block;
+  transition: transform 160ms ease;
 }
 
 .home-page .hero-button:hover .button-arrow {
-transform: translateX(3px);
+  transform: translateX(3px);
 }
 
-/* TABLET */
+/* ===== TABLET ===== */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-.home-page .hero-container {
-padding: 0 18px !important;
+  .home-page .hero-video-frame {
+    height: 500px !important;
+    min-height: 500px !important;
+  }
+
+  .home-page .hero-video {
+    object-position: left center !important;
+  }
+
+  .home-page .hero-video-frame::after {
+    background: linear-gradient(
+      90deg,
+      rgba(31, 58, 92, 0) 0%,
+      rgba(31, 58, 92, 0.18) 35%,
+      rgba(31, 58, 92, 0.78) 57%,
+      rgba(31, 58, 92, 0.96) 100%
+    ) !important;
+  }
+
+  .home-page .hero-content {
+    right: 28px !important;
+    width: 48% !important;
+    padding: 20px 0 !important;
+  }
+
+  .home-page .hero-title {
+    font-size: clamp(30px, 4.2vw, 40px) !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .home-page .hero-title::before {
+    margin-bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 1.2px;
+  }
+
+  .home-page .hero-description {
+    margin-bottom: 20px !important;
+    font-size: 16px !important;
+  }
+
+  .home-page .hero-actions {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .home-page .hero-button,
+  .home-page .hero-button-primary,
+  .home-page .hero-button-secondary {
+    width: auto !important;
+    max-width: 100% !important;
+  }
 }
 
-.home-page .hero-video-frame {
-grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) !important;
-grid-template-rows: minmax(440px, auto) !important;
-height: 460px !important;
-}
-
-.home-page .hero-content {
-padding: 22px 8px 22px 16px !important;
-}
-
-.home-page .hero-title {
-font-size: clamp(30px, 4vw, 40px) !important;
-}
-
-.home-page .hero-title::before {
-font-size: 10px;
-letter-spacing: 1.3px;
-}
-
-.home-page .hero-description {
-font-size: 16px !important;
-margin-bottom: 20px !important;
-}
-
-.home-page .hero-actions {
-flex-direction: column !important;
-align-items: flex-start;
-}
-
-.home-page .hero-button,
-.home-page .hero-button-primary,
-.home-page .hero-button-secondary {
-width: 100% !important;
-max-width: 260px;
-}
-}
-
-/* MOBILE: IMAGE FULL WIDTH, COPY UNDERNEATH */
+/* ===== MOBILE: ONE CONTINUOUS HERO FRAME ===== */
 
 @media (max-width: 767px) {
-.home-page .hero {
-display: block !important;
-min-height: 0 !important;
-height: auto !important;
+  .home-page .hero {
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .home-page .hero-container {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .home-page .hero-video-frame {
+    width: 100% !important;
+    height: clamp(660px, 175vw, 780px) !important;
+    min-height: 660px !important;
+    overflow: hidden !important;
+  }
+
+  /* Keep the image in the same frame as the text.
+     Contain prevents the transparent product artwork from
+     being enlarged and cropped unpredictably. */
+
+  .home-page .hero-video {
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    padding: 0 !important;
+    object-fit: contain !important;
+    object-position: center top !important;
+  }
+
+  .home-page .hero-video-frame::after {
+    background: linear-gradient(
+      180deg,
+      rgba(31, 58, 92, 0) 0%,
+      rgba(31, 58, 92, 0.02) 28%,
+      rgba(31, 58, 92, 0.35) 43%,
+      rgba(31, 58, 92, 0.88) 57%,
+      #1F3A5C 72%,
+      #1F3A5C 100%
+    ) !important;
+  }
+
+  .home-page .hero-content {
+    top: auto !important;
+    right: 22px !important;
+    bottom: 26px !important;
+    left: 22px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    text-align: left !important;
+  }
+
+  .home-page .hero-title::before {
+    margin-bottom: 10px;
+    font-size: 10px;
+    letter-spacing: 1.3px;
+  }
+
+  .home-page .hero-title {
+    margin-bottom: 14px !important;
+    font-size: clamp(29px, 7.5vw, 38px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .home-page .hero-description {
+    max-width: 560px !important;
+    margin-bottom: 20px !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+  }
+
+  .home-page .hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .home-page .hero-button,
+  .home-page .hero-button-primary,
+  .home-page .hero-button-secondary {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+  }
 }
 
-.home-page .hero-container {
-max-width: none;
-padding: 0 !important;
-}
-
-.home-page .hero-video-frame {
-display: grid !important;
-grid-template-columns: minmax(0, 1fr) !important;
-grid-template-rows: auto auto !important;
-gap: 0;
-width: 100%;
-height: auto !important;
-min-height: 0 !important;
-overflow: hidden;
-}
-
-.home-page .hero-video {
-grid-column: 1 !important;
-grid-row: 1 !important;
-width: 100% !important;
-height: auto !important;
-min-height: 0 !important;
-max-height: 390px !important;
-padding: 12px 14px 4px;
-object-fit: contain;
-object-position: center;
-}
-
-.home-page .hero-content {
-grid-column: 1 !important;
-grid-row: 2 !important;
-width: 100% !important;
-max-width: none !important;
-margin: 0 !important;
-padding: 18px 22px 30px !important;
-text-align: left !important;
-}
-
-.home-page .hero-title {
-margin-bottom: 14px !important;
-font-size: clamp(29px, 7.5vw, 38px) !important;
-line-height: 1.12 !important;
-letter-spacing: -0.5px;
-}
-
-.home-page .hero-title::before {
-margin-bottom: 10px;
-font-size: 10px;
-letter-spacing: 1.3px;
-}
-
-.home-page .hero-description {
-max-width: 560px;
-margin-bottom: 20px !important;
-font-size: 15px !important;
-line-height: 1.6 !important;
-}
-
-.home-page .hero-actions {
-flex-direction: column !important;
-align-items: stretch;
-gap: 10px;
-width: 100%;
-}
-
-.home-page .hero-button,
-.home-page .hero-button-primary,
-.home-page .hero-button-secondary {
-width: 100% !important;
-max-width: none;
-min-width: 0;
-min-height: 48px;
-padding: 13px 18px;
-font-size: 14px;
-}
-}
-
-/* VERY SMALL PHONES */
+/* ===== VERY SMALL PHONES ===== */
 
 @media (max-width: 360px) {
-.home-page .hero-video {
-max-height: 300px !important;
-padding: 10px 10px 2px;
+  .home-page .hero-video-frame {
+    height: 700px !important;
+    min-height: 700px !important;
+  }
+
+  .home-page .hero-content {
+    right: 16px !important;
+    bottom: 20px !important;
+    left: 16px !important;
+  }
+
+  .home-page .hero-title {
+    font-size: 28px !important;
+  }
+
+  .home-page .hero-title::before {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .home-page .hero-description {
+    font-size: 14px !important;
+  }
 }
 
-.home-page .hero-content {
-padding: 16px 16px 26px !important;
-}
-
-.home-page .hero-title {
-font-size: 28px !important;
-}
-
-.home-page .hero-title::before {
-font-size: 9px;
-letter-spacing: 1px;
-}
-
-.home-page .hero-description {
-font-size: 14px !important;
-}
-}
-
-/* ACCESSIBILITY */
+/* ===== ACCESSIBILITY ===== */
 
 @media (prefers-reduced-motion: reduce) {
-.home-page .hero-content,
-.home-page .hero-visual,
-.home-page .hero-button,
-.home-page .button-arrow {
-animation: none !important;
-transition: none !important;
-}
+  .home-page .hero-content,
+  .home-page .hero-visual,
+  .home-page .hero-button,
+  .home-page .button-arrow {
+    animation: none !important;
+    transition: none !important;
+  }
 }
