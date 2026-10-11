@@ -1,9 +1,9 @@
 /* =========================================================
    VAULT KHAZANA — TRIOFLEX-STYLE HERO
    Full-frame static image with overlay text (RIGHT side)
-   Desktop, Tablet, Mobile — ALL use same overlay approach
-   100vh FULL VIEWPORT HEIGHT on all devices
-   Text overlaid CENTER-RIGHT on image — HIGHLY TRANSPARENT
+   Desktop: 100vh full viewport
+   Mobile: Shorter height (70vh) to fit screen
+   Text overlaid CENTER-RIGHT on image
    ========================================================= */
 
 #root .home-page .hero,
@@ -61,15 +61,15 @@
   animation: none !important;
 }
 
-/* ==================== HERO FRAME (FULL-VIEWPORT) ==================== */
+/* ==================== HERO FRAME (RESPONSIVE HEIGHT) ==================== */
 
 #root .home-page .hero-video-frame {
   position: relative !important;
   display: block !important;
   width: 100% !important;
   max-width: none !important;
-  height: 100vh !important;
-  min-height: 100vh !important;
+  height: clamp(340px, 70vh, 600px) !important;
+  min-height: 340px !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
@@ -78,9 +78,6 @@
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  grid-template-columns: none !important;
-  grid-template-rows: none !important;
-  display: block !important;
 }
 
 /* ==================== HERO IMAGE (FULL-FRAME BACKGROUND) ==================== */
@@ -109,8 +106,6 @@
   box-shadow: none !important;
   transform: none !important;
   z-index: 0 !important;
-  grid-column: auto !important;
-  grid-row: auto !important;
 }
 
 /* ==================== HERO CONTENT OVERLAY (TEXT ON RIGHT, CENTER) ==================== */
@@ -139,8 +134,6 @@
   box-shadow: none !important;
   animation: none !important;
   z-index: 2 !important;
-  grid-column: auto !important;
-  grid-row: auto !important;
 }
 
 /* ==================== HERO TITLE & EYEBROW ==================== */
@@ -269,9 +262,8 @@
 
 @media (min-width: 1024px) {
   #root .home-page .hero-video-frame {
-    display: block !important;
-    grid-template-columns: none !important;
-    grid-template-rows: none !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
   }
 
   #root .home-page .hero-content {
@@ -322,9 +314,8 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
   #root .home-page .hero-video-frame {
-    display: block !important;
-    grid-template-columns: none !important;
-    grid-template-rows: none !important;
+    height: clamp(420px, 60vh, 650px) !important;
+    min-height: 420px !important;
   }
 
   #root .home-page .hero-content {
@@ -371,41 +362,12 @@
 /* ==================== MOBILE (< 768px) ==================== */
 
 @media (max-width: 767px) {
-  #root .home-page .hero,
-  #root .home-page .hero-container,
-  #root .home-page .hero-visual {
-    position: relative !important;
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
   #root .home-page .hero-video-frame {
-    position: relative !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    grid-template-columns: none !important;
-    grid-template-rows: none !important;
-  }
-
-  #root .home-page .hero-video {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    grid-column: auto !important;
-    grid-row: auto !important;
+    height: clamp(340px, 70vh, 500px) !important;
+    min-height: 340px !important;
   }
 
   #root .home-page .hero-content {
-    position: absolute !important;
     top: 50% !important;
     right: clamp(16px, 4vw, 28px) !important;
     width: clamp(260px, 85vw, 500px) !important;
@@ -413,10 +375,6 @@
     padding: clamp(18px, 3vw, 28px) !important;
     border-radius: 10px !important;
     background: rgba(31, 58, 92, 0.28) !important;
-    transform: translateY(-50%) !important;
-    z-index: 2 !important;
-    grid-column: auto !important;
-    grid-row: auto !important;
   }
 
   #root .home-page .hero-title::before {
@@ -454,6 +412,11 @@
 /* ==================== VERY SMALL PHONES (< 360px) ==================== */
 
 @media (max-width: 360px) {
+  #root .home-page .hero-video-frame {
+    height: clamp(300px, 65vh, 420px) !important;
+    min-height: 300px !important;
+  }
+
   #root .home-page .hero-content {
     right: 12px !important;
     width: calc(100% - 24px) !important;
