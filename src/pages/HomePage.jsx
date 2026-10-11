@@ -8,9 +8,7 @@ import '../styles/category-image-pilot.css';
 
 const getDisplayPrice = (product) => {
   const sellingUnit = product.sellingUnit || 'piece';
-  const packSize = product.packSize
-    ? Number(product.packSize)
-    : null;
+  const packSize = product.packSize ? Number(product.packSize) : null;
   const pricePerUnit = Number(product.pricePerUnit) || 0;
 
   if (sellingUnit === 'pack' && packSize) {
@@ -21,34 +19,23 @@ const getDisplayPrice = (product) => {
 };
 
 const getDisplayUnit = (product) => {
-  const sellingUnit = product.sellingUnit || 'piece';
-
-  if (sellingUnit === 'kg') {
-    return 'kg';
-  }
-
-  return 'piece';
+  return product.sellingUnit === 'kg' ? 'kg' : 'piece';
 };
 
 const getMinimumOrderLabel = (product) => {
   const sellingUnit = product.sellingUnit || 'piece';
   const moq = Number(product.moq) || 1;
-  const packSize = product.packSize
-    ? Number(product.packSize)
-    : null;
+  const packSize = product.packSize ? Number(product.packSize) : null;
 
   if (sellingUnit === 'pack' && packSize) {
-    const minimumPieces = moq * packSize;
-    return `Minimum ${minimumPieces} pieces`;
+    return `Minimum ${moq * packSize} pieces`;
   }
 
   if (sellingUnit === 'kg') {
     return `Minimum ${moq} kg`;
   }
 
-  return `Minimum ${
-    moq === 1 ? 'piece' : 'pieces'
-  }`;
+  return `Minimum ${moq === 1 ? 'piece' : 'pieces'}`;
 };
 
 const formatDisplayPrice = (price) => {
@@ -80,18 +67,22 @@ function HomePage() {
     };
 
     const frame = window.requestAnimationFrame(scrollToCategories);
-
     return () => window.cancelAnimationFrame(frame);
   }, [location]);
 
   const featuredProducts = PRODUCTS.filter(
-    p => p.rating >= 4.7
+    product => product.rating >= 4.7
   ).slice(0, 8);
+
+  // Hide Takeaway Packaging from the homepage category grid.
+  const visibleCategories = CATEGORIES.filter(
+    category => category.id !== 'takeaway-packaging'
+  );
 
   return (
     <div className="home-page">
 
-      {/* STATIC HERO IMAGE WITH INTEGRATED COPY */}
+      {/* STATIC HERO — PRESERVED */}
       <section className="hero">
         <div className="hero-container">
           <div className="hero-visual">
@@ -136,7 +127,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORIES SECTION */}
+      {/* SHOP BY CATEGORY — ALL IMAGES */}
       <section
         className="section section-categories"
         id="shop-by-category"
@@ -147,65 +138,46 @@ function HomePage() {
           </div>
 
           <div className="category-grid">
-            {CATEGORIES.map((category) => {
-              const isFoodContainers =
-                category.id === 'food-containers';
+            {visibleCategories.map((category) => (
+              <Link
+                key={category.id}
+                to={`/category/${category.slug}`}
+                className="category-card category-card--image"
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}images/category-${category.id}.jpg`}
+                  className="category-card-image"
+                  alt={`${category.name} products`}
+                  loading="lazy"
+                />
 
-              return (
-                <Link
-                  key={category.id}
-                  to={`/category/${category.slug}`}
-                  className={
-                    isFoodContainers
-                      ? 'category-card category-card--image'
-                      : 'category-card'
-                  }
-                >
-                  {isFoodContainers ? (
-                    <img
-                      src={`${import.meta.env.BASE_URL}images/category-food-containers.jpg`}
-                      className="category-card-image"
-                      alt="Assortment of food containers for takeaway and food service"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="category-icon" aria-hidden="true">
-                      {category.icon}
-                    </div>
-                  )}
+                <div className="category-card-copy">
+                  <h3 className="category-name">
+                    {category.name}
+                  </h3>
 
-                  <div className="category-card-copy">
-                    <h3 className="category-name">
-                      {category.name}
-                    </h3>
+                  <p className="category-desc">
+                    {category.description}
+                  </p>
+                </div>
 
-                    <p className="category-desc">
-                      {category.description}
-                    </p>
-                  </div>
-
-                  <span className="category-arrow" aria-hidden="true">
-                    →
-                  </span>
-                </Link>
-              );
-            })}
+                <span className="category-arrow" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* BUSINESS SOLUTIONS GATEWAY */}
+      {/* BUSINESS SOLUTIONS */}
       <section className="section section-business-solutions">
         <div className="container">
           <div className="business-solutions-shell">
             <div className="business-solutions-copy">
-              <p className="eyebrow">
-                BUSINESS SOLUTIONS
-              </p>
+              <p className="eyebrow">BUSINESS SOLUTIONS</p>
 
-              <h2>
-                Put Your Brand on Every Order
-              </h2>
+              <h2>Put Your Brand on Every Order</h2>
 
               <p className="business-solutions-lead">
                 Custom packaging that looks like your business.
@@ -249,7 +221,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS SECTION */}
+      {/* POPULAR PICKS */}
       {featuredProducts.length > 0 && (
         <section className="section section-featured">
           <div className="container">
@@ -303,7 +275,7 @@ function HomePage() {
         </section>
       )}
 
-      {/* WHY CHOOSE US SECTION */}
+      {/* WHY CHOOSE US */}
       <section className="section section-benefits bg-light">
         <div className="container">
           <div className="section-heading">
@@ -315,49 +287,37 @@ function HomePage() {
             <div className="benefit-card">
               <div className="benefit-icon">🚚</div>
               <h3>Nationwide Delivery</h3>
-              <p>
-                Reliable shipping to locations across Pakistan.
-              </p>
+              <p>Reliable shipping to locations across Pakistan.</p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">✓</div>
               <h3>Quality Products</h3>
-              <p>
-                Practical packaging supplies for food-service needs.
-              </p>
+              <p>Practical packaging supplies for food-service needs.</p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">💰</div>
               <h3>Competitive Prices</h3>
-              <p>
-                Clear pricing for everyday and bulk purchasing.
-              </p>
+              <p>Clear pricing for everyday and bulk purchasing.</p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">📞</div>
               <h3>Easy Support</h3>
-              <p>
-                Contact us for bulk orders, questions or special requests.
-              </p>
+              <p>Contact us for bulk orders, questions or special requests.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHOLESALE SECTION */}
+      {/* BUYING IN BULK */}
       <section className="section section-wholesale">
         <div className="container">
           <div className="wholesale-content">
-            <p className="eyebrow">
-              For Businesses
-            </p>
+            <p className="eyebrow">For Businesses</p>
 
-            <h2>
-              Buying in bulk?
-            </h2>
+            <h2>Buying in bulk?</h2>
 
             <p>
               Get the quantities, packaging options and support
@@ -365,82 +325,61 @@ function HomePage() {
               a restaurant, bakery, café or growing operation.
             </p>
 
-            <a
-              href="/"
-              className="btn btn-primary btn-lg"
-            >
+            <a href="/" className="btn btn-primary btn-lg">
               Get Wholesale Quote
             </a>
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS SECTION */}
+      {/* HOW IT WORKS */}
       <section className="section section-how-it-works bg-light">
         <div className="container">
           <div className="section-heading">
-            <p className="eyebrow">
-              Simple Process
-            </p>
-
-            <h2>
-              How it works
-            </h2>
+            <p className="eyebrow">Simple Process</p>
+            <h2>How it works</h2>
           </div>
 
           <div className="steps-grid">
             <div className="step-card">
               <div className="step-number">1</div>
               <h3>Browse</h3>
-              <p>
-                Explore our range of packaging supplies.
-              </p>
+              <p>Explore our range of packaging supplies.</p>
             </div>
 
             <div className="step-card">
               <div className="step-number">2</div>
               <h3>Choose</h3>
-              <p>
-                Select the products and quantities you need.
-              </p>
+              <p>Select the products and quantities you need.</p>
             </div>
 
             <div className="step-card">
               <div className="step-number">3</div>
               <h3>Order</h3>
-              <p>
-                Add products to your cart and proceed to checkout.
-              </p>
+              <p>Add products to your cart and proceed to checkout.</p>
             </div>
 
             <div className="step-card">
               <div className="step-number">4</div>
               <h3>Receive</h3>
-              <p>
-                Get your order delivered to your location.
-              </p>
+              <p>Get your order delivered to your location.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA SECTION */}
+      {/* CONTACT CTA */}
       <section className="section section-cta">
         <div className="container">
           <div className="cta-content">
-            <h2>
-              Need help choosing?
-            </h2>
+            <h2>Need help choosing?</h2>
 
             <p>
               Get in touch with our team for questions,
               bulk orders or product guidance.
             </p>
 
-            <a
-              href="/"
-              className="btn btn-accent btn-lg"
-            >
+            <a href="/" className="btn btn-accent btn-lg">
               Contact Us
             </a>
           </div>
