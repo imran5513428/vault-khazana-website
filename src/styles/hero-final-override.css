@@ -1,6 +1,6 @@
 /* =========================================================
    VAULT KHAZANA — HERO FINAL STYLES
-   Desktop: right-side copy with compact transparent CTAs
+   Desktop: right-side copy with text-only CTAs
    Mobile: image first, copy underneath
    ========================================================= */
 
@@ -175,8 +175,7 @@
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== CTA LAYOUT ===== */
-/* Compact frames; keep them away from the packaging. */
+/* ===== CTA LAYOUT — TEXT ONLY ===== */
 
 #root .home-page .hero-actions {
   display: flex !important;
@@ -191,9 +190,6 @@
   padding: 0 !important;
 }
 
-/* Center each button's label and arrow as one group.
-   Remove the forced minimum width and excess frame length. */
-
 #root .home-page .hero-button,
 #root .home-page .hero-button-primary,
 #root .home-page .hero-button-secondary {
@@ -207,8 +203,9 @@
   max-width: 100% !important;
   min-height: 42px !important;
   margin: 0 !important;
-  padding: 9px 12px !important;
-  border-radius: 5px !important;
+  padding: 8px 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   line-height: 1.35 !important;
@@ -217,39 +214,37 @@
   white-space: nowrap !important;
   overflow-wrap: normal !important;
   cursor: pointer;
+  background: transparent !important;
   box-shadow: none !important;
-  transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease;
+  transition: color 180ms ease;
 }
 
-/* ===== SHOP PRODUCTS — TRANSPARENT ORANGE OUTLINE ===== */
+/* ===== SHOP PRODUCTS — ORANGE TEXT AND ARROW ===== */
 
 #root .home-page .hero-button-primary {
   background: transparent !important;
-  border: 1.5px solid #E67E22 !important;
-  color: #FFFFFF !important;
+  border: 0 !important;
+  color: #E67E22 !important;
 }
 
 #root .home-page .hero-button-primary:hover {
-  background: rgba(230, 126, 34, 0.14) !important;
-  border-color: #F09A43 !important;
-  color: #FFFFFF !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: #F09A43 !important;
 }
 
-/* ===== BUSINESS SOLUTIONS — TRANSPARENT WHITE OUTLINE ===== */
+/* ===== BUSINESS SOLUTIONS — WHITE TEXT AND ARROW ===== */
 
 #root .home-page .hero-button-secondary {
   background: transparent !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  border: 0 !important;
   color: #FFFFFF !important;
 }
 
 #root .home-page .hero-button-secondary:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border-color: #FFFFFF !important;
-  color: #FFFFFF !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: #F2F5F8 !important;
 }
 
 /* ===== ARROWS AND FOCUS ===== */
@@ -313,7 +308,8 @@
   #root .home-page .hero-button-secondary {
     width: fit-content !important;
     min-width: 0 !important;
-    padding: 9px 12px !important;
+    padding: 8px 0 !important;
+    border: 0 !important;
   }
 }
 
@@ -360,6 +356,7 @@
     width: fit-content !important;
     min-width: 0 !important;
     max-width: 100% !important;
+    border: 0 !important;
   }
 }
 
@@ -445,7 +442,8 @@
     min-width: 0 !important;
     max-width: 100% !important;
     min-height: 44px !important;
-    padding: 10px 13px !important;
+    padding: 10px 0 !important;
+    border: 0 !important;
     font-size: 14px !important;
     white-space: nowrap !important;
   }
@@ -469,7 +467,8 @@
   #root .home-page .hero-button,
   #root .home-page .hero-button-primary,
   #root .home-page .hero-button-secondary {
-    padding: 9px 11px !important;
+    padding: 9px 0 !important;
+    border: 0 !important;
     font-size: 13px !important;
   }
 }
