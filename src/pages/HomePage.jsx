@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import './pages.css';
 import '../styles/home-hero.css';
+import '../styles/category-image-pilot.css';
 
 const getDisplayPrice = (product) => {
   const sellingUnit = product.sellingUnit || 'piece';
@@ -83,7 +84,6 @@ function HomePage() {
     return () => window.cancelAnimationFrame(frame);
   }, [location]);
 
-  // Get featured products (best sellers)
   const featuredProducts = PRODUCTS.filter(
     p => p.rating >= 4.7
   ).slice(0, 8);
@@ -94,10 +94,8 @@ function HomePage() {
       {/* STATIC HERO IMAGE WITH INTEGRATED COPY */}
       <section className="hero">
         <div className="hero-container">
-
           <div className="hero-visual">
             <div className="hero-video-frame">
-
               <img
                 src={`${import.meta.env.BASE_URL}images/vault-khazana-hero.png`}
                 className="hero-video"
@@ -106,7 +104,6 @@ function HomePage() {
               />
 
               <div className="hero-content">
-
                 <h1 className="hero-title">
                   From Packaging to Brand
                 </h1>
@@ -133,11 +130,9 @@ function HomePage() {
                     <span className="button-arrow" aria-hidden="true">→</span>
                   </Link>
                 </div>
-
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
@@ -147,48 +142,63 @@ function HomePage() {
         id="shop-by-category"
       >
         <div className="container">
-
           <div className="section-heading">
             <h2>Shop by Category</h2>
           </div>
 
           <div className="category-grid">
-            {CATEGORIES.map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.slug}`}
-                className="category-card"
-              >
-                <div className="category-icon">
-                  {category.icon}
-                </div>
+            {CATEGORIES.map((category) => {
+              const isFoodContainers =
+                category.id === 'food-containers';
 
-                <div>
-                  <h3 className="category-name">
-                    {category.name}
-                  </h3>
+              return (
+                <Link
+                  key={category.id}
+                  to={`/category/${category.slug}`}
+                  className={
+                    isFoodContainers
+                      ? 'category-card category-card--image'
+                      : 'category-card'
+                  }
+                >
+                  {isFoodContainers ? (
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/category-food-containers.jpg`}
+                      className="category-card-image"
+                      alt="Assortment of food containers for takeaway and food service"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="category-icon" aria-hidden="true">
+                      {category.icon}
+                    </div>
+                  )}
 
-                  <p className="category-desc">
-                    {category.description}
-                  </p>
-                </div>
+                  <div className="category-card-copy">
+                    <h3 className="category-name">
+                      {category.name}
+                    </h3>
 
-                <span className="category-arrow">→</span>
-              </Link>
-            ))}
+                    <p className="category-desc">
+                      {category.description}
+                    </p>
+                  </div>
+
+                  <span className="category-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              );
+            })}
           </div>
-
         </div>
       </section>
 
       {/* BUSINESS SOLUTIONS GATEWAY */}
       <section className="section section-business-solutions">
         <div className="container">
-
           <div className="business-solutions-shell">
-
             <div className="business-solutions-copy">
-
               <p className="eyebrow">
                 BUSINESS SOLUTIONS
               </p>
@@ -220,15 +230,12 @@ function HomePage() {
                 Explore Business Solutions
                 <span aria-hidden="true">→</span>
               </Link>
-
             </div>
 
-            {/* EXISTING BUSINESS SOLUTIONS SHOWCASE */}
             <div
               className="business-solutions-visual"
               aria-label="Branded packaging, printing and business solutions showcase"
             >
-
               <div className="business-visual-glow"></div>
 
               <img
@@ -237,11 +244,8 @@ function HomePage() {
                 alt="Branded packaging, labels, printed materials and business solutions showcase"
                 loading="lazy"
               />
-
             </div>
-
           </div>
-
         </div>
       </section>
 
@@ -249,7 +253,6 @@ function HomePage() {
       {featuredProducts.length > 0 && (
         <section className="section section-featured">
           <div className="container">
-
             <div className="section-heading">
               <p className="eyebrow">Popular Picks</p>
               <h2>Best Sellers</h2>
@@ -275,7 +278,6 @@ function HomePage() {
                     </div>
 
                     <div className="product-info">
-
                       <p className="product-category">
                         {product.categoryId}
                       </p>
@@ -292,13 +294,11 @@ function HomePage() {
                       <p className="product-pack">
                         {minimumOrder}
                       </p>
-
                     </div>
                   </Link>
                 );
               })}
             </div>
-
           </div>
         </section>
       )}
@@ -306,19 +306,15 @@ function HomePage() {
       {/* WHY CHOOSE US SECTION */}
       <section className="section section-benefits bg-light">
         <div className="container">
-
           <div className="section-heading">
             <p className="eyebrow">Why Choose Us</p>
             <h2>Reliable supplies for everyday business</h2>
           </div>
 
           <div className="benefits-grid">
-
             <div className="benefit-card">
               <div className="benefit-icon">🚚</div>
-
               <h3>Nationwide Delivery</h3>
-
               <p>
                 Reliable shipping to locations across Pakistan.
               </p>
@@ -326,9 +322,7 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">✓</div>
-
               <h3>Quality Products</h3>
-
               <p>
                 Practical packaging supplies for food-service needs.
               </p>
@@ -336,9 +330,7 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">💰</div>
-
               <h3>Competitive Prices</h3>
-
               <p>
                 Clear pricing for everyday and bulk purchasing.
               </p>
@@ -346,25 +338,19 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon">📞</div>
-
               <h3>Easy Support</h3>
-
               <p>
                 Contact us for bulk orders, questions or special requests.
               </p>
             </div>
-
           </div>
-
         </div>
       </section>
 
       {/* WHOLESALE SECTION */}
       <section className="section section-wholesale">
         <div className="container">
-
           <div className="wholesale-content">
-
             <p className="eyebrow">
               For Businesses
             </p>
@@ -385,16 +371,13 @@ function HomePage() {
             >
               Get Wholesale Quote
             </a>
-
           </div>
-
         </div>
       </section>
 
       {/* HOW IT WORKS SECTION */}
       <section className="section section-how-it-works bg-light">
         <div className="container">
-
           <div className="section-heading">
             <p className="eyebrow">
               Simple Process
@@ -406,14 +389,9 @@ function HomePage() {
           </div>
 
           <div className="steps-grid">
-
             <div className="step-card">
               <div className="step-number">1</div>
-
-              <h3>
-                Browse
-              </h3>
-
+              <h3>Browse</h3>
               <p>
                 Explore our range of packaging supplies.
               </p>
@@ -421,11 +399,7 @@ function HomePage() {
 
             <div className="step-card">
               <div className="step-number">2</div>
-
-              <h3>
-                Choose
-              </h3>
-
+              <h3>Choose</h3>
               <p>
                 Select the products and quantities you need.
               </p>
@@ -433,11 +407,7 @@ function HomePage() {
 
             <div className="step-card">
               <div className="step-number">3</div>
-
-              <h3>
-                Order
-              </h3>
-
+              <h3>Order</h3>
               <p>
                 Add products to your cart and proceed to checkout.
               </p>
@@ -445,27 +415,19 @@ function HomePage() {
 
             <div className="step-card">
               <div className="step-number">4</div>
-
-              <h3>
-                Receive
-              </h3>
-
+              <h3>Receive</h3>
               <p>
                 Get your order delivered to your location.
               </p>
             </div>
-
           </div>
-
         </div>
       </section>
 
       {/* CTA SECTION */}
       <section className="section section-cta">
         <div className="container">
-
           <div className="cta-content">
-
             <h2>
               Need help choosing?
             </h2>
@@ -481,9 +443,7 @@ function HomePage() {
             >
               Contact Us
             </a>
-
           </div>
-
         </div>
       </section>
 
