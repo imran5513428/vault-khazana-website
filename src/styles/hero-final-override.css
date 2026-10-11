@@ -312,9 +312,9 @@
     border: 0 !important;
   }
 
-  /* Primary shopping CTA: increased laptop/desktop visibility */
+  /* Primary shopping CTA — increased visibility */
   #root .home-page .hero-button-primary {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 }
 
