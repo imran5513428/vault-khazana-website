@@ -1,10 +1,9 @@
 /* =========================================================
-   VAULT KHAZANA — TRIOFLEX-STYLE HERO
-   Full-frame static image with overlay text (RIGHT side)
-   Desktop: 100vh full viewport
-   Mobile: Shorter height (70vh) to fit screen
-   Text overlaid CENTER-RIGHT on image
-   ========================================================= */
+VAULT KHAZANA — HERO FINAL STYLES
+Desktop: full-frame image, copy aligned on the right
+Mobile: full-width image, copy directly underneath
+No text panel, no backdrop blur, no image filter
+========================================================= */
 
 #root .home-page .hero,
 #root .home-page .hero-container,
@@ -16,461 +15,399 @@
 #root .home-page .hero-description,
 #root .home-page .hero-actions,
 #root .home-page .hero-button {
-  box-sizing: border-box !important;
+box-sizing: border-box !important;
 }
 
-/* ==================== BASE HERO ==================== */
+/* HERO SECTION */
 
 #root .home-page .hero {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  height: auto !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  isolation: isolate;
-  background: transparent !important;
-  color: #FFFFFF !important;
+position: relative !important;
+display: block !important;
+width: 100% !important;
+margin: 0 !important;
+padding: 0 !important;
+overflow: hidden !important;
+isolation: isolate;
+background: #1F3A5C !important;
+color: #FFFFFF !important;
 }
 
 #root .home-page .hero::before,
 #root .home-page .hero::after,
 #root .home-page .hero-video-frame::before,
 #root .home-page .hero-video-frame::after {
-  content: none !important;
-  display: none !important;
+content: none !important;
+display: none !important;
 }
 
 #root .home-page .hero-container {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
+position: relative !important;
+width: 100% !important;
+max-width: none !important;
+margin: 0 !important;
+padding: 0 !important;
 }
 
 #root .home-page .hero-visual {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  animation: none !important;
+position: relative !important;
+display: block !important;
+width: 100% !important;
+margin: 0 !important;
+padding: 0 !important;
+animation: none !important;
 }
 
-/* ==================== HERO FRAME (RESPONSIVE HEIGHT) ==================== */
+/* DESKTOP FULL-FRAME IMAGE */
 
 #root .home-page .hero-video-frame {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  max-width: none !important;
-  height: clamp(340px, 70vh, 600px) !important;
-  min-height: 340px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  aspect-ratio: auto !important;
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+position: relative !important;
+display: block !important;
+width: 100% !important;
+height: 100vh !important;
+min-height: 560px !important;
+max-height: 900px !important;
+margin: 0 !important;
+padding: 0 !important;
+overflow: hidden !important;
+background: #1F3A5C !important;
+border: 0 !important;
+border-radius: 0 !important;
+box-shadow: none !important;
+aspect-ratio: auto !important;
 }
-
-/* ==================== HERO IMAGE (FULL-FRAME BACKGROUND) ==================== */
 
 #root .home-page .hero-video {
-  position: absolute !important;
-  inset: 0 !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-  z-index: 0 !important;
+position: absolute !important;
+inset: 0 !important;
+display: block !important;
+width: 100% !important;
+height: 100% !important;
+min-width: 0 !important;
+min-height: 0 !important;
+max-width: none !important;
+max-height: none !important;
+margin: 0 !important;
+padding: 0 !important;
+object-fit: cover !important;
+object-position: center center !important;
+filter: none !important;
+opacity: 1 !important;
+transform: none !important;
+background: transparent !important;
+border: 0 !important;
+border-radius: 0 !important;
+box-shadow: none !important;
+z-index: 0 !important;
 }
 
-/* ==================== HERO CONTENT OVERLAY (TEXT ON RIGHT, CENTER) ==================== */
+/* DESKTOP COPY — RIGHT SIDE, NO PANEL */
 
 #root .home-page .hero-content {
-  position: absolute !important;
-  inset: auto !important;
-  top: 50% !important;
-  right: clamp(16px, 5vw, 80px) !important;
-  bottom: auto !important;
-  left: auto !important;
-  display: block !important;
-  width: clamp(260px, 85vw, 620px) !important;
-  max-width: 620px !important;
-  min-width: 0 !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: clamp(18px, 3vw, 40px) !important;
-  transform: translateY(-50%) !important;
-  text-align: left !important;
-  overflow-wrap: break-word !important;
-  background: rgba(31, 58, 92, 0.28) !important;
-  backdrop-filter: blur(2px) !important;
-  border: 0 !important;
-  border-radius: 10px !important;
-  box-shadow: none !important;
-  animation: none !important;
-  z-index: 2 !important;
+position: absolute !important;
+top: 50% !important;
+right: clamp(36px, 7vw, 112px) !important;
+bottom: auto !important;
+left: auto !important;
+display: block !important;
+width: clamp(320px, 38vw, 570px) !important;
+max-width: 570px !important;
+min-width: 0 !important;
+height: auto !important;
+margin: 0 !important;
+padding: 0 !important;
+transform: translateY(-50%) !important;
+text-align: left !important;
+overflow-wrap: break-word !important;
+
+/* Fully transparent: no card or blur */
+background: transparent !important;
+backdrop-filter: none !important;
+-webkit-backdrop-filter: none !important;
+border: 0 !important;
+border-radius: 0 !important;
+box-shadow: none !important;
+filter: none !important;
+animation: none !important;
+z-index: 2 !important;
 }
 
-/* ==================== HERO TITLE & EYEBROW ==================== */
+/* SMALL BRAND DESCRIPTOR */
 
 #root .home-page .hero-title::before {
-  content: "PACKAGING & FOOD-SERVICE SUPPLIES";
-  display: block;
-  margin: 0 0 clamp(8px, 2vw, 14px);
-  color: #E67E22;
-  font-size: clamp(8px, 1.5vw, 11px);
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: clamp(0.8px, 1.2vw, 1.4px);
-  text-transform: uppercase;
+content: "PACKAGING & FOOD-SERVICE SUPPLIES";
+display: block;
+margin: 0 0 16px;
+color: #E67E22;
+font-size: clamp(10px, 1vw, 12px);
+font-weight: 700;
+line-height: 1.5;
+letter-spacing: 1.4px;
+text-transform: uppercase;
 }
+
+/* MAIN HEADLINE */
 
 #root .home-page .hero-title {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 0 clamp(10px, 2vw, 18px) !important;
-  color: #FFFFFF !important;
-  font-size: clamp(28px, 6vw, 50px) !important;
-  font-weight: 750 !important;
-  line-height: 1.1 !important;
-  letter-spacing: -0.7px !important;
-  overflow-wrap: break-word !important;
-  word-break: normal !important;
-  text-wrap: balance;
+width: 100% !important;
+max-width: 100% !important;
+margin: 0 0 20px !important;
+color: #FFFFFF !important;
+font-size: clamp(38px, 4.2vw, 58px) !important;
+font-weight: 750 !important;
+line-height: 1.08 !important;
+letter-spacing: -0.8px !important;
+overflow-wrap: break-word !important;
+word-break: normal !important;
+text-wrap: balance;
+text-shadow: 0 2px 14px rgba(0, 0, 0, 0.16);
 }
 
-/* ==================== HERO DESCRIPTION ==================== */
+/* DESCRIPTION */
 
 #root .home-page .hero-description {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 0 clamp(14px, 3vw, 24px) !important;
-  color: rgba(255, 255, 255, 0.95) !important;
-  font-size: clamp(13px, 2vw, 18px) !important;
-  line-height: 1.6 !important;
-  overflow-wrap: break-word !important;
+width: 100% !important;
+max-width: 500px !important;
+margin: 0 0 28px !important;
+color: #FFFFFF !important;
+font-size: clamp(16px, 1.5vw, 20px) !important;
+font-weight: 400 !important;
+line-height: 1.6 !important;
+overflow-wrap: break-word !important;
+text-shadow: 0 1px 10px rgba(0, 0, 0, 0.18);
 }
 
-/* ==================== HERO ACTIONS (BUTTONS) ==================== */
+/* CTA BUTTONS */
 
 #root .home-page .hero-actions {
-  display: flex !important;
-  flex-direction: column !important;
-  flex-wrap: wrap !important;
-  align-items: stretch !important;
-  justify-content: flex-start !important;
-  gap: clamp(9px, 2vw, 14px) !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: wrap !important;
+align-items: center !important;
+justify-content: flex-start !important;
+gap: 12px !important;
+width: 100% !important;
+max-width: 100% !important;
+margin: 0 !important;
+padding: 0 !important;
 }
 
 #root .home-page .hero-button,
 #root .home-page .hero-button-primary,
 #root .home-page .hero-button-secondary {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 7px !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  min-height: clamp(44px, 10vw, 52px) !important;
-  margin: 0 !important;
-  padding: clamp(11px, 2vw, 16px) clamp(12px, 3vw, 20px) !important;
-  border-radius: 8px !important;
-  font-size: clamp(12px, 1.8vw, 16px) !important;
-  font-weight: 700 !important;
-  line-height: 1.35 !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  white-space: normal !important;
-  overflow-wrap: break-word !important;
-  cursor: pointer;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
-  box-sizing: border-box !important;
+position: relative !important;
+display: inline-flex !important;
+align-items: center !important;
+justify-content: center !important;
+gap: 8px !important;
+width: auto !important;
+min-width: 170px !important;
+max-width: 100% !important;
+min-height: 50px !important;
+margin: 0 !important;
+padding: 14px 22px !important;
+border-radius: 6px !important;
+font-size: 14px !important;
+font-weight: 700 !important;
+line-height: 1.35 !important;
+text-align: center !important;
+text-decoration: none !important;
+white-space: normal !important;
+overflow-wrap: break-word !important;
+cursor: pointer;
+box-shadow: none !important;
+transition: background-color 160ms ease, border-color 160ms ease;
 }
 
 #root .home-page .hero-button-primary {
-  background: #E67E22 !important;
-  border: 2px solid #E67E22 !important;
-  color: #FFFFFF !important;
+background: #E67E22 !important;
+border: 2px solid #E67E22 !important;
+color: #FFFFFF !important;
 }
 
 #root .home-page .hero-button-primary:hover {
-  background: #D65D0A !important;
-  border-color: #D65D0A !important;
-  color: #FFFFFF !important;
+background: #D65D0A !important;
+border-color: #D65D0A !important;
+color: #FFFFFF !important;
 }
 
 #root .home-page .hero-button-secondary {
-  background: transparent !important;
-  border: 2px solid #FFFFFF !important;
-  color: #FFFFFF !important;
+background: transparent !important;
+border: 2px solid #FFFFFF !important;
+color: #FFFFFF !important;
 }
 
 #root .home-page .hero-button-secondary:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: #FFFFFF !important;
-  color: #FFFFFF !important;
+background: rgba(255, 255, 255, 0.08) !important;
+border-color: #FFFFFF !important;
+color: #FFFFFF !important;
 }
 
 #root .home-page .hero-button:focus-visible {
-  outline: 3px solid #FFFFFF !important;
-  outline-offset: 4px !important;
+outline: 3px solid #FFFFFF !important;
+outline-offset: 4px !important;
 }
 
-/* ==================== BUTTON ARROW ANIMATION ==================== */
-
 #root .home-page .button-arrow {
-  display: inline-block;
-  transition: transform 160ms ease;
+display: inline-block;
+transition: transform 160ms ease;
 }
 
 #root .home-page .hero-button:hover .button-arrow {
-  transform: translateX(3px);
+transform: translateX(3px);
 }
 
-/* ==================== DESKTOP (1024px+) ==================== */
-
-@media (min-width: 1024px) {
-  #root .home-page .hero-video-frame {
-    height: 100vh !important;
-    min-height: 100vh !important;
-  }
-
-  #root .home-page .hero-content {
-    top: 50% !important;
-    right: clamp(40px, 6vw, 120px) !important;
-    width: clamp(320px, 35vw, 700px) !important;
-    max-width: 700px !important;
-    padding: clamp(32px, 4vw, 48px) !important;
-    border-radius: 14px !important;
-    background: rgba(31, 58, 92, 0.3) !important;
-  }
-
-  #root .home-page .hero-title::before {
-    margin-bottom: 16px;
-    font-size: 12px;
-    letter-spacing: 1.4px;
-  }
-
-  #root .home-page .hero-title {
-    font-size: clamp(42px, 5vw, 56px) !important;
-    margin-bottom: 20px !important;
-  }
-
-  #root .home-page .hero-description {
-    font-size: clamp(16px, 1.8vw, 20px) !important;
-    margin-bottom: 28px !important;
-  }
-
-  #root .home-page .hero-actions {
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 14px !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    width: auto !important;
-    min-width: 180px !important;
-    max-width: 100% !important;
-    min-height: 52px !important;
-    padding: 14px 28px !important;
-    font-size: 15px !important;
-  }
-}
-
-/* ==================== TABLET (768px - 1023px) ==================== */
+/* TABLET */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  #root .home-page .hero-video-frame {
-    height: clamp(420px, 60vh, 650px) !important;
-    min-height: 420px !important;
-  }
-
-  #root .home-page .hero-content {
-    top: 50% !important;
-    right: clamp(24px, 5vw, 60px) !important;
-    width: clamp(300px, 80vw, 580px) !important;
-    padding: clamp(24px, 3.5vw, 36px) !important;
-    border-radius: 12px !important;
-    background: rgba(31, 58, 92, 0.29) !important;
-  }
-
-  #root .home-page .hero-title::before {
-    margin-bottom: 12px;
-    font-size: 11px;
-    letter-spacing: 1.2px;
-  }
-
-  #root .home-page .hero-title {
-    font-size: clamp(36px, 5.5vw, 48px) !important;
-    margin-bottom: 16px !important;
-  }
-
-  #root .home-page .hero-description {
-    font-size: clamp(15px, 1.8vw, 18px) !important;
-    margin-bottom: 22px !important;
-  }
-
-  #root .home-page .hero-actions {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 12px !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    width: 100% !important;
-    min-height: 50px !important;
-    padding: 13px 20px !important;
-    font-size: 14px !important;
-  }
+#root .home-page .hero-video-frame {
+height: 70vh !important;
+min-height: 480px !important;
+max-height: 700px !important;
 }
 
-/* ==================== MOBILE (< 768px) ==================== */
+#root .home-page .hero-content {
+right: 5vw !important;
+width: 44vw !important;
+max-width: 440px !important;
+}
+
+#root .home-page .hero-title {
+font-size: clamp(34px, 4.4vw, 44px) !important;
+}
+
+#root .home-page .hero-description {
+font-size: 16px !important;
+margin-bottom: 22px !important;
+}
+
+#root .home-page .hero-actions {
+flex-direction: column !important;
+align-items: flex-start !important;
+}
+
+#root .home-page .hero-button,
+#root .home-page .hero-button-primary,
+#root .home-page .hero-button-secondary {
+min-width: 190px !important;
+}
+}
+
+/* MOBILE — IMAGE FIRST, COPY BELOW */
 
 @media (max-width: 767px) {
-  #root .home-page .hero-video-frame {
-    height: clamp(340px, 70vh, 500px) !important;
-    min-height: 340px !important;
-  }
-
-  #root .home-page .hero-content {
-    top: 50% !important;
-    right: clamp(16px, 4vw, 28px) !important;
-    width: clamp(260px, 85vw, 500px) !important;
-    max-width: none !important;
-    padding: clamp(18px, 3vw, 28px) !important;
-    border-radius: 10px !important;
-    background: rgba(31, 58, 92, 0.28) !important;
-  }
-
-  #root .home-page .hero-title::before {
-    margin-bottom: 9px;
-    font-size: 9px;
-    letter-spacing: 0.9px;
-  }
-
-  #root .home-page .hero-title {
-    font-size: clamp(28px, 6.5vw, 38px) !important;
-    margin-bottom: 12px !important;
-  }
-
-  #root .home-page .hero-description {
-    font-size: clamp(13px, 1.8vw, 16px) !important;
-    margin-bottom: 18px !important;
-  }
-
-  #root .home-page .hero-actions {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 10px !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    width: 100% !important;
-    min-height: 48px !important;
-    padding: 12px 16px !important;
-    font-size: 13px !important;
-  }
+#root .home-page .hero-video-frame {
+display: grid !important;
+grid-template-columns: minmax(0, 1fr) !important;
+grid-template-rows: auto auto !important;
+width: 100% !important;
+height: auto !important;
+min-height: 0 !important;
+max-height: none !important;
+overflow: hidden !important;
 }
 
-/* ==================== VERY SMALL PHONES (< 360px) ==================== */
+#root .home-page .hero-video {
+position: relative !important;
+inset: auto !important;
+grid-column: 1 !important;
+grid-row: 1 !important;
+width: 100% !important;
+height: auto !important;
+min-height: 0 !important;
+max-height: 420px !important;
+padding: 0 !important;
+object-fit: contain !important;
+object-position: center !important;
+}
+
+#root .home-page .hero-content {
+position: relative !important;
+top: auto !important;
+right: auto !important;
+bottom: auto !important;
+left: auto !important;
+grid-column: 1 !important;
+grid-row: 2 !important;
+width: 100% !important;
+max-width: none !important;
+margin: 0 !important;
+padding: 24px 20px 30px !important;
+transform: none !important;
+text-align: left !important;
+background: #1F3A5C !important;
+backdrop-filter: none !important;
+-webkit-backdrop-filter: none !important;
+border: 0 !important;
+border-radius: 0 !important;
+box-shadow: none !important;
+}
+
+#root .home-page .hero-title::before {
+margin-bottom: 10px;
+font-size: 10px;
+letter-spacing: 1.1px;
+}
+
+#root .home-page .hero-title {
+margin-bottom: 12px !important;
+font-size: clamp(29px, 7.5vw, 38px) !important;
+line-height: 1.12 !important;
+}
+
+#root .home-page .hero-description {
+max-width: 540px !important;
+margin-bottom: 20px !important;
+font-size: 15px !important;
+line-height: 1.55 !important;
+}
+
+#root .home-page .hero-actions {
+flex-direction: column !important;
+align-items: stretch !important;
+gap: 10px !important;
+}
+
+#root .home-page .hero-button,
+#root .home-page .hero-button-primary,
+#root .home-page .hero-button-secondary {
+width: 100% !important;
+min-width: 0 !important;
+min-height: 48px !important;
+padding: 13px 16px !important;
+font-size: 14px !important;
+}
+}
+
+/* VERY SMALL PHONES */
 
 @media (max-width: 360px) {
-  #root .home-page .hero-video-frame {
-    height: clamp(300px, 65vh, 420px) !important;
-    min-height: 300px !important;
-  }
-
-  #root .home-page .hero-content {
-    right: 12px !important;
-    width: calc(100% - 24px) !important;
-    padding: 16px !important;
-    border-radius: 8px !important;
-  }
-
-  #root .home-page .hero-title::before {
-    font-size: 8px;
-    letter-spacing: 0.8px;
-    margin-bottom: 8px;
-  }
-
-  #root .home-page .hero-title {
-    font-size: 26px !important;
-    margin-bottom: 10px !important;
-  }
-
-  #root .home-page .hero-description {
-    font-size: 12px !important;
-    margin-bottom: 14px !important;
-    line-height: 1.5 !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    min-height: 46px !important;
-    padding: 11px 14px !important;
-    font-size: 12px !important;
-  }
+#root .home-page .hero-content {
+padding: 20px 16px 26px !important;
 }
 
-/* ==================== ACCESSIBILITY ==================== */
+#root .home-page .hero-title {
+font-size: 27px !important;
+}
+
+#root .home-page .hero-description {
+font-size: 14px !important;
+}
+}
+
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
-  #root .home-page .hero-content,
-  #root .home-page .hero-visual,
-  #root .home-page .hero-button,
-  #root .home-page .button-arrow {
-    animation: none !important;
-    transition: none !important;
-  }
+#root .home-page .hero-content,
+#root .home-page .hero-visual,
+#root .home-page .hero-button,
+#root .home-page .button-arrow {
+animation: none !important;
+transition: none !important;
+}
 }
 
-/* ==================== HIGH CONTRAST MODE ==================== */
-
 @media (prefers-contrast: more) {
-  #root .home-page .hero-content {
-    background: rgba(31, 58, 92, 0.6) !important;
-    box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.5) !important;
-  }
-
-  #root .home-page .hero-description {
-    color: rgba(255, 255, 255, 1) !important;
-  }
+#root .home-page .hero-description {
+color: #FFFFFF !important;
+}
 }
