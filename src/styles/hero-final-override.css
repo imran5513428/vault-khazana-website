@@ -1,9 +1,8 @@
-
 /* =========================================================
-   VAULT KHAZANA — CONSOLIDATED HERO STYLES
-   Desktop: larger image left, integrated copy right
-   Mobile: full-width image, copy directly underneath
-   Flat navy background; no carousel or text card
+   VAULT KHAZANA — TRIOFLEX-STYLE HERO
+   Full-frame static image with overlay text (RIGHT side)
+   Desktop, Tablet, Mobile — ALL use same overlay approach
+   100vh FULL VIEWPORT HEIGHT on all devices
    ========================================================= */
 
 #root .home-page .hero,
@@ -18,6 +17,8 @@
 #root .home-page .hero-button {
   box-sizing: border-box !important;
 }
+
+/* ==================== BASE HERO ==================== */
 
 #root .home-page .hero {
   position: relative !important;
@@ -59,507 +60,193 @@
   animation: none !important;
 }
 
-/* ==================== DESKTOP ==================== */
+/* ==================== HERO FRAME (FULL-VIEWPORT) ==================== */
 
-@media (min-width: 1024px) {
-  #root .home-page .hero-video-frame {
-    position: relative !important;
-    display: grid !important;
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr) !important;
-    grid-template-rows: minmax(500px, auto) !important;
-    align-items: center !important;
-    width: 100% !important;
-    max-width: none !important;
-    height: clamp(500px, 43vw, 590px) !important;
-    min-height: 500px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    aspect-ratio: auto !important;
-    background: #1F3A5C !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
-
-  #root .home-page .hero-video {
-    position: relative !important;
-    inset: auto !important;
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    margin: 0 !important;
-    padding: 10px 0 10px 24px !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transform: none !important;
-    z-index: 0 !important;
-  }
-
-  #root .home-page .hero-content {
-    position: relative !important;
-    inset: auto !important;
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    display: block !important;
-    width: 100% !important;
-    max-width: 620px !important;
-    min-width: 0 !important;
-    margin: 0 !important;
-    padding: 32px clamp(24px, 3.2vw, 52px) 32px 24px !important;
-    transform: none !important;
-    text-align: left !important;
-    overflow-wrap: break-word !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    animation: none !important;
-    z-index: 1 !important;
-  }
-
-  #root .home-page .hero-title::before {
-    content: "PACKAGING & FOOD-SERVICE SUPPLIES";
-    display: block;
-    margin: 0 0 14px;
-    color: #E67E22;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-  }
-
-  #root .home-page .hero-title {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 18px !important;
-    color: #FFFFFF !important;
-    font-size: clamp(36px, 3.6vw, 50px) !important;
-    font-weight: 750 !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.7px !important;
-    overflow-wrap: break-word !important;
-    word-break: normal !important;
-    text-wrap: balance;
-  }
-
-  #root .home-page .hero-description {
-    width: 100% !important;
-    max-width: 520px !important;
-    margin: 0 0 24px !important;
-    color: rgba(255, 255, 255, 0.95) !important;
-    font-size: clamp(15px, 1.25vw, 18px) !important;
-    line-height: 1.6 !important;
-    overflow-wrap: break-word !important;
-  }
-
-  #root .home-page .hero-actions {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    position: relative !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 7px !important;
-    width: auto !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    min-height: 48px !important;
-    margin: 0 !important;
-    padding: 12px 16px !important;
-    border-radius: 7px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    line-height: 1.35 !important;
-    text-align: center !important;
-    text-decoration: none !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    cursor: pointer;
-    transition: background-color 160ms ease,
-      border-color 160ms ease, color 160ms ease;
-  }
-
-  #root .home-page .hero-button-primary {
-    background: #E67E22 !important;
-    border: 2px solid #E67E22 !important;
-    color: #FFFFFF !important;
-  }
-
-  #root .home-page .hero-button-primary:hover {
-    background: #D65D0A !important;
-    border-color: #D65D0A !important;
-  }
-
-  #root .home-page .hero-button-secondary {
-    background: transparent !important;
-    border: 2px solid #FFFFFF !important;
-    color: #FFFFFF !important;
-  }
-
-  #root .home-page .hero-button-secondary:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-  }
+#root .home-page .hero-video-frame {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  aspect-ratio: auto !important;
+  background: #1F3A5C !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-/* ==================== TABLET ==================== */
+/* ==================== HERO IMAGE (FULL-FRAME BACKGROUND) ==================== */
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  #root .home-page .hero-video-frame {
-    position: relative !important;
-    display: grid !important;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) !important;
-    grid-template-rows: minmax(460px, auto) !important;
-    align-items: center !important;
-    width: 100% !important;
-    height: 470px !important;
-    min-height: 460px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    aspect-ratio: auto !important;
-    background: #1F3A5C !important;
-  }
-
-  #root .home-page .hero-video {
-    position: relative !important;
-    inset: auto !important;
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    margin: 0 !important;
-    padding: 12px 0 !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    transform: none !important;
-  }
-
-  #root .home-page .hero-content {
-    position: relative !important;
-    inset: auto !important;
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    display: block !important;
-    width: 100% !important;
-    max-width: 440px !important;
-    min-width: 0 !important;
-    margin: 0 !important;
-    padding: 22px 22px 22px 14px !important;
-    transform: none !important;
-    text-align: left !important;
-    overflow-wrap: break-word !important;
-    background: transparent !important;
-    border: 0 !important;
-    box-shadow: none !important;
-    animation: none !important;
-  }
-
-  #root .home-page .hero-title::before {
-    content: "PACKAGING & FOOD-SERVICE SUPPLIES";
-    display: block;
-    margin: 0 0 10px;
-    color: #E67E22;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-  }
-
-  #root .home-page .hero-title {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 14px !important;
-    color: #FFFFFF !important;
-    font-size: clamp(28px, 3.5vw, 36px) !important;
-    font-weight: 750 !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.4px !important;
-    overflow-wrap: break-word !important;
-    text-wrap: balance;
-  }
-
-  #root .home-page .hero-description {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 18px !important;
-    color: rgba(255, 255, 255, 0.95) !important;
-    font-size: 14px !important;
-    line-height: 1.55 !important;
-    overflow-wrap: break-word !important;
-  }
-
-  #root .home-page .hero-actions {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: auto !important;
-    max-width: 100% !important;
-    min-height: 46px !important;
-    margin: 0 !important;
-    padding: 11px 14px !important;
-    font-size: 12px !important;
-    line-height: 1.35 !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    text-decoration: none !important;
-  }
-
-  #root .home-page .hero-button-primary {
-    background: #E67E22 !important;
-    border: 2px solid #E67E22 !important;
-    color: #FFFFFF !important;
-  }
-
-  #root .home-page .hero-button-secondary {
-    background: transparent !important;
-    border: 2px solid #FFFFFF !important;
-    color: #FFFFFF !important;
-  }
+#root .home-page .hero-video {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  z-index: 0 !important;
 }
 
-/* ==================== MOBILE ==================== */
+/* ==================== HERO CONTENT OVERLAY (TEXT ON RIGHT) ==================== */
 
-@media (max-width: 767px) {
-  #root .home-page .hero,
-  #root .home-page .hero-container,
-  #root .home-page .hero-visual {
-    display: block !important;
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    background: #1F3A5C !important;
-  }
-
-  #root .home-page .hero-video-frame {
-    position: relative !important;
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    grid-template-rows: auto auto !important;
-    align-items: start !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    aspect-ratio: auto !important;
-    background: #1F3A5C !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
-
-  #root .home-page .hero-video {
-    position: relative !important;
-    inset: auto !important;
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    max-width: 100% !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding: 8px 12px 0 !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    transform: none !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
-
-  #root .home-page .hero-content {
-    position: relative !important;
-    inset: auto !important;
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-    display: block !important;
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 18px 22px 30px !important;
-    transform: none !important;
-    text-align: left !important;
-    overflow-wrap: break-word !important;
-    background: #1F3A5C !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    animation: none !important;
-  }
-
-  #root .home-page .hero-title::before {
-    content: "PACKAGING & FOOD-SERVICE SUPPLIES";
-    display: block;
-    margin: 0 0 10px;
-    color: #E67E22;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  #root .home-page .hero-title {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 13px !important;
-    color: #FFFFFF !important;
-    font-size: clamp(29px, 7.5vw, 37px) !important;
-    font-weight: 750 !important;
-    line-height: 1.13 !important;
-    letter-spacing: -0.5px !important;
-    overflow-wrap: break-word !important;
-    word-break: normal !important;
-    text-wrap: balance;
-  }
-
-  #root .home-page .hero-description {
-    width: 100% !important;
-    max-width: 560px !important;
-    margin: 0 0 20px !important;
-    color: rgba(255, 255, 255, 0.95) !important;
-    font-size: 15px !important;
-    line-height: 1.6 !important;
-    overflow-wrap: break-word !important;
-  }
-
-  #root .home-page .hero-actions {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-    gap: 11px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 7px !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    min-height: 50px !important;
-    margin: 0 !important;
-    padding: 13px 16px !important;
-    border-radius: 7px !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    line-height: 1.4 !important;
-    text-align: center !important;
-    text-decoration: none !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-  }
-
-  #root .home-page .hero-button-primary {
-    background: #E67E22 !important;
-    border: 2px solid #E67E22 !important;
-    color: #FFFFFF !important;
-  }
-
-  #root .home-page .hero-button-secondary {
-    background: transparent !important;
-    border: 2px solid #FFFFFF !important;
-    color: #FFFFFF !important;
-  }
-
-  #root .home-page .hero-button:focus-visible {
-    outline: 3px solid #FFFFFF !important;
-    outline-offset: 3px !important;
-  }
+#root .home-page .hero-content {
+  position: absolute !important;
+  inset: auto !important;
+  top: 50% !important;
+  right: clamp(20px, 5vw, 80px) !important;
+  bottom: auto !important;
+  left: auto !important;
+  display: block !important;
+  width: clamp(280px, 90vw, 620px) !important;
+  max-width: 620px !important;
+  min-width: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: clamp(20px, 4vw, 40px) !important;
+  transform: translateY(-50%) !important;
+  text-align: left !important;
+  overflow-wrap: break-word !important;
+  background: rgba(31, 58, 92, 0.75) !important;
+  backdrop-filter: blur(2px) !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  animation: none !important;
+  z-index: 2 !important;
 }
 
-/* ==================== VERY SMALL PHONES ==================== */
+/* ==================== HERO TITLE & EYEBROW ==================== */
 
-@media (max-width: 360px) {
-  #root .home-page .hero-video {
-    padding: 8px 8px 0 !important;
-  }
-
-  #root .home-page .hero-content {
-    padding: 16px 16px 26px !important;
-  }
-
-  #root .home-page .hero-title {
-    font-size: 28px !important;
-  }
-
-  #root .home-page .hero-description {
-    font-size: 14px !important;
-  }
-
-  #root .home-page .hero-button,
-  #root .home-page .hero-button-primary,
-  #root .home-page .hero-button-secondary {
-    font-size: 13px !important;
-  }
+#root .home-page .hero-title::before {
+  content: "PACKAGING & FOOD-SERVICE SUPPLIES";
+  display: block;
+  margin: 0 0 clamp(10px, 2vw, 14px);
+  color: #E67E22;
+  font-size: clamp(9px, 1.5vw, 11px);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: clamp(0.8px, 1.2vw, 1.4px);
+  text-transform: uppercase;
 }
 
-/* ==================== ACCESSIBILITY ==================== */
+#root .home-page .hero-title {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 clamp(12px, 2vw, 18px) !important;
+  color: #FFFFFF !important;
+  font-size: clamp(32px, 6vw, 54px) !important;
+  font-weight: 750 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.7px !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  text-wrap: balance;
+}
+
+/* ==================== HERO DESCRIPTION ==================== */
+
+#root .home-page .hero-description {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 clamp(16px, 3vw, 24px) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: clamp(14px, 2vw, 18px) !important;
+  line-height: 1.6 !important;
+  overflow-wrap: break-word !important;
+}
+
+/* ==================== HERO ACTIONS (BUTTONS) ==================== */
+
+#root .home-page .hero-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: wrap !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: clamp(10px, 2vw, 14px) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#root .home-page .hero-button,
+#root .home-page .hero-button-primary,
+#root .home-page .hero-button-secondary {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  min-height: clamp(46px, 10vw, 52px) !important;
+  margin: 0 !important;
+  padding: clamp(12px, 2vw, 16px) clamp(14px, 3vw, 20px) !important;
+  border-radius: 8px !important;
+  font-size: clamp(13px, 1.8vw, 16px) !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  box-sizing: border-box !important;
+}
+
+#root .home-page .hero-button-primary {
+  background: #E67E22 !important;
+  border: 2px solid #E67E22 !important;
+  color: #FFFFFF !important;
+}
+
+#root .home-page .hero-button-primary:hover {
+  background: #D65D0A !important;
+  border-color: #D65D0A !important;
+  color: #FFFFFF !important;
+}
+
+#root .home-page .hero-button-secondary {
+  background: transparent !important;
+  border: 2px solid #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+#root .home-page .hero-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
 
 #root .home-page .hero-button:focus-visible {
-  outline: 3px solid #FFFFFF;
-  outline-offset: 4px;
+  outline: 3px solid #FFFFFF !important;
+  outline-offset: 4px !important;
 }
+
+/* ==================== BUTTON ARROW ANIMATION ==================== */
 
 #root .home-page .button-arrow {
   display: inline-block;
@@ -570,6 +257,176 @@
   transform: translateX(3px);
 }
 
+/* ==================== DESKTOP (1024px+) ==================== */
+
+@media (min-width: 1024px) {
+  #root .home-page .hero-content {
+    right: clamp(40px, 6vw, 120px) !important;
+    width: clamp(320px, 35vw, 700px) !important;
+    max-width: 700px !important;
+    padding: clamp(32px, 4vw, 48px) !important;
+    border-radius: 14px !important;
+  }
+
+  #root .home-page .hero-title::before {
+    margin-bottom: 16px;
+    font-size: 12px;
+    letter-spacing: 1.4px;
+  }
+
+  #root .home-page .hero-title {
+    font-size: clamp(42px, 5vw, 56px) !important;
+    margin-bottom: 20px !important;
+  }
+
+  #root .home-page .hero-description {
+    font-size: clamp(16px, 1.8vw, 20px) !important;
+    margin-bottom: 28px !important;
+  }
+
+  #root .home-page .hero-actions {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  #root .home-page .hero-button,
+  #root .home-page .hero-button-primary,
+  #root .home-page .hero-button-secondary {
+    width: auto !important;
+    min-width: 200px !important;
+    max-width: 100% !important;
+    min-height: 52px !important;
+    padding: 14px 28px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* ==================== TABLET (768px - 1023px) ==================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #root .home-page .hero-content {
+    right: clamp(24px, 5vw, 60px) !important;
+    width: clamp(300px, 80vw, 580px) !important;
+    padding: clamp(24px, 3.5vw, 36px) !important;
+    border-radius: 12px !important;
+  }
+
+  #root .home-page .hero-title::before {
+    margin-bottom: 12px;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+  }
+
+  #root .home-page .hero-title {
+    font-size: clamp(36px, 5.5vw, 48px) !important;
+    margin-bottom: 16px !important;
+  }
+
+  #root .home-page .hero-description {
+    font-size: clamp(15px, 1.8vw, 18px) !important;
+    margin-bottom: 22px !important;
+  }
+
+  #root .home-page .hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  #root .home-page .hero-button,
+  #root .home-page .hero-button-primary,
+  #root .home-page .hero-button-secondary {
+    width: 100% !important;
+    min-height: 50px !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* ==================== MOBILE (< 768px) ==================== */
+
+@media (max-width: 767px) {
+  #root .home-page .hero-content {
+    top: 50% !important;
+    right: clamp(16px, 4vw, 28px) !important;
+    width: clamp(260px, 85vw, 500px) !important;
+    max-width: none !important;
+    padding: clamp(18px, 3vw, 28px) !important;
+    border-radius: 10px !important;
+    background: rgba(31, 58, 92, 0.8) !important;
+  }
+
+  #root .home-page .hero-title::before {
+    margin-bottom: 9px;
+    font-size: 9px;
+    letter-spacing: 0.9px;
+  }
+
+  #root .home-page .hero-title {
+    font-size: clamp(28px, 6.5vw, 38px) !important;
+    margin-bottom: 12px !important;
+  }
+
+  #root .home-page .hero-description {
+    font-size: clamp(13px, 1.8vw, 16px) !important;
+    margin-bottom: 18px !important;
+  }
+
+  #root .home-page .hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  #root .home-page .hero-button,
+  #root .home-page .hero-button-primary,
+  #root .home-page .hero-button-secondary {
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* ==================== VERY SMALL PHONES (< 360px) ==================== */
+
+@media (max-width: 360px) {
+  #root .home-page .hero-content {
+    right: 12px !important;
+    width: calc(100% - 24px) !important;
+    padding: 16px !important;
+    border-radius: 8px !important;
+  }
+
+  #root .home-page .hero-title::before {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+
+  #root .home-page .hero-title {
+    font-size: 26px !important;
+    margin-bottom: 10px !important;
+  }
+
+  #root .home-page .hero-description {
+    font-size: 12px !important;
+    margin-bottom: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  #root .home-page .hero-button,
+  #root .home-page .hero-button-primary,
+  #root .home-page .hero-button-secondary {
+    min-height: 46px !important;
+    padding: 11px 14px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
 @media (prefers-reduced-motion: reduce) {
   #root .home-page .hero-content,
   #root .home-page .hero-visual,
@@ -577,5 +434,18 @@
   #root .home-page .button-arrow {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ==================== HIGH CONTRAST MODE ==================== */
+
+@media (prefers-contrast: more) {
+  #root .home-page .hero-content {
+    background: rgba(31, 58, 92, 0.95) !important;
+    box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.5) !important;
+  }
+
+  #root .home-page .hero-description {
+    color: rgba(255, 255, 255, 1) !important;
   }
 }
