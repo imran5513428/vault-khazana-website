@@ -3,6 +3,7 @@
    Full-frame static image with overlay text (RIGHT side)
    Desktop, Tablet, Mobile — ALL use same overlay approach
    100vh FULL VIEWPORT HEIGHT on all devices
+   Text overlaid CENTER-RIGHT on image
    ========================================================= */
 
 #root .home-page .hero,
@@ -107,7 +108,7 @@
   z-index: 0 !important;
 }
 
-/* ==================== HERO CONTENT OVERLAY (TEXT ON RIGHT) ==================== */
+/* ==================== HERO CONTENT OVERLAY (TEXT ON RIGHT, CENTER) ==================== */
 
 #root .home-page .hero-content {
   position: absolute !important;
@@ -117,19 +118,19 @@
   bottom: auto !important;
   left: auto !important;
   display: block !important;
-  width: clamp(280px, 90vw, 620px) !important;
+  width: clamp(260px, 85vw, 620px) !important;
   max-width: 620px !important;
   min-width: 0 !important;
   height: auto !important;
   margin: 0 !important;
-  padding: clamp(20px, 4vw, 40px) !important;
+  padding: clamp(18px, 3vw, 40px) !important;
   transform: translateY(-50%) !important;
   text-align: left !important;
   overflow-wrap: break-word !important;
-  background: rgba(31, 58, 92, 0.75) !important;
+  background: rgba(31, 58, 92, 0.45) !important;
   backdrop-filter: blur(2px) !important;
   border: 0 !important;
-  border-radius: 12px !important;
+  border-radius: 10px !important;
   box-shadow: none !important;
   animation: none !important;
   z-index: 2 !important;
@@ -140,9 +141,9 @@
 #root .home-page .hero-title::before {
   content: "PACKAGING & FOOD-SERVICE SUPPLIES";
   display: block;
-  margin: 0 0 clamp(10px, 2vw, 14px);
+  margin: 0 0 clamp(8px, 2vw, 14px);
   color: #E67E22;
-  font-size: clamp(9px, 1.5vw, 11px);
+  font-size: clamp(8px, 1.5vw, 11px);
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: clamp(0.8px, 1.2vw, 1.4px);
@@ -152,9 +153,9 @@
 #root .home-page .hero-title {
   width: 100% !important;
   max-width: 100% !important;
-  margin: 0 0 clamp(12px, 2vw, 18px) !important;
+  margin: 0 0 clamp(10px, 2vw, 18px) !important;
   color: #FFFFFF !important;
-  font-size: clamp(32px, 6vw, 54px) !important;
+  font-size: clamp(28px, 6vw, 50px) !important;
   font-weight: 750 !important;
   line-height: 1.1 !important;
   letter-spacing: -0.7px !important;
@@ -168,9 +169,9 @@
 #root .home-page .hero-description {
   width: 100% !important;
   max-width: 100% !important;
-  margin: 0 0 clamp(16px, 3vw, 24px) !important;
+  margin: 0 0 clamp(14px, 3vw, 24px) !important;
   color: rgba(255, 255, 255, 0.95) !important;
-  font-size: clamp(14px, 2vw, 18px) !important;
+  font-size: clamp(13px, 2vw, 18px) !important;
   line-height: 1.6 !important;
   overflow-wrap: break-word !important;
 }
@@ -183,7 +184,7 @@
   flex-wrap: wrap !important;
   align-items: stretch !important;
   justify-content: flex-start !important;
-  gap: clamp(10px, 2vw, 14px) !important;
+  gap: clamp(9px, 2vw, 14px) !important;
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
@@ -201,11 +202,11 @@
   width: 100% !important;
   min-width: 0 !important;
   max-width: none !important;
-  min-height: clamp(46px, 10vw, 52px) !important;
+  min-height: clamp(44px, 10vw, 52px) !important;
   margin: 0 !important;
-  padding: clamp(12px, 2vw, 16px) clamp(14px, 3vw, 20px) !important;
+  padding: clamp(11px, 2vw, 16px) clamp(12px, 3vw, 20px) !important;
   border-radius: 8px !important;
-  font-size: clamp(13px, 1.8vw, 16px) !important;
+  font-size: clamp(12px, 1.8vw, 16px) !important;
   font-weight: 700 !important;
   line-height: 1.35 !important;
   text-align: center !important;
@@ -261,11 +262,13 @@
 
 @media (min-width: 1024px) {
   #root .home-page .hero-content {
+    top: 50% !important;
     right: clamp(40px, 6vw, 120px) !important;
     width: clamp(320px, 35vw, 700px) !important;
     max-width: 700px !important;
     padding: clamp(32px, 4vw, 48px) !important;
     border-radius: 14px !important;
+    background: rgba(31, 58, 92, 0.5) !important;
   }
 
   #root .home-page .hero-title::before {
@@ -294,7 +297,7 @@
   #root .home-page .hero-button-primary,
   #root .home-page .hero-button-secondary {
     width: auto !important;
-    min-width: 200px !important;
+    min-width: 180px !important;
     max-width: 100% !important;
     min-height: 52px !important;
     padding: 14px 28px !important;
@@ -306,10 +309,12 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
   #root .home-page .hero-content {
+    top: 50% !important;
     right: clamp(24px, 5vw, 60px) !important;
     width: clamp(300px, 80vw, 580px) !important;
     padding: clamp(24px, 3.5vw, 36px) !important;
     border-radius: 12px !important;
+    background: rgba(31, 58, 92, 0.48) !important;
   }
 
   #root .home-page .hero-title::before {
@@ -354,7 +359,7 @@
     max-width: none !important;
     padding: clamp(18px, 3vw, 28px) !important;
     border-radius: 10px !important;
-    background: rgba(31, 58, 92, 0.8) !important;
+    background: rgba(31, 58, 92, 0.5) !important;
   }
 
   #root .home-page .hero-title::before {
@@ -441,7 +446,7 @@
 
 @media (prefers-contrast: more) {
   #root .home-page .hero-content {
-    background: rgba(31, 58, 92, 0.95) !important;
+    background: rgba(31, 58, 92, 0.75) !important;
     box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.5) !important;
   }
 
