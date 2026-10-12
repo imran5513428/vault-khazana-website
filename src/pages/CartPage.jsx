@@ -5,6 +5,13 @@ import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
 import '../styles/cart.css';
 
+const BAG_OPTIONS = [
+  { value: '18x24', label: '18 × 24 in — approx. 50 pieces' },
+  { value: '20x30', label: '20 × 30 in — approx. 40 pieces' },
+  { value: '24x36', label: '24 × 36 in — approx. 25 pieces' },
+  { value: '30x50', label: '30 × 50 in — approx. 12–13 pieces' }
+];
+
 function formatPrice(value) {
   return Math.round(Number(value) || 0).toLocaleString('en-PK');
 }
@@ -144,6 +151,7 @@ function CartPage() {
   const items = useCartStore((state) => state.items);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const addOfferToCart = useCartStore((state) => state.addOfferToCart);
   const clearCart = useCartStore((state) => state.clearCart);
   const getQuantityError = useCartStore(
     (state) => state.getQuantityError
@@ -151,6 +159,9 @@ function CartPage() {
 
   const [draftQuantities, setDraftQuantities] = useState({});
   const [quantityErrors, setQuantityErrors] = useState({});
+  const [additionalBagSize, setAdditionalBagSize] = useState('20x30');
+  const [bagAddMessage, setBagAddMessage] = useState('');
+  const [bagAddError, setBagAddError] = useState('');
 
   const cartItemsWithDetails = items
     .map((item) => {
@@ -329,6 +340,49 @@ function CartPage() {
     updateQuantity(key, newQuantity);
   };
 
+  const handleAddAnotherBagSize = () => {
+    setBagAddMessage('');
+    setBagAddError('');
+
+    const product = getProductById('off-white-waste-bags');
+
+    if (!product) {
+      setBagAddError('Garbage-bag information is temporarily unavailable.');
+      return;
+    }
+
+    const selectedOption = BAG_OPTIONS.find(
+      (option) => option.value === additionalBagSize
+    );
+
+    const result = addOfferToCart({
+      productId: 'off-white-waste-bags',
+      variantKey: additionalBagSize,
+      variantLabel: selectedOption?.label || additionalBagSize,
+      displayName: 'Garbage Bags',
+      quantity: 1,
+      unitPrice: 525,
+      sellingUnit: 'kg',
+      priceBasis: 'per kg',
+      offerType: 'everyday',
+      image: product.images?.[0] || '',
+      moq: 1,
+      step: 1,
+      requiresAdvancePayment: false
+    });
+
+    if (!result?.success) {
+      setBagAddError(
+        result?.error || 'Unable to add this bag size. Please try again.'
+      );
+      return;
+    }
+
+    setBagAddMessage(
+      `${selectedOption?.label || additionalBagSize} added to your cart.`
+    );
+  };
+
   const handleClearCart = () => {
     const confirmed = window.confirm(
       'Are you sure you want to remove all products from your cart?'
@@ -338,6 +392,8 @@ function CartPage() {
       clearCart();
       setDraftQuantities({});
       setQuantityErrors({});
+      setBagAddMessage('');
+      setBagAddError('');
     }
   };
 
@@ -366,6 +422,12 @@ function CartPage() {
     (item) =>
       item.isSpecialOffer &&
       item.requiresAdvancePayment
+  );
+
+  const hasGarbageBagOffer = cartItemsWithDetails.some(
+    (item) =>
+      item.isSpecialOffer &&
+      item.productId === 'off-white-waste-bags'
   );
 
   return (
@@ -398,6 +460,84 @@ function CartPage() {
         <div className="cart-grid">
 
           <div className="cart-items">
+
+            {hasGarbageBagOffer && (
+              <div
+                className="cart-business-offer-notice"
+                style={{ marginBottom: '20px' }}
+              >
+                <h3 style={{ marginTop: 0 }}>
+                  Add another garbage-bag size
+                </h3>
+
+                <p>
+                  Choose another size without leaving your cart.
+                  Each size has its own quantity and subtotal.
+                </p>
+
+                <p>
+                  <strong>Rs 525 per kg</strong>
+                </p>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}
+                >
+                  <label htmlFor="additional-garbage-bag-size">
+                    Bag size
+                  </label>
+
+                  <select
+                    id="additional-garbage-bag-size"
+                    value={additionalBagSize}
+                    onChange={(event) => {
+                      setAdditionalBagSize(event.target.value);
+                      setBagAddMessage('');
+                      setBagAddError('');
+                    }}
+                    style={{
+                      flex: '1 1 220px',
+                      minWidth: 0,
+                      padding: '10px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '6px',
+                      background: '#fff',
+                      color: '#1F3A5C'
+                    }}
+                  >
+                    {BAG_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleAddAnotherBagSize}
+                  >
+                    Add 1 kg
+                  </button>
+                </div>
+
+                {bagAddError && (
+                  <p role="alert" style={{ marginBottom: 0 }}>
+                    {bagAddError}
+                  </p>
+                )}
+
+                {bagAddMessage && (
+                  <p role="status" style={{ marginBottom: 0 }}>
+                    {bagAddMessage}
+                  </p>
+                )}
+              </div>
+            )}
 
             {cartItemsWithDetails.map((item) => {
               const product = item.product;
