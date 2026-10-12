@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../../store/cartStore';
@@ -223,10 +224,6 @@ function Header() {
           </div>
 
           <Link to="/" className="nav-link">
-            Wholesale
-          </Link>
-
-          <Link to="/" className="nav-link">
             About
           </Link>
         </nav>
@@ -343,8 +340,7 @@ function Header() {
                           <span>
                             {CATEGORIES.find(
                               (category) =>
-                                category.id ===
-                                product.categoryId
+                                category.id === product.categoryId
                             )?.name || 'Product'}
                           </span>
 
@@ -408,9 +404,7 @@ function Header() {
             }
           >
             Categories{' '}
-            {activeDropdown === 'categories'
-              ? '▲'
-              : '▼'}
+            {activeDropdown === 'categories' ? '▲' : '▼'}
           </button>
 
           {activeDropdown === 'categories' && (
@@ -420,23 +414,13 @@ function Header() {
                   key={category.id}
                   to={`/category/${category.slug}`}
                   className="mobile-dropdown-item"
-                  onClick={() =>
-                    setMobileMenuOpen(false)
-                  }
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   {category.icon} {category.name}
                 </Link>
               ))}
             </div>
           )}
-
-          <Link
-            to="/"
-            className="mobile-nav-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Wholesale
-          </Link>
 
           <Link
             to="/"
