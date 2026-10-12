@@ -263,9 +263,9 @@
   object-position: center;
 }
 
-/* Business-offer terms: clear, prominent and brand-aligned */
+/* Business-offer terms: matches HomePage.jsx */
 
-.good-finds-business-terms {
+.good-finds-offer-payment {
   margin: auto 18px 18px;
   padding: 14px 15px;
   border: 1px solid #F1D5A5;
@@ -278,7 +278,7 @@
   line-height: 1.65;
 }
 
-.good-finds-business-terms::before {
+.good-finds-offer-payment::before {
   content: "IMPORTANT OFFER TERMS";
   display: block;
   margin-bottom: 6px;
@@ -472,13 +472,13 @@
     font-size: 0.82rem;
   }
 
-  .good-finds-business-terms {
+  .good-finds-offer-payment {
     margin: auto 12px 14px;
     padding: 12px;
     font-size: 0.8rem;
   }
 
-  .good-finds-business-terms::before {
+  .good-finds-offer-payment::before {
     margin-bottom: 5px;
     font-size: 0.68rem;
   }
