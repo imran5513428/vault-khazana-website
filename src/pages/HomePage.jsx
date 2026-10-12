@@ -28,23 +28,26 @@ function HomePage() {
     return () => window.cancelAnimationFrame(frame);
   }, [location]);
 
-  // Hide Takeaway Packaging from the homepage category grid.
   const visibleCategories = CATEGORIES.filter(
     category => category.id !== 'takeaway-packaging'
   );
 
   const garbageBags = PRODUCTS.find(
-    product => product.id === 'heavy-duty-black-waste-bags'
+    product => product.id === 'off-white-waste-bags'
   );
 
-  const aluminumContainer = PRODUCTS.find(
+  const aluminumF1 = PRODUCTS.find(
     product => product.id === 'f1-aluminum-container'
+  );
+
+  const aluminumF3 = PRODUCTS.find(
+    product => product.id === 'f3-aluminum-container'
   );
 
   return (
     <div className="home-page">
 
-      {/* STATIC HERO — PRESERVED */}
+      {/* STATIC HERO */}
       <section className="hero">
         <div className="hero-container">
           <div className="hero-visual">
@@ -143,7 +146,6 @@ function HomePage() {
             <h2>Good Finds. Better Prices.</h2>
             <p>
               Selected finds for everyday needs and business orders.
-              Offer details and prices will be added soon.
             </p>
           </div>
 
@@ -157,13 +159,13 @@ function HomePage() {
 
           <div className="good-finds-grid">
 
-            {/* OFFER 1 — GARBAGE BAGS */}
+            {/* OFFER 1 — WASTE BAGS */}
             <article className="good-finds-card">
               <div className="good-finds-card-image">
                 {garbageBags?.images?.[0] && (
                   <img
                     src={garbageBags.images[0]}
-                    alt="Garbage bags"
+                    alt="Waste bags"
                     loading="lazy"
                   />
                 )}
@@ -177,8 +179,20 @@ function HomePage() {
                 <h3>Garbage Bags</h3>
 
                 <p>
-                  Offer details and pricing coming soon.
+                  Practical waste bags for homes, offices, shops,
+                  restaurants and commercial spaces.
                 </p>
+
+                <p className="good-finds-price">
+                  Rs 525 <span>per kg</span>
+                </p>
+
+                <ul className="good-finds-details">
+                  <li>18 × 24 in — approx. 50 pieces</li>
+                  <li>20 × 30 in — approx. 40 pieces</li>
+                  <li>24 × 36 in — approx. 25 pieces</li>
+                  <li>30 × 50 in — approx. 12–13 pieces</li>
+                </ul>
 
                 <Link
                   to="/category/bags"
@@ -189,13 +203,21 @@ function HomePage() {
               </div>
             </article>
 
-            {/* OFFER 2 — ALUMINIUM FOIL CONTAINERS */}
+            {/* OFFER 2 — F1 AND F3 ALUMINIUM CONTAINERS */}
             <article className="good-finds-card">
-              <div className="good-finds-card-image">
-                {aluminumContainer?.images?.[0] && (
+              <div className="good-finds-card-image good-finds-aluminum-images">
+                {aluminumF1?.images?.[0] && (
                   <img
-                    src={aluminumContainer.images[0]}
-                    alt="Aluminium foil food container with lid"
+                    src={aluminumF1.images[0]}
+                    alt="F1 aluminium foil food container with lid"
+                    loading="lazy"
+                  />
+                )}
+
+                {aluminumF3?.images?.[0] && (
+                  <img
+                    src={aluminumF3.images[0]}
+                    alt="F3 aluminium foil food container with lid"
                     loading="lazy"
                   />
                 )}
@@ -209,8 +231,36 @@ function HomePage() {
                 <h3>Aluminium Foil Containers</h3>
 
                 <p>
-                  Carton offer details and pricing coming soon.
+                  Food-grade aluminium foil containers with
+                  secure-fitting lids for takeaway, baking,
+                  meal preparation and food storage.
                 </p>
+
+                <div className="good-finds-model">
+                  <h4>F1 Container with Lid</h4>
+                  <p>
+                    Approx. 450 ml · 5 × 4 × 2 in
+                  </p>
+                  <p className="good-finds-price">
+                    Rs 13,500
+                  </p>
+                  <p className="good-finds-unit">
+                    Per carton of 1,000 pieces
+                  </p>
+                </div>
+
+                <div className="good-finds-model">
+                  <h4>F3 Container with Lid</h4>
+                  <p>
+                    Approx. 1,100–1,500 ml · 8.5 × 6 × 2 in
+                  </p>
+                  <p className="good-finds-price">
+                    Rs 27,500
+                  </p>
+                  <p className="good-finds-unit">
+                    Per carton
+                  </p>
+                </div>
 
                 <Link
                   to="/category/aluminum-containers"
@@ -225,7 +275,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* BUSINESS SOLUTIONS — PRESERVED */}
+      {/* BUSINESS SOLUTIONS */}
       <section className="section section-business-solutions">
         <div className="container">
           <div className="business-solutions-shell">
