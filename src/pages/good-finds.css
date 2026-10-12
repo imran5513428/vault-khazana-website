@@ -38,7 +38,7 @@
   line-height: 1.6;
 }
 
-/* Promotional banner */
+/* Promotional banner styles retained for compatibility */
 
 .good-finds-banner {
   width: 100%;
@@ -263,15 +263,30 @@
   object-position: center;
 }
 
+/* Business-offer terms: clear, prominent and brand-aligned */
+
 .good-finds-business-terms {
   margin: auto 18px 18px;
-  padding: 13px 14px;
-  border-left: 3px solid #E67E22;
-  border-radius: 0 7px 7px 0;
-  background: #FFF7EF;
-  color: #5D4B3B;
-  font-size: 0.83rem;
-  line-height: 1.6;
+  padding: 14px 15px;
+  border: 1px solid #F1D5A5;
+  border-left: 4px solid #E67E22;
+  border-radius: 8px;
+  background: #FFF6E7;
+  color: #704A16;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.good-finds-business-terms::before {
+  content: "IMPORTANT OFFER TERMS";
+  display: block;
+  margin-bottom: 6px;
+  color: #8B5714;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  line-height: 1.4;
 }
 
 /* Add-to-cart buttons */
@@ -459,7 +474,13 @@
 
   .good-finds-business-terms {
     margin: auto 12px 14px;
+    padding: 12px;
     font-size: 0.8rem;
+  }
+
+  .good-finds-business-terms::before {
+    margin-bottom: 5px;
+    font-size: 0.68rem;
   }
 }
 
