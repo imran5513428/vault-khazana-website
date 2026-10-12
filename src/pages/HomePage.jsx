@@ -3,51 +3,9 @@ import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import './pages.css';
+import './good-finds.css';
 import '../styles/home-hero.css';
 import '../styles/category-image-pilot.css';
-
-const getDisplayPrice = (product) => {
-  const sellingUnit = product.sellingUnit || 'piece';
-  const packSize = product.packSize ? Number(product.packSize) : null;
-  const pricePerUnit = Number(product.pricePerUnit) || 0;
-
-  if (sellingUnit === 'pack' && packSize) {
-    return pricePerUnit / packSize;
-  }
-
-  return pricePerUnit;
-};
-
-const getDisplayUnit = (product) => {
-  return product.sellingUnit === 'kg' ? 'kg' : 'piece';
-};
-
-const getMinimumOrderLabel = (product) => {
-  const sellingUnit = product.sellingUnit || 'piece';
-  const moq = Number(product.moq) || 1;
-  const packSize = product.packSize ? Number(product.packSize) : null;
-
-  if (sellingUnit === 'pack' && packSize) {
-    return `Minimum ${moq * packSize} pieces`;
-  }
-
-  if (sellingUnit === 'kg') {
-    return `Minimum ${moq} kg`;
-  }
-
-  return `Minimum ${moq === 1 ? 'piece' : 'pieces'}`;
-};
-
-const formatDisplayPrice = (price) => {
-  if (Number.isInteger(price)) {
-    return price.toLocaleString('en-PK');
-  }
-
-  return price.toLocaleString('en-PK', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  });
-};
 
 function HomePage() {
   const location = useLocation();
@@ -70,13 +28,17 @@ function HomePage() {
     return () => window.cancelAnimationFrame(frame);
   }, [location]);
 
-  const featuredProducts = PRODUCTS.filter(
-    product => product.rating >= 4.7
-  ).slice(0, 8);
-
   // Hide Takeaway Packaging from the homepage category grid.
   const visibleCategories = CATEGORIES.filter(
     category => category.id !== 'takeaway-packaging'
+  );
+
+  const garbageBags = PRODUCTS.find(
+    product => product.id === 'heavy-duty-black-waste-bags'
+  );
+
+  const aluminumContainer = PRODUCTS.find(
+    product => product.id === 'f1-aluminum-container'
   );
 
   return (
@@ -127,7 +89,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SHOP BY CATEGORY — ALL IMAGES */}
+      {/* SHOP BY CATEGORY */}
       <section
         className="section section-categories"
         id="shop-by-category"
@@ -170,7 +132,100 @@ function HomePage() {
         </div>
       </section>
 
-      {/* BUSINESS SOLUTIONS */}
+      {/* GOOD FINDS. BETTER PRICES. */}
+      <section
+        className="section good-finds-section"
+        id="good-finds-better-prices"
+      >
+        <div className="container">
+          <div className="good-finds-heading">
+            <p className="eyebrow">CURATED OFFERS</p>
+            <h2>Good Finds. Better Prices.</h2>
+            <p>
+              Selected finds for everyday needs and business orders.
+              Offer details and prices will be added soon.
+            </p>
+          </div>
+
+          <div className="good-finds-banner">
+            <img
+              src={`${import.meta.env.BASE_URL}images/good-finds-better-prices-hero.png`}
+              alt="Good Finds. Better Prices. Selected offers from VAULT KHAZANA"
+              loading="lazy"
+            />
+          </div>
+
+          <div className="good-finds-grid">
+
+            {/* OFFER 1 — GARBAGE BAGS */}
+            <article className="good-finds-card">
+              <div className="good-finds-card-image">
+                {garbageBags?.images?.[0] && (
+                  <img
+                    src={garbageBags.images[0]}
+                    alt="Garbage bags"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+
+              <div className="good-finds-card-copy">
+                <p className="good-finds-card-label">
+                  EVERYDAY FIND
+                </p>
+
+                <h3>Garbage Bags</h3>
+
+                <p>
+                  Offer details and pricing coming soon.
+                </p>
+
+                <Link
+                  to="/category/bags"
+                  className="good-finds-link"
+                >
+                  Explore Bags <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </article>
+
+            {/* OFFER 2 — ALUMINIUM FOIL CONTAINERS */}
+            <article className="good-finds-card">
+              <div className="good-finds-card-image">
+                {aluminumContainer?.images?.[0] && (
+                  <img
+                    src={aluminumContainer.images[0]}
+                    alt="Aluminium foil food container with lid"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+
+              <div className="good-finds-card-copy">
+                <p className="good-finds-card-label">
+                  BUSINESS OFFER
+                </p>
+
+                <h3>Aluminium Foil Containers</h3>
+
+                <p>
+                  Carton offer details and pricing coming soon.
+                </p>
+
+                <Link
+                  to="/category/aluminum-containers"
+                  className="good-finds-link"
+                >
+                  Explore Containers <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      {/* BUSINESS SOLUTIONS — PRESERVED */}
       <section className="section section-business-solutions">
         <div className="container">
           <div className="business-solutions-shell">
@@ -221,60 +276,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* POPULAR PICKS */}
-      {featuredProducts.length > 0 && (
-        <section className="section section-featured">
-          <div className="container">
-            <div className="section-heading">
-              <p className="eyebrow">Popular Picks</p>
-              <h2>Best Sellers</h2>
-            </div>
-
-            <div className="product-grid">
-              {featuredProducts.map((product) => {
-                const displayPrice = getDisplayPrice(product);
-                const displayUnit = getDisplayUnit(product);
-                const minimumOrder = getMinimumOrderLabel(product);
-
-                return (
-                  <Link
-                    key={product.id}
-                    to={`/product/${product.id}`}
-                    className="product-card"
-                  >
-                    <div className="product-image">
-                      <img
-                        src={product.images[0]}
-                        alt={product.name}
-                      />
-                    </div>
-
-                    <div className="product-info">
-                      <p className="product-category">
-                        {product.categoryId}
-                      </p>
-
-                      <h3 className="product-name">
-                        {product.name}
-                      </h3>
-
-                      <p className="product-price">
-                        Rs {formatDisplayPrice(displayPrice)}{' '}
-                        <span>per {displayUnit}</span>
-                      </p>
-
-                      <p className="product-pack">
-                        {minimumOrder}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* WHY CHOOSE US */}
       <section className="section section-benefits bg-light">
         <div className="container">
@@ -299,35 +300,14 @@ function HomePage() {
             <div className="benefit-card">
               <div className="benefit-icon">💰</div>
               <h3>Competitive Prices</h3>
-              <p>Clear pricing for everyday and bulk purchasing.</p>
+              <p>Clear pricing for everyday purchasing.</p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">📞</div>
               <h3>Easy Support</h3>
-              <p>Contact us for bulk orders, questions or special requests.</p>
+              <p>Contact us for product questions or special requests.</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BUYING IN BULK */}
-      <section className="section section-wholesale">
-        <div className="container">
-          <div className="wholesale-content">
-            <p className="eyebrow">For Businesses</p>
-
-            <h2>Buying in bulk?</h2>
-
-            <p>
-              Get the quantities, packaging options and support
-              your business needs — whether you're ordering for
-              a restaurant, bakery, café or growing operation.
-            </p>
-
-            <a href="/" className="btn btn-primary btn-lg">
-              Get Wholesale Quote
-            </a>
           </div>
         </div>
       </section>
@@ -375,8 +355,8 @@ function HomePage() {
             <h2>Need help choosing?</h2>
 
             <p>
-              Get in touch with our team for questions,
-              bulk orders or product guidance.
+              Get in touch with our team for questions
+              or product guidance.
             </p>
 
             <a href="/" className="btn btn-accent btn-lg">
