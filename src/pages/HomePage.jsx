@@ -9,17 +9,17 @@ import '../styles/home-hero.css';
 import '../styles/category-image-pilot.css';
 
 const BAG_OPTIONS = [
-  { value: '30x50', label: '30 × 50 in — approx. 12–13 pieces' },
   { value: '18x24', label: '18 × 24 in — approx. 50 pieces' },
   { value: '20x30', label: '20 × 30 in — approx. 40 pieces' },
-  { value: '24x36', label: '24 × 36 in — approx. 25 pieces' }
+  { value: '24x36', label: '24 × 36 in — approx. 25 pieces' },
+  { value: '30x50', label: '30 × 50 in — approx. 12–13 pieces' }
 ];
 
 function HomePage() {
   const location = useLocation();
   const addOfferToCart = useCartStore((state) => state.addOfferToCart);
 
-  const [selectedBagSize, setSelectedBagSize] = useState('30x50');
+  const [selectedBagSize, setSelectedBagSize] = useState('18x24');
   const [offerMessage, setOfferMessage] = useState('');
   const [offerError, setOfferError] = useState('');
 
@@ -64,7 +64,9 @@ function HomePage() {
     const result = addOfferToCart(offer);
 
     if (!result?.success) {
-      setOfferError(result?.error || 'Unable to add this offer. Please try again.');
+      setOfferError(
+        result?.error || 'Unable to add this offer. Please try again.'
+      );
       return;
     }
 
@@ -101,7 +103,9 @@ function HomePage() {
 
   const addAluminumCarton = (product, model, price) => {
     if (!product) {
-      setOfferError(`${model} product information is temporarily unavailable.`);
+      setOfferError(
+        `${model} product information is temporarily unavailable.`
+      );
       setOfferMessage('');
       return;
     }
@@ -242,6 +246,16 @@ function HomePage() {
           <div className="good-finds-grid">
             {/* EVERYDAY FIND — GARBAGE BAGS */}
             <article className="good-finds-card">
+              <div className="good-finds-card-copy">
+                <p className="good-finds-card-label">EVERYDAY FIND</p>
+                <h3>Garbage Bags</h3>
+
+                <p>
+                  Practical waste bags for homes, offices, shops, restaurants
+                  and commercial spaces.
+                </p>
+              </div>
+
               <div className="good-finds-card-image">
                 {garbageBags?.images?.[0] && (
                   <img
@@ -252,20 +266,15 @@ function HomePage() {
                 )}
               </div>
 
-              <div className="good-finds-card-copy">
-                <p className="good-finds-card-label">EVERYDAY FIND</p>
-                <h3>Garbage Bags</h3>
-
-                <p>
-                  Practical waste bags for homes, offices, shops, restaurants
-                  and commercial spaces.
-                </p>
-
+              <div className="good-finds-card-copy good-finds-garbage-purchase">
                 <p className="good-finds-price">
                   Rs 525 <span>per kg</span>
                 </p>
 
-                <label className="good-finds-select-label" htmlFor="garbage-bag-size">
+                <label
+                  className="good-finds-select-label"
+                  htmlFor="garbage-bag-size"
+                >
                   Choose bag size
                 </label>
 
@@ -328,16 +337,17 @@ function HomePage() {
                   <p className="good-finds-unit">
                     Per carton · 1,000 pieces
                   </p>
+                  <p className="good-finds-offer-payment">
+                    Advance payment required for this business offer.
+                    Delivery charges extra. Available in Rawalpindi and
+                    Islamabad only.
+                  </p>
 
                   <button
                     type="button"
                     className="good-finds-add-button"
                     onClick={() =>
-                      addAluminumCarton(
-                        aluminumF1,
-                        'F1',
-                        13500
-                      )
+                      addAluminumCarton(aluminumF1, 'F1', 13500)
                     }
                   >
                     Add F1 Carton to Cart
@@ -360,28 +370,23 @@ function HomePage() {
                   <p className="good-finds-unit">
                     Per carton · 1,000 pieces
                   </p>
+                  <p className="good-finds-offer-payment">
+                    Advance payment required for this business offer.
+                    Delivery charges extra. Available in Rawalpindi and
+                    Islamabad only.
+                  </p>
 
                   <button
                     type="button"
                     className="good-finds-add-button"
                     onClick={() =>
-                      addAluminumCarton(
-                        aluminumF3,
-                        'F3',
-                        27500
-                      )
+                      addAluminumCarton(aluminumF3, 'F3', 27500)
                     }
                   >
                     Add F3 Carton to Cart
                   </button>
                 </div>
               </div>
-
-              <p className="good-finds-business-terms">
-                Advance payment required. Available in Rawalpindi and
-                Islamabad only. Delivery charges are extra and confirmed
-                according to area and order quantity.
-              </p>
             </article>
           </div>
         </div>
