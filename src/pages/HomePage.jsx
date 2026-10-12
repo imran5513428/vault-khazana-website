@@ -222,14 +222,6 @@ function HomePage() {
             <p>Selected finds for everyday needs and business orders.</p>
           </div>
 
-          <div className="good-finds-banner">
-            <img
-              src={`${import.meta.env.BASE_URL}images/good-finds-better-prices-hero.png`}
-              alt="Good Finds. Better Prices. Selected offers from VAULT KHAZANA"
-              loading="lazy"
-            />
-          </div>
-
           {(offerMessage || offerError) && (
             <div
               className={`good-finds-feedback ${offerError ? 'is-error' : 'is-success'}`}
@@ -296,7 +288,7 @@ function HomePage() {
                 </select>
 
                 <p className="good-finds-note">
-                  Piece counts are approximate. Price is charged by weight.
+                  Price is per kg. Bag count varies by size.
                 </p>
 
                 <button
