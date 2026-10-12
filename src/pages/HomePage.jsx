@@ -1,14 +1,27 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
+import useCartStore from '../store/cartStore';
 import './pages.css';
 import './good-finds.css';
 import '../styles/home-hero.css';
 import '../styles/category-image-pilot.css';
 
+const BAG_OPTIONS = [
+  { value: '30x50', label: '30 × 50 in — approx. 12–13 pieces' },
+  { value: '18x24', label: '18 × 24 in — approx. 50 pieces' },
+  { value: '20x30', label: '20 × 30 in — approx. 40 pieces' },
+  { value: '24x36', label: '24 × 36 in — approx. 25 pieces' }
+];
+
 function HomePage() {
   const location = useLocation();
+  const addOfferToCart = useCartStore((state) => state.addOfferToCart);
+
+  const [selectedBagSize, setSelectedBagSize] = useState('30x50');
+  const [offerMessage, setOfferMessage] = useState('');
+  const [offerError, setOfferError] = useState('');
 
   useEffect(() => {
     if (location.state?.scrollTo !== 'shop-by-category') return;
@@ -29,24 +42,90 @@ function HomePage() {
   }, [location]);
 
   const visibleCategories = CATEGORIES.filter(
-    category => category.id !== 'takeaway-packaging'
+    (category) => category.id !== 'takeaway-packaging'
   );
 
   const garbageBags = PRODUCTS.find(
-    product => product.id === 'off-white-waste-bags'
+    (product) => product.id === 'off-white-waste-bags'
   );
 
   const aluminumF1 = PRODUCTS.find(
-    product => product.id === 'f1-aluminum-container'
+    (product) => product.id === 'f1-aluminum-container'
   );
 
   const aluminumF3 = PRODUCTS.find(
-    product => product.id === 'f3-aluminum-container'
+    (product) => product.id === 'f3-aluminum-container'
   );
+
+  const addSpecialOffer = (offer) => {
+    setOfferMessage('');
+    setOfferError('');
+
+    const result = addOfferToCart(offer);
+
+    if (!result?.success) {
+      setOfferError(result?.error || 'Unable to add this offer. Please try again.');
+      return;
+    }
+
+    setOfferMessage(`${offer.displayName} added to your cart.`);
+  };
+
+  const selectedBag = BAG_OPTIONS.find(
+    (option) => option.value === selectedBagSize
+  );
+
+  const addGarbageBags = () => {
+    if (!garbageBags) {
+      setOfferError('Garbage bag information is temporarily unavailable.');
+      setOfferMessage('');
+      return;
+    }
+
+    addSpecialOffer({
+      productId: 'off-white-waste-bags',
+      variantKey: selectedBagSize,
+      variantLabel: selectedBag?.label || selectedBagSize,
+      displayName: 'Garbage Bags',
+      quantity: 1,
+      unitPrice: 525,
+      sellingUnit: 'kg',
+      priceBasis: 'per kg',
+      offerType: 'everyday',
+      image: garbageBags.images?.[0] || '',
+      moq: 1,
+      step: 1,
+      requiresAdvancePayment: false
+    });
+  };
+
+  const addAluminumCarton = (product, model, price) => {
+    if (!product) {
+      setOfferError(`${model} product information is temporarily unavailable.`);
+      setOfferMessage('');
+      return;
+    }
+
+    addSpecialOffer({
+      productId: product.id,
+      variantKey: 'carton-1000',
+      variantLabel: 'Carton of 1,000 pieces',
+      displayName: `${model} Aluminium Container with Lid`,
+      quantity: 1,
+      unitPrice: price,
+      sellingUnit: 'carton',
+      priceBasis: 'per carton of 1,000 pieces',
+      offerType: 'business',
+      image: product.images?.[0] || '',
+      moq: 1,
+      step: 1,
+      packSize: 1000,
+      requiresAdvancePayment: true
+    });
+  };
 
   return (
     <div className="home-page">
-
       {/* STATIC HERO */}
       <section className="hero">
         <div className="hero-container">
@@ -60,12 +139,11 @@ function HomePage() {
               />
 
               <div className="hero-content">
-                <h1 className="hero-title">
-                  From Packaging to Brand
-                </h1>
+                <h1 className="hero-title">From Packaging to Brand</h1>
 
                 <p className="hero-description">
-                  Shop everyday food-service packaging or create custom packaging for your business.
+                  Shop everyday food-service packaging or create custom
+                  packaging for your business.
                 </p>
 
                 <div className="hero-actions">
@@ -117,18 +195,11 @@ function HomePage() {
                 />
 
                 <div className="category-card-copy">
-                  <h3 className="category-name">
-                    {category.name}
-                  </h3>
-
-                  <p className="category-desc">
-                    {category.description}
-                  </p>
+                  <h3 className="category-name">{category.name}</h3>
+                  <p className="category-desc">{category.description}</p>
                 </div>
 
-                <span className="category-arrow" aria-hidden="true">
-                  →
-                </span>
+                <span className="category-arrow" aria-hidden="true">→</span>
               </Link>
             ))}
           </div>
@@ -144,9 +215,7 @@ function HomePage() {
           <div className="good-finds-heading">
             <p className="eyebrow">CURATED OFFERS</p>
             <h2>Good Finds. Better Prices.</h2>
-            <p>
-              Selected finds for everyday needs and business orders.
-            </p>
+            <p>Selected finds for everyday needs and business orders.</p>
           </div>
 
           <div className="good-finds-banner">
@@ -157,120 +226,163 @@ function HomePage() {
             />
           </div>
 
-          <div className="good-finds-grid">
+          {(offerMessage || offerError) && (
+            <div
+              className={`good-finds-feedback ${offerError ? 'is-error' : 'is-success'}`}
+              role="status"
+              aria-live="polite"
+            >
+              {offerError || offerMessage}
+              {offerMessage && !offerError && (
+                <Link to="/cart"> View cart →</Link>
+              )}
+            </div>
+          )}
 
-            {/* OFFER 1 — WASTE BAGS */}
+          <div className="good-finds-grid">
+            {/* EVERYDAY FIND — GARBAGE BAGS */}
             <article className="good-finds-card">
               <div className="good-finds-card-image">
                 {garbageBags?.images?.[0] && (
                   <img
                     src={garbageBags.images[0]}
-                    alt="Waste bags"
+                    alt="Garbage bags"
                     loading="lazy"
                   />
                 )}
               </div>
 
               <div className="good-finds-card-copy">
-                <p className="good-finds-card-label">
-                  EVERYDAY FIND
-                </p>
-
+                <p className="good-finds-card-label">EVERYDAY FIND</p>
                 <h3>Garbage Bags</h3>
 
                 <p>
-                  Practical waste bags for homes, offices, shops,
-                  restaurants and commercial spaces.
+                  Practical waste bags for homes, offices, shops, restaurants
+                  and commercial spaces.
                 </p>
 
                 <p className="good-finds-price">
                   Rs 525 <span>per kg</span>
                 </p>
 
-                <ul className="good-finds-details">
-                  <li>18 × 24 in — approx. 50 pieces</li>
-                  <li>20 × 30 in — approx. 40 pieces</li>
-                  <li>24 × 36 in — approx. 25 pieces</li>
-                  <li>30 × 50 in — approx. 12–13 pieces</li>
-                </ul>
+                <label className="good-finds-select-label" htmlFor="garbage-bag-size">
+                  Choose bag size
+                </label>
 
-                <Link
-                  to="/category/bags"
-                  className="good-finds-link"
+                <select
+                  id="garbage-bag-size"
+                  className="good-finds-size-select"
+                  value={selectedBagSize}
+                  onChange={(event) => {
+                    setSelectedBagSize(event.target.value);
+                    setOfferMessage('');
+                    setOfferError('');
+                  }}
                 >
-                  Explore Bags <span aria-hidden="true">→</span>
-                </Link>
+                  {BAG_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+
+                <p className="good-finds-note">
+                  Piece counts are approximate. Price is charged by weight.
+                </p>
+
+                <button
+                  type="button"
+                  className="good-finds-add-button"
+                  onClick={addGarbageBags}
+                >
+                  Add 1 kg to Cart
+                </button>
               </div>
             </article>
 
-            {/* OFFER 2 — F1 AND F3 ALUMINIUM CONTAINERS */}
+            {/* BUSINESS OFFERS — F1 AND F3 */}
             <article className="good-finds-card">
-              <div className="good-finds-card-image good-finds-aluminum-images">
-                {aluminumF1?.images?.[0] && (
-                  <img
-                    src={aluminumF1.images[0]}
-                    alt="F1 aluminium foil food container with lid"
-                    loading="lazy"
-                  />
-                )}
-
-                {aluminumF3?.images?.[0] && (
-                  <img
-                    src={aluminumF3.images[0]}
-                    alt="F3 aluminium foil food container with lid"
-                    loading="lazy"
-                  />
-                )}
-              </div>
-
-              <div className="good-finds-card-copy">
-                <p className="good-finds-card-label">
-                  BUSINESS OFFER
-                </p>
-
+              <div className="good-finds-card-copy good-finds-aluminum-heading">
+                <p className="good-finds-card-label">BUSINESS OFFER</p>
                 <h3>Aluminium Foil Containers</h3>
-
                 <p>
-                  Food-grade aluminium foil containers with
-                  secure-fitting lids for takeaway, baking,
+                  Aluminium food containers with lids for takeaway, baking,
                   meal preparation and food storage.
                 </p>
-
-                <div className="good-finds-model">
-                  <h4>F1 Container with Lid</h4>
-                  <p>
-                    Approx. 450 ml · 5 × 4 × 2 in
-                  </p>
-                  <p className="good-finds-price">
-                    Rs 13,500
-                  </p>
-                  <p className="good-finds-unit">
-                    Per carton of 1,000 pieces
-                  </p>
-                </div>
-
-                <div className="good-finds-model">
-                  <h4>F3 Container with Lid</h4>
-                  <p>
-                    Approx. 1,100–1,500 ml · 8.5 × 6 × 2 in
-                  </p>
-                  <p className="good-finds-price">
-                    Rs 27,500
-                  </p>
-                  <p className="good-finds-unit">
-                    Per carton
-                  </p>
-                </div>
-
-                <Link
-                  to="/category/aluminum-containers"
-                  className="good-finds-link"
-                >
-                  Explore Containers <span aria-hidden="true">→</span>
-                </Link>
               </div>
-            </article>
 
+              <div className="good-finds-model-grid">
+                <div className="good-finds-model good-finds-offer-model">
+                  <div className="good-finds-model-image">
+                    {aluminumF1?.images?.[0] && (
+                      <img
+                        src={aluminumF1.images[0]}
+                        alt="F1 aluminium foil food container with lid"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+
+                  <h4>F1 Container with Lid</h4>
+                  <p className="good-finds-price">Rs 13,500</p>
+                  <p className="good-finds-unit">
+                    Per carton · 1,000 pieces
+                  </p>
+
+                  <button
+                    type="button"
+                    className="good-finds-add-button"
+                    onClick={() =>
+                      addAluminumCarton(
+                        aluminumF1,
+                        'F1',
+                        13500
+                      )
+                    }
+                  >
+                    Add F1 Carton to Cart
+                  </button>
+                </div>
+
+                <div className="good-finds-model good-finds-offer-model">
+                  <div className="good-finds-model-image">
+                    {aluminumF3?.images?.[0] && (
+                      <img
+                        src={aluminumF3.images[0]}
+                        alt="F3 aluminium foil food container with lid"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+
+                  <h4>F3 Container with Lid</h4>
+                  <p className="good-finds-price">Rs 27,500</p>
+                  <p className="good-finds-unit">
+                    Per carton · 1,000 pieces
+                  </p>
+
+                  <button
+                    type="button"
+                    className="good-finds-add-button"
+                    onClick={() =>
+                      addAluminumCarton(
+                        aluminumF3,
+                        'F3',
+                        27500
+                      )
+                    }
+                  >
+                    Add F3 Carton to Cart
+                  </button>
+                </div>
+              </div>
+
+              <p className="good-finds-business-terms">
+                Advance payment required. Available in Rawalpindi and
+                Islamabad only. Delivery charges are extra and confirmed
+                according to area and order quantity.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -281,7 +393,6 @@ function HomePage() {
           <div className="business-solutions-shell">
             <div className="business-solutions-copy">
               <p className="eyebrow">BUSINESS SOLUTIONS</p>
-
               <h2>Put Your Brand on Every Order</h2>
 
               <p className="business-solutions-lead">
@@ -289,9 +400,9 @@ function HomePage() {
               </p>
 
               <p className="business-solutions-text">
-                From printed cups and takeaway bags to branded food
-                packaging and labels, explore packaging, branding and
-                printing support built around your food business.
+                From printed cups and takeaway bags to branded food packaging
+                and labels, explore packaging, branding and printing support
+                built around your food business.
               </p>
 
               <div className="business-solutions-tags">
@@ -403,19 +514,19 @@ function HomePage() {
         <div className="container">
           <div className="cta-content">
             <h2>Need help choosing?</h2>
-
             <p>
-              Get in touch with our team for questions
-              or product guidance.
+              Get in touch with our team for questions or product guidance.
             </p>
 
-            <a href="/" className="btn btn-accent btn-lg">
+            <Link
+              to="/business-solutions"
+              className="btn btn-accent btn-lg"
+            >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </section>
-
     </div>
   );
 }
