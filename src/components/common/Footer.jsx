@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
@@ -14,7 +15,6 @@ function Footer() {
 
           {/* BRAND SECTION */}
           <div className="footer-section footer-brand">
-
             <Link
               to="/"
               className="footer-logo"
@@ -34,7 +34,6 @@ function Footer() {
             <p className="footer-description">
               From everyday food-service packaging to custom packaging solutions for your business.
             </p>
-
           </div>
 
           {/* COMPANY SECTION */}
@@ -52,8 +51,6 @@ function Footer() {
           <div className="footer-section">
             <h4 className="footer-title">Business</h4>
             <nav className="footer-nav">
-              <Link to="/">Wholesale Pricing</Link>
-              <Link to="/">Bulk Orders</Link>
               <Link to="/business-solutions">Business Solutions</Link>
               <Link to="/">For Restaurants</Link>
             </nav>
@@ -77,7 +74,6 @@ function Footer() {
             <h4 className="footer-title">Contact</h4>
 
             <div className="footer-contact">
-
               <p>
                 <strong>Email:</strong>{' '}
                 <a href="mailto:info@vaultkhazana.com">
@@ -96,7 +92,6 @@ function Footer() {
                 <strong>Location:</strong>{' '}
                 Islamabad, Pakistan
               </p>
-
             </div>
           </div>
 
@@ -105,7 +100,6 @@ function Footer() {
         {/* FOOTER BOTTOM */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-
             <p className="footer-copyright">
               © {currentYear} VAULT KHAZANA. All rights reserved.
             </p>
@@ -117,7 +111,6 @@ function Footer() {
               <span className="separator">•</span>
               <Link to="/">Shipping Policy</Link>
             </div>
-
           </div>
         </div>
 
