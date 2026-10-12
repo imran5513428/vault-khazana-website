@@ -1,41 +1,67 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
 import '../styles/checkout.css';
 
-const formatPrice = (value) => {
-  return `Rs ${Math.round(Number(value) || 0).toLocaleString('en-PK')}`;
-};
+const formatPrice = (value) =>
+  `Rs ${Math.round(Number(value) || 0).toLocaleString('en-PK')}`;
 
-const getPriceBasis = (product) => {
+const getProductPriceBasis = (product) => {
   if (!product) return 'Price';
 
   if (product.sellingUnit === 'pack' && product.packSize) {
     return `per pack of ${product.packSize}`;
   }
 
-  if (product.sellingUnit === 'kg') {
-    return 'per kg';
-  }
+  if (product.sellingUnit === 'kg') return 'per kg';
 
   return 'per piece';
 };
 
-const getUnitLabel = (product) => {
+const getProductUnitLabel = (product) => {
   if (!product) return 'pieces';
 
-  if (product.sellingUnit === 'pack') {
-    return product.packSize
-      ? `pack${product.packSize > 1 ? 's' : ''}`
-      : 'pack';
-  }
-
-  if (product.sellingUnit === 'kg') {
-    return 'kg';
-  }
+  if (product.sellingUnit === 'pack') return 'packs';
+  if (product.sellingUnit === 'kg') return 'kg';
 
   return 'pieces';
+};
+
+const getItemName = (item) =>
+  item.displayName || item.product?.name || 'Product';
+
+const getItemUnitLabel = (item) => {
+  if (item.isSpecialOffer) {
+    if (item.sellingUnit === 'carton') return 'cartons';
+    if (item.sellingUnit === 'kg') return 'kg';
+    if (item.sellingUnit === 'pack') return 'packs';
+  }
+
+  return getProductUnitLabel(item.product);
+};
+
+const getItemPriceBasis = (item) => {
+  if (item.isSpecialOffer) {
+    if (item.priceBasis) return item.priceBasis;
+    if (item.sellingUnit === 'carton') return 'per carton';
+    if (item.sellingUnit === 'kg') return 'per kg';
+    if (item.sellingUnit === 'pack') return 'per pack';
+  }
+
+  return getProductPriceBasis(item.product);
+};
+
+const getItemImage = (item) =>
+  item.image || item.product?.images?.[0] || '';
+
+const getItemPrice = (item) => {
+  if (item.isSpecialOffer) {
+    return Number(item.pricePerUnit) || 0;
+  }
+
+  return Number(item.product?.pricePerUnit) || 0;
 };
 
 const createOrderReference = () => {
@@ -62,6 +88,8 @@ function CheckoutPage() {
     notes: ''
   });
 
+  const [advancePaymentConfirmed, setAdvancePaymentConfirmed] =
+    useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderReference, setOrderReference] = useState('');
@@ -70,20 +98,21 @@ function CheckoutPage() {
     .map((item) => {
       const product = getProductById(item.productId);
 
-      if (!product) return null;
+      if (!product && !item.isSpecialOffer) return null;
 
       return {
         ...item,
-        product
+        product: product || null
       };
     })
     .filter(Boolean);
 
-  const subtotal = cartItems.reduce((total, item) => {
-    const price = Number(item.product.pricePerUnit) || 0;
-    const quantity = Number(item.quantity) || 0;
+  const hasBusinessOffer = cartItems.some(
+    (item) => item.isSpecialOffer && item.requiresAdvancePayment
+  );
 
-    return total + price * quantity;
+  const subtotal = cartItems.reduce((total, item) => {
+    return total + getItemPrice(item) * (Number(item.quantity) || 0);
   }, 0);
 
   const handleChange = (event) => {
@@ -97,7 +126,6 @@ function CheckoutPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setError('');
 
     if (!formData.fullName.trim()) {
@@ -125,22 +153,66 @@ function CheckoutPage() {
       return;
     }
 
+    if (hasBusinessOffer) {
+      const city = formData.city.trim().toLowerCase();
+
+      if (!['rawalpindi', 'islamabad'].includes(city)) {
+        setError(
+          'Business offers are currently available only in Rawalpindi and Islamabad. Please enter one of these cities to continue.'
+        );
+        return;
+      }
+
+      if (!advancePaymentConfirmed) {
+        setError(
+          'Please confirm that you understand the advance-payment and delivery-charge terms for business offers.'
+        );
+        return;
+      }
+    }
+
     const reference = createOrderReference();
 
     const orderDetails = cartItems
       .map((item, index) => {
-        const product = item.product;
         const quantity = Number(item.quantity) || 0;
-        const unitPrice = Number(product.pricePerUnit) || 0;
+        const unitPrice = getItemPrice(item);
         const lineTotal = unitPrice * quantity;
+        const name = getItemName(item);
+        const unitLabel = getItemUnitLabel(item);
+        const priceBasis = getItemPriceBasis(item);
 
-        return [
-          `${index + 1}. ${product.name}`,
-          `Quantity: ${quantity} ${getUnitLabel(product)}`,
-          `Price: ${formatPrice(unitPrice)} ${getPriceBasis(product)}`,
+        const details = [
+          `${index + 1}. ${name}`,
+          item.variantLabel ? `Selected option: ${item.variantLabel}` : null,
+          `Quantity: ${quantity} ${unitLabel}`,
+          `Price: ${formatPrice(unitPrice)} ${priceBasis}`,
           `Subtotal: ${formatPrice(lineTotal)}`
-        ].join(' | ');
+        ].filter(Boolean);
+
+        if (item.isSpecialOffer) {
+          details.push('Order type: Special offer');
+        }
+
+        if (item.requiresAdvancePayment) {
+          details.push('Payment requirement: Advance payment only');
+        }
+
+        return details.join(' | ');
       })
+      .join('\n');
+
+    const paymentMethod = hasBusinessOffer
+      ? 'Advance payment required for business offers; payment arrangements to be confirmed'
+      : 'Cash on Delivery';
+
+    const orderNotes = [
+      formData.notes.trim(),
+      hasBusinessOffer
+        ? 'Customer confirmed business-offer terms. Advance payment is required. Delivery charges are extra and will be confirmed based on delivery area and order quantity.'
+        : ''
+    ]
+      .filter(Boolean)
       .join('\n');
 
     const formPayload = {
@@ -152,13 +224,13 @@ function CheckoutPage() {
       email: formData.email.trim(),
       city: formData.city.trim(),
       address: formData.address.trim(),
-      payment_method: 'Cash on Delivery',
+      payment_method: paymentMethod,
       order_reference: reference,
       order_subtotal: formatPrice(subtotal),
-      delivery_charges: 'To be confirmed',
+      delivery_charges: 'Extra; to be confirmed based on area and quantity',
       order_total_before_delivery: formatPrice(subtotal),
       order_details: orderDetails,
-      notes: formData.notes.trim(),
+      notes: orderNotes,
       botcheck: ''
     };
 
@@ -204,7 +276,6 @@ function CheckoutPage() {
             </div>
 
             <p className="checkout-eyebrow">Order Received</p>
-
             <h1>Thank You!</h1>
 
             <p className="checkout-success-text">
@@ -218,14 +289,28 @@ function CheckoutPage() {
             </div>
 
             <div className="checkout-success-details">
-              <p>
-                <strong>Payment:</strong> Cash on Delivery
-              </p>
-
-              <p>
-                Your delivery charges and final order total will be confirmed
-                with you before dispatch.
-              </p>
+              {hasBusinessOffer ? (
+                <>
+                  <p>
+                    <strong>Payment:</strong> Advance payment required for
+                    business offers
+                  </p>
+                  <p>
+                    We will contact you to confirm payment arrangements and
+                    delivery charges before dispatch.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    <strong>Payment:</strong> Cash on Delivery
+                  </p>
+                  <p>
+                    Your delivery charges and final order total will be
+                    confirmed with you before dispatch.
+                  </p>
+                </>
+              )}
             </div>
 
             <Link to="/" className="checkout-primary-button">
@@ -243,7 +328,6 @@ function CheckoutPage() {
         <div className="checkout-container">
           <section className="checkout-empty">
             <p className="checkout-eyebrow">Checkout</p>
-
             <h1>Your Cart Is Empty</h1>
 
             <p>
@@ -262,7 +346,6 @@ function CheckoutPage() {
   return (
     <main className="checkout-page">
       <div className="checkout-container">
-
         <div className="checkout-header">
           <p className="checkout-eyebrow">Secure Checkout</p>
           <h1>Complete Your Order</h1>
@@ -278,8 +361,6 @@ function CheckoutPage() {
         )}
 
         <div className="checkout-layout">
-
-          {/* CUSTOMER INFORMATION */}
           <section className="checkout-card">
             <div className="checkout-card-header">
               <p className="checkout-step">01</p>
@@ -290,12 +371,10 @@ function CheckoutPage() {
             </div>
 
             <form id="checkout-form" onSubmit={handleSubmit}>
-
               <div className="checkout-field">
                 <label htmlFor="fullName">
                   Full Name <span>*</span>
                 </label>
-
                 <input
                   id="fullName"
                   name="fullName"
@@ -312,7 +391,6 @@ function CheckoutPage() {
                 <label htmlFor="phone">
                   Mobile / WhatsApp <span>*</span>
                 </label>
-
                 <input
                   id="phone"
                   name="phone"
@@ -329,7 +407,6 @@ function CheckoutPage() {
                 <label htmlFor="email">
                   Email <small>(optional)</small>
                 </label>
-
                 <input
                   id="email"
                   name="email"
@@ -345,7 +422,6 @@ function CheckoutPage() {
                 <label htmlFor="city">
                   City <span>*</span>
                 </label>
-
                 <input
                   id="city"
                   name="city"
@@ -356,13 +432,18 @@ function CheckoutPage() {
                   autoComplete="address-level2"
                   required
                 />
+                {hasBusinessOffer && (
+                  <small>
+                    Business offers are available only in Rawalpindi and
+                    Islamabad.
+                  </small>
+                )}
               </div>
 
               <div className="checkout-field">
                 <label htmlFor="address">
                   Delivery Address <span>*</span>
                 </label>
-
                 <textarea
                   id="address"
                   name="address"
@@ -379,7 +460,6 @@ function CheckoutPage() {
                 <label htmlFor="notes">
                   Order Notes <small>(optional)</small>
                 </label>
-
                 <textarea
                   id="notes"
                   name="notes"
@@ -390,10 +470,32 @@ function CheckoutPage() {
                 />
               </div>
 
+              {hasBusinessOffer && (
+                <div className="checkout-business-terms">
+                  <h3>Business Offer Terms</h3>
+                  <p>
+                    Advance payment is required for F1 and F3 carton offers.
+                    Delivery charges are extra and will be confirmed based on
+                    your delivery area and order quantity.
+                  </p>
+                  <label className="checkout-business-confirmation">
+                    <input
+                      type="checkbox"
+                      checked={advancePaymentConfirmed}
+                      onChange={(event) =>
+                        setAdvancePaymentConfirmed(event.target.checked)
+                      }
+                    />
+                    <span>
+                      I understand and accept the advance-payment and delivery
+                      charge terms for these business offers.
+                    </span>
+                  </label>
+                </div>
+              )}
             </form>
           </section>
 
-          {/* ORDER SUMMARY */}
           <section className="checkout-card checkout-summary-card">
             <div className="checkout-card-header">
               <p className="checkout-step">02</p>
@@ -405,22 +507,20 @@ function CheckoutPage() {
 
             <div className="checkout-items">
               {cartItems.map((item) => {
-                const product = item.product;
                 const quantity = Number(item.quantity) || 0;
-                const unitPrice = Number(product.pricePerUnit) || 0;
+                const unitPrice = getItemPrice(item);
                 const lineTotal = unitPrice * quantity;
+                const name = getItemName(item);
+                const image = getItemImage(item);
 
                 return (
                   <div
                     className="checkout-item"
-                    key={item.productId}
+                    key={item.lineId || item.productId}
                   >
                     <div className="checkout-item-image">
-                      {product.images?.[0] ? (
-                        <img
-                          src={product.images[0]}
-                          alt={product.name}
-                        />
+                      {image ? (
+                        <img src={image} alt={name} />
                       ) : (
                         <div className="checkout-item-image-placeholder">
                           No image
@@ -429,15 +529,23 @@ function CheckoutPage() {
                     </div>
 
                     <div className="checkout-item-details">
-                      <h3>{product.name}</h3>
+                      <h3>{name}</h3>
+
+                      {item.variantLabel && (
+                        <p>{item.variantLabel}</p>
+                      )}
 
                       <p>
-                        {quantity} {getUnitLabel(product)}
+                        {quantity} {getItemUnitLabel(item)}
                       </p>
 
                       <small>
-                        {formatPrice(unitPrice)} {getPriceBasis(product)}
+                        {formatPrice(unitPrice)} {getItemPriceBasis(item)}
                       </small>
+
+                      {item.requiresAdvancePayment && (
+                        <small>Advance payment required</small>
+                      )}
                     </div>
 
                     <strong className="checkout-item-total">
@@ -453,26 +561,24 @@ function CheckoutPage() {
                 <span>Payment Method</span>
               </div>
 
-              <label className="checkout-payment-option">
-                <input
-                  type="radio"
-                  name="payment"
-                  value="cod"
-                  checked
-                  readOnly
-                />
-
+              <div className="checkout-payment-option">
+                <span aria-hidden="true">✓</span>
                 <span>
-                  <strong>Cash on Delivery</strong>
+                  <strong>
+                    {hasBusinessOffer
+                      ? 'Advance Payment'
+                      : 'Cash on Delivery'}
+                  </strong>
                   <small>
-                    Pay when your order is delivered.
+                    {hasBusinessOffer
+                      ? 'Advance payment is required for business offers. We will contact you to confirm arrangements.'
+                      : 'Pay when your order is delivered.'}
                   </small>
                 </span>
-              </label>
+              </div>
             </div>
 
             <div className="checkout-totals">
-
               <div className="checkout-total-row">
                 <span>Subtotal</span>
                 <strong>{formatPrice(subtotal)}</strong>
@@ -480,14 +586,13 @@ function CheckoutPage() {
 
               <div className="checkout-total-row">
                 <span>Delivery</span>
-                <strong>To be confirmed</strong>
+                <strong>Extra — to be confirmed</strong>
               </div>
 
               <div className="checkout-total-row checkout-grand-total">
-                <span>Total</span>
+                <span>Total before delivery</span>
                 <strong>{formatPrice(subtotal)}</strong>
               </div>
-
             </div>
 
             <button
@@ -499,15 +604,10 @@ function CheckoutPage() {
               {isSubmitting ? 'Submitting Order...' : 'Place Order'}
             </button>
 
-            <Link
-              to="/cart"
-              className="checkout-back-link"
-            >
+            <Link to="/cart" className="checkout-back-link">
               ← Back to Cart
             </Link>
-
           </section>
-
         </div>
       </div>
     </main>
