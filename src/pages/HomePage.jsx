@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
@@ -157,7 +156,9 @@ function HomePage() {
                     className="hero-button hero-button-primary"
                   >
                     Shop Products
-                    <span className="button-arrow" aria-hidden="true">→</span>
+                    <span className="button-arrow" aria-hidden="true">
+                      →
+                    </span>
                   </Link>
 
                   <Link
@@ -165,7 +166,9 @@ function HomePage() {
                     className="hero-button hero-button-secondary"
                   >
                     Business Solutions
-                    <span className="button-arrow" aria-hidden="true">→</span>
+                    <span className="button-arrow" aria-hidden="true">
+                      →
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -203,7 +206,9 @@ function HomePage() {
                   <p className="category-desc">{category.description}</p>
                 </div>
 
-                <span className="category-arrow" aria-hidden="true">→</span>
+                <span className="category-arrow" aria-hidden="true">
+                  →
+                </span>
               </Link>
             ))}
           </div>
@@ -444,25 +449,85 @@ function HomePage() {
 
           <div className="benefits-grid">
             <div className="benefit-card">
-              <div className="benefit-icon">🚚</div>
+              <div className="benefit-icon" aria-hidden="true">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  stroke="#1F3A5C"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h23v21H5z" />
+                  <path d="M28 20h8l7 8v5H28z" />
+                  <circle cx="14" cy="36" r="4" />
+                  <circle cx="36" cy="36" r="4" />
+                  <path d="M31 20v8h12" />
+                </svg>
+              </div>
               <h3>Nationwide Delivery</h3>
               <p>Reliable shipping to locations across Pakistan.</p>
             </div>
 
             <div className="benefit-card">
-              <div className="benefit-icon">✓</div>
+              <div className="benefit-icon" aria-hidden="true">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  stroke="#E67E22"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M24 5 39 11v11c0 10-6.4 16.8-15 21-8.6-4.2-15-11-15-21V11z" />
+                  <path d="m16 24 5 5 11-12" />
+                </svg>
+              </div>
               <h3>Quality Products</h3>
               <p>Practical packaging supplies for food-service needs.</p>
             </div>
 
             <div className="benefit-card">
-              <div className="benefit-icon">💰</div>
+              <div className="benefit-icon" aria-hidden="true">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  stroke="#1F3A5C"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="24" cy="24" r="18" />
+                  <path d="M29 16c-1.3-1.5-3.2-2.3-5.5-2.3-3.3 0-5.5 1.7-5.5 4.2 0 6.7 12 2.7 12 9.1 0 2.8-2.5 4.7-6 4.7-2.7 0-5.2-1.1-6.7-3" />
+                  <path d="M24 10v28" />
+                </svg>
+              </div>
               <h3>Competitive Prices</h3>
               <p>Clear pricing for everyday purchasing.</p>
             </div>
 
             <div className="benefit-card">
-              <div className="benefit-icon">📞</div>
+              <div className="benefit-icon" aria-hidden="true">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  stroke="#E67E22"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M14 7h20a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6h-8l-9 7v-7h-3a6 6 0 0 1-6-6V13a6 6 0 0 1 6-6z" />
+                  <path d="M17 17h14M17 23h10" />
+                </svg>
+              </div>
               <h3>Easy Support</h3>
               <p>Contact us for product questions or special requests.</p>
             </div>
