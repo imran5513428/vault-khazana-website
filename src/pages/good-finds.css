@@ -1,12 +1,149 @@
 
+/* ============================================
+   VAULT KHAZANA
+   GOOD FINDS. BETTER PRICES.
+   Responsive special-offer styling
+============================================ */
+
+.good-finds-section {
+  background: #F5F7FA;
+}
+
+.good-finds-heading {
+  max-width: 760px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.good-finds-heading .eyebrow {
+  margin: 0 0 8px;
+  color: #E67E22;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.good-finds-heading h2 {
+  margin: 0 0 10px;
+  color: #1F3A5C;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  line-height: 1.2;
+}
+
+.good-finds-heading > p:last-child {
+  margin: 0;
+  color: #647080;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* Promotional banner */
+
+.good-finds-banner {
+  width: 100%;
+  margin: 0 auto 28px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #FFFFFF;
+}
+
+.good-finds-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Offer cards */
+
+.good-finds-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 22px;
+}
+
+.good-finds-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #E2E7EE;
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 5px 20px rgba(31, 58, 92, 0.06);
+}
+
+.good-finds-card-image {
+  display: flex;
+  min-height: 210px;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: #FFFFFF;
+}
+
+.good-finds-card-image > img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.good-finds-card-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 22px;
+}
+
+.good-finds-card-label {
+  align-self: flex-start;
+  display: inline-flex;
+  margin: 0 0 12px;
+  padding: 7px 11px;
+  border-radius: 5px;
+  background: #1F3A5C;
+  color: #FFFFFF;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.good-finds-card:first-child .good-finds-card-label {
+  background: #E67E22;
+  color: #FFFFFF;
+}
+
+.good-finds-card-copy > h3 {
+  margin: 0 0 10px;
+  color: #1F3A5C;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.good-finds-card-copy > p:not(.good-finds-card-label):not(.good-finds-price):not(.good-finds-note) {
+  color: #647080;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
 .good-finds-price {
   margin: 8px 0;
   color: #1F3A5C;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 800;
+  line-height: 1.3;
 }
 
 .good-finds-price span {
+  color: #647080;
   font-size: 0.82rem;
   font-weight: 500;
 }
@@ -19,40 +156,337 @@
   line-height: 1.7;
 }
 
+/* Garbage bag size selector */
+
+.good-finds-select-label {
+  display: block;
+  margin: 12px 0 7px;
+  color: #1F3A5C;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.good-finds-size-select {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 38px 11px 12px;
+  border: 1px solid #CCD5E0;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #1F3A5C;
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.good-finds-size-select:focus-visible {
+  outline: 3px solid rgba(230, 126, 34, 0.3);
+  border-color: #E67E22;
+}
+
+.good-finds-note {
+  margin: 9px 0 18px;
+  color: #647080;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* F1 / F3 carton offers */
+
+.good-finds-aluminum-heading {
+  padding-bottom: 8px;
+}
+
+.good-finds-model-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 14px;
+  padding: 0 18px 18px;
+}
+
 .good-finds-model {
-  margin: 14px 0;
-  padding-top: 12px;
-  border-top: 1px solid #E6EAF0;
+  min-width: 0;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid #E6EAF0;
+  border-radius: 12px;
+  background: #FFFFFF;
 }
 
 .good-finds-model h4 {
-  margin: 0 0 5px;
+  margin: 12px 0 8px;
   color: #1F3A5C;
   font-size: 0.98rem;
+  line-height: 1.4;
 }
 
 .good-finds-model > p {
-  margin: 4px 0;
+  margin: 5px 0;
   color: #647080;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   line-height: 1.5;
 }
 
 .good-finds-model .good-finds-price {
+  margin: 10px 0 4px;
   color: #1F3A5C;
-  font-size: 1.2rem;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  overflow-wrap: anywhere;
 }
 
 .good-finds-model .good-finds-unit {
+  margin: 0 0 14px;
   color: #647080;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
-.good-finds-aluminum-images {
-  flex-direction: column;
-  gap: 12px;
+.good-finds-model-image {
+  display: flex;
+  width: 100%;
+  min-height: 130px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #FFFFFF;
 }
 
-.good-finds-aluminum-images img {
-  max-height: 145px;
+.good-finds-model-image img {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.good-finds-business-terms {
+  margin: auto 18px 18px;
+  padding: 13px 14px;
+  border-left: 3px solid #E67E22;
+  border-radius: 0 7px 7px 0;
+  background: #FFF7EF;
+  color: #5D4B3B;
+  font-size: 0.83rem;
+  line-height: 1.6;
+}
+
+/* Add-to-cart buttons */
+
+.good-finds-add-button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: 11px 13px;
+  border: 2px solid #E67E22;
+  border-radius: 8px;
+  background: #E67E22;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.good-finds-add-button:hover {
+  border-color: #D65D0A;
+  background: #D65D0A;
+}
+
+.good-finds-add-button:focus-visible {
+  outline: 3px solid rgba(31, 58, 92, 0.45);
+  outline-offset: 3px;
+}
+
+.good-finds-add-button:active {
+  background: #C65308;
+}
+
+/* Feedback after adding an offer */
+
+.good-finds-feedback {
+  margin: 0 0 20px;
+  padding: 13px 16px;
+  border: 1px solid #C9D8E8;
+  border-radius: 9px;
+  background: #FFFFFF;
+  color: #1F3A5C;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.good-finds-feedback.is-success {
+  border-left: 4px solid #27824A;
+}
+
+.good-finds-feedback.is-error {
+  border-left: 4px solid #C0392B;
+  color: #9D2D23;
+}
+
+.good-finds-feedback a {
+  display: inline-block;
+  margin-left: 5px;
+  color: #1F3A5C;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .good-finds-grid {
+    gap: 16px;
+  }
+
+  .good-finds-card-copy {
+    padding: 18px;
+  }
+
+  .good-finds-model-grid {
+    gap: 10px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .good-finds-model {
+    padding: 11px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .good-finds-section {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .good-finds-heading {
+    margin-bottom: 20px;
+  }
+
+  .good-finds-heading h2 {
+    font-size: 1.75rem;
+  }
+
+  .good-finds-heading > p:last-child {
+    font-size: 0.9rem;
+  }
+
+  .good-finds-banner {
+    margin-bottom: 18px;
+    border-radius: 10px;
+  }
+
+  .good-finds-banner img {
+    max-height: 220px;
+  }
+
+  .good-finds-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .good-finds-card {
+    border-radius: 13px;
+  }
+
+  .good-finds-card-image {
+    min-height: 170px;
+    padding: 14px;
+  }
+
+  .good-finds-card-image > img {
+    height: 190px;
+  }
+
+  .good-finds-card-copy {
+    padding: 17px;
+  }
+
+  .good-finds-card-copy > h3 {
+    font-size: 1.25rem;
+  }
+
+  .good-finds-price {
+    font-size: 1.3rem;
+  }
+
+  .good-finds-model-grid {
+    gap: 10px;
+    padding: 0 12px 14px;
+  }
+
+  .good-finds-model {
+    padding: 10px;
+  }
+
+  .good-finds-model-image {
+    min-height: 100px;
+  }
+
+  .good-finds-model-image img {
+    height: 115px;
+  }
+
+  .good-finds-model h4 {
+    font-size: 0.9rem;
+  }
+
+  .good-finds-model .good-finds-price {
+    font-size: 1.08rem;
+  }
+
+  .good-finds-model .good-finds-unit {
+    font-size: 0.74rem;
+  }
+
+  .good-finds-add-button {
+    min-height: 46px;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+  }
+
+  .good-finds-business-terms {
+    margin: auto 12px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Very narrow phones */
+
+@media (max-width: 360px) {
+  .good-finds-model-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .good-finds-model-image {
+    min-height: 120px;
+  }
+
+  .good-finds-model-image img {
+    height: 135px;
+  }
+
+  .good-finds-model .good-finds-price {
+    font-size: 1.2rem;
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .good-finds-add-button {
+    transition: none;
+  }
 }
