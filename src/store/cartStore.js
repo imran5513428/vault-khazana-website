@@ -1,3 +1,4 @@
+
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { getProductById } from '../data/products';
@@ -12,6 +13,20 @@ const getProductRules = (product) => {
     packSize: product.packSize ?? null,
     pricePerUnit: Number(product.pricePerUnit) || 0
   };
+};
+
+const getItemRules = (item, product) => {
+  if (item?.isSpecialOffer) {
+    return {
+      sellingUnit: item.sellingUnit || 'piece',
+      moq: Number(item.moq) || 1,
+      step: Number(item.step) || 1,
+      packSize: item.packSize ?? null,
+      pricePerUnit: Number(item.pricePerUnit) || 0
+    };
+  }
+
+  return getProductRules(product);
 };
 
 const isValidQuantity = (quantity, rules) => {
@@ -45,6 +60,10 @@ const getQuantityError = (quantity, rules) => {
       return `Minimum order is ${rules.moq} kg.`;
     }
 
+    if (rules.sellingUnit === 'carton') {
+      return `Minimum order is ${rules.moq} carton${rules.moq === 1 ? '' : 's'}.`;
+    }
+
     return `Minimum order is ${rules.moq} ${
       rules.moq === 1 ? 'piece' : 'pieces'
     }.`;
@@ -56,12 +75,25 @@ const getQuantityError = (quantity, rules) => {
         ? 'packs'
         : rules.sellingUnit === 'kg'
           ? 'kg'
-          : 'pieces';
+          : rules.sellingUnit === 'carton'
+            ? 'cartons'
+            : 'pieces';
 
     return `Quantity must increase in steps of ${rules.step} ${unitLabel}.`;
   }
 
   return '';
+};
+
+const getLineKey = (item) => item.lineId || item.productId;
+
+const findItem = (items, key) => {
+  if (key === undefined || key === null) return undefined;
+
+  return (
+    items.find((item) => getLineKey(item) === key) ||
+    items.find((item) => item.productId === key && !item.isSpecialOffer)
+  );
 };
 
 const sanitizeCartItems = (items) => {
@@ -70,9 +102,41 @@ const sanitizeCartItems = (items) => {
   return items
     .map((item) => {
       const product = getProductById(item.productId);
+
+      if (!product) return null;
+
+      if (item.isSpecialOffer) {
+        const quantity = Number(item.quantity);
+        const unitPrice = Number(item.pricePerUnit);
+        const rules = getItemRules(item, product);
+
+        if (
+          !Number.isFinite(unitPrice) ||
+          unitPrice < 0 ||
+          !rules
+        ) {
+          return null;
+        }
+
+        const safeQuantity = isValidQuantity(quantity, rules)
+          ? quantity
+          : rules.moq;
+
+        return {
+          ...item,
+          lineId:
+            item.lineId ||
+            `offer:${item.productId}:${item.variantKey || 'standard'}`,
+          quantity: safeQuantity,
+          pricePerUnit: unitPrice,
+          moq: rules.moq,
+          step: rules.step
+        };
+      }
+
       const rules = getProductRules(product);
 
-      if (!product || !rules) return null;
+      if (!rules) return null;
 
       const quantity = Number(item.quantity);
 
@@ -96,6 +160,7 @@ const useCartStore = create(
     (set, get) => ({
       items: [],
 
+      // Existing catalogue products continue using their catalogue prices.
       addToCart: (productId, quantity) => {
         const product = getProductById(productId);
         const rules = getProductRules(product);
@@ -118,7 +183,7 @@ const useCartStore = create(
         }
 
         const existingItem = get().items.find(
-          (item) => item.productId === productId
+          (item) => item.productId === productId && !item.isSpecialOffer
         );
 
         if (existingItem) {
@@ -134,7 +199,7 @@ const useCartStore = create(
 
           set((state) => ({
             items: state.items.map((item) =>
-              item.productId === productId
+              item === existingItem
                 ? {
                     ...item,
                     quantity: newQuantity
@@ -165,19 +230,150 @@ const useCartStore = create(
         };
       },
 
-      removeFromCart: (productId) => {
+      // Special offers use their own price and a separate cart line.
+      // Expected options include productId, variantKey, variantLabel,
+      // quantity, unitPrice, sellingUnit, priceBasis and offerType.
+      addOfferToCart: (options = {}) => {
+        const {
+          productId,
+          variantKey = 'standard',
+          variantLabel = '',
+          quantity = 1,
+          unitPrice,
+          sellingUnit = 'piece',
+          priceBasis = '',
+          displayName = '',
+          offerType = 'everyday',
+          image = '',
+          moq = 1,
+          step = 1,
+          packSize = null,
+          requiresAdvancePayment = false
+        } = options;
+
+        const product = getProductById(productId);
+        const price = Number(unitPrice);
+
+        if (!product) {
+          return {
+            success: false,
+            error: 'Product information is unavailable.'
+          };
+        }
+
+        if (!Number.isFinite(price) || price < 0) {
+          return {
+            success: false,
+            error: 'The offer price is invalid.'
+          };
+        }
+
+        const rules = {
+          sellingUnit,
+          moq: Number(moq) || 1,
+          step: Number(step) || 1,
+          packSize,
+          pricePerUnit: price
+        };
+
+        const requestedQuantity = Number(quantity);
+
+        if (!isValidQuantity(requestedQuantity, rules)) {
+          return {
+            success: false,
+            error: getQuantityError(requestedQuantity, rules)
+          };
+        }
+
+        const safeVariantKey = String(variantKey || 'standard');
+        const lineId = `offer:${productId}:${safeVariantKey}`;
+
+        const offerLine = {
+          productId,
+          lineId,
+          isSpecialOffer: true,
+          variantKey: safeVariantKey,
+          variantLabel: String(variantLabel || ''),
+          displayName: String(displayName || product.name),
+          quantity: requestedQuantity,
+          pricePerUnit: price,
+          sellingUnit,
+          priceBasis: String(priceBasis || ''),
+          offerType,
+          image: String(image || ''),
+          moq: rules.moq,
+          step: rules.step,
+          packSize,
+          requiresAdvancePayment: Boolean(requiresAdvancePayment)
+        };
+
+        const existingItem = get().items.find(
+          (item) => getLineKey(item) === lineId
+        );
+
+        if (existingItem) {
+          const newQuantity =
+            Number(existingItem.quantity) + requestedQuantity;
+
+          if (!isValidQuantity(newQuantity, rules)) {
+            return {
+              success: false,
+              error: getQuantityError(newQuantity, rules)
+            };
+          }
+
+          set((state) => ({
+            items: state.items.map((item) =>
+              getLineKey(item) === lineId
+                ? {
+                    ...item,
+                    quantity: newQuantity
+                  }
+                : item
+            )
+          }));
+        } else {
+          set((state) => ({
+            items: [...state.items, offerLine]
+          }));
+        }
+
+        return {
+          success: true,
+          error: ''
+        };
+      },
+
+      // Accepts a lineId for a specific offer variant, or a productId
+      // for the existing standard catalogue item.
+      removeFromCart: (productIdOrLineId) => {
         set((state) => ({
-          items: state.items.filter(
-            (item) => item.productId !== productId
-          )
+          items: state.items.filter((item) => {
+            if (getLineKey(item) === productIdOrLineId) return false;
+
+            // Preserve the old behaviour for standard product lines.
+            if (
+              item.productId === productIdOrLineId &&
+              !item.isSpecialOffer
+            ) {
+              return false;
+            }
+
+            return true;
+          })
         }));
       },
 
-      updateQuantity: (productId, quantity) => {
-        const product = getProductById(productId);
-        const rules = getProductRules(product);
+      updateQuantity: (productIdOrLineId, quantity) => {
+        const items = get().items;
+        const item = findItem(items, productIdOrLineId);
 
-        if (!product || !rules) return false;
+        if (!item) return false;
+
+        const product = getProductById(item.productId);
+        const rules = getItemRules(item, product);
+
+        if (!rules) return false;
 
         const newQuantity = Number(quantity);
 
@@ -185,14 +381,16 @@ const useCartStore = create(
           return false;
         }
 
+        const key = getLineKey(item);
+
         set((state) => ({
-          items: state.items.map((item) =>
-            item.productId === productId
+          items: state.items.map((cartItem) =>
+            getLineKey(cartItem) === key
               ? {
-                  ...item,
+                  ...cartItem,
                   quantity: newQuantity
                 }
-              : item
+              : cartItem
           )
         }));
 
@@ -203,20 +401,17 @@ const useCartStore = create(
         set({ items: [] });
       },
 
-      // Cart badge = number of different product lines,
-      // NOT total pieces/packs/kg.
-      getCartCount: () => {
-        return get().items.length;
-      },
+      // Cart badge = number of cart lines, not total pieces, packs or kg.
+      getCartCount: () => get().items.length,
 
       getCartTotal: () => {
         return get().items.reduce((total, item) => {
           const product = getProductById(item.productId);
-          const rules = getProductRules(product);
+          const rules = getItemRules(item, product);
 
           if (!rules) return total;
 
-          return total + rules.pricePerUnit * item.quantity;
+          return total + rules.pricePerUnit * Number(item.quantity || 0);
         }, 0);
       },
 
@@ -226,21 +421,27 @@ const useCartStore = create(
         );
       },
 
-      getQuantity: (productId) => {
-        const item = get().items.find(
-          (cartItem) => cartItem.productId === productId
-        );
+      getQuantity: (productIdOrLineId) => {
+        const item = findItem(get().items, productIdOrLineId);
 
-        return item ? item.quantity : 0;
+        return item ? Number(item.quantity) || 0 : 0;
       },
 
-      getItems: () => {
-        return get().items;
-      },
+      getItems: () => get().items,
 
       getProductRules: (productId) => {
         const product = getProductById(productId);
         return getProductRules(product);
+      },
+
+      getItemRules: (productIdOrLineId) => {
+        const item = findItem(get().items, productIdOrLineId);
+
+        if (item) {
+          return getItemRules(item, getProductById(item.productId));
+        }
+
+        return getProductRules(getProductById(productIdOrLineId));
       },
 
       isQuantityValid: (productId, quantity) => {
@@ -268,7 +469,6 @@ const useCartStore = create(
         if (!state) return;
 
         const cleanedItems = sanitizeCartItems(state.items);
-
         state.items = cleanedItems;
       }
     }
