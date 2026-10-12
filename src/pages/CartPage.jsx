@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -5,55 +6,75 @@ import { getProductById } from '../data/products';
 import '../styles/cart.css';
 
 function formatPrice(value) {
-  return Number(value || 0).toLocaleString();
+  return Math.round(Number(value) || 0).toLocaleString('en-PK');
 }
 
-function getUnitLabel(product, quantity = 1) {
-  const sellingUnit = product?.sellingUnit || 'piece';
-  const packSize = product?.packSize;
-
-  if (sellingUnit === 'pack') {
-    return quantity === 1 ? 'pack' : 'packs';
-  }
-
-  if (sellingUnit === 'kg') {
-    return quantity === 1 ? 'kg' : 'kg';
-  }
-
-  return quantity === 1 ? 'piece' : 'pieces';
+function getItemName(item) {
+  return item.isSpecialOffer
+    ? item.displayName || item.product?.name || 'Special offer'
+    : item.product?.name || 'Product';
 }
 
-function getPriceBasis(product) {
-  const sellingUnit = product?.sellingUnit || 'piece';
-  const packSize = product?.packSize;
+function getUnitLabel(item) {
+  const sellingUnit = item.sellingUnit || item.product?.sellingUnit || 'piece';
 
-  if (sellingUnit === 'pack') {
-    if (packSize) {
-      return `Rs ${formatPrice(product.pricePerUnit)} / pack of ${packSize}`;
+  if (sellingUnit === 'pack') return 'pack(s)';
+  if (sellingUnit === 'kg') return 'kg';
+  if (sellingUnit === 'carton') return 'carton(s)';
+
+  return 'piece(s)';
+}
+
+function getPriceBasis(item) {
+  if (item.isSpecialOffer) {
+    if (item.priceBasis) {
+      return `Rs ${formatPrice(item.pricePerUnit)} ${item.priceBasis}`;
     }
 
-    return `Rs ${formatPrice(product.pricePerUnit)} / pack`;
+    return `Rs ${formatPrice(item.pricePerUnit)} per ${item.sellingUnit || 'unit'}`;
+  }
+
+  const product = item.product;
+  const sellingUnit = product?.sellingUnit || 'piece';
+  const packSize = product?.packSize;
+  const price = Number(product?.pricePerUnit) || 0;
+
+  if (sellingUnit === 'pack') {
+    return packSize
+      ? `Rs ${formatPrice(price)} / pack of ${packSize}`
+      : `Rs ${formatPrice(price)} / pack`;
   }
 
   if (sellingUnit === 'kg') {
-    return `Rs ${formatPrice(product.pricePerUnit)} / kg`;
+    return `Rs ${formatPrice(price)} / kg`;
   }
 
-  return `Rs ${formatPrice(product.pricePerUnit)} / piece`;
+  return `Rs ${formatPrice(price)} / piece`;
 }
 
-function getQuantityDescription(product) {
+function getQuantityDescription(item) {
+  if (item.isSpecialOffer) {
+    if (item.sellingUnit === 'carton') {
+      return 'Sold by the carton';
+    }
+
+    if (item.sellingUnit === 'kg') {
+      return 'Sold by the kilogram';
+    }
+
+    return item.variantLabel || 'Special offer';
+  }
+
+  const product = item.product;
   const sellingUnit = product?.sellingUnit || 'piece';
   const moq = Number(product?.moq) || 1;
   const step = Number(product?.step) || 1;
   const packSize = product?.packSize;
 
   if (sellingUnit === 'pack') {
-    if (packSize) {
-      return `1 pack = ${packSize} pieces`;
-    }
-
-    return `Minimum ${moq} pack${moq === 1 ? '' : 's'}`;
+    return packSize
+      ? `1 pack = ${packSize} pieces`
+      : `Minimum ${moq} pack(s)`;
   }
 
   if (sellingUnit === 'kg') {
@@ -65,6 +86,58 @@ function getQuantityDescription(product) {
   }
 
   return `Minimum ${moq} pieces`;
+}
+
+function getItemRules(item) {
+  if (item.isSpecialOffer) {
+    return {
+      moq: Number(item.moq) || 1,
+      step: Number(item.step) || 1,
+      sellingUnit: item.sellingUnit || 'piece'
+    };
+  }
+
+  return {
+    moq: Number(item.product?.moq) || 1,
+    step: Number(item.product?.step) || 1,
+    sellingUnit: item.product?.sellingUnit || 'piece'
+  };
+}
+
+function validateQuantity(quantity, item) {
+  const rules = getItemRules(item);
+  const value = Number(quantity);
+
+  if (!Number.isFinite(value)) {
+    return 'Please enter a valid quantity.';
+  }
+
+  if (value < rules.moq) {
+    if (rules.sellingUnit === 'kg') {
+      return `Minimum order is ${rules.moq} kg.`;
+    }
+
+    if (rules.sellingUnit === 'carton') {
+      return `Minimum order is ${rules.moq} carton(s).`;
+    }
+
+    return `Minimum order is ${rules.moq} piece(s).`;
+  }
+
+  if ((value - rules.moq) % rules.step !== 0) {
+    const unit =
+      rules.sellingUnit === 'kg'
+        ? 'kg'
+        : rules.sellingUnit === 'carton'
+          ? 'carton(s)'
+          : rules.sellingUnit === 'pack'
+            ? 'pack(s)'
+            : 'piece(s)';
+
+    return `Quantity must increase in steps of ${rules.step} ${unit}.`;
+  }
+
+  return '';
 }
 
 function CartPage() {
@@ -85,13 +158,18 @@ function CartPage() {
 
       if (!product) return null;
 
-      const pricePerUnit = Number(product.pricePerUnit) || 0;
-      const subtotal = pricePerUnit * item.quantity;
+      const completeItem = {
+        ...item,
+        product
+      };
+
+      const pricePerUnit = item.isSpecialOffer
+        ? Number(item.pricePerUnit) || 0
+        : Number(product.pricePerUnit) || 0;
 
       return {
-        ...item,
-        product,
-        subtotal
+        ...completeItem,
+        subtotal: pricePerUnit * Number(item.quantity || 0)
       };
     })
     .filter(Boolean);
@@ -101,138 +179,154 @@ function CartPage() {
     0
   );
 
-  const handleQuantityChange = (productId, value) => {
+  const getItemKey = (item) => item.lineId || item.productId;
+
+  const getItemQuantityError = (item, quantity) => {
+    if (item.isSpecialOffer) {
+      return validateQuantity(quantity, item);
+    }
+
+    return getQuantityError(item.productId, quantity);
+  };
+
+  const handleQuantityChange = (item, value) => {
+    const key = getItemKey(item);
+
     setDraftQuantities((current) => ({
       ...current,
-      [productId]: value
+      [key]: value
     }));
 
     if (value === '') {
       setQuantityErrors((current) => ({
         ...current,
-        [productId]: 'Please enter a quantity.'
+        [key]: 'Please enter a quantity.'
       }));
       return;
     }
 
-    const numericValue = Number(value);
-
-    if (!Number.isFinite(numericValue)) {
-      setQuantityErrors((current) => ({
-        ...current,
-        [productId]: 'Please enter a valid quantity.'
-      }));
-      return;
-    }
-
-    const error = getQuantityError(productId, numericValue);
+    const error = getItemQuantityError(item, Number(value));
 
     if (error) {
       setQuantityErrors((current) => ({
         ...current,
-        [productId]: error
+        [key]: error
+      }));
+      return;
+    }
+
+    const updated = updateQuantity(key, Number(value));
+
+    if (!updated) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: 'Unable to update this quantity. Please try again.'
       }));
       return;
     }
 
     setQuantityErrors((current) => {
       const next = { ...current };
-      delete next[productId];
+      delete next[key];
       return next;
     });
 
-    updateQuantity(productId, numericValue);
-
     setDraftQuantities((current) => {
       const next = { ...current };
-      delete next[productId];
+      delete next[key];
       return next;
     });
   };
 
-  const handleQuantityBlur = (productId) => {
-    const draftValue = draftQuantities[productId];
+  const handleQuantityBlur = (item) => {
+    const key = getItemKey(item);
+    const draftValue = draftQuantities[key];
 
     if (draftValue === undefined) return;
 
     if (draftValue === '') {
       setQuantityErrors((current) => ({
         ...current,
-        [productId]: 'Please enter a quantity.'
+        [key]: 'Please enter a quantity.'
       }));
       return;
     }
 
-    const numericValue = Number(draftValue);
-    const error = getQuantityError(productId, numericValue);
+    const error = getItemQuantityError(item, Number(draftValue));
 
     if (error) {
       setQuantityErrors((current) => ({
         ...current,
-        [productId]: error
+        [key]: error
       }));
 
       setDraftQuantities((current) => {
         const next = { ...current };
-        delete next[productId];
+        delete next[key];
         return next;
       });
 
       return;
     }
 
-    updateQuantity(productId, numericValue);
+    const updated = updateQuantity(key, Number(draftValue));
+
+    if (!updated) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: 'Unable to update this quantity. Please try again.'
+      }));
+      return;
+    }
 
     setDraftQuantities((current) => {
       const next = { ...current };
-      delete next[productId];
+      delete next[key];
       return next;
     });
 
     setQuantityErrors((current) => {
       const next = { ...current };
-      delete next[productId];
+      delete next[key];
       return next;
     });
   };
 
   const handleDecrease = (item) => {
-    const product = item.product;
-    const moq = Number(product.moq) || 1;
-    const step = Number(product.step) || 1;
+    const key = getItemKey(item);
+    const rules = getItemRules(item);
+    const newQuantity = Number(item.quantity) - rules.step;
 
-    const newQuantity = item.quantity - step;
+    if (newQuantity < rules.moq) return;
 
-    if (newQuantity < moq) return;
-
-    const error = getQuantityError(item.productId, newQuantity);
+    const error = getItemQuantityError(item, newQuantity);
 
     if (error) {
       setQuantityErrors((current) => ({
         ...current,
-        [item.productId]: error
+        [key]: error
       }));
       return;
     }
 
-    updateQuantity(item.productId, newQuantity);
+    updateQuantity(key, newQuantity);
   };
 
   const handleIncrease = (item) => {
-    const step = Number(item.product.step) || 1;
-    const newQuantity = item.quantity + step;
-
-    const error = getQuantityError(item.productId, newQuantity);
+    const key = getItemKey(item);
+    const rules = getItemRules(item);
+    const newQuantity = Number(item.quantity) + rules.step;
+    const error = getItemQuantityError(item, newQuantity);
 
     if (error) {
       setQuantityErrors((current) => ({
         ...current,
-        [item.productId]: error
+        [key]: error
       }));
       return;
     }
 
-    updateQuantity(item.productId, newQuantity);
+    updateQuantity(key, newQuantity);
   };
 
   const handleClearCart = () => {
@@ -242,6 +336,8 @@ function CartPage() {
 
     if (confirmed) {
       clearCart();
+      setDraftQuantities({});
+      setQuantityErrors({});
     }
   };
 
@@ -266,6 +362,12 @@ function CartPage() {
     );
   }
 
+  const hasBusinessOffers = cartItemsWithDetails.some(
+    (item) =>
+      item.isSpecialOffer &&
+      item.requiresAdvancePayment
+  );
+
   return (
     <div className="cart-page">
       <div className="container">
@@ -282,36 +384,47 @@ function CartPage() {
           </div>
         </div>
 
+        {hasBusinessOffers && (
+          <div className="cart-business-offer-notice" role="note">
+            <strong>Business Offer terms</strong>
+            <p>
+              Advance payment only. Delivery charges are extra and
+              will be confirmed after you submit your order.
+              Business Offers are available in Rawalpindi and Islamabad only.
+            </p>
+          </div>
+        )}
+
         <div className="cart-grid">
 
           <div className="cart-items">
 
             {cartItemsWithDetails.map((item) => {
               const product = item.product;
-
-              const moq = Number(product.moq) || 1;
-              const step = Number(product.step) || 1;
+              const itemKey = getItemKey(item);
+              const rules = getItemRules(item);
+              const itemName = getItemName(item);
+              const image = item.isSpecialOffer
+                ? item.image || product.images?.[0]
+                : product.images?.[0];
 
               const hasQuantityError =
-                Boolean(quantityErrors[item.productId]);
+                Boolean(quantityErrors[itemKey]);
 
               const draftValue =
-                draftQuantities[item.productId] !== undefined
-                  ? draftQuantities[item.productId]
+                draftQuantities[itemKey] !== undefined
+                  ? draftQuantities[itemKey]
                   : item.quantity;
 
               return (
                 <div
-                  key={item.productId}
+                  key={itemKey}
                   className="cart-item"
                 >
 
                   <div className="item-image">
-                    {product.images?.[0] ? (
-                      <img
-                        src={product.images[0]}
-                        alt={product.name}
-                      />
+                    {image ? (
+                      <img src={image} alt={itemName} />
                     ) : (
                       <div className="item-image-placeholder">
                         No image
@@ -321,26 +434,44 @@ function CartPage() {
 
                   <div className="item-details">
 
-                    <Link
-                      to={`/product/${item.productId}`}
-                      className="item-name"
-                    >
-                      {product.name}
-                    </Link>
+                    {item.isSpecialOffer ? (
+                      <p className="item-name">
+                        {itemName}
+                      </p>
+                    ) : (
+                      <Link
+                        to={`/product/${item.productId}`}
+                        className="item-name"
+                      >
+                        {itemName}
+                      </Link>
+                    )}
 
-                    {product.dimensions && (
+                    {item.variantLabel && (
+                      <p className="item-specs">
+                        {item.variantLabel}
+                      </p>
+                    )}
+
+                    {!item.isSpecialOffer && product.dimensions && (
                       <p className="item-specs">
                         {product.dimensions}
                       </p>
                     )}
 
                     <p className="item-price">
-                      {getPriceBasis(product)}
+                      {getPriceBasis(item)}
                     </p>
 
                     <p className="item-selling-info">
-                      {getQuantityDescription(product)}
+                      {getQuantityDescription(item)}
                     </p>
+
+                    {item.requiresAdvancePayment && (
+                      <p className="item-selling-info">
+                        Advance payment only · Rawalpindi & Islamabad
+                      </p>
+                    )}
 
                   </div>
 
@@ -349,7 +480,7 @@ function CartPage() {
                     <div className="item-quantity">
 
                       <span className="quantity-label">
-                        Quantity
+                        Quantity ({getUnitLabel(item)})
                       </span>
 
                       <div className="quantity-control">
@@ -358,8 +489,8 @@ function CartPage() {
                           type="button"
                           onClick={() => handleDecrease(item)}
                           className="qty-btn"
-                          aria-label={`Decrease quantity of ${product.name}`}
-                          disabled={item.quantity <= moq}
+                          aria-label={`Decrease quantity of ${itemName}`}
+                          disabled={Number(item.quantity) <= rules.moq}
                         >
                           −
                         </button>
@@ -368,23 +499,16 @@ function CartPage() {
                           type="number"
                           value={draftValue}
                           onChange={(event) =>
-                            handleQuantityChange(
-                              item.productId,
-                              event.target.value
-                            )
+                            handleQuantityChange(item, event.target.value)
                           }
-                          onBlur={() =>
-                            handleQuantityBlur(item.productId)
-                          }
+                          onBlur={() => handleQuantityBlur(item)}
                           className={`qty-input ${
-                            hasQuantityError
-                              ? 'qty-input-error'
-                              : ''
+                            hasQuantityError ? 'qty-input-error' : ''
                           }`}
-                          min={moq}
-                          step={step}
+                          min={rules.moq}
+                          step={rules.step}
                           inputMode="numeric"
-                          aria-label={`Quantity for ${product.name}`}
+                          aria-label={`Quantity for ${itemName}`}
                           aria-invalid={hasQuantityError}
                         />
 
@@ -392,45 +516,35 @@ function CartPage() {
                           type="button"
                           onClick={() => handleIncrease(item)}
                           className="qty-btn"
-                          aria-label={`Increase quantity of ${product.name}`}
+                          aria-label={`Increase quantity of ${itemName}`}
                         >
                           +
                         </button>
 
                       </div>
 
-                      {quantityErrors[item.productId] && (
-                        <p
-                          className="quantity-error"
-                          role="alert"
-                        >
-                          {quantityErrors[item.productId]}
+                      {quantityErrors[itemKey] && (
+                        <p className="quantity-error" role="alert">
+                          {quantityErrors[itemKey]}
                         </p>
                       )}
 
                     </div>
 
                     <div className="item-subtotal">
-
-                      <p className="subtotal-label">
-                        Subtotal
-                      </p>
-
+                      <p className="subtotal-label">Subtotal</p>
                       <p className="subtotal-amount">
                         Rs {formatPrice(item.subtotal)}
                       </p>
-
                     </div>
 
                   </div>
 
                   <button
                     type="button"
-                    onClick={() =>
-                      removeFromCart(item.productId)
-                    }
+                    onClick={() => removeFromCart(itemKey)}
                     className="item-remove"
-                    aria-label={`Remove ${product.name} from cart`}
+                    aria-label={`Remove ${itemName} from cart`}
                   >
                     🗑️
                   </button>
@@ -440,10 +554,7 @@ function CartPage() {
             })}
 
             <div className="cart-actions">
-              <Link
-                to="/"
-                className="btn btn-secondary"
-              >
+              <Link to="/" className="btn btn-secondary">
                 ← Continue Shopping
               </Link>
 
@@ -466,35 +577,29 @@ function CartPage() {
 
               <div className="summary-row">
                 <span>Subtotal</span>
-                <span>
-                  Rs {formatPrice(cartTotal)}
-                </span>
+                <span>Rs {formatPrice(cartTotal)}</span>
               </div>
 
               <div className="summary-row">
                 <span>Delivery</span>
                 <span className="shipping-label">
-                  Calculated at checkout
+                  Calculated after order details
                 </span>
               </div>
 
               <div className="summary-divider"></div>
 
               <div className="summary-total">
-                <span>Total</span>
-                <span>
-                  Rs {formatPrice(cartTotal)}
-                </span>
+                <span>Total before delivery</span>
+                <span>Rs {formatPrice(cartTotal)}</span>
               </div>
 
               <p className="summary-note">
-                Final delivery charges and total will be
-                confirmed at checkout after delivery details
-                are provided.
+                Delivery charges and the final total will be confirmed
+                after your delivery details are provided.
               </p>
 
               <div className="summary-actions">
-
                 <Link
                   to="/checkout"
                   className="btn btn-accent btn-lg btn-block"
@@ -508,17 +613,14 @@ function CartPage() {
                 >
                   Continue Shopping
                 </Link>
-
               </div>
 
             </div>
 
             <div className="promo-card">
-
               <h3>Have a promo code?</h3>
 
               <div className="promo-input-group">
-
                 <input
                   type="text"
                   placeholder="Enter code"
@@ -534,13 +636,11 @@ function CartPage() {
                 >
                   Apply
                 </button>
-
               </div>
 
               <p className="promo-note">
                 Promo codes coming soon
               </p>
-
             </div>
 
           </aside>
