@@ -24,10 +24,12 @@ function HomePage() {
   const [offerError, setOfferError] = useState('');
 
   useEffect(() => {
-    if (location.state?.scrollTo !== 'shop-by-category') return;
+    const targetId = location.state?.scrollTo;
 
-    const scrollToCategories = () => {
-      const section = document.getElementById('shop-by-category');
+    if (!['shop-by-category', 'faq'].includes(targetId)) return;
+
+    const scrollToTarget = () => {
+      const section = document.getElementById(targetId);
 
       if (section) {
         section.scrollIntoView({
@@ -37,7 +39,7 @@ function HomePage() {
       }
     };
 
-    const frame = window.requestAnimationFrame(scrollToCategories);
+    const frame = window.requestAnimationFrame(scrollToTarget);
     return () => window.cancelAnimationFrame(frame);
   }, [location]);
 
