@@ -16,31 +16,11 @@
   box-sizing: border-box;
 }
 
-/* MAIN CONTAINER */
-
 .footer-container {
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 30px 28px 16px;
-}
-
-/* ============================================
-   FOOTER LAYOUT
-   Brand row followed by four equal columns
-   ============================================ */
-
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 32px;
-  row-gap: 22px;
-  width: 100%;
-  align-items: start;
-}
-
-.footer-section {
-  min-width: 0;
+  padding: 28px 28px 16px;
 }
 
 /* ============================================
@@ -48,8 +28,9 @@
    ============================================ */
 
 .footer-brand {
-  grid-column: 1 / -1;
-  padding-bottom: 18px;
+  width: 100%;
+  margin: 0 0 22px;
+  padding: 0 0 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
 
@@ -64,7 +45,7 @@
 .footer-logo-image {
   display: block;
   width: auto;
-  height: 54px;
+  height: 52px;
   max-width: 150px;
   object-fit: contain;
 }
@@ -80,18 +61,37 @@
 .footer-description {
   max-width: 460px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
   line-height: 1.6;
 }
 
 /* ============================================
+   FOUR ALIGNED NAVIGATION COLUMNS
+   ============================================ */
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 28px;
+  row-gap: 22px;
+  width: 100%;
+}
+
+.footer-section {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================
    SECTION HEADINGS
-   Same size, weight and starting position
    ============================================ */
 
 .footer-title {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
+  padding: 0;
   color: #FFFFFF;
   font-size: 14px;
   font-weight: 700;
@@ -100,14 +100,15 @@
 }
 
 /* ============================================
-   NAVIGATION
+   NAVIGATION LINKS
+   Compact, consistent link groups
    ============================================ */
 
 .footer-nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 5px;
   margin: 0;
   padding: 0;
 }
@@ -117,10 +118,10 @@
   max-width: 100%;
   margin: 0;
   padding: 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.8;
   text-decoration: none;
   overflow-wrap: anywhere;
   transition: color 0.2s ease;
@@ -139,13 +140,15 @@
   width: 100%;
   min-width: 0;
   margin: 0;
+  padding: 0;
 }
 
 .footer-contact p {
-  margin: 0 0 8px;
+  margin: 0 0 7px;
+  padding: 0;
   color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.65;
   overflow-wrap: anywhere;
 }
 
@@ -159,7 +162,7 @@
 }
 
 .footer-contact a {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   overflow-wrap: anywhere;
   transition: color 0.2s ease;
@@ -171,14 +174,15 @@
 }
 
 /* ============================================
-   COPYRIGHT AND POLICY LINKS
+   COPYRIGHT AND LEGAL LINKS
+   Separators stay attached to their links
    ============================================ */
 
 .footer-bottom {
   width: 100%;
   margin-top: 24px;
   padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .footer-bottom-content {
@@ -191,22 +195,33 @@
 
 .footer-copyright {
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
+  padding: 0;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 11px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .footer-legal {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px 10px;
+  column-gap: 8px;
+  row-gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-legal-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .footer-legal a {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.76);
   font-size: 11px;
-  line-height: 1.6;
+  line-height: 1.7;
   text-decoration: none;
 }
 
@@ -216,7 +231,7 @@
 }
 
 .footer-legal .separator {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ============================================
@@ -225,20 +240,20 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .footer-container {
-    padding: 28px 24px 16px;
+    padding: 26px 24px 16px;
   }
 
   .footer-content {
-    column-gap: 24px;
-    row-gap: 22px;
+    column-gap: 20px;
   }
 
-  .footer-brand {
-    padding-bottom: 16px;
+  .footer-title {
+    font-size: 13px;
   }
 
-  .footer-logo-image {
-    height: 50px;
+  .footer-nav a,
+  .footer-contact p {
+    font-size: 12px;
   }
 
   .footer-bottom-content {
@@ -248,7 +263,6 @@
 
 /* ============================================
    MOBILE
-   Brand first, then two-column navigation
    ============================================ */
 
 @media (max-width: 767px) {
@@ -256,18 +270,9 @@
     padding: 24px 20px 15px;
   }
 
-  .footer-content {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 24px;
-    row-gap: 24px;
-  }
-
   .footer-brand {
+    margin-bottom: 20px;
     padding-bottom: 15px;
-  }
-
-  .footer-logo {
-    margin-bottom: 7px;
   }
 
   .footer-logo-image {
@@ -285,24 +290,30 @@
     line-height: 1.6;
   }
 
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 22px;
+    row-gap: 24px;
+  }
+
   .footer-title {
-    margin-bottom: 10px;
+    margin-bottom: 9px;
     font-size: 13px;
   }
 
   .footer-nav {
-    gap: 8px;
+    gap: 4px;
   }
 
   .footer-nav a {
     font-size: 12px;
-    line-height: 1.55;
+    line-height: 1.8;
   }
 
   .footer-contact p {
-    margin-bottom: 8px;
+    margin-bottom: 7px;
     font-size: 12px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   .footer-bottom {
@@ -322,7 +333,12 @@
   }
 
   .footer-legal {
-    gap: 6px 8px;
+    column-gap: 6px;
+    row-gap: 4px;
+  }
+
+  .footer-legal-item {
+    gap: 6px;
   }
 }
 
@@ -337,7 +353,7 @@
   }
 
   .footer-content {
-    column-gap: 16px;
+    column-gap: 14px;
     row-gap: 22px;
   }
 
@@ -348,5 +364,13 @@
   .footer-nav a,
   .footer-contact p {
     font-size: 11px;
+  }
+
+  .footer-legal {
+    column-gap: 5px;
+  }
+
+  .footer-legal-item {
+    gap: 5px;
   }
 }
