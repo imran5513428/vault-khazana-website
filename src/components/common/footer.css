@@ -1,4 +1,3 @@
-
 /* ============================================
    VAULT KHAZANA — PREMIUM COMPACT FOOTER
    ============================================ */
@@ -357,4 +356,12 @@
   .footer-legal-item {
     gap: 5px;
   }
+}
+
+/* FIX: PREVENT GLOBAL TOUCH TARGETS FROM
+   CREATING EXCESSIVE SPACING IN THE FOOTER */
+
+.site-footer a {
+  min-height: 0;
+  min-width: 0;
 }
