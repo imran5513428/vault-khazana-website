@@ -1,387 +1,352 @@
+
 /* ============================================
-VAULT KHAZANA — BALANCED FOOTER
-============================================ */
+   VAULT KHAZANA — PREMIUM COMPACT FOOTER
+   ============================================ */
 
 .site-footer {
-width: 100%;
-background: #1F3A5C;
-color: #ffffff;
-box-sizing: border-box;
+  width: 100%;
+  background: #1F3A5C;
+  color: #FFFFFF;
+  box-sizing: border-box;
 }
 
 .site-footer *,
 .site-footer *::before,
 .site-footer *::after {
-box-sizing: border-box;
+  box-sizing: border-box;
 }
+
+/* MAIN CONTAINER */
 
 .footer-container {
-width: 100%;
-max-width: 1240px;
-margin: 0 auto;
-padding: 38px 28px 18px;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 30px 28px 16px;
 }
 
 /* ============================================
-MAIN FOOTER GRID
-Give each section space based on its content
-============================================ */
+   FOOTER LAYOUT
+   Brand row followed by four equal columns
+   ============================================ */
 
 .footer-content {
-display: grid;
-grid-template-columns:
-minmax(0, 1.4fr)
-minmax(0, 0.9fr)
-minmax(0, 1.05fr)
-minmax(0, 0.7fr)
-minmax(0, 1.35fr);
-column-gap: 26px;
-row-gap: 28px;
-align-items: start;
-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 32px;
+  row-gap: 22px;
+  width: 100%;
+  align-items: start;
 }
 
-.footer-section,
-.footer-brand {
-min-width: 0;
+.footer-section {
+  min-width: 0;
 }
 
 /* ============================================
-BRAND
-============================================ */
+   BRAND INTRODUCTION
+   ============================================ */
+
+.footer-brand {
+  grid-column: 1 / -1;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
 
 .footer-logo {
-display: inline-flex;
-align-items: center;
-max-width: 100%;
-margin: 0 0 12px;
-text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 0 7px;
+  text-decoration: none;
 }
 
 .footer-logo-image {
-display: block;
-width: auto;
-height: 64px;
-max-width: 165px;
-object-fit: contain;
+  display: block;
+  width: auto;
+  height: 54px;
+  max-width: 150px;
+  object-fit: contain;
 }
 
 .footer-tagline {
-margin: 0 0 7px;
-color: #ffffff;
-font-size: 15px;
-font-weight: 600;
-line-height: 1.5;
+  margin: 0 0 4px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .footer-description {
-max-width: 300px;
-margin: 0;
-color: rgba(255, 255, 255, 0.82);
-font-size: 14px;
-line-height: 1.65;
+  max-width: 460px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 /* ============================================
-SECTION HEADINGS
-One consistent style and baseline
-============================================ */
+   SECTION HEADINGS
+   Same size, weight and starting position
+   ============================================ */
 
 .footer-title {
-margin: 0 0 15px;
-color: #ffffff;
-font-size: 15px;
-font-weight: 700;
-line-height: 1.5;
-letter-spacing: 0.2px;
+  margin: 0 0 12px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 /* ============================================
-NAVIGATION LINKS
-Consistent spacing and readable line height
-============================================ */
+   NAVIGATION
+   ============================================ */
 
 .footer-nav {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 10px;
-margin: 0;
-padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .footer-nav a {
-display: block;
-max-width: 100%;
-margin: 0;
-padding: 0;
-color: rgba(255, 255, 255, 0.82);
-font-size: 14px;
-font-weight: 400;
-line-height: 1.55;
-text-decoration: none;
-overflow-wrap: anywhere;
-transition: color 0.2s ease;
+  display: block;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
 }
 
 .footer-nav a:hover,
 .footer-nav a:focus-visible {
-color: #E67E22;
+  color: #E67E22;
 }
 
 /* ============================================
-CONTACT DETAILS
-============================================ */
+   CONTACT DETAILS
+   ============================================ */
 
 .footer-contact {
-width: 100%;
-min-width: 0;
-margin: 0;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
 }
 
 .footer-contact p {
-margin: 0 0 11px;
-color: rgba(255, 255, 255, 0.84);
-font-size: 14px;
-line-height: 1.6;
-overflow-wrap: anywhere;
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .footer-contact p:last-child {
-margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .footer-contact strong {
-color: #ffffff;
-font-weight: 600;
+  color: #FFFFFF;
+  font-weight: 600;
 }
 
 .footer-contact a {
-color: #ffffff;
-text-decoration: none;
-overflow-wrap: anywhere;
-transition: color 0.2s ease;
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
 }
 
 .footer-contact a:hover,
 .footer-contact a:focus-visible {
-color: #E67E22;
+  color: #E67E22;
 }
 
 /* ============================================
-FOOTER BOTTOM
-============================================ */
+   COPYRIGHT AND POLICY LINKS
+   ============================================ */
 
 .footer-bottom {
-width: 100%;
-margin-top: 32px;
-padding-top: 17px;
-border-top: 1px solid rgba(255, 255, 255, 0.18);
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .footer-bottom-content {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 16px 24px;
-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  width: 100%;
 }
 
 .footer-copyright {
-margin: 0;
-color: rgba(255, 255, 255, 0.72);
-font-size: 12px;
-line-height: 1.6;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 11px;
+  line-height: 1.6;
 }
 
 .footer-legal {
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-gap: 8px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
 }
 
 .footer-legal a {
-color: rgba(255, 255, 255, 0.8);
-font-size: 12px;
-line-height: 1.6;
-text-decoration: none;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  line-height: 1.6;
+  text-decoration: none;
 }
 
 .footer-legal a:hover,
 .footer-legal a:focus-visible {
-color: #E67E22;
+  color: #E67E22;
 }
 
 .footer-legal .separator {
-color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* ============================================
-TABLET
-Brand on top, remaining sections in two columns
-============================================ */
+   TABLET
+   ============================================ */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-.footer-container {
-padding: 32px 26px 18px;
-}
+  .footer-container {
+    padding: 28px 24px 16px;
+  }
 
-.footer-content {
-grid-template-columns: repeat(2, minmax(0, 1fr));
-column-gap: 36px;
-row-gap: 30px;
-}
+  .footer-content {
+    column-gap: 24px;
+    row-gap: 22px;
+  }
 
-.footer-brand {
-grid-column: 1 / -1;
-}
+  .footer-brand {
+    padding-bottom: 16px;
+  }
 
-.footer-description {
-max-width: 420px;
-}
+  .footer-logo-image {
+    height: 50px;
+  }
 
-.footer-logo-image {
-height: 62px;
-}
-
-.footer-title {
-margin-bottom: 12px;
-}
-
-.footer-bottom-content {
-align-items: flex-start;
-}
+  .footer-bottom-content {
+    align-items: flex-start;
+  }
 }
 
 /* ============================================
-MOBILE
-Brand first, then evenly spaced section pairs
-============================================ */
+   MOBILE
+   Brand first, then two-column navigation
+   ============================================ */
 
 @media (max-width: 767px) {
-.footer-container {
-padding: 28px 20px 16px;
-}
+  .footer-container {
+    padding: 24px 20px 15px;
+  }
 
-.footer-content {
-grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-column-gap: 22px;
-row-gap: 26px;
-}
+  .footer-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 24px;
+  }
 
-.footer-brand {
-grid-column: 1 / -1;
-}
+  .footer-brand {
+    padding-bottom: 15px;
+  }
 
-.footer-logo {
-margin-bottom: 9px;
-}
+  .footer-logo {
+    margin-bottom: 7px;
+  }
 
-.footer-logo-image {
-height: 60px;
-max-width: 145px;
-}
+  .footer-logo-image {
+    height: 48px;
+    max-width: 140px;
+  }
 
-.footer-tagline {
-font-size: 14px;
-margin-bottom: 6px;
-}
+  .footer-tagline {
+    font-size: 13px;
+  }
 
-.footer-description {
-max-width: 100%;
-font-size: 13px;
-line-height: 1.65;
-}
+  .footer-description {
+    max-width: 100%;
+    font-size: 12px;
+    line-height: 1.6;
+  }
 
-.footer-title {
-margin-bottom: 11px;
-font-size: 14px;
-line-height: 1.5;
-}
+  .footer-title {
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
 
-.footer-nav {
-gap: 9px;
-}
+  .footer-nav {
+    gap: 8px;
+  }
 
-.footer-nav a {
-font-size: 13px;
-line-height: 1.55;
-}
+  .footer-nav a {
+    font-size: 12px;
+    line-height: 1.55;
+  }
 
-.footer-contact p {
-margin-bottom: 9px;
-font-size: 13px;
-line-height: 1.55;
-}
+  .footer-contact p {
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
 
-.footer-bottom {
-margin-top: 26px;
-padding-top: 15px;
-}
+  .footer-bottom {
+    margin-top: 22px;
+    padding-top: 13px;
+  }
 
-.footer-bottom-content {
-flex-direction: column;
-align-items: flex-start;
-gap: 10px;
-}
+  .footer-bottom-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+  }
 
-.footer-copyright {
-font-size: 12px;
-}
+  .footer-copyright,
+  .footer-legal a {
+    font-size: 11px;
+  }
 
-.footer-legal {
-gap: 7px 9px;
-}
-
-.footer-legal a {
-font-size: 12px;
-}
+  .footer-legal {
+    gap: 6px 8px;
+  }
 }
 
 /* ============================================
-VERY NARROW PHONES
-============================================ */
+   VERY NARROW PHONES
+   ============================================ */
 
 @media (max-width: 359px) {
-.footer-container {
-padding-right: 15px;
-padding-left: 15px;
-}
+  .footer-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 
-.footer-content {
-column-gap: 14px;
-row-gap: 23px;
-}
+  .footer-content {
+    column-gap: 16px;
+    row-gap: 22px;
+  }
 
-.footer-title {
-font-size: 13px;
-}
+  .footer-title {
+    font-size: 12px;
+  }
 
-.footer-nav a,
-.footer-contact p {
-font-size: 12px;
-}
-
-.footer-legal {
-gap: 6px;
-}
-}
-
-/* ============================================
-DESKTOP REFINEMENT
-============================================ */
-
-@media (min-width: 1024px) {
-.footer-content {
-column-gap: 24px;
-}
-
-.footer-brand {
-padding-right: 4px;
-}
-
-.footer-title {
-margin-bottom: 15px;
-}
+  .footer-nav a,
+  .footer-contact p {
+    font-size: 11px;
+  }
 }
