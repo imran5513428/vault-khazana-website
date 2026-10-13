@@ -23,9 +23,7 @@
   padding: 28px 28px 16px;
 }
 
-/* ============================================
-   BRAND INTRODUCTION
-   ============================================ */
+/* BRAND INTRODUCTION */
 
 .footer-brand {
   width: 100%;
@@ -66,9 +64,7 @@
   line-height: 1.6;
 }
 
-/* ============================================
-   FOUR ALIGNED NAVIGATION COLUMNS
-   ============================================ */
+/* FOUR NAVIGATION COLUMNS */
 
 .footer-content {
   display: grid;
@@ -85,9 +81,7 @@
   padding: 0;
 }
 
-/* ============================================
-   SECTION HEADINGS
-   ============================================ */
+/* CONSISTENT HEADINGS */
 
 .footer-title {
   margin: 0 0 10px;
@@ -99,16 +93,13 @@
   letter-spacing: 0.2px;
 }
 
-/* ============================================
-   NAVIGATION LINKS
-   Compact, consistent link groups
-   ============================================ */
+/* COMPACT, EVEN LINK SPACING */
 
 .footer-nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 5px;
+  gap: 2px;
   margin: 0;
   padding: 0;
 }
@@ -117,11 +108,11 @@
   display: block;
   max-width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 2px 0;
   color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
   font-weight: 400;
-  line-height: 1.8;
+  line-height: 1.65;
   text-decoration: none;
   overflow-wrap: anywhere;
   transition: color 0.2s ease;
@@ -132,11 +123,12 @@
   color: #E67E22;
 }
 
-/* ============================================
-   CONTACT DETAILS
-   ============================================ */
+/* CONTACT — MATCH NAVIGATION RHYTHM */
 
 .footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   width: 100%;
   min-width: 0;
   margin: 0;
@@ -144,16 +136,12 @@
 }
 
 .footer-contact p {
-  margin: 0 0 7px;
-  padding: 0;
+  margin: 0;
+  padding: 2px 0;
   color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
   line-height: 1.65;
   overflow-wrap: anywhere;
-}
-
-.footer-contact p:last-child {
-  margin-bottom: 0;
 }
 
 .footer-contact strong {
@@ -173,10 +161,7 @@
   color: #E67E22;
 }
 
-/* ============================================
-   COPYRIGHT AND LEGAL LINKS
-   Separators stay attached to their links
-   ============================================ */
+/* COPYRIGHT AND LEGAL LINKS */
 
 .footer-bottom {
   width: 100%;
@@ -234,9 +219,7 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* ============================================
-   TABLET
-   ============================================ */
+/* TABLET */
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .footer-container {
@@ -261,9 +244,7 @@
   }
 }
 
-/* ============================================
-   MOBILE
-   ============================================ */
+/* MOBILE */
 
 @media (max-width: 767px) {
   .footer-container {
@@ -302,18 +283,23 @@
   }
 
   .footer-nav {
-    gap: 4px;
+    gap: 2px;
   }
 
   .footer-nav a {
+    padding: 2px 0;
     font-size: 12px;
-    line-height: 1.8;
+    line-height: 1.65;
+  }
+
+  .footer-contact {
+    gap: 2px;
   }
 
   .footer-contact p {
-    margin-bottom: 7px;
+    padding: 2px 0;
     font-size: 12px;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   .footer-bottom {
@@ -342,9 +328,7 @@
   }
 }
 
-/* ============================================
-   VERY NARROW PHONES
-   ============================================ */
+/* VERY NARROW PHONES */
 
 @media (max-width: 359px) {
   .footer-container {
