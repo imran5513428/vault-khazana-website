@@ -1,15 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PRODUCTS } from '../data/products';
 import './about-us.css';
 
 function AboutUsPage() {
-  const productExamples = PRODUCTS.filter(
-    (product) =>
-      ['food-containers', 'cups-drinkware'].includes(product.categoryId) &&
-      product.images?.[0]
-  ).slice(0, 2);
-
   const whatsappMessage = encodeURIComponent(
     'Hello VAULT KHAZANA, I would like to discuss custom packaging and branding options for my business.'
   );
@@ -67,24 +60,19 @@ function AboutUsPage() {
             </Link>
           </div>
 
-          {productExamples.length > 0 && (
-            <div className="about-product-images">
-              {productExamples.map((product) => (
-                <Link
-                  to={`/product/${product.id}`}
-                  className="about-product-card"
-                  key={product.id}
-                >
-                  <img
-                    src={heroImage}
-                    alt="VAULT KHAZANA packaging and food-service supplies"
-                    loading="lazy"
-                  />
-                  <span>{product.name}</span>
-                </Link>
-              ))}
-            </div>
-          )}
+          <Link
+            to="/"
+            state={{ scrollTo: 'shop-by-category' }}
+            className="about-branding-visual about-supplies-hero-visual"
+            style={{ order: 2 }}
+            aria-label="Explore packaging and food-service products by category"
+          >
+            <img
+              src={heroImage}
+              alt="VAULT KHAZANA packaging and food-service supplies"
+              loading="lazy"
+            />
+          </Link>
         </div>
       </section>
 
