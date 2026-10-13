@@ -69,7 +69,8 @@ const processSteps = [
 ];
 
 function BusinessSolutionsPage() {
-  const [activeImage, setActiveImage] = useState(0);
+  // Image 22 is bs-02.jpg. Array positions start at zero, so use index 21.
+  const [activeImage, setActiveImage] = useState(21);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
 
@@ -198,7 +199,6 @@ function BusinessSolutionsPage() {
         </div>
       </section>
 
-
       {/* REAL WORK GALLERY */}
       <section
         className="bs-work section"
@@ -223,7 +223,6 @@ function BusinessSolutionsPage() {
               you could put on your own packaging.
             </p>
           </div>
-
 
           <div className="bs-gallery">
 
@@ -251,7 +250,6 @@ function BusinessSolutionsPage() {
               </div>
             </div>
 
-
             <div className="bs-gallery-controls">
 
               <button
@@ -275,7 +273,6 @@ function BusinessSolutionsPage() {
               </span>
 
             </div>
-
 
             <div
               className="bs-gallery-strip"
@@ -308,7 +305,6 @@ function BusinessSolutionsPage() {
         </div>
       </section>
 
-
       {/* CAPABILITIES */}
       <section className="bs-capabilities section">
         <div className="container">
@@ -333,7 +329,6 @@ function BusinessSolutionsPage() {
 
           </div>
 
-
           <div className="bs-capability-grid">
 
             {capabilities.map(
@@ -357,7 +352,6 @@ function BusinessSolutionsPage() {
 
         </div>
       </section>
-
 
       {/* PACKAGING + BRANDING */}
       <section className="bs-proof section">
@@ -391,7 +385,6 @@ function BusinessSolutionsPage() {
 
             </div>
 
-
             <div className="bs-proof-points">
 
               <div>
@@ -407,7 +400,6 @@ function BusinessSolutionsPage() {
                 </p>
               </div>
 
-
               <div>
                 <span>02</span>
 
@@ -420,7 +412,6 @@ function BusinessSolutionsPage() {
                   a branded touchpoint.
                 </p>
               </div>
-
 
               <div>
                 <span>03</span>
@@ -441,7 +432,6 @@ function BusinessSolutionsPage() {
 
         </div>
       </section>
-
 
       {/* PROCESS */}
       <section className="bs-process section">
@@ -465,7 +455,6 @@ function BusinessSolutionsPage() {
               </p>
 
             </div>
-
 
             <div className="bs-process-list">
 
@@ -492,7 +481,6 @@ function BusinessSolutionsPage() {
 
         </div>
       </section>
-
 
       {/* FINAL CTA */}
       <section className="bs-cta section">
