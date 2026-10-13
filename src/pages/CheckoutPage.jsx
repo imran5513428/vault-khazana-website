@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
@@ -95,6 +95,12 @@ function CheckoutPage() {
   const [orderReference, setOrderReference] = useState('');
   const [submittedBusinessOffer, setSubmittedBusinessOffer] =
     useState(false);
+
+  useEffect(() => {
+    if (orderReference) {
+      window.scrollTo(0, 0);
+    }
+  }, [orderReference]);
 
   const cartItems = items
     .map((item) => {
