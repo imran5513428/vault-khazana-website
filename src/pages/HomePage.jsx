@@ -119,8 +119,8 @@ function HomePage() {
       displayName: `${model} Aluminium Container with Lid`,
       quantity: 1,
       unitPrice: price,
-      sellingUnit: 'carton',
       priceBasis: 'per carton of 1,000 pieces',
+      sellingUnit: 'carton',
       offerType: 'business',
       image: product.images?.[0] || '',
       moq: 1,
@@ -150,6 +150,11 @@ function HomePage() {
                 <p className="hero-description">
                   Shop everyday food-service packaging or create custom
                   packaging for your business.
+                </p>
+
+                <p className="hero-delivery-notice">
+                  <strong>Local delivery:</strong> Islamabad and Rawalpindi
+                  only. We’ll confirm the delivery charge before dispatch.
                 </p>
 
                 <div className="hero-actions">
@@ -460,8 +465,8 @@ function HomePage() {
                   <path d="M31 20v8h12" />
                 </svg>
               </div>
-              <h3>Nationwide Delivery</h3>
-              <p>Reliable shipping to locations across Pakistan.</p>
+              <h3>Local Delivery</h3>
+              <p>Delivery currently available in Islamabad and Rawalpindi.</p>
             </div>
 
             <div className="benefit-card">
