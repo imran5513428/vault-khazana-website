@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
@@ -9,35 +10,36 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-container">
 
+        {/* BRAND INTRODUCTION */}
+        <div className="footer-brand">
+          <Link
+            to="/"
+            className="footer-logo"
+            aria-label="VAULT KHAZANA Home"
+          >
+            <img
+              className="footer-logo-image"
+              src={`${import.meta.env.BASE_URL}images/vault-khazana-logo-light.png`}
+              alt="VAULT KHAZANA"
+            />
+          </Link>
+
+          <p className="footer-tagline">
+            Packaging &amp; Food-Service Supplies
+          </p>
+
+          <p className="footer-description">
+            From everyday food-service packaging to custom packaging solutions for your business.
+          </p>
+        </div>
+
+        {/* FOOTER NAVIGATION COLUMNS */}
         <div className="footer-content">
-
-          {/* BRAND */}
-          <div className="footer-section footer-brand">
-            <Link
-              to="/"
-              className="footer-logo"
-              aria-label="VAULT KHAZANA Home"
-            >
-              <img
-                className="footer-logo-image"
-                src={`${import.meta.env.BASE_URL}images/vault-khazana-logo-light.png`}
-                alt="VAULT KHAZANA"
-              />
-            </Link>
-
-            <p className="footer-tagline">
-              Packaging &amp; Food-Service Supplies
-            </p>
-
-            <p className="footer-description">
-              From everyday food-service packaging to custom packaging solutions for your business.
-            </p>
-          </div>
 
           {/* COMPANY */}
           <div className="footer-section">
             <h4 className="footer-title">Company</h4>
-            <nav className="footer-nav">
+            <nav className="footer-nav" aria-label="Company">
               <Link to="/about-us">About Us</Link>
               <Link to="/">Contact</Link>
               <Link to="/" state={{ scrollTo: 'faq' }}>FAQ</Link>
@@ -48,7 +50,7 @@ function Footer() {
           {/* BUSINESS */}
           <div className="footer-section">
             <h4 className="footer-title">Business</h4>
-            <nav className="footer-nav">
+            <nav className="footer-nav" aria-label="Business">
               <Link to="/business-solutions">
                 Business Solutions
               </Link>
@@ -64,7 +66,7 @@ function Footer() {
           {/* SHOP */}
           <div className="footer-section">
             <h4 className="footer-title">Shop</h4>
-            <nav className="footer-nav">
+            <nav className="footer-nav" aria-label="Shop">
               <Link
                 to="/"
                 state={{ scrollTo: 'home-hero' }}
@@ -76,6 +78,18 @@ function Footer() {
                 state={{ scrollTo: 'shop-by-category' }}
               >
                 All Products
+              </Link>
+              <Link to="/category/food-containers">
+                Food Containers
+              </Link>
+              <Link to="/category/cups-drinkware">
+                Cups &amp; Drinkware
+              </Link>
+              <Link to="/category/bags">
+                Bags
+              </Link>
+              <Link to="/category/foil-wrap">
+                Foil &amp; Wrap
               </Link>
             </nav>
           </div>
@@ -108,20 +122,28 @@ function Footer() {
 
         </div>
 
-        {/* FOOTER BOTTOM */}
+        {/* COPYRIGHT AND LEGAL LINKS */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="footer-copyright">
               © {currentYear} VAULT KHAZANA. All rights reserved.
             </p>
 
-            <div className="footer-legal">
-              <Link to="/">Privacy Policy</Link>
-              <span className="separator">•</span>
-              <Link to="/">Terms of Service</Link>
-              <span className="separator">•</span>
-              <Link to="/">Shipping Policy</Link>
-            </div>
+            <nav className="footer-legal" aria-label="Legal information">
+              <span className="footer-legal-item">
+                <Link to="/">Privacy Policy</Link>
+                <span className="separator" aria-hidden="true">·</span>
+              </span>
+
+              <span className="footer-legal-item">
+                <Link to="/">Terms of Service</Link>
+                <span className="separator" aria-hidden="true">·</span>
+              </span>
+
+              <span className="footer-legal-item">
+                <Link to="/">Shipping Policy</Link>
+              </span>
+            </nav>
           </div>
         </div>
 
