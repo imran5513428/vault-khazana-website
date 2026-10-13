@@ -37,12 +37,12 @@ letter-spacing: 0.35px;
 white-space: nowrap;
 opacity: 0;
 transform: translate(100vw, -50%);
-animation: vk-delivery-message 20s linear infinite;
+animation: vk-delivery-message 18s linear infinite;
 will-change: transform, opacity;
 }
 
 .delivery-announcement__message--second {
-animation-delay: 10s;
+animation-delay: 8.1s;
 }
 
 @keyframes vk-delivery-message {
@@ -51,9 +51,10 @@ opacity: 1;
 transform: translate(100vw, -50%);
 }
 
+/* Start moving immediately instead of waiting off-screen */
 5% {
 opacity: 1;
-transform: translate(100vw, -50%);
+transform: translate(80vw, -50%);
 }
 
 20% {
@@ -61,19 +62,23 @@ opacity: 1;
 transform: translate(calc(50vw - 50%), -50%);
 }
 
-/* Pause in the centre so visitors can read the message */
+/* Give visitors time to read the message */
 35% {
 opacity: 1;
 transform: translate(calc(50vw - 50%), -50%);
 }
 
-/* Keep moving out until the next message appears */
 45% {
 opacity: 1;
 transform: translate(-66%, -50%);
 }
 
 50% {
+opacity: 1;
+transform: translate(-100%, -50%);
+}
+
+55% {
 opacity: 0;
 transform: translate(-100%, -50%);
 }
@@ -84,7 +89,7 @@ transform: translate(-100%, -50%);
 }
 }
 
-/* Keep the announcement compact on mobile */
+/* Mobile sizing */
 @media (max-width: 767px) {
 .delivery-announcement {
 height: 42px;
@@ -97,7 +102,7 @@ letter-spacing: 0.15px;
 }
 }
 
-/* Screen-reader text: don't announce animated text repeatedly */
+/* Accessible text for screen readers */
 .delivery-announcement__accessible {
 position: absolute;
 width: 1px;
@@ -139,7 +144,7 @@ white-space: normal;
 }
 }
 
-/* Keep the delivery notice out of the hero; it now has its own banner */
+/* Keep the delivery notice out of the hero */
 .home-page .hero-delivery-notice {
 display: none !important;
 }
