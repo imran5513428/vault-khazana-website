@@ -1,0 +1,67 @@
+/* VAULT KHAZANA — Local Delivery Scrolling Banner */
+
+/* Keep the scrolling banner inside the page width */
+.home-page {
+overflow-x: clip;
+}
+
+/* Continuous announcement above the hero */
+.home-page::before {
+content: "LOCAL DELIVERY ONLY — ISLAMABAD & RAWALPINDI  |  DELIVERY CHARGES CONFIRMED BEFORE DISPATCH     •     LOCAL DELIVERY ONLY — ISLAMABAD & RAWALPINDI  |  DELIVERY CHARGES CONFIRMED BEFORE DISPATCH     •     ";
+display: block;
+width: max-content;
+box-sizing: border-box;
+padding: 11px 20px;
+background: #1F3A5C;
+border-bottom: 3px solid #E67E22;
+color: #FFFFFF;
+font-family: inherit;
+font-size: 13px;
+font-weight: 700;
+line-height: 1.5;
+letter-spacing: 0.45px;
+white-space: nowrap;
+transform: translateX(-50%);
+animation: vk-delivery-scroll-right 26s linear infinite;
+will-change: transform;
+}
+
+/* Move continuously from left to right */
+@keyframes vk-delivery-scroll-right {
+from {
+transform: translateX(-50%);
+}
+
+to {
+transform: translateX(0);
+}
+}
+
+/* The delivery message belongs in the top banner, not inside the hero */
+.home-page .hero-delivery-notice {
+display: none !important;
+}
+
+/* Keep the banner readable on smaller screens */
+@media (max-width: 767px) {
+.home-page::before {
+padding: 10px 16px;
+font-size: 12px;
+letter-spacing: 0.25px;
+animation-duration: 23s;
+}
+}
+
+/* Respect visitors who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+.home-page::before {
+content: "LOCAL DELIVERY ONLY — ISLAMABAD & RAWALPINDI | DELIVERY CHARGES CONFIRMED BEFORE DISPATCH";
+width: 100%;
+padding: 12px 16px;
+text-align: center;
+white-space: normal;
+transform: none;
+animation: none;
+will-change: auto;
+}
+}
