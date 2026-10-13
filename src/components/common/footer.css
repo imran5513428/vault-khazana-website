@@ -1,132 +1,136 @@
 /* ============================================
-VAULT KHAZANA - FOOTER
+VAULT KHAZANA — BALANCED FOOTER
 ============================================ */
 
 .site-footer {
 width: 100%;
-max-width: 100%;
 background: #1F3A5C;
 color: #ffffff;
 box-sizing: border-box;
 }
 
+.site-footer *,
+.site-footer *::before,
+.site-footer *::after {
+box-sizing: border-box;
+}
+
 .footer-container {
 width: 100%;
-max-width: 1200px;
+max-width: 1240px;
 margin: 0 auto;
-padding: 36px 20px 18px;
-box-sizing: border-box;
+padding: 38px 28px 18px;
 }
+
+/* ============================================
+MAIN FOOTER GRID
+Give each section space based on its content
+============================================ */
 
 .footer-content {
-width: 100%;
-min-width: 0;
 display: grid;
-grid-template-columns: 1.5fr 1fr 1fr 1fr 1.25fr;
-gap: 26px;
-box-sizing: border-box;
+grid-template-columns:
+minmax(0, 1.4fr)
+minmax(0, 0.9fr)
+minmax(0, 1.05fr)
+minmax(0, 0.7fr)
+minmax(0, 1.35fr);
+column-gap: 26px;
+row-gap: 28px;
+align-items: start;
+width: 100%;
 }
 
-.footer-section {
-min-width: 0;
-}
-
+.footer-section,
 .footer-brand {
 min-width: 0;
 }
 
 /* ============================================
-LOGO
+BRAND
 ============================================ */
 
 .footer-logo {
-display: flex;
+display: inline-flex;
 align-items: center;
-width: fit-content;
 max-width: 100%;
-min-width: 0;
-min-height: 0;
+margin: 0 0 12px;
 text-decoration: none;
-overflow: hidden;
-margin-bottom: 10px;
 }
 
 .footer-logo-image {
 display: block;
 width: auto;
-height: 72px;
-max-width: 110px;
-flex: 0 0 auto;
+height: 64px;
+max-width: 165px;
 object-fit: contain;
 }
 
-/* ============================================
-TEXT
-============================================ */
-
 .footer-tagline {
-margin: 0 0 6px;
+margin: 0 0 7px;
 color: #ffffff;
 font-size: 15px;
 font-weight: 600;
-line-height: 1.45;
+line-height: 1.5;
 }
 
 .footer-description {
+max-width: 300px;
 margin: 0;
-max-width: 320px;
-color: #ffffff;
+color: rgba(255, 255, 255, 0.82);
 font-size: 14px;
-line-height: 1.6;
-opacity: 0.85;
+line-height: 1.65;
 }
 
 /* ============================================
-HEADINGS
+SECTION HEADINGS
+One consistent style and baseline
 ============================================ */
 
 .footer-title {
-margin: 0 0 10px;
+margin: 0 0 15px;
 color: #ffffff;
-font-size: 16px;
+font-size: 15px;
 font-weight: 700;
-line-height: 1.4;
+line-height: 1.5;
+letter-spacing: 0.2px;
 }
 
 /* ============================================
-NAVIGATION
+NAVIGATION LINKS
+Consistent spacing and readable line height
 ============================================ */
 
 .footer-nav {
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-gap: 6px;
+gap: 10px;
 margin: 0;
 padding: 0;
 }
 
 .footer-nav a {
 display: block;
-width: fit-content;
 max-width: 100%;
-min-width: 0;
-min-height: 0;
+margin: 0;
 padding: 0;
-color: #ffffff;
-text-decoration: none;
+color: rgba(255, 255, 255, 0.82);
 font-size: 14px;
-line-height: 1.45;
-opacity: 0.85;
-transition: opacity 0.2s ease;
+font-weight: 400;
+line-height: 1.55;
+text-decoration: none;
+overflow-wrap: anywhere;
+transition: color 0.2s ease;
 }
 
-.footer-nav a:hover {
-opacity: 1;
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+color: #E67E22;
 }
 
 /* ============================================
-CONTACT
+CONTACT DETAILS
 ============================================ */
 
 .footer-contact {
@@ -136,25 +140,32 @@ margin: 0;
 }
 
 .footer-contact p {
-margin: 0 0 7px;
-color: #ffffff;
+margin: 0 0 11px;
+color: rgba(255, 255, 255, 0.84);
 font-size: 14px;
-line-height: 1.5;
-opacity: 0.85;
+line-height: 1.6;
+overflow-wrap: anywhere;
 }
 
 .footer-contact p:last-child {
 margin-bottom: 0;
 }
 
+.footer-contact strong {
+color: #ffffff;
+font-weight: 600;
+}
+
 .footer-contact a {
 color: #ffffff;
-min-width: 0;
-min-height: 0;
-padding: 0;
 text-decoration: none;
-word-break: normal;
-overflow-wrap: normal;
+overflow-wrap: anywhere;
+transition: color 0.2s ease;
+}
+
+.footer-contact a:hover,
+.footer-contact a:focus-visible {
+color: #E67E22;
 }
 
 /* ============================================
@@ -163,204 +174,168 @@ FOOTER BOTTOM
 
 .footer-bottom {
 width: 100%;
-margin-top: 28px;
-padding-top: 16px;
+margin-top: 32px;
+padding-top: 17px;
 border-top: 1px solid rgba(255, 255, 255, 0.18);
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 18px;
-box-sizing: border-box;
 }
 
 .footer-bottom-content {
-width: 100%;
 display: flex;
 align-items: center;
 justify-content: space-between;
-gap: 18px;
+gap: 16px 24px;
+width: 100%;
 }
 
 .footer-copyright {
 margin: 0;
-color: #ffffff;
-font-size: 13px;
-opacity: 0.75;
+color: rgba(255, 255, 255, 0.72);
+font-size: 12px;
+line-height: 1.6;
 }
 
 .footer-legal {
 display: flex;
 flex-wrap: wrap;
-gap: 14px;
+align-items: center;
+gap: 8px 12px;
 }
 
 .footer-legal a {
-color: #ffffff;
-font-size: 13px;
-min-width: 0;
-min-height: 0;
-padding: 0;
+color: rgba(255, 255, 255, 0.8);
+font-size: 12px;
+line-height: 1.6;
+text-decoration: none;
+}
+
+.footer-legal a:hover,
+.footer-legal a:focus-visible {
+color: #E67E22;
+}
+
+.footer-legal .separator {
+color: rgba(255, 255, 255, 0.45);
 }
 
 /* ============================================
-MOBILE — BALANCED LAYOUT
+TABLET
+Brand on top, remaining sections in two columns
 ============================================ */
 
-@media (max-width: 767px) {
-
+@media (min-width: 768px) and (max-width: 1023px) {
 .footer-container {
-padding: 24px 16px 16px;
+padding: 32px 26px 18px;
 }
 
-/*
-Use two flexible columns.
-The second column is slightly wider so
-Contact information has enough room.
-*/
 .footer-content {
-width: 100%;
-grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-gap: 20px 18px;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+column-gap: 36px;
+row-gap: 30px;
 }
-
-/* ==========================================
-BRAND
-========================================== */
 
 .footer-brand {
 grid-column: 1 / -1;
-display: block;
-width: 100%;
-min-width: 0;
 }
 
-.footer-section {
-width: 100%;
-min-width: 0;
-}
-
-/*
-All four lower sections stretch naturally,
-keeping the two columns visually balanced.
-*/
-.footer-section:nth-child(2),
-.footer-section:nth-child(3),
-.footer-section:nth-child(4),
-.footer-section:nth-child(5) {
-align-self: stretch;
-}
-
-/* ==========================================
-MOBILE LOGO
-========================================== */
-
-.footer-logo {
-width: 110px;
-max-width: 110px;
-min-height: 0;
-margin-bottom: 8px;
+.footer-description {
+max-width: 420px;
 }
 
 .footer-logo-image {
-height: 72px;
-max-width: 110px;
+height: 62px;
 }
 
-/* ==========================================
-MOBILE TEXT
-========================================== */
+.footer-title {
+margin-bottom: 12px;
+}
+
+.footer-bottom-content {
+align-items: flex-start;
+}
+}
+
+/* ============================================
+MOBILE
+Brand first, then evenly spaced section pairs
+============================================ */
+
+@media (max-width: 767px) {
+.footer-container {
+padding: 28px 20px 16px;
+}
+
+.footer-content {
+grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+column-gap: 22px;
+row-gap: 26px;
+}
+
+.footer-brand {
+grid-column: 1 / -1;
+}
+
+.footer-logo {
+margin-bottom: 9px;
+}
+
+.footer-logo-image {
+height: 60px;
+max-width: 145px;
+}
 
 .footer-tagline {
-margin-bottom: 5px;
+font-size: 14px;
+margin-bottom: 6px;
 }
 
 .footer-description {
 max-width: 100%;
-line-height: 1.55;
+font-size: 13px;
+line-height: 1.65;
 }
 
 .footer-title {
-margin-bottom: 8px;
+margin-bottom: 11px;
+font-size: 14px;
+line-height: 1.5;
 }
 
-/* ==========================================
-MOBILE NAVIGATION
-========================================== */
-
 .footer-nav {
-gap: 5px;
+gap: 9px;
 }
 
 .footer-nav a {
-font-size: 14px;
-line-height: 1.4;
-min-width: 0;
-min-height: 0;
-padding: 0;
-}
-
-/* ==========================================
-MOBILE CONTACT
-========================================== */
-
-.footer-contact {
-width: 100%;
-min-width: 0;
-margin: 0;
+font-size: 13px;
+line-height: 1.55;
 }
 
 .footer-contact p {
-margin-bottom: 6px;
-line-height: 1.45;
-white-space: normal;
+margin-bottom: 9px;
+font-size: 13px;
+line-height: 1.55;
 }
-
-.footer-contact a {
-display: inline;
-white-space: nowrap;
-word-break: keep-all;
-overflow-wrap: normal;
-}
-
-/*
-Prevent the entire footer from clipping the
-contact information on narrow screens.
-*/
-.footer-contact p {
-max-width: 100%;
-}
-
-/* ==========================================
-MOBILE BOTTOM
-========================================== */
 
 .footer-bottom {
-margin-top: 22px;
-padding-top: 14px;
-flex-direction: column;
-align-items: flex-start;
-gap: 9px;
+margin-top: 26px;
+padding-top: 15px;
 }
 
 .footer-bottom-content {
 flex-direction: column;
 align-items: flex-start;
-justify-content: flex-start;
-gap: 9px;
+gap: 10px;
 }
 
 .footer-copyright {
-line-height: 1.45;
+font-size: 12px;
 }
 
 .footer-legal {
-gap: 9px;
+gap: 7px 9px;
 }
 
 .footer-legal a {
-min-width: 0;
-min-height: 0;
-padding: 0;
+font-size: 12px;
 }
 }
 
@@ -369,96 +344,44 @@ VERY NARROW PHONES
 ============================================ */
 
 @media (max-width: 359px) {
-
 .footer-container {
-padding-left: 14px;
-padding-right: 14px;
+padding-right: 15px;
+padding-left: 15px;
 }
 
 .footer-content {
-grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 column-gap: 14px;
+row-gap: 23px;
 }
 
-.footer-contact {
+.footer-title {
 font-size: 13px;
 }
 
+.footer-nav a,
 .footer-contact p {
-font-size: 13px;
+font-size: 12px;
 }
 
-.footer-contact a {
-font-size: 13px;
-}
-}
-
-/* ============================================
-TABLET — 2 COLUMNS
-============================================ */
-
-@media (min-width: 768px) and (max-width: 1023px) {
-
-.footer-content {
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 28px;
-}
-
-.footer-brand {
-grid-column: 1 / -1;
-}
-
-.footer-logo {
-width: 160px;
-max-width: 160px;
-}
-
-.footer-logo-image {
-height: 62px;
-max-width: 160px;
-}
-
-.footer-contact {
-width: 100%;
-}
-
-.footer-contact a {
-white-space: nowrap;
+.footer-legal {
+gap: 6px;
 }
 }
 
 /* ============================================
-DESKTOP — 5 BALANCED COLUMNS
+DESKTOP REFINEMENT
 ============================================ */
 
 @media (min-width: 1024px) {
-
-.footer-container {
-padding-left: 30px;
-padding-right: 30px;
-}
-
 .footer-content {
-grid-template-columns: 1.5fr 1fr 1fr 1fr 1.25fr;
-gap: 28px;
+column-gap: 24px;
 }
 
-.footer-logo {
-width: 165px;
-max-width: 165px;
+.footer-brand {
+padding-right: 4px;
 }
 
-.footer-logo-image {
-height: 64px;
-max-width: 165px;
-}
-
-.footer-contact {
-width: max-content;
-max-width: 100%;
-}
-
-.footer-contact a {
-white-space: nowrap;
+.footer-title {
+margin-bottom: 15px;
 }
 }
