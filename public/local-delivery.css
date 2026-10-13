@@ -36,7 +36,7 @@ line-height: 1.4;
 letter-spacing: 0.35px;
 white-space: nowrap;
 opacity: 0;
-transform: translate(100vw, -50%);
+transform: translate(80vw, -50%);
 animation: vk-delivery-message 18s linear infinite;
 will-change: transform, opacity;
 }
@@ -46,15 +46,15 @@ animation-delay: 8.1s;
 }
 
 @keyframes vk-delivery-message {
-/* Begin entering at the right edge, including after the loop resets */
+/* Enter from the right already partly visible */
 0% {
 opacity: 1;
-transform: translate(calc(100vw - 16px), -50%);
+transform: translate(80vw, -50%);
 }
 
 5% {
 opacity: 1;
-transform: translate(80vw, -50%);
+transform: translate(70vw, -50%);
 }
 
 20% {
@@ -62,7 +62,7 @@ opacity: 1;
 transform: translate(calc(50vw - 50%), -50%);
 }
 
-/* Pause briefly in the centre for readability */
+/* Pause in the centre for readability */
 35% {
 opacity: 1;
 transform: translate(calc(50vw - 50%), -50%);
