@@ -166,8 +166,8 @@ function CheckoutPage() {
       .trim();
 
     if (!['rawalpindi', 'islamabad'].includes(normalizedCity)) {
-      setError(
-        'At the moment, we deliver only in Islamabad and Rawalpindi.'
+      window.alert(
+        'Delivery Not Available\n\nWe currently deliver only in Islamabad and Rawalpindi. Please check your delivery city.'
       );
       return;
     }
