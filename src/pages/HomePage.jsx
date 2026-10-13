@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import useCartStore from '../store/cartStore';
+import FAQSection from '../common-components/FAQSection';
 import './pages.css';
 import './good-finds.css';
 import '../styles/home-hero.css';
@@ -246,7 +248,6 @@ function HomePage() {
               <div className="good-finds-card-copy">
                 <p className="good-finds-card-label">EVERYDAY FIND</p>
                 <h3>Garbage Bags</h3>
-
                 <p>
                   Practical waste bags for homes, offices, shops, restaurants
                   and commercial spaces.
@@ -450,16 +451,7 @@ function HomePage() {
           <div className="benefits-grid">
             <div className="benefit-card">
               <div className="benefit-icon" aria-hidden="true">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="#1F3A5C"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1F3A5C" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h23v21H5z" />
                   <path d="M28 20h8l7 8v5H28z" />
                   <circle cx="14" cy="36" r="4" />
@@ -473,16 +465,7 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon" aria-hidden="true">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="#E67E22"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#E67E22" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M24 5 39 11v11c0 10-6.4 16.8-15 21-8.6-4.2-15-11-15-21V11z" />
                   <path d="m16 24 5 5 11-12" />
                 </svg>
@@ -493,16 +476,7 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon" aria-hidden="true">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="#1F3A5C"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#1F3A5C" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="24" cy="24" r="18" />
                   <path d="M29 16c-1.3-1.5-3.2-2.3-5.5-2.3-3.3 0-5.5 1.7-5.5 4.2 0 6.7 12 2.7 12 9.1 0 2.8-2.5 4.7-6 4.7-2.7 0-5.2-1.1-6.7-3" />
                   <path d="M24 10v28" />
@@ -514,16 +488,7 @@ function HomePage() {
 
             <div className="benefit-card">
               <div className="benefit-icon" aria-hidden="true">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="#E67E22"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#E67E22" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M14 7h20a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6h-8l-9 7v-7h-3a6 6 0 0 1-6-6V13a6 6 0 0 1 6-6z" />
                   <path d="M17 17h14M17 23h10" />
                 </svg>
@@ -570,6 +535,9 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* FREQUENTLY ASKED QUESTIONS */}
+      <FAQSection />
 
       {/* CONTACT CTA */}
       <section className="section section-cta">
