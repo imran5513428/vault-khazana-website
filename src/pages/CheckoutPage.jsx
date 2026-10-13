@@ -93,6 +93,8 @@ function CheckoutPage() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderReference, setOrderReference] = useState('');
+  const [submittedBusinessOffer, setSubmittedBusinessOffer] =
+    useState(false);
 
   const cartItems = items
     .map((item) => {
@@ -122,6 +124,10 @@ function CheckoutPage() {
       ...current,
       [name]: value
     }));
+
+    if (name === 'city') {
+      setError('');
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -153,22 +159,24 @@ function CheckoutPage() {
       return;
     }
 
-    if (hasBusinessOffer) {
-      const city = formData.city.trim().toLowerCase();
+    const normalizedCity = formData.city
+      .trim()
+      .toLowerCase()
+      .split(',')[0]
+      .trim();
 
-      if (!['rawalpindi', 'islamabad'].includes(city)) {
-        setError(
-          'Business offers are currently available only in Rawalpindi and Islamabad. Please enter one of these cities to continue.'
-        );
-        return;
-      }
+    if (!['rawalpindi', 'islamabad'].includes(normalizedCity)) {
+      setError(
+        'At the moment, we deliver only in Islamabad and Rawalpindi.'
+      );
+      return;
+    }
 
-      if (!advancePaymentConfirmed) {
-        setError(
-          'Please confirm that you understand the advance-payment and delivery-charge terms for business offers.'
-        );
-        return;
-      }
+    if (hasBusinessOffer && !advancePaymentConfirmed) {
+      setError(
+        'Please confirm that you understand the advance-payment and delivery-charge terms for business offers.'
+      );
+      return;
     }
 
     const reference = createOrderReference();
@@ -204,13 +212,13 @@ function CheckoutPage() {
 
     const paymentMethod = hasBusinessOffer
       ? 'Advance payment required for business offers; payment arrangements to be confirmed'
-      : 'Cash on Delivery';
+      : 'Payment method to be confirmed based on delivery arrangement';
 
     const orderNotes = [
       formData.notes.trim(),
       hasBusinessOffer
         ? 'Customer confirmed business-offer terms. Advance payment is required. Delivery charges are extra and will be confirmed based on delivery area and order quantity.'
-        : ''
+        : 'Delivery charge and payment method must be confirmed with the customer before dispatch.'
     ]
       .filter(Boolean)
       .join('\n');
@@ -254,6 +262,7 @@ function CheckoutPage() {
         );
       }
 
+      setSubmittedBusinessOffer(hasBusinessOffer);
       clearCart();
       setOrderReference(reference);
     } catch (submissionError) {
@@ -289,7 +298,7 @@ function CheckoutPage() {
             </div>
 
             <div className="checkout-success-details">
-              {hasBusinessOffer ? (
+              {submittedBusinessOffer ? (
                 <>
                   <p>
                     <strong>Payment:</strong> Advance payment required for
@@ -303,11 +312,11 @@ function CheckoutPage() {
               ) : (
                 <>
                   <p>
-                    <strong>Payment:</strong> Cash on Delivery
+                    <strong>Payment:</strong> To be confirmed
                   </p>
                   <p>
-                    Your delivery charges and final order total will be
-                    confirmed with you before dispatch.
+                    We’ll confirm the payment method and delivery charges with
+                    you before dispatch.
                   </p>
                 </>
               )}
@@ -432,12 +441,9 @@ function CheckoutPage() {
                   autoComplete="address-level2"
                   required
                 />
-                {hasBusinessOffer && (
-                  <small>
-                    Business offers are available only in Rawalpindi and
-                    Islamabad.
-                  </small>
-                )}
+                <small>
+                  We currently deliver only in Islamabad and Rawalpindi.
+                </small>
               </div>
 
               <div className="checkout-field">
@@ -567,12 +573,12 @@ function CheckoutPage() {
                   <strong>
                     {hasBusinessOffer
                       ? 'Advance Payment'
-                      : 'Cash on Delivery'}
+                      : 'Confirmed Before Dispatch'}
                   </strong>
                   <small>
                     {hasBusinessOffer
                       ? 'Advance payment is required for business offers. We will contact you to confirm arrangements.'
-                      : 'Pay when your order is delivered.'}
+                      : 'COD may be available with our own or trusted rider. Third-party courier orders may require advance payment. We’ll confirm with you before dispatch.'}
                   </small>
                 </span>
               </div>
