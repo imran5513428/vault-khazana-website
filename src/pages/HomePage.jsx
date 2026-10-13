@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import useCartStore from '../store/cartStore';
-import FAQSection from '../common-components/FAQSection';
+import FAQSection from '../components/common/FAQSection';
 import './pages.css';
 import './good-finds.css';
 import '../styles/home-hero.css';
