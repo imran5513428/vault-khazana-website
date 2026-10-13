@@ -52,17 +52,21 @@ const FAQS = [
 
 function FAQSection() {
   return (
-    <section className="section faq-section" aria-labelledby="faq-heading">
+    <section
+      id="faq"
+      className="section faq-section"
+      aria-labelledby="faq-heading"
+    >
       <div className="container faq-layout">
         <div className="faq-intro">
           <p className="eyebrow">HERE TO HELP</p>
 
-          <h2 id="faq-heading">Good questions. Clear answers.</h2>
+          <h2 id="faq-heading">Frequently Asked Questions</h2>
 
           <p className="faq-intro-text">
-            From everyday essentials to bulk supplies and custom-branded
-            packaging, find the information you need to make your next order
-            with confidence.
+            Clear answers about everyday supplies, bulk orders and
+            custom-branded packaging — so you can choose what works
+            for your home or business with confidence.
           </p>
 
           <div className="faq-actions">
@@ -83,10 +87,12 @@ function FAQSection() {
           </div>
 
           <div className="faq-help-note">
-            <span className="faq-help-mark" aria-hidden="true">?</span>
+            <span className="faq-help-mark" aria-hidden="true">
+              ?
+            </span>
             <p>
-              Have a specific requirement? Tell us what you need, and we can
-              discuss the available options.
+              Have a specific requirement? Tell us what you need,
+              and we can discuss the available options.
             </p>
           </div>
         </div>
@@ -99,9 +105,14 @@ function FAQSection() {
                   {String(index + 1).padStart(2, '0')}
                 </span>
 
-                <span className="faq-question">{faq.question}</span>
+                <span className="faq-question">
+                  {faq.question}
+                </span>
 
-                <span className="faq-toggle" aria-hidden="true" />
+                <span
+                  className="faq-toggle"
+                  aria-hidden="true"
+                />
               </summary>
 
               <div className="faq-answer">
