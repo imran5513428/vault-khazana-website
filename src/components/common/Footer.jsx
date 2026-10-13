@@ -9,10 +9,9 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-container">
 
-        {/* FOOTER CONTENT */}
         <div className="footer-content">
 
-          {/* BRAND SECTION */}
+          {/* BRAND */}
           <div className="footer-section footer-brand">
             <Link
               to="/"
@@ -35,7 +34,7 @@ function Footer() {
             </p>
           </div>
 
-          {/* COMPANY SECTION */}
+          {/* COMPANY */}
           <div className="footer-section">
             <h4 className="footer-title">Company</h4>
             <nav className="footer-nav">
@@ -46,34 +45,42 @@ function Footer() {
             </nav>
           </div>
 
-          {/* BUSINESS SECTION */}
+          {/* BUSINESS */}
           <div className="footer-section">
             <h4 className="footer-title">Business</h4>
             <nav className="footer-nav">
-              <Link to="/business-solutions">Business Solutions</Link>
-              <Link to="/">For Restaurants</Link>
+              <Link to="/business-solutions">
+                Business Solutions
+              </Link>
+              <Link
+                to="/"
+                state={{ scrollTo: 'home-hero' }}
+              >
+                For Restaurants
+              </Link>
             </nav>
           </div>
 
-          {/* SHOP SECTION */}
+          {/* SHOP */}
           <div className="footer-section">
             <h4 className="footer-title">Shop</h4>
             <nav className="footer-nav">
-              <Link to="/">Home</Link>
+              <Link
+                to="/"
+                state={{ scrollTo: 'home-hero' }}
+              >
+                Home
+              </Link>
               <Link
                 to="/"
                 state={{ scrollTo: 'shop-by-category' }}
               >
                 All Products
               </Link>
-              <Link to="/category/food-containers">Food Containers</Link>
-              <Link to="/category/cups-drinkware">Cups &amp; Drinkware</Link>
-              <Link to="/category/bags">Bags</Link>
-              <Link to="/category/foil-wrap">Foil &amp; Wrap</Link>
             </nav>
           </div>
 
-          {/* CONTACT SECTION */}
+          {/* CONTACT */}
           <div className="footer-section">
             <h4 className="footer-title">Contact</h4>
 
