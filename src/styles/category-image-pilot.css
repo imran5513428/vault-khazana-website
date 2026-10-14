@@ -1,7 +1,7 @@
-
 /* =========================================================
    VAULT KHAZANA — CATEGORY IMAGE STYLING
    Fixes category-card link underlines in every link state.
+   Prevents sticky hover styling on touchscreens.
    Preserves the existing category image and card layout.
    ========================================================= */
 
@@ -40,6 +40,18 @@
 .home-page a.category-card--image:focus .category-desc,
 .home-page a.category-card--image:visited .category-name,
 .home-page a.category-card--image:visited .category-desc {
+  text-decoration: none !important;
+}
+
+/* ===== BUSINESS SOLUTIONS CTA ===== */
+
+/* Keep this button looking like a button in every link state. */
+.home-page a.business-solutions-button,
+.home-page a.business-solutions-button:link,
+.home-page a.business-solutions-button:visited,
+.home-page a.business-solutions-button:hover,
+.home-page a.business-solutions-button:active,
+.home-page a.business-solutions-button:focus {
   text-decoration: none !important;
 }
 
@@ -102,7 +114,7 @@
   color: #E67E22;
 }
 
-/* ===== HOVER AND FOCUS ===== */
+/* ===== DESKTOP HOVER AND KEYBOARD FOCUS ===== */
 
 .home-page .category-card--image:hover {
   transform: translateY(-2px);
@@ -115,6 +127,31 @@
 .home-page .category-card--image:focus-visible {
   outline: 3px solid #E67E22;
   outline-offset: 3px;
+}
+
+/* ===== TOUCHSCREEN HOVER RESET ===== */
+
+/* Touch browsers can retain hover styling after a tap.
+   Keep cards in their normal state on devices without hover. */
+@media (hover: none) {
+  .home-page .category-card--image:hover {
+    border-color: var(--border-light);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .home-page .category-card--image:hover::before {
+    height: 3px;
+  }
+
+  .home-page .category-card--image:hover .category-card-image {
+    background: #F3F5F7;
+  }
+
+  .home-page .category-card--image:hover .category-icon,
+  .home-page .category-card--image:hover .category-arrow {
+    transform: none;
+  }
 }
 
 /* ===== MOBILE ===== */
