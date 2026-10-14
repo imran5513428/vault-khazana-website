@@ -1,653 +1,803 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
-import '../styles/checkout.css';
+import '../styles/cart.css';
 
-const formatPrice = (value) =>
-  `Rs ${Math.round(Number(value) || 0).toLocaleString('en-PK')}`;
+const BAG_OPTIONS = [
+  { value: '18x24', label: '18 × 24 in — approx. 50 pieces' },
+  { value: '20x30', label: '20 × 30 in — approx. 40 pieces' },
+  { value: '24x36', label: '24 × 36 in — approx. 25 pieces' },
+  { value: '30x50', label: '30 × 50 in — approx. 12–13 pieces' }
+];
 
-const getProductPriceBasis = (product) => {
-  if (!product) return 'Price';
+function formatPrice(value) {
+  return Math.round(Number(value) || 0).toLocaleString('en-PK');
+}
 
-  if (product.sellingUnit === 'pack' && product.packSize) {
-    return `per pack of ${product.packSize}`;
-  }
+function getItemName(item) {
+  return item.isSpecialOffer
+    ? item.displayName || item.product?.name || 'Special offer'
+    : item.product?.name || 'Product';
+}
 
-  if (product.sellingUnit === 'kg') return 'per kg';
+function getUnitLabel(item) {
+  const sellingUnit = item.sellingUnit || item.product?.sellingUnit || 'piece';
 
-  return 'per piece';
-};
+  if (sellingUnit === 'pack') return 'pack(s)';
+  if (sellingUnit === 'kg') return 'kg';
+  if (sellingUnit === 'carton') return 'carton(s)';
 
-const getProductUnitLabel = (product) => {
-  if (!product) return 'pieces';
+  return 'piece(s)';
+}
 
-  if (product.sellingUnit === 'pack') return 'packs';
-  if (product.sellingUnit === 'kg') return 'kg';
-
-  return 'pieces';
-};
-
-const getItemName = (item) =>
-  item.displayName || item.product?.name || 'Product';
-
-const getItemUnitLabel = (item) => {
+function getPriceBasis(item) {
   if (item.isSpecialOffer) {
-    if (item.sellingUnit === 'carton') return 'cartons';
-    if (item.sellingUnit === 'kg') return 'kg';
-    if (item.sellingUnit === 'pack') return 'packs';
-  }
-
-  return getProductUnitLabel(item.product);
-};
-
-const getItemPriceBasis = (item) => {
-  if (item.isSpecialOffer) {
-    if (item.priceBasis) return item.priceBasis;
-    if (item.sellingUnit === 'carton') return 'per carton';
-    if (item.sellingUnit === 'kg') return 'per kg';
-    if (item.sellingUnit === 'pack') return 'per pack';
-  }
-
-  return getProductPriceBasis(item.product);
-};
-
-const getItemImage = (item) =>
-  item.image || item.product?.images?.[0] || '';
-
-const getItemPrice = (item) => {
-  if (item.isSpecialOffer) {
-    return Number(item.pricePerUnit) || 0;
-  }
-
-  return Number(item.product?.pricePerUnit) || 0;
-};
-
-const createOrderReference = () => {
-  const now = new Date();
-
-  const year = String(now.getFullYear()).slice(-2);
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const random = Math.floor(1000 + Math.random() * 9000);
-
-  return `VK-${year}${month}${day}-${random}`;
-};
-
-function CheckoutPage() {
-  const items = useCartStore((state) => state.items);
-  const clearCart = useCartStore((state) => state.clearCart);
-
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    city: '',
-    address: '',
-    notes: ''
-  });
-
-  const [advancePaymentConfirmed, setAdvancePaymentConfirmed] =
-    useState(false);
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [orderReference, setOrderReference] = useState('');
-  const [submittedBusinessOffer, setSubmittedBusinessOffer] =
-    useState(false);
-
-  useEffect(() => {
-    if (orderReference) {
-      window.scrollTo(0, 0);
+    if (item.priceBasis) {
+      return `Rs ${formatPrice(item.pricePerUnit)} ${item.priceBasis}`;
     }
-  }, [orderReference]);
 
-  const cartItems = items
+    return `Rs ${formatPrice(item.pricePerUnit)} per ${item.sellingUnit || 'unit'}`;
+  }
+
+  const product = item.product;
+  const sellingUnit = product?.sellingUnit || 'piece';
+  const packSize = product?.packSize;
+  const price = Number(product?.pricePerUnit) || 0;
+
+  if (sellingUnit === 'pack') {
+    return packSize
+      ? `Rs ${formatPrice(price)} / pack of ${packSize}`
+      : `Rs ${formatPrice(price)} / pack`;
+  }
+
+  if (sellingUnit === 'kg') {
+    return `Rs ${formatPrice(price)} / kg`;
+  }
+
+  return `Rs ${formatPrice(price)} / piece`;
+}
+
+function getQuantityDescription(item) {
+  if (item.isSpecialOffer) {
+    if (item.sellingUnit === 'carton') {
+      return 'Sold by the carton';
+    }
+
+    if (item.sellingUnit === 'kg') {
+      return 'Sold by the kilogram';
+    }
+
+    return item.variantLabel || 'Special offer';
+  }
+
+  const product = item.product;
+  const sellingUnit = product?.sellingUnit || 'piece';
+  const moq = Number(product?.moq) || 1;
+  const step = Number(product?.step) || 1;
+  const packSize = product?.packSize;
+
+  if (sellingUnit === 'pack') {
+    return packSize
+      ? `1 pack = ${packSize} pieces`
+      : `Minimum ${moq} pack(s)`;
+  }
+
+  if (sellingUnit === 'kg') {
+    return `Minimum ${moq} kg`;
+  }
+
+  if (step > 1) {
+    return `Minimum ${moq} pieces • Add in quantities of ${step}`;
+  }
+
+  return `Minimum ${moq} pieces`;
+}
+
+function getItemRules(item) {
+  if (item.isSpecialOffer) {
+    return {
+      moq: Number(item.moq) || 1,
+      step: Number(item.step) || 1,
+      sellingUnit: item.sellingUnit || 'piece'
+    };
+  }
+
+  return {
+    moq: Number(item.product?.moq) || 1,
+    step: Number(item.product?.step) || 1,
+    sellingUnit: item.product?.sellingUnit || 'piece'
+  };
+}
+
+function validateQuantity(quantity, item) {
+  const rules = getItemRules(item);
+  const value = Number(quantity);
+
+  if (!Number.isFinite(value)) {
+    return 'Please enter a valid quantity.';
+  }
+
+  if (value < rules.moq) {
+    if (rules.sellingUnit === 'kg') {
+      return `Minimum order is ${rules.moq} kg.`;
+    }
+
+    if (rules.sellingUnit === 'carton') {
+      return `Minimum order is ${rules.moq} carton(s).`;
+    }
+
+    return `Minimum order is ${rules.moq} piece(s).`;
+  }
+
+  if ((value - rules.moq) % rules.step !== 0) {
+    const unit =
+      rules.sellingUnit === 'kg'
+        ? 'kg'
+        : rules.sellingUnit === 'carton'
+          ? 'carton(s)'
+          : rules.sellingUnit === 'pack'
+            ? 'pack(s)'
+            : 'piece(s)';
+
+    return `Quantity must increase in steps of ${rules.step} ${unit}.`;
+  }
+
+  return '';
+}
+
+function CartPage() {
+  const items = useCartStore((state) => state.items);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const addOfferToCart = useCartStore((state) => state.addOfferToCart);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const getQuantityError = useCartStore(
+    (state) => state.getQuantityError
+  );
+
+  const [draftQuantities, setDraftQuantities] = useState({});
+  const [quantityErrors, setQuantityErrors] = useState({});
+  const [additionalBagSize, setAdditionalBagSize] = useState('20x30');
+  const [bagAddMessage, setBagAddMessage] = useState('');
+  const [bagAddError, setBagAddError] = useState('');
+
+  const cartItemsWithDetails = items
     .map((item) => {
       const product = getProductById(item.productId);
 
-      if (!product && !item.isSpecialOffer) return null;
+      if (!product) return null;
+
+      const completeItem = {
+        ...item,
+        product
+      };
+
+      const pricePerUnit = item.isSpecialOffer
+        ? Number(item.pricePerUnit) || 0
+        : Number(product.pricePerUnit) || 0;
 
       return {
-        ...item,
-        product: product || null
+        ...completeItem,
+        subtotal: pricePerUnit * Number(item.quantity || 0)
       };
     })
     .filter(Boolean);
 
-  const hasBusinessOffer = cartItems.some(
-    (item) => item.isSpecialOffer && item.requiresAdvancePayment
+  const cartTotal = cartItemsWithDetails.reduce(
+    (total, item) => total + item.subtotal,
+    0
   );
 
-  const subtotal = cartItems.reduce((total, item) => {
-    return total + getItemPrice(item) * (Number(item.quantity) || 0);
-  }, 0);
+  const getItemKey = (item) => item.lineId || item.productId;
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const getItemQuantityError = (item, quantity) => {
+    if (item.isSpecialOffer) {
+      return validateQuantity(quantity, item);
+    }
 
-    setFormData((current) => ({
+    return getQuantityError(item.productId, quantity);
+  };
+
+  const handleQuantityChange = (item, value) => {
+    const key = getItemKey(item);
+
+    setDraftQuantities((current) => ({
       ...current,
-      [name]: value
+      [key]: value
     }));
 
-    if (name === 'city') {
-      setError('');
+    if (value === '') {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: 'Please enter a quantity.'
+      }));
+      return;
     }
+
+    const error = getItemQuantityError(item, Number(value));
+
+    if (error) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: error
+      }));
+      return;
+    }
+
+    const updated = updateQuantity(key, Number(value));
+
+    if (!updated) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: 'Unable to update this quantity. Please try again.'
+      }));
+      return;
+    }
+
+    setQuantityErrors((current) => {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+
+    setDraftQuantities((current) => {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setError('');
+  const handleQuantityBlur = (item) => {
+    const key = getItemKey(item);
+    const draftValue = draftQuantities[key];
 
-    if (!formData.fullName.trim()) {
-      setError('Please enter your full name.');
+    if (draftValue === undefined) return;
+
+    if (draftValue === '') {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: 'Please enter a quantity.'
+      }));
       return;
     }
 
-    if (!formData.phone.trim()) {
-      setError('Please enter your mobile/WhatsApp number.');
-      return;
-    }
+    const error = getItemQuantityError(item, Number(draftValue));
 
-    if (!formData.city.trim()) {
-      setError('Please enter your city.');
-      return;
-    }
+    if (error) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: error
+      }));
 
-    if (!formData.address.trim()) {
-      setError('Please enter your delivery address.');
-      return;
-    }
-
-    if (cartItems.length === 0) {
-      setError('Your cart is empty.');
-      return;
-    }
-
-    const normalizedCity = formData.city
-      .trim()
-      .toLowerCase()
-      .split(',')[0]
-      .trim();
-
-    if (!['rawalpindi', 'islamabad'].includes(normalizedCity)) {
-      window.alert(
-        'Delivery Not Available\n\nWe currently deliver only in Islamabad and Rawalpindi. Please check your delivery city.'
-      );
-      return;
-    }
-
-    if (hasBusinessOffer && !advancePaymentConfirmed) {
-      setError(
-        'Please confirm that you understand the advance-payment and delivery-charge terms for business offers.'
-      );
-      return;
-    }
-
-    const reference = createOrderReference();
-
-    const orderDetails = cartItems
-      .map((item, index) => {
-        const quantity = Number(item.quantity) || 0;
-        const unitPrice = getItemPrice(item);
-        const lineTotal = unitPrice * quantity;
-        const name = getItemName(item);
-        const unitLabel = getItemUnitLabel(item);
-        const priceBasis = getItemPriceBasis(item);
-
-        const details = [
-          `${index + 1}. ${name}`,
-          item.variantLabel ? `Selected option: ${item.variantLabel}` : null,
-          `Quantity: ${quantity} ${unitLabel}`,
-          `Price: ${formatPrice(unitPrice)} ${priceBasis}`,
-          `Subtotal: ${formatPrice(lineTotal)}`
-        ].filter(Boolean);
-
-        if (item.isSpecialOffer) {
-          details.push('Order type: Special offer');
-        }
-
-        if (item.requiresAdvancePayment) {
-          details.push('Payment requirement: Advance payment only');
-        }
-
-        return details.join(' | ');
-      })
-      .join('\n');
-
-    const paymentMethod = hasBusinessOffer
-      ? 'Advance payment required for business offers; payment arrangements to be confirmed'
-      : 'Payment method to be confirmed based on delivery arrangement';
-
-    const orderNotes = [
-      formData.notes.trim(),
-      hasBusinessOffer
-        ? 'Customer confirmed business-offer terms. Advance payment is required. Delivery charges are extra and will be confirmed based on delivery area and order quantity.'
-        : 'Delivery charge and payment method must be confirmed with the customer before dispatch.'
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    const formPayload = {
-      access_key: '858a488b-0047-4d78-adb5-5ba47a8d2ca6',
-      subject: `VAULT KHAZANA Order ${reference}`,
-      from_name: 'VAULT KHAZANA Website',
-      name: formData.fullName.trim(),
-      phone: formData.phone.trim(),
-      email: formData.email.trim(),
-      city: formData.city.trim(),
-      address: formData.address.trim(),
-      payment_method: paymentMethod,
-      order_reference: reference,
-      order_subtotal: formatPrice(subtotal),
-      delivery_charges: 'Extra; to be confirmed based on area and quantity',
-      order_total_before_delivery: formatPrice(subtotal),
-      order_details: orderDetails,
-      notes: orderNotes,
-      botcheck: ''
-    };
-
-    try {
-      setIsSubmitting(true);
-
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify(formPayload)
+      setDraftQuantities((current) => {
+        const next = { ...current };
+        delete next[key];
+        return next;
       });
 
-      const result = await response.json();
+      return;
+    }
 
-      if (!response.ok || !result.success) {
-        throw new Error(
-          result.message || 'Unable to submit your order. Please try again.'
-        );
-      }
+    const updated = updateQuantity(key, Number(draftValue));
 
-      setSubmittedBusinessOffer(hasBusinessOffer);
-      clearCart();
-      setOrderReference(reference);
-    } catch (submissionError) {
-      setError(
-        submissionError.message ||
-          'Unable to submit your order. Please try again.'
+    if (!updated) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: 'Unable to update this quantity. Please try again.'
+      }));
+      return;
+    }
+
+    setDraftQuantities((current) => {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+
+    setQuantityErrors((current) => {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  };
+
+  const handleDecrease = (item) => {
+    const key = getItemKey(item);
+    const rules = getItemRules(item);
+    const newQuantity = Number(item.quantity) - rules.step;
+
+    if (newQuantity < rules.moq) return;
+
+    const error = getItemQuantityError(item, newQuantity);
+
+    if (error) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: error
+      }));
+      return;
+    }
+
+    updateQuantity(key, newQuantity);
+  };
+
+  const handleIncrease = (item) => {
+    const key = getItemKey(item);
+    const rules = getItemRules(item);
+    const newQuantity = Number(item.quantity) + rules.step;
+    const error = getItemQuantityError(item, newQuantity);
+
+    if (error) {
+      setQuantityErrors((current) => ({
+        ...current,
+        [key]: error
+      }));
+      return;
+    }
+
+    updateQuantity(key, newQuantity);
+  };
+
+  const handleAddAnotherBagSize = () => {
+    setBagAddMessage('');
+    setBagAddError('');
+
+    const product = getProductById('off-white-waste-bags');
+
+    if (!product) {
+      setBagAddError('Garbage-bag information is temporarily unavailable.');
+      return;
+    }
+
+    const selectedOption = BAG_OPTIONS.find(
+      (option) => option.value === additionalBagSize
+    );
+
+    const result = addOfferToCart({
+      productId: 'off-white-waste-bags',
+      variantKey: additionalBagSize,
+      variantLabel: selectedOption?.label || additionalBagSize,
+      displayName: 'Garbage Bags',
+      quantity: 1,
+      unitPrice: 525,
+      sellingUnit: 'kg',
+      priceBasis: 'per kg',
+      offerType: 'everyday',
+      image: product.images?.[0] || '',
+      moq: 1,
+      step: 1,
+      requiresAdvancePayment: false
+    });
+
+    if (!result?.success) {
+      setBagAddError(
+        result?.error || 'Unable to add this bag size. Please try again.'
       );
-    } finally {
-      setIsSubmitting(false);
+      return;
+    }
+
+    setBagAddMessage(
+      `${selectedOption?.label || additionalBagSize} added to your cart.`
+    );
+  };
+
+  const handleClearCart = () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to remove all products from your cart?'
+    );
+
+    if (confirmed) {
+      clearCart();
+      setDraftQuantities({});
+      setQuantityErrors({});
+      setBagAddMessage('');
+      setBagAddError('');
     }
   };
 
-  if (orderReference) {
+  if (cartItemsWithDetails.length === 0) {
     return (
-      <main className="checkout-page">
-        <div className="checkout-container">
-          <section className="checkout-success">
-            <div className="checkout-success-icon" aria-hidden="true">
-              ✓
-            </div>
-
-            <p className="checkout-eyebrow">Order Received</p>
-            <h1>Thank You!</h1>
-
-            <p className="checkout-success-text">
-              Your order has been submitted successfully. We will contact you
-              to confirm your order and delivery charges.
-            </p>
-
-            <div className="checkout-reference">
-              <span>Order Reference</span>
-              <strong>{orderReference}</strong>
-            </div>
-
-            <div className="checkout-success-details">
-              {submittedBusinessOffer ? (
-                <>
-                  <p>
-                    <strong>Payment:</strong> Advance payment required for
-                    business offers
-                  </p>
-                  <p>
-                    We will contact you to confirm payment arrangements and
-                    delivery charges before dispatch.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p>
-                    <strong>Payment:</strong> To be confirmed
-                  </p>
-                  <p>
-                    We’ll confirm the payment method and delivery charges with
-                    you before dispatch.
-                  </p>
-                </>
-              )}
-            </div>
-
-            <Link to="/" className="checkout-primary-button">
-              Continue Shopping
-            </Link>
-          </section>
-        </div>
-      </main>
-    );
-  }
-
-  if (cartItems.length === 0) {
-    return (
-      <main className="checkout-page">
-        <div className="checkout-container">
-          <section className="checkout-empty">
-            <p className="checkout-eyebrow">Checkout</p>
-            <h1>Your Cart Is Empty</h1>
+      <div className="cart-page">
+        <div className="container">
+          <div className="empty-cart">
+            <h1>Your Cart is Empty</h1>
 
             <p>
-              Add some products to your cart before proceeding to checkout.
+              No products added yet. Start shopping to add items
+              to your cart.
             </p>
 
-            <Link to="/" className="checkout-primary-button">
-              Continue Shopping
+            <Link to="/" className="btn btn-primary btn-lg">
+              ← Continue Shopping
             </Link>
-          </section>
+          </div>
         </div>
-      </main>
+      </div>
     );
   }
 
+  const hasBusinessOffers = cartItemsWithDetails.some(
+    (item) =>
+      item.isSpecialOffer &&
+      item.requiresAdvancePayment
+  );
+
+  const hasGarbageBagOffer = cartItemsWithDetails.some(
+    (item) =>
+      item.isSpecialOffer &&
+      item.productId === 'off-white-waste-bags'
+  );
+
   return (
-    <main className="checkout-page">
-      <div className="checkout-container">
-        <div className="checkout-header">
-          <p className="checkout-eyebrow">Secure Checkout</p>
-          <h1>Complete Your Order</h1>
-          <p>
-            Enter your details and we will contact you to confirm your order.
-          </p>
+    <div className="cart-page">
+      <div className="container">
+        <div className="cart-header">
+          <div>
+            <h1 className="cart-title">Shopping Cart</h1>
+            <p className="cart-count">
+              {cartItemsWithDetails.length}{' '}
+              {cartItemsWithDetails.length === 1
+                ? 'product'
+                : 'products'}
+            </p>
+          </div>
         </div>
 
-        {error && (
-          <div className="checkout-error" role="alert">
-            {error}
+        {hasBusinessOffers && (
+          <div className="cart-business-offer-notice" role="note">
+            <strong>Business Offer terms</strong>
+            <p>
+              Advance payment only. Delivery charges are extra and
+              will be confirmed after you submit your order.
+              Business Offers are available in Rawalpindi and Islamabad only.
+            </p>
           </div>
         )}
 
-        <div className="checkout-layout">
-          <section className="checkout-card">
-            <div className="checkout-card-header">
-              <p className="checkout-step">01</p>
-              <div>
-                <h2>Customer Information</h2>
-                <p>Where should we contact you?</p>
-              </div>
-            </div>
+        <div className="cart-grid">
+          <div className="cart-items">
+            {hasGarbageBagOffer && (
+              <div
+                className="cart-business-offer-notice"
+                style={{ marginBottom: '20px' }}
+              >
+                <h3 style={{ marginTop: 0 }}>
+                  Add another garbage-bag size
+                </h3>
 
-            <form id="checkout-form" onSubmit={handleSubmit}>
-              <div className="checkout-field">
-                <label htmlFor="fullName">
-                  Full Name <span>*</span>
-                </label>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder="Your full name"
-                  autoComplete="name"
-                  required
-                />
-              </div>
+                <p>
+                  Choose another size without leaving your cart.
+                  Each size has its own quantity and subtotal.
+                </p>
 
-              <div className="checkout-field">
-                <label htmlFor="phone">
-                  Mobile / WhatsApp <span>*</span>
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="03XX XXXXXXX"
-                  autoComplete="tel"
-                  required
-                />
-              </div>
+                <p>
+                  <strong>Rs 525 per kg</strong>
+                </p>
 
-              <div className="checkout-field">
-                <label htmlFor="email">
-                  Email <small>(optional)</small>
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                />
-              </div>
-
-              <div className="checkout-field">
-                <label htmlFor="city">
-                  City <span>*</span>
-                </label>
-                <input
-                  id="city"
-                  name="city"
-                  type="text"
-                  value={formData.city}
-                  onChange={handleChange}
-                  placeholder="Your city"
-                  autoComplete="address-level2"
-                  required
-                />
-                <small>
-                  We currently deliver only in Islamabad and Rawalpindi.
-                </small>
-              </div>
-
-              <div className="checkout-field">
-                <label htmlFor="address">
-                  Delivery Address <span>*</span>
-                </label>
-                <textarea
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="Complete delivery address"
-                  autoComplete="street-address"
-                  rows="4"
-                  required
-                />
-              </div>
-
-              <div className="checkout-field">
-                <label htmlFor="notes">
-                  Order Notes <small>(optional)</small>
-                </label>
-                <textarea
-                  id="notes"
-                  name="notes"
-                  value={formData.notes}
-                  onChange={handleChange}
-                  placeholder="Any special instructions?"
-                  rows="3"
-                />
-              </div>
-
-              {hasBusinessOffer && (
-                <div className="checkout-business-terms">
-                  <h3>Business Offer Terms</h3>
-                  <p>
-                    Advance payment is required for F1 and F3 carton offers.
-                    Delivery charges are extra and will be confirmed based on
-                    your delivery area and order quantity.
-                  </p>
-                  <label className="checkout-business-confirmation">
-                    <input
-                      type="checkbox"
-                      checked={advancePaymentConfirmed}
-                      onChange={(event) =>
-                        setAdvancePaymentConfirmed(event.target.checked)
-                      }
-                    />
-                    <span>
-                      I understand and accept the advance-payment and delivery
-                      charge terms for these business offers.
-                    </span>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}
+                >
+                  <label htmlFor="additional-garbage-bag-size">
+                    Bag size
                   </label>
-                </div>
-              )}
-            </form>
-          </section>
 
-          <section className="checkout-card checkout-summary-card">
-            <div className="checkout-card-header">
-              <p className="checkout-step">02</p>
-              <div>
-                <h2>Order Summary</h2>
-                <p>Review your items before placing the order.</p>
-              </div>
-            </div>
-
-            <div className="checkout-items">
-              {cartItems.map((item) => {
-                const quantity = Number(item.quantity) || 0;
-                const unitPrice = getItemPrice(item);
-                const lineTotal = unitPrice * quantity;
-                const name = getItemName(item);
-                const image = getItemImage(item);
-
-                return (
-                  <div
-                    className="checkout-item"
-                    key={item.lineId || item.productId}
+                  <select
+                    id="additional-garbage-bag-size"
+                    value={additionalBagSize}
+                    onChange={(event) => {
+                      setAdditionalBagSize(event.target.value);
+                      setBagAddMessage('');
+                      setBagAddError('');
+                    }}
+                    style={{
+                      flex: '1 1 220px',
+                      minWidth: 0,
+                      padding: '10px',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '6px',
+                      background: '#fff',
+                      color: '#1F3A5C'
+                    }}
                   >
-                    <div className="checkout-item-image">
-                      {image ? (
-                        <img src={image} alt={name} />
-                      ) : (
-                        <div className="checkout-item-image-placeholder">
-                          No image
-                        </div>
-                      )}
-                    </div>
+                    {BAG_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
 
-                    <div className="checkout-item-details">
-                      <h3>{name}</h3>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleAddAnotherBagSize}
+                  >
+                    Add 1 kg
+                  </button>
+                </div>
 
-                      {item.variantLabel && (
-                        <p>{item.variantLabel}</p>
-                      )}
+                {bagAddError && (
+                  <p role="alert" style={{ marginBottom: 0 }}>
+                    {bagAddError}
+                  </p>
+                )}
 
-                      <p>
-                        {quantity} {getItemUnitLabel(item)}
-                      </p>
+                {bagAddMessage && (
+                  <p role="status" style={{ marginBottom: 0 }}>
+                    {bagAddMessage}
+                  </p>
+                )}
+              </div>
+            )}
 
-                      <small>
-                        {formatPrice(unitPrice)} {getItemPriceBasis(item)}
-                      </small>
+            {cartItemsWithDetails.map((item) => {
+              const product = item.product;
+              const itemKey = getItemKey(item);
+              const rules = getItemRules(item);
+              const itemName = getItemName(item);
+              const image = item.isSpecialOffer
+                ? item.image || product.images?.[0]
+                : product.images?.[0];
 
-                      {item.requiresAdvancePayment && (
-                        <small>Advance payment required</small>
-                      )}
-                    </div>
+              const hasQuantityError =
+                Boolean(quantityErrors[itemKey]);
 
-                    <strong className="checkout-item-total">
-                      {formatPrice(lineTotal)}
-                    </strong>
+              const draftValue =
+                draftQuantities[itemKey] !== undefined
+                  ? draftQuantities[itemKey]
+                  : item.quantity;
+
+              return (
+                <div
+                  key={itemKey}
+                  className="cart-item"
+                >
+                  <div className="item-image">
+                    {image ? (
+                      <img src={image} alt={itemName} />
+                    ) : (
+                      <div className="item-image-placeholder">
+                        No image
+                      </div>
+                    )}
                   </div>
-                );
-              })}
-            </div>
 
-            <div className="checkout-payment">
-              <div className="checkout-payment-header">
-                <span>Payment Method</span>
+                  <div className="item-details">
+                    {item.isSpecialOffer ? (
+                      <p className="item-name">
+                        {itemName}
+                      </p>
+                    ) : (
+                      <Link
+                        to={`/product/${item.productId}`}
+                        className="item-name"
+                      >
+                        {itemName}
+                      </Link>
+                    )}
+
+                    {item.variantLabel && (
+                      <p className="item-specs">
+                        {item.variantLabel}
+                      </p>
+                    )}
+
+                    {!item.isSpecialOffer && product.dimensions && (
+                      <p className="item-specs">
+                        {product.dimensions}
+                      </p>
+                    )}
+
+                    <p className="item-price">
+                      {getPriceBasis(item)}
+                    </p>
+
+                    <p className="item-selling-info">
+                      {getQuantityDescription(item)}
+                    </p>
+
+                    {item.requiresAdvancePayment && (
+                      <p className="item-selling-info">
+                        Advance payment only · Rawalpindi & Islamabad
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="item-controls">
+                    <div className="item-quantity">
+                      <span className="quantity-label">
+                        Quantity ({getUnitLabel(item)})
+                      </span>
+
+                      <div className="quantity-control">
+                        <button
+                          type="button"
+                          onClick={() => handleDecrease(item)}
+                          className="qty-btn"
+                          aria-label={`Decrease quantity of ${itemName}`}
+                          disabled={Number(item.quantity) <= rules.moq}
+                        >
+                          −
+                        </button>
+
+                        <input
+                          type="number"
+                          value={draftValue}
+                          onChange={(event) =>
+                            handleQuantityChange(item, event.target.value)
+                          }
+                          onBlur={() => handleQuantityBlur(item)}
+                          className={`qty-input ${
+                            hasQuantityError ? 'qty-input-error' : ''
+                          }`}
+                          min={rules.moq}
+                          step={rules.step}
+                          inputMode="numeric"
+                          aria-label={`Quantity for ${itemName}`}
+                          aria-invalid={hasQuantityError}
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => handleIncrease(item)}
+                          className="qty-btn"
+                          aria-label={`Increase quantity of ${itemName}`}
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      {quantityErrors[itemKey] && (
+                        <p className="quantity-error" role="alert">
+                          {quantityErrors[itemKey]}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="item-subtotal">
+                      <p className="subtotal-label">Subtotal</p>
+                      <p className="subtotal-amount">
+                        Rs {formatPrice(item.subtotal)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => removeFromCart(itemKey)}
+                    className="item-remove"
+                    aria-label={`Remove ${itemName} from cart`}
+                  >
+                    🗑️
+                  </button>
+                </div>
+              );
+            })}
+
+            <div className="cart-actions">
+              <Link to="/" className="btn btn-secondary">
+                ← Continue Shopping
+              </Link>
+
+              <button
+                type="button"
+                onClick={handleClearCart}
+                className="btn btn-secondary clear-cart-btn"
+              >
+                Clear Cart
+              </button>
+            </div>
+          </div>
+
+          <aside className="cart-summary">
+            <div className="summary-card">
+              <h2>Order Summary</h2>
+
+              <div className="summary-row">
+                <span>Subtotal</span>
+                <span>Rs {formatPrice(cartTotal)}</span>
               </div>
 
-              <div className="checkout-payment-option">
-                <span aria-hidden="true">✓</span>
-                <span>
-                  <strong>
-                    {hasBusinessOffer
-                      ? 'Advance Payment'
-                      : 'Confirmed Before Dispatch'}
-                  </strong>
-                  <small>
-                    {hasBusinessOffer
-                      ? 'Advance payment is required for business offers. We will contact you to confirm arrangements.'
-                      : 'COD may be available with our own or trusted rider. Third-party courier orders may require advance payment. We’ll confirm with you before dispatch.'}
-                  </small>
+              <div className="summary-row">
+                <span>Delivery</span>
+                <span className="shipping-label">
+                  Calculated after order details
                 </span>
               </div>
-            </div>
 
-            <div className="checkout-totals">
-              <div className="checkout-total-row">
-                <span>Subtotal</span>
-                <strong>{formatPrice(subtotal)}</strong>
-              </div>
+              <div className="summary-divider"></div>
 
-              <div className="checkout-total-row">
-                <span>Delivery</span>
-                <strong>Extra — to be confirmed</strong>
-              </div>
-
-              <div className="checkout-total-row checkout-grand-total">
+              <div className="summary-total">
                 <span>Total before delivery</span>
-                <strong>{formatPrice(subtotal)}</strong>
+                <span>Rs {formatPrice(cartTotal)}</span>
               </div>
-            </div>
 
-            <p
-              style={{
-                margin: '16px 0 0',
-                color: '#667085',
-                fontSize: '13px',
-                lineHeight: 1.6,
-                textAlign: 'center'
-              }}
-            >
-              Please review our{' '}
-              <Link
-                to="/shipping-policy"
+              <p className="summary-note">
+                Delivery charges and the final total will be confirmed
+                after your delivery details are provided.
+              </p>
+
+              <div
                 style={{
-                  color: '#1F3A5C',
-                  fontWeight: 700,
-                  textDecoration: 'underline',
-                  textUnderlineOffset: '3px'
+                  marginTop: '16px',
+                  padding: '14px',
+                  border: '1px solid #ead7b4',
+                  borderRadius: '8px',
+                  background: '#fffaf1'
                 }}
               >
-                Shipping &amp; Payment Policy
-              </Link>{' '}
-              before placing your order.
-            </p>
+                <strong style={{ color: '#1F3A5C' }}>
+                  Before you order
+                </strong>
+                <p style={{ margin: '6px 0 8px', lineHeight: 1.6 }}>
+                  We deliver in Rawalpindi and Islamabad. Delivery charges
+                  start from Rs. 150. COD eligibility and payment arrangements
+                  depend on your delivery address and service.
+                </p>
+                <Link
+                  to="/shipping-policy"
+                  style={{
+                    color: '#1F3A5C',
+                    fontWeight: 600,
+                    textDecoration: 'underline'
+                  }}
+                >
+                  View Shipping &amp; Payment Policy →
+                </Link>
+              </div>
 
-            <button
-              type="submit"
-              form="checkout-form"
-              className="checkout-submit-button"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Submitting Order...' : 'Place Order'}
-            </button>
+              <div className="summary-actions">
+                <Link
+                  to="/checkout"
+                  className="btn btn-accent btn-lg btn-block"
+                >
+                  Proceed to Checkout
+                </Link>
 
-            <Link to="/cart" className="checkout-back-link">
-              ← Back to Cart
-            </Link>
-          </section>
+                <Link
+                  to="/"
+                  className="btn btn-secondary btn-lg btn-block"
+                >
+                  Continue Shopping
+                </Link>
+              </div>
+            </div>
+
+            <div className="promo-card">
+              <h3>Have a promo code?</h3>
+
+              <div className="promo-input-group">
+                <input
+                  type="text"
+                  placeholder="Enter code"
+                  className="promo-input"
+                  disabled
+                  aria-label="Promo code"
+                />
+
+                <button
+                  type="button"
+                  className="btn btn-sm"
+                  disabled
+                >
+                  Apply
+                </button>
+              </div>
+
+              <p className="promo-note">
+                Promo codes coming soon
+              </p>
+            </div>
+          </aside>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 
-export default CheckoutPage;
+export default CartPage;
