@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
@@ -17,6 +18,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import BusinessSolutionsPage from './pages/BusinessSolutionsPage';
+import ShippingPolicyPage from './pages/ShippingPolicyPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function RouteScrollManager() {
@@ -131,6 +133,11 @@ function AppContent() {
           <Route
             path="/business-solutions"
             element={<BusinessSolutionsPage />}
+          />
+
+          <Route
+            path="/shipping-policy"
+            element={<ShippingPolicyPage />}
           />
 
           <Route
