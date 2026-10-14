@@ -6,6 +6,13 @@ import './footer.css';
 function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const contactMessage = encodeURIComponent(
+    'Hello VAULT KHAZANA, I am contacting you with a question about your products, prices, availability, or services. Could you please help me?'
+  );
+
+  const whatsappContactUrl =
+    `https://wa.me/923335513428?text=${contactMessage}`;
+
   return (
     <footer className="site-footer">
       <div className="footer-container">
@@ -44,7 +51,7 @@ function Footer() {
               <Link to="/about-us">About Us</Link>
 
               <a
-                href="https://wa.me/923335513428"
+                href={whatsappContactUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -106,7 +113,7 @@ function Footer() {
             </nav>
           </div>
 
-          {/* CONTACT */}
+          {/* CONTACT DETAILS */}
           <div className="footer-section">
             <h4 className="footer-title">Contact</h4>
 
@@ -121,7 +128,7 @@ function Footer() {
               <p>
                 <strong>WhatsApp:</strong>{' '}
                 <a
-                  href="https://wa.me/923335513428"
+                  href={whatsappContactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
