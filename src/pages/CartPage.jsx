@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -433,7 +432,6 @@ function CartPage() {
   return (
     <div className="cart-page">
       <div className="container">
-
         <div className="cart-header">
           <div>
             <h1 className="cart-title">Shopping Cart</h1>
@@ -458,9 +456,7 @@ function CartPage() {
         )}
 
         <div className="cart-grid">
-
           <div className="cart-items">
-
             {hasGarbageBagOffer && (
               <div
                 className="cart-business-offer-notice"
@@ -561,7 +557,6 @@ function CartPage() {
                   key={itemKey}
                   className="cart-item"
                 >
-
                   <div className="item-image">
                     {image ? (
                       <img src={image} alt={itemName} />
@@ -573,7 +568,6 @@ function CartPage() {
                   </div>
 
                   <div className="item-details">
-
                     {item.isSpecialOffer ? (
                       <p className="item-name">
                         {itemName}
@@ -612,19 +606,15 @@ function CartPage() {
                         Advance payment only · Rawalpindi & Islamabad
                       </p>
                     )}
-
                   </div>
 
                   <div className="item-controls">
-
                     <div className="item-quantity">
-
                       <span className="quantity-label">
                         Quantity ({getUnitLabel(item)})
                       </span>
 
                       <div className="quantity-control">
-
                         <button
                           type="button"
                           onClick={() => handleDecrease(item)}
@@ -660,7 +650,6 @@ function CartPage() {
                         >
                           +
                         </button>
-
                       </div>
 
                       {quantityErrors[itemKey] && (
@@ -668,7 +657,6 @@ function CartPage() {
                           {quantityErrors[itemKey]}
                         </p>
                       )}
-
                     </div>
 
                     <div className="item-subtotal">
@@ -677,7 +665,6 @@ function CartPage() {
                         Rs {formatPrice(item.subtotal)}
                       </p>
                     </div>
-
                   </div>
 
                   <button
@@ -688,7 +675,6 @@ function CartPage() {
                   >
                     🗑️
                   </button>
-
                 </div>
               );
             })}
@@ -706,13 +692,10 @@ function CartPage() {
                 Clear Cart
               </button>
             </div>
-
           </div>
 
           <aside className="cart-summary">
-
             <div className="summary-card">
-
               <h2>Order Summary</h2>
 
               <div className="summary-row">
@@ -739,6 +722,35 @@ function CartPage() {
                 after your delivery details are provided.
               </p>
 
+              <div
+                style={{
+                  marginTop: '16px',
+                  padding: '14px',
+                  border: '1px solid #ead7b4',
+                  borderRadius: '8px',
+                  background: '#fffaf1'
+                }}
+              >
+                <strong style={{ color: '#1F3A5C' }}>
+                  Before you order
+                </strong>
+                <p style={{ margin: '6px 0 8px', lineHeight: 1.6 }}>
+                  We deliver in Rawalpindi and Islamabad. Delivery charges
+                  start from Rs. 150. COD eligibility and payment arrangements
+                  depend on your delivery address and service.
+                </p>
+                <Link
+                  to="/shipping-policy"
+                  style={{
+                    color: '#1F3A5C',
+                    fontWeight: 600,
+                    textDecoration: 'underline'
+                  }}
+                >
+                  View Shipping &amp; Payment Policy →
+                </Link>
+              </div>
+
               <div className="summary-actions">
                 <Link
                   to="/checkout"
@@ -754,7 +766,6 @@ function CartPage() {
                   Continue Shopping
                 </Link>
               </div>
-
             </div>
 
             <div className="promo-card">
@@ -782,9 +793,7 @@ function CartPage() {
                 Promo codes coming soon
               </p>
             </div>
-
           </aside>
-
         </div>
       </div>
     </div>
