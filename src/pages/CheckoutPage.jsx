@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
@@ -21,10 +21,8 @@ const getProductPriceBasis = (product) => {
 
 const getProductUnitLabel = (product) => {
   if (!product) return 'pieces';
-
   if (product.sellingUnit === 'pack') return 'packs';
   if (product.sellingUnit === 'kg') return 'kg';
-
   return 'pieces';
 };
 
@@ -65,7 +63,6 @@ const getItemPrice = (item) => {
 
 const createOrderReference = () => {
   const now = new Date();
-
   const year = String(now.getFullYear()).slice(-2);
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
@@ -77,6 +74,7 @@ const createOrderReference = () => {
 function CheckoutPage() {
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
+  const errorRef = useRef(null);
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -100,6 +98,15 @@ function CheckoutPage() {
       window.scrollTo(0, 0);
     }
   }, [orderReference]);
+
+  useEffect(() => {
+    if (error && errorRef.current) {
+      errorRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [error]);
 
   const cartItems = items
     .map((item) => {
@@ -369,7 +376,12 @@ function CheckoutPage() {
         </div>
 
         {error && (
-          <div className="checkout-error" role="alert" aria-live="polite">
+          <div
+            ref={errorRef}
+            className="checkout-error"
+            role="alert"
+            aria-live="assertive"
+          >
             {error}
           </div>
         )}
