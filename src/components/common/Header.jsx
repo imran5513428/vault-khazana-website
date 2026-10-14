@@ -225,6 +225,10 @@ function Header() {
             </div>
           </div>
 
+          <Link to="/business-solutions" className="nav-link">
+            Business Solutions
+          </Link>
+
           <Link to="/about-us" className="nav-link">
             About
           </Link>
@@ -424,6 +428,14 @@ function Header() {
               ))}
             </div>
           )}
+
+          <Link
+            to="/business-solutions"
+            className="mobile-nav-link"
+            onClick={closeMobileMenu}
+          >
+            Business Solutions
+          </Link>
 
           <Link
             to="/about-us"
