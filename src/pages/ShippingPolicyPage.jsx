@@ -1,202 +1,544 @@
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './business-solutions.css';
 
-import React from 'react';
-import './shipping-policy.css';
+const imageFiles = [
+'IMG-20260930-WA0009.jpg',
+'IMG-20260930-WA0010.jpg',
+'IMG-20260930-WA0011.jpg',
+'IMG-20260930-WA0012.jpg',
+'IMG-20260930-WA0016.jpg',
+'IMG-20260930-WA0017.jpg',
+'IMG-20260930-WA0018.jpg',
+'IMG-20260930-WA0019.jpg',
+'IMG-20260930-WA0020.jpg',
+'IMG-20260930-WA0021.jpg',
+'IMG-20260930-WA0023.jpg',
+'IMG-20260930-WA0024.jpg',
+'IMG-20260930-WA0025.jpg',
+'IMG-20260930-WA0026.jpg',
+'IMG-20260930-WA0027.jpg',
+'IMG-20260930-WA0028.jpg',
+'IMG-20260930-WA0029.jpg',
+'IMG-20260930-WA0030.jpg',
+'IMG-20260930-WA0031.jpg',
+'IMG-20260930-WA0034.jpg',
+'bs-01.jpg',
+'bs-02.jpg',
+'bs-03.jpg',
+'bs-04.jpg',
+'bs-05.jpg',
+'bs-06.jpg'
+];
 
-function ShippingPolicyPage() {
-  const lastUpdated = '14 October 2026';
+const capabilities = [
+[
+'Design',
+'Start with your logo, artwork or idea.'
+],
+[
+'Printed Packaging',
+'Put your identity on the packaging your customers take away.'
+],
+[
+'Labels & Print',
+'Extend the same look to labels and other printed pieces.'
+],
+[
+'Business Orders',
+'Discuss packaging and branding together for your next order.'
+]
+];
 
-  const shippingMessage = encodeURIComponent(
-    'Hello VAULT KHAZANA, I have a question about delivery availability, delivery charges, payment options, or an existing order. Could you please help me?'
-  );
+const processSteps = [
+[
+'01',
+'Tell us what you need',
+'Share your business, packaging, quantity and branding requirement.'
+],
+[
+'02',
+'Choose the direction',
+'We discuss the packaging and printing options that fit the job.'
+],
+[
+'03',
+'Approve and produce',
+'Final artwork and requirements are confirmed before production.'
+]
+];
 
-  const whatsappUrl =
-    `https://wa.me/923335513428?text=${shippingMessage}`;
+function BusinessSolutionsPage() {
+// Image 22 is bs-02.jpg. Array positions start at zero, so use index 21.
+const [activeImage, setActiveImage] = useState(21);
+const touchStartX = useRef(null);
+const touchStartY = useRef(null);
 
-  return (
-    <div className="shipping-policy-page">
-      <header className="shipping-policy-header">
-        <div className="shipping-policy-container">
-          <p className="shipping-policy-eyebrow">
-            DELIVERY INFORMATION
-          </p>
-          <h1>Delivery &amp; Shipping Policy</h1>
-          <p className="shipping-policy-intro">
-            At VAULT KHAZANA, we aim to make ordering simple and
-            delivery arrangements clear from the start. Please read
-            this policy before placing your order.
-          </p>
-          <p className="shipping-policy-updated">
-            Last updated: {lastUpdated}
-          </p>
-        </div>
-      </header>
+const businessMessage = encodeURIComponent(
+'Hello VAULT KHAZANA, I am interested in custom packaging, printing, or branding for my business. Could you please share the available options?'
+);
 
-      <main className="shipping-policy-container shipping-policy-content">
-        <section className="shipping-policy-section">
-          <h2>1. Delivery Areas</h2>
-          <p>
-            We currently deliver within Rawalpindi and Islamabad only.
-            Delivery availability depends on your location and the
-            delivery service available for your area.
-          </p>
-          <p>
-            Cash on Delivery (COD) is available only within our limited
-            delivery zone, approximately 5 km from our designated
-            delivery point. Addresses within Rawalpindi and Islamabad
-            but outside this zone are served through local courier or
-            ride-hailing services, which require advance payment, as
-            explained in Section 2.
-          </p>
-          <p>
-            Our team will confirm COD eligibility for your exact
-            address when you place your order.
-          </p>
-        </section>
+const businessWhatsappUrl =
+"https://wa.me/923335513428?text=${businessMessage}";
 
-        <section className="shipping-policy-section">
-          <h2>2. Payment Methods</h2>
-          <h3>Cash on Delivery (COD)</h3>
-          <p>
-            COD is available only for eligible addresses within our
-            limited delivery zone of approximately 5 km. Availability
-            will be confirmed by VAULT KHAZANA for your address.
-          </p>
+const imageBase =
+"${import.meta.env.BASE_URL}images/images-business-solution/";
 
-          <h3>Advance Payment</h3>
-          <p>
-            For orders delivered through local courier or ride-hailing
-            services, such as Bykea or inDrive, full advance payment
-            is required before dispatch.
-          </p>
-          <p>
-            These payment and delivery conditions apply to all
-            products, including items listed in Good Finds and
-            special offers.
-          </p>
-        </section>
+const showcaseImage =
+"${import.meta.env.BASE_URL}images/business-solutions-showcase.png";
 
-        <section className="shipping-policy-section">
-          <h2>3. Delivery Charges</h2>
-          <p>
-            Delivery charges start from Rs. 150. The final amount
-            depends on your delivery area, distance and the delivery
-            service required.
-          </p>
-          <p>
-            We will confirm the applicable delivery charges before
-            dispatch. Your order will not be dispatched until the
-            delivery arrangements and charges have been communicated
-            to you.
-          </p>
-        </section>
+const previousImage = () => {
+setActiveImage(
+(current) =>
+(current - 1 + imageFiles.length) % imageFiles.length
+);
+};
 
-        <section className="shipping-policy-section">
-          <h2>4. Order Cancellation and Refunds</h2>
+const nextImage = () => {
+setActiveImage(
+(current) =>
+(current + 1) % imageFiles.length
+);
+};
 
-          <h3>Cancellation by the Customer</h3>
-          <p>
-            If you cancel an order after making an advance payment,
-            the actual delivery or transport charges incurred for
-            both the outward and return journeys will be deducted
-            from your payment. The remaining balance will be refunded.
-          </p>
-          <p>
-            Refunds are typically processed within a few hours of
-            cancellation confirmation, depending on the circumstances.
-          </p>
-          <p>
-            Any deduction will be based on actual charges incurred,
-            not an arbitrary cancellation fee.
-          </p>
+const handleTouchStart = (event) => {
+const touch = event.touches[0];
 
-          <h3>Cancellation by VAULT KHAZANA or Non-Dispatch</h3>
-          <p>
-            If VAULT KHAZANA cancels your order, the supplier is unable
-            to fulfil it, or the order cannot be dispatched for a
-            reason attributable to VAULT KHAZANA or its supply
-            arrangements, your full advance payment will be refunded
-            without deduction.
-          </p>
-          <p>
-            Refunds are typically processed within a few hours of
-            confirmation, depending on the circumstances. We will
-            inform you if an order cannot be fulfilled and explain
-            the next steps.
-          </p>
-        </section>
+touchStartX.current = touch.clientX;
+touchStartY.current = touch.clientY;
 
-        <section className="shipping-policy-section">
-          <h2>5. Checking Your Order</h2>
-          <p>
-            Please check your items as soon as you receive them.
-            Confirm that the products, quantities, sizes and other
-            order details match your purchase.
-          </p>
-          <p>
-            If you notice a shortage, an incorrect item, visible
-            damage or another discrepancy, please contact VAULT
-            KHAZANA on the same day you receive your delivery. Share
-            photos or a video showing the issue so we can investigate
-            and work towards a resolution with the supplier or
-            delivery service.
-          </p>
-          <p>
-            Prompt reporting helps us verify the issue while the
-            details are still clear. Reports made after the day of
-            delivery may be more difficult to verify and assess.
-          </p>
-        </section>
+};
 
-        <section className="shipping-policy-section">
-          <h2>6. Order and Delivery Confirmation</h2>
-          <p>
-            All orders are subject to confirmation by VAULT KHAZANA.
-            Before dispatch, we will confirm the delivery arrangements
-            and applicable charges.
-          </p>
-          <p>
-            Please ensure that your contact number, delivery address
-            and order details are accurate so we can coordinate your
-            delivery smoothly.
-          </p>
-        </section>
-
-        <section className="shipping-policy-section shipping-policy-contact">
-          <h2>7. Need Help?</h2>
-          <p>
-            If you have questions about delivery availability, payment
-            methods, charges or an existing order, please contact us:
-          </p>
-
-          <p>
-            <strong>Email:</strong>{' '}
-            <a href="mailto:info@vaultkhazana.com">
-              info@vaultkhazana.com
-            </a>
-          </p>
-          <p>
-            <strong>WhatsApp:</strong>{' '}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              +92 333 5513428
-            </a>
-          </p>
-          <p>
-            We will be happy to clarify the arrangements before
-            dispatch.
-          </p>
-
-          <div className="shipping-policy-signoff">
-            <strong>VAULT KHAZANA</strong>
-            <span>Packaging &amp; Food-Service Supplies</span>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
+const handleTouchEnd = (event) => {
+if (
+touchStartX.current === null ||
+touchStartY.current === null
+) {
+return;
 }
 
-export default ShippingPolicyPage;
+const touch = event.changedTouches[0];
+
+const deltaX =
+  touch.clientX - touchStartX.current;
+
+const deltaY =
+  touch.clientY - touchStartY.current;
+
+touchStartX.current = null;
+touchStartY.current = null;
+
+/* Ignore mostly-vertical gestures so normal page scrolling
+   remains natural on mobile. */
+if (Math.abs(deltaX) < 45) {
+  return;
+}
+
+if (Math.abs(deltaX) <= Math.abs(deltaY)) {
+  return;
+}
+
+if (deltaX < 0) {
+  nextImage();
+} else {
+  previousImage();
+}
+
+};
+
+return (
+<div className="business-solutions-page">
+
+  {/* HERO */}
+  <section className="bs-hero">
+    <div className="container bs-hero-grid">
+
+      <div className="bs-hero-copy">
+        <p className="bs-eyebrow">BUSINESS SOLUTIONS</p>
+
+        <h1>
+          Put your brand on the packaging
+          <span> people take home.</span>
+        </h1>
+
+        <p className="bs-hero-lead">
+          Need your logo on cups, bags, boxes or labels?
+          Let’s talk about what you need.
+        </p>
+
+        <p className="bs-hero-text">
+          VAULT KHAZANA brings food-service packaging together
+          with access to a wider printing and branding setup,
+          so your business can build a more complete look.
+        </p>
+
+        <div className="bs-hero-actions">
+          <a
+            href={businessWhatsappUrl}
+            className="btn btn-accent btn-lg"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Start a Business Enquiry <span>→</span>
+          </a>
+
+          <a
+            href="#work"
+            className="bs-text-link"
+          >
+            See our work <span>↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div className="bs-hero-visual">
+        <div className="bs-visual-label">
+          <span>PACKAGING</span>
+          <span>PRINTING</span>
+          <span>BRANDING</span>
+        </div>
+
+        <img
+          src={showcaseImage}
+          alt="VAULT KHAZANA branded packaging and printing showcase"
+          className="bs-showcase-image"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  {/* REAL WORK GALLERY */}
+  <section
+    className="bs-work section"
+    id="work"
+  >
+    <div className="container">
+
+      <div className="bs-work-heading">
+        <div>
+          <p className="bs-eyebrow">
+            SELECTED FOOD-BRAND WORK
+          </p>
+
+          <h2>
+            Real work. Real packaging ideas.
+          </h2>
+        </div>
+
+        <p>
+          A selection from our wider commercial printing
+          and branding work. Use it as inspiration for what
+          you could put on your own packaging.
+        </p>
+      </div>
+
+      <div className="bs-gallery">
+
+        <div
+          className="bs-gallery-main"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <img
+            src={`${imageBase}${imageFiles[activeImage]}`}
+            alt="Selected food-brand packaging and printing work"
+            loading="eager"
+          />
+
+          <div className="bs-gallery-overlay">
+            <span>
+              {String(activeImage + 1).padStart(2, '0')}
+              {' / '}
+              {String(imageFiles.length).padStart(2, '0')}
+            </span>
+
+            <span>
+              FOOD BRAND WORK
+            </span>
+          </div>
+        </div>
+
+        <div className="bs-gallery-controls">
+
+          <button
+            type="button"
+            onClick={previousImage}
+            aria-label="Previous work image"
+          >
+            ←
+          </button>
+
+          <button
+            type="button"
+            onClick={nextImage}
+            aria-label="Next work image"
+          >
+            →
+          </button>
+
+          <span>
+            Swipe or tap an image to explore
+          </span>
+
+        </div>
+
+        <div
+          className="bs-gallery-strip"
+          aria-label="Food-brand work gallery"
+        >
+          {imageFiles.map((file, index) => (
+            <button
+              type="button"
+              className={
+                `bs-gallery-thumb ${
+                  index === activeImage ? 'is-active' : ''
+                }`
+              }
+              key={file}
+              onClick={() => setActiveImage(index)}
+              aria-label={`View work image ${index + 1}`}
+              aria-pressed={index === activeImage}
+            >
+              <img
+                src={`${imageBase}${file}`}
+                alt=""
+                loading="lazy"
+              />
+            </button>
+          ))}
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  {/* CAPABILITIES */}
+  <section className="bs-capabilities section">
+    <div className="container">
+
+      <div className="bs-section-heading bs-section-heading-split">
+
+        <div>
+          <p className="bs-eyebrow">
+            WHAT WE CAN HELP WITH
+          </p>
+
+          <h2>
+            From the first idea to the finished look.
+          </h2>
+        </div>
+
+        <p>
+          You do not have to know exactly what you want
+          before you contact us. Tell us what you are trying
+          to achieve and we can discuss the options.
+        </p>
+
+      </div>
+
+      <div className="bs-capability-grid">
+
+        {capabilities.map(
+          ([title, description], index) => (
+            <article
+              className="bs-capability-card"
+              key={title}
+            >
+              <span className="bs-card-number">
+                0{index + 1}
+              </span>
+
+              <h3>{title}</h3>
+
+              <p>{description}</p>
+            </article>
+          )
+        )}
+
+      </div>
+
+    </div>
+  </section>
+
+  {/* PACKAGING + BRANDING */}
+  <section className="bs-proof section">
+    <div className="container">
+
+      <div className="bs-proof-panel">
+
+        <div className="bs-proof-copy">
+
+          <p className="bs-eyebrow">
+            PACKAGING + BRANDING
+          </p>
+
+          <h2>
+            Make the packaging part of the experience.
+          </h2>
+
+          <p>
+            A customer sees more than the food. Cups, bags,
+            boxes and labels all become part of how your
+            business is remembered.
+          </p>
+
+          <Link
+            to="/"
+            state={{ scrollTo: 'shop-by-category' }}
+            className="btn btn-primary"
+          >
+            Shop Packaging <span>→</span>
+          </Link>
+
+        </div>
+
+        <div className="bs-proof-points">
+
+          <div>
+            <span>01</span>
+
+            <strong>
+              One look
+            </strong>
+
+            <p>
+              Keep the packaging and printed pieces
+              connected to your brand.
+            </p>
+          </div>
+
+          <div>
+            <span>02</span>
+
+            <strong>
+              Better presentation
+            </strong>
+
+            <p>
+              Turn an ordinary takeaway order into
+              a branded touchpoint.
+            </p>
+          </div>
+
+          <div>
+            <span>03</span>
+
+            <strong>
+              Built around your business
+            </strong>
+
+            <p>
+              Discuss the right combination instead
+              of choosing pieces in isolation.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  {/* PROCESS */}
+  <section className="bs-process section">
+    <div className="container">
+
+      <div className="bs-process-panel">
+
+        <div className="bs-process-intro">
+
+          <p className="bs-eyebrow">
+            HOW TO START
+          </p>
+
+          <h2>
+            Tell us what you are building.
+          </h2>
+
+          <p>
+            Whether you already have artwork or are still
+            deciding what you need, start with a conversation.
+          </p>
+
+        </div>
+
+        <div className="bs-process-list">
+
+          {processSteps.map(
+            ([number, title, description]) => (
+              <div
+                className="bs-process-item"
+                key={number}
+              >
+                <span>{number}</span>
+
+                <div>
+                  <h3>{title}</h3>
+
+                  <p>{description}</p>
+                </div>
+              </div>
+            )
+          )}
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  {/* FINAL CTA */}
+  <section className="bs-cta section">
+    <div className="container">
+
+      <div className="bs-cta-inner">
+
+        <p className="bs-eyebrow">
+          HAVE A BUSINESS REQUIREMENT?
+        </p>
+
+        <h2>
+          Let’s discuss your packaging.
+        </h2>
+
+        <p>
+          Send us your logo, artwork, packaging idea or
+          simply tell us what you are looking for.
+        </p>
+
+        <div className="bs-cta-actions">
+
+          <a
+            href={businessWhatsappUrl}
+            className="btn btn-accent btn-lg"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Talk to Us on WhatsApp <span>→</span>
+          </a>
+
+          <Link
+            to="/"
+            state={{ scrollTo: 'shop-by-category' }}
+            className="btn btn-primary btn-lg"
+          >
+            Continue Shopping
+          </Link>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+);
+}
+
+export default BusinessSolutionsPage;
