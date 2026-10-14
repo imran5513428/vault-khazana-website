@@ -607,6 +607,30 @@ function CheckoutPage() {
               </div>
             </div>
 
+            <p
+              style={{
+                margin: '16px 0 0',
+                color: '#667085',
+                fontSize: '13px',
+                lineHeight: 1.6,
+                textAlign: 'center'
+              }}
+            >
+              Please review our{' '}
+              <Link
+                to="/shipping-policy"
+                style={{
+                  color: '#1F3A5C',
+                  fontWeight: 700,
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '3px'
+                }}
+              >
+                Shipping &amp; Payment Policy
+              </Link>{' '}
+              before placing your order.
+            </p>
+
             <button
               type="submit"
               form="checkout-form"
