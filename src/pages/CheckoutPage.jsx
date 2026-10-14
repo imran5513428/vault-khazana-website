@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -172,8 +171,8 @@ function CheckoutPage() {
       .trim();
 
     if (!['rawalpindi', 'islamabad'].includes(normalizedCity)) {
-      window.alert(
-        'Delivery Not Available\n\nWe currently deliver only in Islamabad and Rawalpindi. Please check your delivery city.'
+      setError(
+        'Delivery is currently available only in Islamabad and Rawalpindi. Please check your city. You can return to your cart while we expand our delivery coverage.'
       );
       return;
     }
@@ -370,7 +369,7 @@ function CheckoutPage() {
         </div>
 
         {error && (
-          <div className="checkout-error" role="alert">
+          <div className="checkout-error" role="alert" aria-live="polite">
             {error}
           </div>
         )}
@@ -543,9 +542,7 @@ function CheckoutPage() {
                     <div className="checkout-item-details">
                       <h3>{name}</h3>
 
-                      {item.variantLabel && (
-                        <p>{item.variantLabel}</p>
-                      )}
+                      {item.variantLabel && <p>{item.variantLabel}</p>}
 
                       <p>
                         {quantity} {getItemUnitLabel(item)}
