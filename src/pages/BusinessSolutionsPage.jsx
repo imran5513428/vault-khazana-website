@@ -3,6 +3,13 @@ import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './business-solutions.css';
 
+const businessMessage = encodeURIComponent(
+  'Hello VAULT KHAZANA, I am interested in custom packaging, printing, or branding for my business. I would like to discuss my requirements and the available options. Please guide me.'
+);
+
+const businessWhatsappUrl =
+  `https://wa.me/923335513428?text=${businessMessage}`;
+
 const imageFiles = [
   'IMG-20260930-WA0009.jpg',
   'IMG-20260930-WA0010.jpg',
@@ -155,7 +162,7 @@ function BusinessSolutionsPage() {
 
             <div className="bs-hero-actions">
               <a
-                href="https://wa.me/923335513428"
+                href={businessWhatsappUrl}
                 className="btn btn-accent btn-lg"
                 target="_blank"
                 rel="noreferrer"
@@ -422,7 +429,7 @@ function BusinessSolutionsPage() {
 
             <div className="bs-cta-actions">
               <a
-                href="https://wa.me/923335513428"
+                href={businessWhatsappUrl}
                 className="btn btn-accent btn-lg"
                 target="_blank"
                 rel="noreferrer"
