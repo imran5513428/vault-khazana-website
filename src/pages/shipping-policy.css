@@ -1,0 +1,200 @@
+
+/* ============================================
+   VAULT KHAZANA — SHIPPING POLICY PAGE
+   Responsive, readable, and brand-consistent
+============================================ */
+
+.shipping-policy-page {
+  min-height: 60vh;
+  background: #FFFFFF;
+  color: #263445;
+}
+
+.shipping-policy-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-right: 28px;
+  padding-left: 28px;
+  box-sizing: border-box;
+}
+
+.shipping-policy-header {
+  padding: 48px 0 34px;
+  background: #F5F7FA;
+  border-bottom: 1px solid #E3E8EF;
+}
+
+.shipping-policy-eyebrow {
+  margin: 0 0 10px;
+  color: #E67E22;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.shipping-policy-header h1 {
+  margin: 0 0 16px;
+  color: #1F3A5C;
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.6px;
+}
+
+.shipping-policy-intro {
+  max-width: 720px;
+  margin: 0;
+  color: #4D5B6B;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.shipping-policy-updated {
+  margin: 18px 0 0;
+  color: #667487;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.shipping-policy-content {
+  padding-top: 18px;
+  padding-bottom: 56px;
+}
+
+.shipping-policy-section {
+  padding: 26px 0;
+  border-bottom: 1px solid #E7EBF0;
+}
+
+.shipping-policy-section h2 {
+  margin: 0 0 14px;
+  color: #1F3A5C;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.shipping-policy-section h3 {
+  margin: 20px 0 8px;
+  color: #1F3A5C;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.shipping-policy-section h3:first-of-type {
+  margin-top: 4px;
+}
+
+.shipping-policy-section p {
+  margin: 0 0 13px;
+  color: #455364;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.shipping-policy-section p:last-child {
+  margin-bottom: 0;
+}
+
+.shipping-policy-section a {
+  color: #1F3A5C;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #CBA157;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.shipping-policy-section a:hover,
+.shipping-policy-section a:focus-visible {
+  color: #D66E16;
+}
+
+.shipping-policy-contact {
+  border-bottom: 0;
+}
+
+.shipping-policy-signoff {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-left: 3px solid #CBA157;
+  background: #F5F7FA;
+  color: #1F3A5C;
+}
+
+.shipping-policy-signoff strong {
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+.shipping-policy-signoff span {
+  color: #5A6878;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+  .shipping-policy-container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .shipping-policy-header {
+    padding: 34px 0 26px;
+  }
+
+  .shipping-policy-header h1 {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .shipping-policy-intro {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .shipping-policy-content {
+    padding-top: 8px;
+    padding-bottom: 36px;
+  }
+
+  .shipping-policy-section {
+    padding: 22px 0;
+  }
+
+  .shipping-policy-section h2 {
+    margin-bottom: 11px;
+    font-size: 20px;
+  }
+
+  .shipping-policy-section h3 {
+    margin-top: 18px;
+    font-size: 15px;
+  }
+
+  .shipping-policy-section p {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+}
+
+@media (max-width: 359px) {
+  .shipping-policy-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .shipping-policy-header h1 {
+    font-size: 27px;
+  }
+
+  .shipping-policy-section h2 {
+    font-size: 19px;
+  }
+}
