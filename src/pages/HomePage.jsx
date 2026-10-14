@@ -23,6 +23,13 @@ function HomePage() {
   const [offerMessage, setOfferMessage] = useState('');
   const [offerError, setOfferError] = useState('');
 
+  const contactMessage = encodeURIComponent(
+    'Hello VAULT KHAZANA, I have a question about your products, prices, availability, or delivery. Could you please help me?'
+  );
+
+  const whatsappContactUrl =
+    `https://wa.me/923335513428?text=${contactMessage}`;
+
   useEffect(() => {
     const targetId = location.state?.scrollTo;
 
@@ -554,12 +561,14 @@ function HomePage() {
               Get in touch with our team for questions or product guidance.
             </p>
 
-            <Link
-              to="/business-solutions"
+            <a
+              href={whatsappContactUrl}
               className="btn btn-accent btn-lg"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Contact Us
-            </Link>
+              Contact Us on WhatsApp
+            </a>
           </div>
         </div>
       </section>
