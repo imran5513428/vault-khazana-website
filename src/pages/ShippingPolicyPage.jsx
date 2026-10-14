@@ -5,6 +5,13 @@ import './shipping-policy.css';
 function ShippingPolicyPage() {
   const lastUpdated = '14 October 2026';
 
+  const shippingMessage = encodeURIComponent(
+    'Hello VAULT KHAZANA, I have a question about delivery availability, delivery charges, payment options, or an existing order. Could you please help me?'
+  );
+
+  const whatsappUrl =
+    `https://wa.me/923335513428?text=${shippingMessage}`;
+
   return (
     <div className="shipping-policy-page">
       <header className="shipping-policy-header">
@@ -170,7 +177,7 @@ function ShippingPolicyPage() {
           <p>
             <strong>WhatsApp:</strong>{' '}
             <a
-              href="https://wa.me/923335513428"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
