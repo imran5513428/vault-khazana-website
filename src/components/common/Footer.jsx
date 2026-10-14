@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
@@ -77,7 +76,7 @@ function Footer() {
               </Link>
 
               <Link to="/business-solutions">
-                For Restaurants
+                Restaurant Packaging Solutions
               </Link>
             </nav>
           </div>
