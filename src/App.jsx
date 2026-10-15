@@ -6,6 +6,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import './App.css';
+import './styles/cart-product-polish.css';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
