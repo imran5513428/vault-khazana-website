@@ -1,41 +1,148 @@
+
 /* ============================================
    VAULT KHAZANA — CART & PRODUCT IMAGE POLISH
-   Scoped visual refinements; no cart logic changes
-   ============================================ */
+   Focus accessibility, aluminium image framing,
+   WhatsApp cart button and Clear Cart styling.
+   No cart or checkout logic changes.
+============================================ */
 
-/* STEP 5: Tighter framing for the F1 main product image.
-   Scale inside the existing image frame to reduce empty
-   space without stretching or distorting the image. */
+/* ============================================
+   1. LINK FOCUS STYLES
+   Remove ordinary click/touch outlines while
+   retaining a visible keyboard focus indicator.
+============================================ */
 
-.main-image img[alt*="F1 Aluminum Container"] {
-  transform: scale(1.34);
+a:focus {
+  outline: none;
+}
+
+a:focus-visible {
+  outline: 2px solid #E67E22;
+  outline-offset: 2px;
+}
+
+/* Preserve existing touch-device refinement. */
+
+@media (hover: none) and (pointer: coarse) {
+  .cart-link:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* ============================================
+   2. PRODUCT DETAIL IMAGE FRAMING
+   Enlarge the product inside its existing frame.
+   Images remain undistorted.
+============================================ */
+
+/* F1 main product image. */
+
+.main-image img[alt*="F1 Aluminum Container"],
+.main-image img[alt*="F1" i][alt*="alumin" i] {
+  transform: scale(1.28);
   transform-origin: center;
 }
 
-/* Keep other aluminum product and gallery images
-   at a gentler crop. */
+/* Other aluminium main images and gallery slides. */
 
-.main-image img[alt*="Aluminum Container"]:not([alt*="F1 Aluminum Container"]),
-.secondary-slide-image img[alt*="Aluminum Container"] {
-  transform: scale(1.14);
+.main-image img[alt*="alumin" i]:not([alt*="F1" i]),
+.secondary-slide-image img[alt*="alumin" i] {
+  transform: scale(1.12);
   transform-origin: center;
 }
 
-/* Use a gentler crop on smaller screens. */
+/* Smaller-screen framing. */
 
 @media (max-width: 767px) {
-  .main-image img[alt*="F1 Aluminum Container"] {
-    transform: scale(1.24);
+  .main-image img[alt*="F1 Aluminum Container"],
+  .main-image img[alt*="F1" i][alt*="alumin" i] {
+    transform: scale(1.20);
   }
 
-  .main-image img[alt*="Aluminum Container"]:not([alt*="F1 Aluminum Container"]),
-  .secondary-slide-image img[alt*="Aluminum Container"] {
-    transform: scale(1.10);
+  .main-image img[alt*="alumin" i]:not([alt*="F1" i]),
+  .secondary-slide-image img[alt*="alumin" i] {
+    transform: scale(1.08);
   }
 }
 
-/* STEP 6: Make Clear Cart visually secondary.
-   Keep its existing confirmation prompt unchanged. */
+/* ============================================
+   3. HOMEPAGE F1 / F3 OFFER IMAGE FRAMING
+   Crop excess empty space consistently in both
+   model cards without changing image dimensions.
+============================================ */
+
+.good-finds-model-image img {
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+@media (max-width: 640px) {
+  .good-finds-model-image img {
+    transform: scale(1.08);
+  }
+}
+
+/* ============================================
+   4. WHATSAPP CART BUTTON
+   Match the outlined navy Continue Shopping style.
+   Remove unwanted orange underlined link styling.
+============================================ */
+
+.summary-actions a[href*="wa.me"] {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #1F3A5C;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #1F3A5C;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  text-decoration-line: none;
+  box-shadow: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.summary-actions a[href*="wa.me"]:hover {
+  border-color: #1F3A5C;
+  background: #1F3A5C;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.summary-actions a[href*="wa.me"]:focus {
+  outline: none;
+}
+
+.summary-actions a[href*="wa.me"]:focus-visible {
+  outline: 2px solid #E67E22;
+  outline-offset: 3px;
+}
+
+.summary-actions a[href*="wa.me"]:active {
+  background: #162C46;
+  color: #FFFFFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summary-actions a[href*="wa.me"] {
+    transition: none;
+  }
+}
+
+/* ============================================
+   5. CLEAR CART
+   Preserve the existing understated text-button
+   appearance and its confirmation behaviour.
+============================================ */
 
 .cart-actions .clear-cart-btn {
   width: auto;
@@ -64,7 +171,7 @@
 }
 
 .cart-actions .clear-cart-btn:focus-visible {
-  outline: 2px solid var(--secondary-orange);
+  outline: 2px solid #E67E22;
   outline-offset: 3px;
 }
 
@@ -73,15 +180,5 @@
     width: auto;
     justify-self: center;
     padding: 8px 4px;
-  }
-}
-
-/* Avoid a persistent outline after ordinary touch
-   interaction without removing keyboard focus styling. */
-
-@media (hover: none) and (pointer: coarse) {
-  .cart-link:focus:not(:focus-visible) {
-    outline: none;
-    box-shadow: none;
   }
 }
