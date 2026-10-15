@@ -1,4 +1,3 @@
-
 /* ============================================
    VAULT KHAZANA — CART & PRODUCT IMAGE POLISH
    Focus accessibility, aluminium image framing,
@@ -6,10 +5,11 @@
    No cart or checkout logic changes.
 ============================================ */
 
+
 /* ============================================
    1. LINK FOCUS STYLES
    Remove ordinary click/touch outlines while
-   retaining a visible keyboard focus indicator.
+   retaining keyboard focus indicators.
 ============================================ */
 
 a:focus {
@@ -21,7 +21,7 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* Preserve existing touch-device refinement. */
+/* Preserve existing cart-link touch refinement. */
 
 @media (hover: none) and (pointer: coarse) {
   .cart-link:focus:not(:focus-visible) {
@@ -30,8 +30,31 @@ a:focus-visible {
   }
 }
 
+
 /* ============================================
-   2. PRODUCT DETAIL IMAGE FRAMING
+   2. FOOTER LINK TAP FIX
+   Prevent footer links from retaining the orange
+   focus appearance after a touch tap.
+   Desktop and mouse styling remain unchanged.
+============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  .site-footer a:focus,
+  .site-footer a:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .site-footer .footer-nav a:focus,
+  .site-footer .footer-contact a:focus,
+  .site-footer .footer-legal a:focus {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+
+/* ============================================
+   3. PRODUCT DETAIL IMAGE FRAMING
    Enlarge the product inside its existing frame.
    Images remain undistorted.
 ============================================ */
@@ -66,8 +89,9 @@ a:focus-visible {
   }
 }
 
+
 /* ============================================
-   3. HOMEPAGE F1 / F3 OFFER IMAGE FRAMING
+   4. HOMEPAGE F1 / F3 OFFER IMAGE FRAMING
    Crop excess empty space consistently in both
    model cards without changing image dimensions.
 ============================================ */
@@ -83,8 +107,9 @@ a:focus-visible {
   }
 }
 
+
 /* ============================================
-   4. WHATSAPP CART BUTTON
+   5. WHATSAPP CART BUTTON
    Match the outlined navy Continue Shopping style.
    Remove unwanted orange underlined link styling.
 ============================================ */
@@ -138,8 +163,9 @@ a:focus-visible {
   }
 }
 
+
 /* ============================================
-   5. CLEAR CART
+   6. CLEAR CART
    Preserve the existing understated text-button
    appearance and its confirmation behaviour.
 ============================================ */
