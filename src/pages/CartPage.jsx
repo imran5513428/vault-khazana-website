@@ -189,6 +189,27 @@ function CartPage() {
     0
   );
 
+  // Prepare a WhatsApp enquiry using the current cart contents.
+  // This only opens a draft message; it does not place an order.
+  const whatsappCartMessage = [
+    'Hello VAULT KHAZANA, I have a question about my cart:',
+    '',
+    ...cartItemsWithDetails.map((item, index) => {
+      const itemName = getItemName(item);
+      const option = item.variantLabel
+        ? ` — ${item.variantLabel}`
+        : '';
+
+      return `${index + 1}. ${itemName}${option} | Quantity: ${item.quantity} ${getUnitLabel(item)} | Subtotal: Rs ${formatPrice(item.subtotal)}`;
+    }),
+    '',
+    `Subtotal before delivery: Rs ${formatPrice(cartTotal)}`,
+    'Please confirm availability and delivery charges for Rawalpindi/Islamabad.'
+  ].join('\n');
+
+  const whatsappCartUrl =
+    `https://wa.me/923335513428?text=${encodeURIComponent(whatsappCartMessage)}`;
+
   const getItemKey = (item) => item.lineId || item.productId;
 
   const getItemQuantityError = (item, quantity) => {
@@ -752,6 +773,15 @@ function CartPage() {
               </div>
 
               <div className="summary-actions">
+                <a
+                  href={whatsappCartUrl}
+                  className="btn btn-secondary btn-lg btn-block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ask about this cart on WhatsApp
+                </a>
+
                 <Link
                   to="/checkout"
                   className="btn btn-accent btn-lg btn-block"
