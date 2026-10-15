@@ -46,8 +46,11 @@ function Footer() {
           {/* COMPANY */}
           <div className="footer-section">
             <h4 className="footer-title">Company</h4>
+
             <nav className="footer-nav" aria-label="Company">
-              <Link to="/about-us">About Us</Link>
+              <Link to="/about-us">
+                About Us
+              </Link>
 
               <a
                 href={whatsappContactUrl}
@@ -70,6 +73,7 @@ function Footer() {
           {/* BUSINESS */}
           <div className="footer-section">
             <h4 className="footer-title">Business</h4>
+
             <nav className="footer-nav" aria-label="Business">
               <Link to="/business-solutions">
                 Business Solutions
@@ -84,8 +88,11 @@ function Footer() {
           {/* SHOP */}
           <div className="footer-section">
             <h4 className="footer-title">Shop</h4>
+
             <nav className="footer-nav" aria-label="Shop">
-              <Link to="/">Home</Link>
+              <Link to="/">
+                Home
+              </Link>
 
               <Link
                 to="/"
@@ -144,7 +151,7 @@ function Footer() {
 
         </div>
 
-        {/* COPYRIGHT AND POLICY LINK */}
+        {/* COPYRIGHT AND LEGAL LINKS */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="footer-copyright">
@@ -158,6 +165,18 @@ function Footer() {
               <span className="footer-legal-item">
                 <Link to="/shipping-policy">
                   Shipping Policy
+                </Link>
+              </span>
+
+              <span className="footer-legal-item">
+                <Link to="/privacy-policy">
+                  Privacy Policy
+                </Link>
+              </span>
+
+              <span className="footer-legal-item">
+                <Link to="/terms-of-service">
+                  Terms of Service
                 </Link>
               </span>
             </nav>
