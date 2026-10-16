@@ -1,26 +1,18 @@
-/* ============================================
-   VAULT KHAZANA — CART & PRODUCT IMAGE POLISH
-   Complete replacement – 16 Oct 2026
 
-   Changes in this version:
-   - Strengthened focus styles for Android touch
-     (removes residual orange outline + underline
-     after tap while keeping keyboard accessibility)
-   - Expanded the approved Good Finds (F1 / F3)
-     framing density to product-card images site-wide
-     using the same moderate scale approach that
-     already looked perfect on the homepage offers
-   - Kept all previously approved aluminium detail
-     scales, WhatsApp button, Clear Cart styling
-     and reduced-motion rules exactly as they were
-   - No cart/checkout logic changes
+/* ============================================
+   VAULT KHAZANA
+   CART, ACCESSIBILITY & PRODUCT IMAGE POLISH
+   Complete replacement:
+   src/styles/cart-product-polish.css
+
+   Uses the Good Finds F1/F3 offer images as
+   the visual framing reference.
+   Preserves original image files and site logic.
 ============================================ */
 
 
 /* ============================================
-   1. LINK FOCUS STYLES
-   Remove ordinary click/touch outlines while
-   retaining clear keyboard focus indicators.
+   1. ACCESSIBLE LINK FOCUS
 ============================================ */
 
 a:focus {
@@ -32,52 +24,12 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* Product-card links – prevent residual focus
-   outline and underline after a finger tap */
-.product-card a:focus:not(:focus-visible),
-.product-card:focus:not(:focus-visible) {
-  outline: none;
-  box-shadow: none;
-  text-decoration: none;
-}
-
-.product-card a:focus-visible {
-  outline: 2px solid #E67E22;
-  outline-offset: 2px;
-}
-
-/* Preserve existing cart-link touch refinement */
 @media (hover: none) and (pointer: coarse) {
   .cart-link:focus:not(:focus-visible) {
     outline: none;
     box-shadow: none;
   }
 
-  /* Extra safety for product cards on touch devices */
-  .product-card a:focus,
-  .product-card a:focus-visible {
-    outline: none;
-    box-shadow: none;
-    text-decoration: none;
-  }
-
-  .product-card a:focus-visible {
-    /* Still allow keyboard users who happen
-       to be on a coarse pointer device */
-    outline: 2px solid #E67E22;
-    outline-offset: 2px;
-  }
-}
-
-
-/* ============================================
-   2. FOOTER LINK TAP FIX
-   Prevent footer links from retaining the orange
-   focus appearance after a touch tap.
-   Desktop and mouse styling remain unchanged.
-============================================ */
-
-@media (hover: none) and (pointer: coarse) {
   .site-footer a:focus,
   .site-footer a:focus-visible {
     outline: none;
@@ -93,106 +45,276 @@ a:focus-visible {
 
 
 /* ============================================
-   3. PRODUCT DETAIL IMAGE FRAMING
-   Enlarge the product inside its existing frame.
-   Images remain undistorted.
-   (These aluminium scales were already approved)
+   2. SHARED IMAGE PRESENTATION
 ============================================ */
 
-/* F1 main product image */
-.main-image img[alt*="F1 Aluminum Container"],
-.main-image img[alt*="F1" i][alt*="alumin" i] {
-  transform: scale(1.28);
-  transform-origin: center;
-}
-
-/* Other aluminium main images and gallery slides */
-.main-image img[alt*="alumin" i]:not([alt*="F1" i]),
-.secondary-slide-image img[alt*="alumin" i] {
-  transform: scale(1.12);
-  transform-origin: center;
-}
-
-/* Smaller-screen framing */
-@media (max-width: 767px) {
-  .main-image img[alt*="F1 Aluminum Container"],
-  .main-image img[alt*="F1" i][alt*="alumin" i] {
-    transform: scale(1.20);
-  }
-
-  .main-image img[alt*="alumin" i]:not([alt*="F1" i]),
-  .secondary-slide-image img[alt*="alumin" i] {
-    transform: scale(1.08);
-  }
+.product-image,
+.main-image,
+.thumbnail,
+.secondary-image-showcase,
+.secondary-slide-image,
+.home-page .category-card--image .category-card-image,
+.home-page .good-finds-card-image,
+.home-page .good-finds-model-image,
+.item-image,
+.checkout-item-image {
+  background-color: #F5F7FA;
 }
 
 
 /* ============================================
-   4. HOMEPAGE GOOD FINDS (F1 / F3) OFFER IMAGES
-   This is the approved reference that looked perfect.
-   Kept exactly as you supplied.
+   3. CATEGORY PRODUCT CARDS
 ============================================ */
 
-.good-finds-model-image img {
+body .product-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #F5F7FA;
+}
+
+body .product-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
   transform: scale(1.12);
-  transform-origin: center;
-}
-
-@media (max-width: 640px) {
-  .good-finds-model-image img {
-    transform: scale(1.08);
-  }
-}
-
-
-/* ============================================
-   5. SITE-WIDE PRODUCT CARD IMAGE FRAMING
-   Applies the same visual density approach that
-   already looked perfect on the Good Finds cards
-   to the main category listing cards.
-   Moderate scale + slightly tighter padding.
-============================================ */
-
-/* Shared product-card image container */
-.product-image {
-  overflow: hidden; /* prevents scaled image from spilling */
-}
-
-/* Apply the successful Good Finds density to
-   all product-card images in category listings */
-.product-image img {
-  transform: scale(1.10);
   transform-origin: center;
   transition: transform 180ms ease;
 }
 
-/* Slightly tighter on small screens so cutlery
-   and wide aluminium trays stay comfortable */
-@media (max-width: 640px) {
-  .product-image img {
-    transform: scale(1.06);
-  }
-}
-
-/* Optional gentle hover lift (only on devices
-   that actually support hover) */
 @media (hover: hover) and (pointer: fine) {
-  .product-card:hover .product-image img {
-    transform: scale(1.13);
+  body .product-card:hover .product-image img {
+    transform: scale(1.12);
   }
 }
 
 @media (hover: none) {
-  .product-card:hover .product-image img {
-    transform: scale(1.10); /* keep base scale on touch */
+  body .product-card:hover .product-image img {
+    transform: scale(1.08);
   }
 }
 
 
 /* ============================================
-   6. WHATSAPP CART BUTTON
-   Match the outlined navy Continue Shopping style.
-   Remove unwanted orange underlined link styling.
+   4. HOMEPAGE CATEGORY IMAGES
+============================================ */
+
+body .home-page .category-card--image .category-card-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  background-color: #F5F7FA;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: none;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+
+/* ============================================
+   5. PRODUCT DETAIL MAIN IMAGE
+============================================ */
+
+body .main-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border: 1px solid #E8EDF3;
+  border-radius: 14px;
+}
+
+body .main-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 20px;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+
+/* ============================================
+   6. PRODUCT GALLERY THUMBNAILS
+============================================ */
+
+body .thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border: 2px solid transparent;
+  border-radius: 9px;
+}
+
+body .thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.06);
+  transform-origin: center;
+}
+
+body .thumbnail.active {
+  border-color: #E67E22;
+  box-shadow: 0 2px 8px rgba(31, 58, 92, 0.08);
+}
+
+
+/* ============================================
+   7. SECONDARY PRODUCT GALLERY
+============================================ */
+
+body .secondary-image-showcase {
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border: 1px solid #E8EDF3;
+  border-radius: 14px;
+}
+
+body .secondary-slide-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border-radius: 12px;
+}
+
+body .secondary-slide-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+
+/* ============================================
+   8. HOMEPAGE SPECIAL-OFFER IMAGES
+   F1 / F3 reference framing
+============================================ */
+
+body .home-page .good-finds-card-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+}
+
+body .home-page .good-finds-card-image > img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+body .home-page .good-finds-model-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border-radius: 8px;
+}
+
+body .home-page .good-finds-model-image img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+
+/* ============================================
+   9. CART PRODUCT IMAGES
+============================================ */
+
+body .item-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border-radius: 8px;
+}
+
+body .item-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.08);
+  transform-origin: center;
+}
+
+
+/* ============================================
+   10. CHECKOUT PRODUCT IMAGES
+============================================ */
+
+body .checkout-item-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #F5F7FA;
+  border-radius: 8px;
+}
+
+body .checkout-item-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.08);
+  transform-origin: center;
+}
+
+
+/* ============================================
+   11. WHATSAPP CART BUTTON
 ============================================ */
 
 .summary-actions a[href*="wa.me"] {
@@ -238,17 +360,9 @@ a:focus-visible {
   color: #FFFFFF;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .summary-actions a[href*="wa.me"] {
-    transition: none;
-  }
-}
-
 
 /* ============================================
-   7. CLEAR CART
-   Preserve the existing understated text-button
-   appearance and its confirmation behaviour.
+   12. CLEAR CART BUTTON
 ============================================ */
 
 .cart-actions .clear-cart-btn {
@@ -273,7 +387,7 @@ a:focus-visible {
   border-color: transparent;
   background: transparent;
   box-shadow: none;
-  color: #a33;
+  color: #A33;
   transform: none;
 }
 
@@ -289,3 +403,107 @@ a:focus-visible {
     padding: 8px 4px;
   }
 }
+
+
+/* ============================================
+   13. MOBILE IMAGE SPACING
+============================================ */
+
+@media (max-width: 767px) {
+  body .main-image img {
+    padding: 16px;
+    transform: scale(1.08);
+  }
+
+  body .thumbnail img {
+    padding: 2px;
+    transform: scale(1.04);
+  }
+
+  body .product-image img {
+    transform: scale(1.08);
+  }
+
+  body .home-page .category-card--image .category-card-image {
+    transform: scale(1.08);
+  }
+
+  body .secondary-slide-image img {
+    transform: scale(1.08);
+  }
+
+  body .home-page .good-finds-card-image > img,
+  body .home-page .good-finds-model-image img {
+    transform: scale(1.08);
+  }
+}
+
+
+/* ============================================
+   14. REDUCED MOTION
+============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  body .product-image img,
+  .summary-actions a[href*="wa.me"] {
+    transition: none;
+  }
+}
+
+
+/* ============================================
+   15. ANDROID / TOUCHSCREEN CARD FIX
+   Keep keyboard focus accessible and remove
+   persistent tap/hover decoration.
+============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  body .product-card:hover {
+    outline: none;
+    box-shadow: none;
+    transform: none;
+  }
+
+  body .product-card:hover .product-image img {
+    transform: scale(1.08);
+  }
+
+  body .product-card a:hover,
+  body .product-card a:active,
+  body .product-card a:focus:not(:focus-visible),
+  body .product-card a:focus:not(:focus-visible):hover {
+    text-decoration: none;
+    text-decoration-line: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  body .product-card a:focus-visible {
+    outline: 2px solid #E67E22;
+    outline-offset: 2px;
+  }
+
+  body .product-card .product-title,
+  body .product-card .product-title:hover,
+  body .product-card .product-title:active {
+    text-decoration: none;
+    text-decoration-line: none;
+  }
+}
+
+
+/* ============================================
+   16. MOBILE CART / CHECKOUT FRAMING
+============================================ */
+
+@media (max-width: 767px) {
+  body .item-image img,
+  body .checkout-item-image img {
+    transform: scale(1.06);
+  }
+}
+
+
+/* ============================================
+   END OF VAULT KHAZANA IMAGE POLISH
+============================================ */
