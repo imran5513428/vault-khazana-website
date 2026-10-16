@@ -5,15 +5,9 @@
    Complete replacement for:
    src/styles/cart-product-polish.css
 
-   Goals:
-   - Consistent, clean image presentation
-   - Preserve image proportions
-   - Keep full products visible
-   - Standardise image backgrounds and alignment
-   - Remove inconsistent product-specific zoom
-   - Preserve existing cart and accessibility styling
-
-   No product data, pricing, or cart logic changes.
+   Preserves existing image, cart, checkout,
+   WhatsApp button and accessibility styling.
+   Adds a scoped Android touchscreen fix.
 ============================================ */
 
 
@@ -52,8 +46,6 @@ a:focus-visible {
 
 /* ============================================
    2. SHARED IMAGE PRESENTATION
-   Applies only to identified image areas.
-   Original images are not edited or cropped.
 ============================================ */
 
 .product-image,
@@ -72,8 +64,6 @@ a:focus-visible {
 
 /* ============================================
    3. CATEGORY PRODUCT CARDS
-   Homepage-related product cards use the same
-   product-image rules as category listings.
 ============================================ */
 
 body .product-image {
@@ -135,8 +125,6 @@ body .home-page .category-card--image .category-card-image {
 
 /* ============================================
    5. PRODUCT DETAIL MAIN IMAGE
-   One consistent frame for all products.
-   No aluminium-specific zoom.
 ============================================ */
 
 body .main-image {
@@ -291,7 +279,6 @@ body .item-image img {
 
 /* ============================================
    10. CHECKOUT PRODUCT IMAGES
-   Override cover to prevent product cut-off.
 ============================================ */
 
 body .checkout-item-image {
@@ -317,7 +304,6 @@ body .checkout-item-image img {
 
 /* ============================================
    11. WHATSAPP CART BUTTON
-   Preserve existing cart button appearance.
 ============================================ */
 
 .summary-actions a[href*="wa.me"] {
@@ -366,7 +352,6 @@ body .checkout-item-image img {
 
 /* ============================================
    12. CLEAR CART BUTTON
-   Preserve existing confirmation behaviour.
 ============================================ */
 
 .cart-actions .clear-cart-btn {
@@ -432,5 +417,46 @@ body .checkout-item-image img {
   body .product-image img,
   .summary-actions a[href*="wa.me"] {
     transition: none;
+  }
+}
+
+
+/* ============================================
+   15. ANDROID / TOUCHSCREEN CARD FIX
+   Prevent persistent tap/hover decoration.
+   Keep keyboard focus visible for accessibility.
+============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  body .product-card:hover {
+    outline: none;
+    box-shadow: none;
+    transform: none;
+  }
+
+  body .product-card:hover .product-image img {
+    transform: none;
+  }
+
+  body .product-card a:hover,
+  body .product-card a:active,
+  body .product-card a:focus:not(:focus-visible),
+  body .product-card a:focus:not(:focus-visible):hover {
+    text-decoration: none;
+    text-decoration-line: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  body .product-card a:focus-visible {
+    outline: 2px solid #E67E22;
+    outline-offset: 2px;
+  }
+
+  body .product-card .product-title,
+  body .product-card .product-title:hover,
+  body .product-card .product-title:active {
+    text-decoration: none;
+    text-decoration-line: none;
   }
 }
