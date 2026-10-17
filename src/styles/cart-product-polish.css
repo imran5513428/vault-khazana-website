@@ -1,26 +1,24 @@
 /* ============================================
    VAULT KHAZANA — CART & PRODUCT IMAGE POLISH
-   Complete replacement – 16 Oct 2026
+   Complete replacement – 17 Oct 2026
 
-   Changes in this version:
-   - Strengthened focus styles for Android touch
-     (removes residual orange outline + underline
-     after tap while keeping keyboard accessibility)
-   - Expanded the approved Good Finds (F1 / F3)
-     framing density to product-card images site-wide
-     using the same moderate scale approach that
-     already looked perfect on the homepage offers
-   - Kept all previously approved aluminium detail
-     scales, WhatsApp button, Clear Cart styling
-     and reduced-motion rules exactly as they were
-   - No cart/checkout logic changes
+   Goal: Reduce empty / white space across ALL
+   product cards in every category while keeping
+   products fully visible and consistent.
+
+   Changes:
+   - Stronger but safe density for all .product-image
+   - Tighter padding + overflow control
+   - Preserved Android focus fix
+   - Preserved approved aluminium detail scales
+   - Preserved Good Finds, WhatsApp & Clear Cart styles
 ============================================ */
 
 
 /* ============================================
    1. LINK FOCUS STYLES
-   Remove ordinary click/touch outlines while
-   retaining clear keyboard focus indicators.
+   Remove residual orange outline/underline after
+   finger tap on Android. Keep keyboard focus.
 ============================================ */
 
 a:focus {
@@ -32,8 +30,6 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* Product-card links – prevent residual focus
-   outline and underline after a finger tap */
 .product-card a:focus:not(:focus-visible),
 .product-card:focus:not(:focus-visible) {
   outline: none;
@@ -46,14 +42,12 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* Preserve existing cart-link touch refinement */
 @media (hover: none) and (pointer: coarse) {
   .cart-link:focus:not(:focus-visible) {
     outline: none;
     box-shadow: none;
   }
 
-  /* Extra safety for product cards on touch devices */
   .product-card a:focus,
   .product-card a:focus-visible {
     outline: none;
@@ -62,8 +56,6 @@ a:focus-visible {
   }
 
   .product-card a:focus-visible {
-    /* Still allow keyboard users who happen
-       to be on a coarse pointer device */
     outline: 2px solid #E67E22;
     outline-offset: 2px;
   }
@@ -72,9 +64,6 @@ a:focus-visible {
 
 /* ============================================
    2. FOOTER LINK TAP FIX
-   Prevent footer links from retaining the orange
-   focus appearance after a touch tap.
-   Desktop and mouse styling remain unchanged.
 ============================================ */
 
 @media (hover: none) and (pointer: coarse) {
@@ -94,26 +83,21 @@ a:focus-visible {
 
 /* ============================================
    3. PRODUCT DETAIL IMAGE FRAMING
-   Enlarge the product inside its existing frame.
-   Images remain undistorted.
-   (These aluminium scales were already approved)
+   (Approved aluminium scales – kept exactly)
 ============================================ */
 
-/* F1 main product image */
 .main-image img[alt*="F1 Aluminum Container"],
 .main-image img[alt*="F1" i][alt*="alumin" i] {
   transform: scale(1.28);
   transform-origin: center;
 }
 
-/* Other aluminium main images and gallery slides */
 .main-image img[alt*="alumin" i]:not([alt*="F1" i]),
 .secondary-slide-image img[alt*="alumin" i] {
   transform: scale(1.12);
   transform-origin: center;
 }
 
-/* Smaller-screen framing */
 @media (max-width: 767px) {
   .main-image img[alt*="F1 Aluminum Container"],
   .main-image img[alt*="F1" i][alt*="alumin" i] {
@@ -128,9 +112,8 @@ a:focus-visible {
 
 
 /* ============================================
-   4. HOMEPAGE GOOD FINDS (F1 / F3) OFFER IMAGES
-   This is the approved reference that looked perfect.
-   Kept exactly as you supplied.
+   4. HOMEPAGE GOOD FINDS (F1 / F3) – Reference
+   Kept exactly as approved
 ============================================ */
 
 .good-finds-model-image img {
@@ -146,53 +129,65 @@ a:focus-visible {
 
 
 /* ============================================
-   5. SITE-WIDE PRODUCT CARD IMAGE FRAMING
-   Applies the same visual density approach that
-   already looked perfect on the Good Finds cards
-   to the main category listing cards.
-   Moderate scale + slightly tighter padding.
+   5. SITE-WIDE PRODUCT CARD DENSITY
+   Applies stronger consistent framing to EVERY
+   product card in all categories.
 ============================================ */
 
-/* Shared product-card image container */
-.product-image {
-  overflow: hidden; /* prevents scaled image from spilling */
+/* Shared image container */
+body .product-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;               /* critical – prevents spill */
+  aspect-ratio: 1 / 1;
+  padding: 8px;                   /* tighter than before */
+  border-radius: 10px;
+  background-color: #F5F7FA;
 }
 
-/* Apply the successful Good Finds density to
-   all product-card images in category listings */
-.product-image img {
-  transform: scale(1.10);
+/* Main density rule for all product cards */
+body .product-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.14);         /* stronger density */
   transform-origin: center;
   transition: transform 180ms ease;
 }
 
-/* Slightly tighter on small screens so cutlery
-   and wide aluminium trays stay comfortable */
+/* Slightly lower on small screens so tall cutlery
+   and wide trays do not feel cramped */
 @media (max-width: 640px) {
-  .product-image img {
-    transform: scale(1.06);
+  body .product-image {
+    padding: 6px;
+  }
+  body .product-image img {
+    transform: scale(1.10);
   }
 }
 
-/* Optional gentle hover lift (only on devices
-   that actually support hover) */
+/* Gentle hover only on real hover devices */
 @media (hover: hover) and (pointer: fine) {
-  .product-card:hover .product-image img {
-    transform: scale(1.13);
+  body .product-card:hover .product-image img {
+    transform: scale(1.17);
   }
 }
 
 @media (hover: none) {
-  .product-card:hover .product-image img {
-    transform: scale(1.10); /* keep base scale on touch */
+  body .product-card:hover .product-image img {
+    transform: scale(1.14);
   }
 }
 
 
 /* ============================================
    6. WHATSAPP CART BUTTON
-   Match the outlined navy Continue Shopping style.
-   Remove unwanted orange underlined link styling.
 ============================================ */
 
 .summary-actions a[href*="wa.me"] {
@@ -239,7 +234,8 @@ a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .summary-actions a[href*="wa.me"] {
+  .summary-actions a[href*="wa.me"],
+  body .product-image img {
     transition: none;
   }
 }
@@ -247,8 +243,6 @@ a:focus-visible {
 
 /* ============================================
    7. CLEAR CART
-   Preserve the existing understated text-button
-   appearance and its confirmation behaviour.
 ============================================ */
 
 .cart-actions .clear-cart-btn {
