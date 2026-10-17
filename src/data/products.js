@@ -1913,4 +1913,333 @@ export const PRODUCTS = [
     overview: 'Rahat Silk-Soft Tissue offers a soft, smooth feel for comfortable everyday use. This red and white pack features Arabic-language packaging and contains 200 tissues with a 2-ply construction.',
     description: 'Rahat Silk-Soft Tissue offers a soft, smooth feel for comfortable everyday use. The pack contains 200 tissues with a 2-ply construction.',
     suitableFor: 'Home use, office use, personal hygiene and everyday use.',
-    idealFor
+    idealFor: 'Everyday facial tissue use at home, in offices and other personal-care settings.',
+    inStock: true
+  },
+
+  {
+    id: 'klienex-soft-tissue',
+    categoryId: 'tissues-kitchen',
+    name: 'Klienex Soft High Quality Tissue',
+    slug: 'klienex-soft-tissue',
+    price: 180,
+    pack: '1 unit — up to 300 sheets',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 180,
+    overview: 'Premium-quality folded facial tissues in attractive red rose-design packaging. Made in Pakistan and designed for convenient everyday cleaning and personal hygiene.',
+    description: 'Premium-quality folded facial tissues designed for convenient everyday cleaning and personal hygiene.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday cleaning.',
+    idealFor: 'Everyday facial tissue use and convenient personal hygiene.',
+    inStock: true
+  },
+
+  {
+    id: 'tux-premium-tissues-550',
+    categoryId: 'tissues-kitchen',
+    name: 'Tux Premium Tissues — Ultra Soft, Hypo-Allergenic, 2 Ply, 550 Sheets',
+    slug: 'tux-premium-tissues-550',
+    price: 440,
+    pack: '1 unit — 550 sheets',
+    sellingUnit: 'piece',
+    moq: 2,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 440,
+    material: '100% virgin wood pulp',
+    overview: 'Tux Ultra Soft Premium Tissues are made from 100% virgin wood pulp and designed to provide a luxuriously soft feel with reliable strength and absorbency. Their hypo-allergenic formulation makes them suitable for all skin types and everyday hygiene.',
+    description: 'Tux Ultra Soft Premium Tissues feature a 2-ply construction, hypo-allergenic formulation and easy-pull design for everyday hygiene.',
+    suitableFor: 'Home use, office use, personal hygiene, everyday cleaning and all skin types.',
+    idealFor: 'Everyday facial tissue use where softness and absorbency are important.',
+    inStock: true
+  },
+
+  {
+    id: 'tux-pop-up-tissues',
+    categoryId: 'tissues-kitchen',
+    name: 'Tux Premium Tissues — Pop Up Box, 150 Soft Pulls',
+    slug: 'tux-pop-up-tissues',
+    price: 210,
+    pack: '1 unit — 150 soft pulls',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 210,
+    overview: 'Tux Pop Up Premium Tissues come in a convenient dispenser box with soft tissues designed for easy everyday use. The box is marked Hypo-Allergenic and Certified Skin Safe.',
+    description: 'Convenient pop-up tissue box with soft tissues marked Hypo-Allergenic and Certified Skin Safe for easy everyday use.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday use.',
+    idealFor: 'Convenient facial tissue use at desks, counters, homes and offices.',
+    inStock: true
+  },
+
+  {
+    id: 'flora-vanilla-magic-tissues',
+    categoryId: 'tissues-kitchen',
+    name: 'Flora Perfumed Facial Tissues — Vanilla Magic, 2 Ply, 550 Tissues',
+    slug: 'flora-vanilla-magic-tissues',
+    price: 260,
+    pack: '1 unit — 550 tissues',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 260,
+    material: '100% virgin pulp',
+    overview: 'Flora Vanilla Magic is a premium perfumed facial tissue with a silky-soft feel, made from 100% virgin pulp. Its Vanilla Magic fragrance and 2-ply construction make it suitable for comfortable everyday use.',
+    description: 'Flora Vanilla Magic features a Vanilla Magic fragrance, 2-ply construction and a silky-soft feel for comfortable everyday use.',
+    suitableFor: 'Home use, office use, personal hygiene and everyday use.',
+    idealFor: 'Everyday facial tissue use for customers who prefer a perfumed tissue.',
+    inStock: true
+  },
+
+  {
+    id: 'rose-petal-smart-pack',
+    categoryId: 'tissues-kitchen',
+    name: 'Rose Petal Smart Pack — Ultra Soft Tissue, 2 Ply, 550 Tissues',
+    slug: 'rose-petal-smart-pack',
+    price: 440,
+    pack: '1 unit — 550 tissues',
+    sellingUnit: 'piece',
+    moq: 2,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 440,
+    overview: 'Rose Petal Ultra Soft Smart Pack tissues are designed to provide a soft and gentle feel for comfortable everyday use. The convenient pack contains 550 tissues, making it a practical choice for home and on-the-go use.',
+    description: 'Ultra-soft 2-ply facial tissues in a convenient Smart Pack format for everyday use.',
+    suitableFor: 'Home use, office use, personal hygiene, travel and on-the-go use.',
+    idealFor: 'Everyday facial tissue use at home, work or while travelling.',
+    inStock: true
+  },
+
+  {
+    id: 'jasmine-party-pack',
+    categoryId: 'tissues-kitchen',
+    name: 'Jasmine Tissues — Party Pack, Pink',
+    slug: 'jasmine-party-pack',
+    price: 220,
+    pack: '1 unit — Party Pack',
+    sellingUnit: 'piece',
+    moq: 4,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 220,
+    overview: 'Jasmine Party Pack is a convenient pink, napkin-style tissue pack with square-folded tissues. The pack is manufactured by Zamoung Textile Company and also identifies International Marketing Company and Deans Industries Pakistan.',
+    description: 'A pink Party Pack of square-folded, napkin-style tissues for convenient table and everyday use.',
+    suitableFor: 'Home use, everyday use, parties, gatherings and table use.',
+    idealFor: 'Table settings, gatherings and everyday household use.',
+    inStock: true
+  },
+
+  /* =========================================================
+     ALUMINUM CONTAINERS
+     ========================================================= */
+
+  {
+    id: 'f1-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F1 Aluminum Container with Lid',
+    slug: 'f1-aluminum-container-with-lid',
+    imageSlug: 'f1-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '5 × 4 × 2 inches',
+    capacity: 'Approximately 450ml',
+    price: 20,
+    unitPrice: 20,
+    packPrice: 990,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 20,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 5.7–6g',
+    suitableFor: 'Rice, pasta, lasagna, curries, brownies, desserts, salads and frozen meals',
+    overview: 'Compact single-serve aluminum container with lid, designed for everyday takeaway portions, baking and food storage.',
+    description: 'A practical foil container for individual servings and smaller portions. Suitable for takeaway, delivery, meal preparation, baking and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, home cooks and catering of small portions.',
+    inStock: true
+  },
+
+  {
+    id: 'f2-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F2 Aluminum Container with Lid',
+    slug: 'f2-aluminum-container-with-lid',
+    imageSlug: 'f2-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '8 × 4 × 2.5 inches',
+    capacity: 'Approximately 750–900ml',
+    price: 30,
+    unitPrice: 30,
+    packPrice: 1475,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 30,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 8–9g',
+    suitableFor: 'Rice, pasta, lasagna, biryani, baked goods, frozen meals and side dishes',
+    overview: 'Medium versatile foil container designed for generous single servings and everyday takeaway use.',
+    description: 'A practical aluminum container for takeaway, baking, meal preparation and food storage.',
+    idealFor: 'Restaurants, cafés, cloud kitchens, caterers and home cooks.',
+    inStock: true
+  },
+
+  {
+    id: 'f3-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F3 Aluminum Container with Lid',
+    slug: 'f3-aluminum-container-with-lid',
+    imageSlug: 'f3-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '8.5 × 6 × 2 inches',
+    capacity: 'Approximately 1100–1500ml',
+    price: 41,
+    unitPrice: 41,
+    packPrice: 2040,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 41,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 12g',
+    suitableFor: 'Family portions, sharing meals, lasagna, pasta bakes, curries, roasted dishes, brownies and bulk frozen storage',
+    overview: 'Large family-style foil tray for generous portions, catering and meal preparation.',
+    description: 'A strong aluminum container with reinforced walls, suitable for baking, takeaway, food storage and catering.',
+    idealFor: 'Family meals, catering, restaurants, cloud kitchens and meal-prep businesses.',
+    inStock: true
+  },
+
+  {
+    id: 'f4-aluminum-container',
+    categoryId: 'aluminum-containers',
+    name: 'F4 Aluminum Container with Lid',
+    slug: 'f4-aluminum-container-with-lid',
+    imageSlug: 'f4-aluminum-container-with-lid',
+    imageSuffixes: [
+      'main',
+      'food',
+      'open',
+      'dimension',
+      'cinematic',
+      'catalogue'
+    ],
+    dimensions: '9.5 × 9.5 × 2 inches',
+    capacity: 'Approximately 1750ml',
+    price: 84,
+    unitPrice: 84,
+    packPrice: 4200,
+    pack: '50 pieces',
+    sellingUnit: 'piece',
+    moq: 20,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 84,
+    material: 'Food-grade aluminum foil',
+    lid: 'Secure-fitting lid included',
+    shape: 'Rectangular',
+    weight: 'Approximately 17g',
+    suitableFor: 'Family meals, party platters, catering trays, lasagna, pasta, rice, roasted meats, desserts and bulk freezing',
+    overview: 'Extra-large foil container designed for maximum capacity, sharing and catering.',
+    description: 'A heavy-duty aluminum container suitable for large meals, catering, baking, takeaway and freezer storage.',
+    idealFor: 'Catering businesses, restaurants, cloud kitchens, events and large family portions.',
+    inStock: true
+  }
+];
+
+/* =========================================================
+   APPROVED STORE STANDARD
+   All products are shown as In Stock.
+   No individual inventory quantities are used.
+   ========================================================= */
+
+PRODUCTS.forEach((product) => {
+  product.inStock = true;
+
+  product.images = getProductImages(
+    product.imageFolder || product.id,
+    getLegacyProductImages(
+      product.imageSlug,
+      product.imageSuffixes
+    )
+  );
+});
+
+/* ===== UTILITY FUNCTIONS ===== */
+
+export const getProductById = (productId) => {
+  return PRODUCTS.find((product) => product.id === productId);
+};
+
+export const getProductsByCategory = (categoryId) => {
+  return PRODUCTS.filter(
+    (product) => product.categoryId === categoryId
+  );
+};
+
+export const getCategoryById = (categoryId) => {
+  return CATEGORIES.find(
+    (category) => category.id === categoryId
+  );
+};
+
+export const getCategoryBySlug = (slug) => {
+  return CATEGORIES.find(
+    (category) => category.slug === slug
+  );
+};
+
+export const formatPrice = (price) => {
+  return new Intl.NumberFormat('en-PK', {
+    style: 'currency',
+    currency: 'PKR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(Math.round(price));
+};
+
+export const searchProducts = (query) => {
+  const lowerQuery = query.toLowerCase();
+
+  return PRODUCTS.filter(
+    (product) =>
+      product.name.toLowerCase().includes(lowerQuery) ||
+      product.description.toLowerCase().includes(lowerQuery) ||
+      product.overview.toLowerCase().includes(lowerQuery)
+  );
+};
