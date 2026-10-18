@@ -57,6 +57,11 @@ function CategoryPage() {
       return 'kg';
     }
 
+    // Custom unit for Everyday Shopping Bags
+    if (sellingUnit === '250g') {
+      return '250g';
+    }
+
     // Legacy pack products that have packSize → show per piece
     if (sellingUnit === 'pack' && packSize) {
       return 'piece';
@@ -92,6 +97,10 @@ function CategoryPage() {
 
     if (sellingUnit === 'kg' || sellingUnit === 'weight') {
       return `Minimum ${moq} kg`;
+    }
+
+    if (sellingUnit === '250g') {
+      return `Minimum ${moq} × 250g`;
     }
 
     if (sellingUnit === 'pack') {
