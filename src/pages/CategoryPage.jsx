@@ -72,11 +72,20 @@ function CategoryPage() {
    */
   const getDisplayUnit = (product) => {
     const sellingUnit = product.sellingUnit || 'piece';
+    const packSize = product.packSize
+      ? Number(product.packSize)
+      : null;
 
     if (sellingUnit === 'kg') {
       return 'kg';
     }
 
+    // Legacy pack products that have packSize → show per piece
+    if (sellingUnit === 'pack' && packSize) {
+      return 'piece';
+    }
+
+    // New pack products without packSize → show per pack
     if (sellingUnit === 'pack') {
       return 'pack';
     }
