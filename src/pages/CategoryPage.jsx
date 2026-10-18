@@ -77,6 +77,18 @@ function CategoryPage() {
       return 'kg';
     }
 
+    if (sellingUnit === 'pack') {
+      return 'pack';
+    }
+
+    if (sellingUnit === 'pair') {
+      return 'pair';
+    }
+
+    if (sellingUnit === 'set') {
+      return 'set';
+    }
+
     return 'piece';
   };
 
@@ -98,24 +110,29 @@ function CategoryPage() {
       ? Number(product.packSize)
       : null;
 
-    if (
-      sellingUnit === 'pack' &&
-      packSize
-    ) {
+    // When packSize exists, show minimum in pieces (legacy behaviour)
+    if (sellingUnit === 'pack' && packSize) {
       const minimumPieces = moq * packSize;
-
       return `Minimum ${minimumPieces} pieces`;
     }
 
     if (sellingUnit === 'kg') {
-      return `Minimum ${moq} ${
-        moq === 1 ? 'kg' : 'kg'
-      }`;
+      return `Minimum ${moq} kg`;
     }
 
-    return `Minimum ${moq} ${
-      moq === 1 ? 'piece' : 'pieces'
-    }`;
+    if (sellingUnit === 'pack') {
+      return `Minimum ${moq} ${moq === 1 ? 'pack' : 'packs'}`;
+    }
+
+    if (sellingUnit === 'pair') {
+      return `Minimum ${moq} ${moq === 1 ? 'pair' : 'pairs'}`;
+    }
+
+    if (sellingUnit === 'set') {
+      return `Minimum ${moq} ${moq === 1 ? 'set' : 'sets'}`;
+    }
+
+    return `Minimum ${moq} ${moq === 1 ? 'piece' : 'pieces'}`;
   };
 
   return (
