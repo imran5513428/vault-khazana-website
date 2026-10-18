@@ -28,26 +28,6 @@ function CategoryPage() {
     );
   }
 
-  /*
-   * CATEGORY PRODUCT CARD PRICING
-   *
-   * All pricing comes from the canonical selling structure
-   * in products.js.
-   *
-   * Piece:
-   * pricePerUnit = price of one piece
-   *
-   * Pack:
-   * pricePerUnit = price of the complete pack
-   * packSize = number of pieces in that pack
-   *
-   * Example:
-   * Rs 250 / 100-piece pack
-   * = Rs 2.50 per piece
-   *
-   * Kg:
-   * pricePerUnit = price of one kg
-   */
   const getDisplayPrice = (product) => {
     const sellingUnit = product.sellingUnit || 'piece';
     const packSize = product.packSize
@@ -67,16 +47,13 @@ function CategoryPage() {
     return pricePerUnit;
   };
 
-  /*
-   * Display unit for the reference price.
-   */
   const getDisplayUnit = (product) => {
     const sellingUnit = product.sellingUnit || 'piece';
     const packSize = product.packSize
       ? Number(product.packSize)
       : null;
 
-    if (sellingUnit === 'kg') {
+    if (sellingUnit === 'kg' || sellingUnit === 'weight') {
       return 'kg';
     }
 
@@ -101,17 +78,6 @@ function CategoryPage() {
     return 'piece';
   };
 
-  /*
-   * Minimum-order display.
-   *
-   * For pack products, MOQ is expressed in pieces
-   * when packSize is available.
-   *
-   * Example:
-   * moq: 1
-   * packSize: 100
-   * → Minimum 100 pieces
-   */
   const getMinimumOrderLabel = (product) => {
     const sellingUnit = product.sellingUnit || 'piece';
     const moq = Number(product.moq) || 1;
@@ -119,13 +85,12 @@ function CategoryPage() {
       ? Number(product.packSize)
       : null;
 
-    // When packSize exists, show minimum in pieces (legacy behaviour)
     if (sellingUnit === 'pack' && packSize) {
       const minimumPieces = moq * packSize;
       return `Minimum ${minimumPieces} pieces`;
     }
 
-    if (sellingUnit === 'kg') {
+    if (sellingUnit === 'kg' || sellingUnit === 'weight') {
       return `Minimum ${moq} kg`;
     }
 
@@ -146,19 +111,14 @@ function CategoryPage() {
 
   return (
     <div className="category-page">
-
-      {/* CATEGORY HEADER */}
       <div className="category-header">
         <div className="container">
           <div className="category-header-content">
             <span className="category-icon">
               {category.icon}
             </span>
-
             <h1>{category.name}</h1>
-
             <p>{category.description}</p>
-
             <span className="product-count">
               {products.length} product
               {products.length !== 1 ? 's' : ''}
@@ -167,21 +127,14 @@ function CategoryPage() {
         </div>
       </div>
 
-      {/* PRODUCTS SECTION */}
       <section className="category-products">
         <div className="container">
           <div className="product-grid">
-
             {products.length > 0 ? (
               products.map((product) => {
-                const displayPrice =
-                  getDisplayPrice(product);
-
-                const displayUnit =
-                  getDisplayUnit(product);
-
-                const minimumOrder =
-                  getMinimumOrderLabel(product);
+                const displayPrice = getDisplayPrice(product);
+                const displayUnit = getDisplayUnit(product);
+                const minimumOrder = getMinimumOrderLabel(product);
 
                 return (
                   <Link
@@ -197,7 +150,6 @@ function CategoryPage() {
                     </div>
 
                     <div className="product-info">
-
                       <p className="product-category">
                         {category.name}
                       </p>
@@ -212,9 +164,7 @@ function CategoryPage() {
                           'en-PK',
                           {
                             minimumFractionDigits:
-                              displayUnit === 'piece'
-                                ? 2
-                                : 0,
+                              displayUnit === 'piece' ? 2 : 0,
                             maximumFractionDigits: 2
                           }
                         )}{' '}
@@ -226,7 +176,6 @@ function CategoryPage() {
                       <p className="product-pack">
                         {minimumOrder}
                       </p>
-
                     </div>
                   </Link>
                 );
@@ -238,11 +187,9 @@ function CategoryPage() {
                 </p>
               </div>
             )}
-
           </div>
         </div>
       </section>
-
     </div>
   );
 }
