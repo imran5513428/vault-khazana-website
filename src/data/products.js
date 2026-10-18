@@ -2203,7 +2203,7 @@ export const PRODUCTS = [
   {
     id: 'wooden-bbq-shashlik-skewers',
     categoryId: 'food-service-essentials',
-    name: 'Wooden BBQ & Shashlik Skewers — Pack of 30',
+    name: 'Wooden BBQ Skewers — Pack of 30',
     slug: 'wooden-bbq-shashlik-skewers-pack-30',
     imageSlug: 'wooden-bbq-shashlik-skewers',
     price: 90,
@@ -2253,7 +2253,7 @@ export const PRODUCTS = [
   {
     id: 'silicone-cleaning-gloves',
     categoryId: 'food-service-essentials',
-    name: 'Reusable Silicone Cleaning Gloves with Scrubber',
+    name: 'Silicone Cleaning Gloves with Scrubber',
     slug: 'reusable-silicone-cleaning-gloves-scrubber',
     imageSlug: 'silicone-cleaning-gloves',
     price: 230,
@@ -2273,7 +2273,7 @@ export const PRODUCTS = [
   {
     id: 'mini-sauce-condiment-bottles',
     categoryId: 'food-service-essentials',
-    name: 'Mini Sauce & Condiment Bottles — Pack of 2',
+    name: 'Mini Sauce Bottles — Pack of 2',
     slug: 'mini-sauce-condiment-bottles-pack-2',
     imageSlug: 'mini-sauce-condiment-bottles',
     price: 120,
@@ -2294,7 +2294,7 @@ export const PRODUCTS = [
   {
     id: 'elastic-food-storage-covers',
     categoryId: 'food-service-essentials',
-    name: 'Elastic Food Storage Covers — Pack of 100',
+    name: 'Elastic Food Covers — Pack of 100',
     slug: 'elastic-food-storage-covers-pack-100',
     imageSlug: 'elastic-food-storage-covers',
     price: 220,
@@ -2313,7 +2313,7 @@ export const PRODUCTS = [
   {
     id: 'small-hand-face-towels',
     categoryId: 'food-service-essentials',
-    name: 'Small Hand & Face Towels — Set of 6',
+    name: 'Hand & Face Towels — Set of 6',
     slug: 'small-hand-face-towels-set-6',
     imageSlug: 'small-hand-face-towels',
     price: 220,
