@@ -164,7 +164,7 @@ body .product-image {
   justify-content: center;
   overflow: hidden;               /* critical – prevents spill */
   aspect-ratio: 1 / 1;
-  padding: 8px;                   /* tighter than before */
+  padding: 4px;                   /* tighter for tissue packs */
   border-radius: 10px;
   background-color: #F5F7FA;
 }
@@ -178,7 +178,7 @@ body .product-image img {
   min-height: 0;
   object-fit: contain;
   object-position: center;
-  transform: scale(1.14);         /* stronger density */
+  transform: scale(1.22);         /* stronger density for less empty space */
   transform-origin: center;
   transition: transform 180ms ease;
 }
@@ -187,23 +187,23 @@ body .product-image img {
    and wide trays do not feel cramped */
 @media (max-width: 640px) {
   body .product-image {
-    padding: 6px;
+    padding: 3px;
   }
   body .product-image img {
-    transform: scale(1.10);
+    transform: scale(1.16);
   }
 }
 
 /* Gentle hover only on real hover devices */
 @media (hover: hover) and (pointer: fine) {
   body .product-card:hover .product-image img {
-    transform: scale(1.17);
+    transform: scale(1.25);
   }
 }
 
 @media (hover: none) {
   body .product-card:hover .product-image img {
-    transform: scale(1.14);
+    transform: scale(1.22);
   }
 }
 
