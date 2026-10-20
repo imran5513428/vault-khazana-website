@@ -68,13 +68,6 @@ export const CATEGORIES = [
     description: 'Convenient disposable spoons, forks and knives'
   },
   {
-    id: 'takeaway-packaging',
-    name: 'Takeaway Packaging',
-    slug: 'takeaway-packaging',
-    icon: '🥡',
-    description: 'Packaging solutions for takeaway food'
-  },
-  {
     id: 'aluminum-containers',
     name: 'Aluminum Containers',
     slug: 'aluminum-containers',
@@ -2136,10 +2129,14 @@ export const formatPrice = (price) => {
 export const searchProducts = (query) => {
   const lowerQuery = query.toLowerCase();
 
-  return PRODUCTS.filter(
-    (product) =>
-      product.name.toLowerCase().includes(lowerQuery) ||
-      product.description.toLowerCase().includes(lowerQuery) ||
-      product.overview.toLowerCase().includes(lowerQuery)
-  );
+  return PRODUCTS.filter((product) => {
+    const name = (product.name || '').toLowerCase();
+    const description = (product.description || '').toLowerCase();
+    const overview = (product.overview || '').toLowerCase();
+    return (
+      name.includes(lowerQuery) ||
+      description.includes(lowerQuery) ||
+      overview.includes(lowerQuery)
+    );
+  });
 };
