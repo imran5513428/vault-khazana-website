@@ -1471,12 +1471,13 @@ export const PRODUCTS = [
      ========================================================= */
 
   {
-    id: '8oz-ripple-double-wall-cup-lid',
+    id: 'ripple-double-wall-cup-lid',
     categoryId: 'cups-drinkware',
-    name: '8OZ Ripple Double-Wall Paper Cup with Lid',
-    slug: '8oz-ripple-double-wall-cup-lid',
+    name: 'Ripple Double-Wall Paper Cup with Lid',
+    slug: 'ripple-double-wall-cup-lid',
     imageSlug: '8oz-ripple-double-wall-cup-lid',
-    capacity: '8OZ (Approx. 240ML)',
+    imageFolder: '8oz-ripple-double-wall-cup-lid',
+    capacity: '8OZ / 12OZ',
     price: 10,
     pack: 'Per piece',
     sellingUnit: 'piece',
@@ -1487,34 +1488,26 @@ export const PRODUCTS = [
     material: 'Food-grade brown kraft paper — ripple double wall',
     lid: 'Black plastic lid included',
     colour: 'Natural brown kraft',
-    suitableFor: 'Espresso, short black, flat white, tea, hot chocolate',
-    overview: 'Compact insulated paper cup with ripple grip and matching lid for comfortable hot takeaway service.',
-    description: 'An 8OZ double-wall ripple cup that keeps drinks hot and hands comfortable without a separate sleeve. Secure black lid supports spill-resistant café and office service.',
-    idealFor: 'Cafés, offices, events and everyday hot-beverage takeaway.',
-    inStock: true
-  },
-
-  {
-    id: '12oz-ripple-double-wall-cup-lid',
-    categoryId: 'cups-drinkware',
-    name: '12OZ Ripple Double-Wall Paper Cup with Lid',
-    slug: '12oz-ripple-double-wall-cup-lid',
-    imageSlug: '12oz-ripple-double-wall-cup-lid',
-    capacity: '12OZ (Approx. 350ML)',
-    price: 14,
-    pack: 'Per piece',
-    sellingUnit: 'piece',
-    moq: 25,
-    step: 25,
-    packSize: null,
-    pricePerUnit: 14,
-    material: 'Food-grade brown kraft paper — ripple double wall',
-    lid: 'Black plastic lid included',
-    colour: 'Natural brown kraft',
-    suitableFor: 'Latte, cappuccino, regular coffee, tea, hot chocolate',
-    overview: 'Medium insulated ripple cup with lid — built for everyday café volumes and comfortable handling of hotter drinks.',
-    description: 'A 12OZ double-wall kraft cup that combines natural grip, heat insulation and a secure black lid for reliable takeaway service.',
-    idealFor: 'Coffee shops, cafés, offices and beverage takeaway.',
+    suitableFor: 'Espresso, short black, flat white, latte, cappuccino, tea, hot chocolate',
+    overview: 'Insulated ripple double-wall paper cup with matching lid for comfortable hot takeaway service. Available in 8OZ and 12OZ.',
+    description: 'Double-wall kraft cup with natural ripple grip and secure black lid. Keeps drinks hot and hands comfortable without a separate sleeve. Choose 8OZ for smaller servings or 12OZ for regular café volumes.',
+    idealFor: 'Cafés, coffee shops, offices, events and everyday hot-beverage takeaway.',
+    variants: [
+      {
+        id: '8oz',
+        label: '8OZ (Approx. 240ML)',
+        capacity: '8OZ (Approx. 240ML)',
+        price: 10,
+        pricePerUnit: 10
+      },
+      {
+        id: '12oz',
+        label: '12OZ (Approx. 350ML)',
+        capacity: '12OZ (Approx. 350ML)',
+        price: 14,
+        pricePerUnit: 14
+      }
+    ],
     inStock: true
   },
 
@@ -1589,12 +1582,13 @@ export const PRODUCTS = [
   },
 
   {
-    id: '12oz-plastic-glass-dome-lid',
+    id: 'plastic-glass-dome-lid',
     categoryId: 'cups-drinkware',
-    name: '12OZ Plastic Glass with Dome Lid',
-    slug: '12oz-plastic-glass-dome-lid',
+    name: 'Plastic Glass with Dome Lid',
+    slug: 'plastic-glass-dome-lid',
     imageSlug: '12oz-plastic-glass-dome-lid',
-    capacity: '12OZ (Approx. 350ML)',
+    imageFolder: '12oz-plastic-glass-dome-lid',
+    capacity: '12OZ / 16OZ',
     price: 15,
     pack: 'Per piece',
     sellingUnit: 'piece',
@@ -1606,33 +1600,25 @@ export const PRODUCTS = [
     lid: 'Dome lid included',
     colour: 'Clear',
     suitableFor: 'Fresh juice, milkshakes, smoothies, slushes, falooda',
-    overview: 'Clear plastic glass with dome lid for attractive presentation of cold beverages and desserts.',
-    description: 'A 12OZ transparent cup paired with a dome lid for secure, eye-catching takeaway of juices, shakes and frozen drinks.',
+    overview: 'Clear plastic glass with dome lid for attractive presentation of cold beverages and desserts. Available in 12OZ and 16OZ.',
+    description: 'Transparent cup paired with a dome lid for secure, eye-catching takeaway of juices, shakes and frozen drinks. Choose 12OZ for standard portions or 16OZ for larger servings.',
     idealFor: 'Juice bars, cafés, dessert shops and beverage takeaway.',
-    inStock: true
-  },
-
-  {
-    id: '16oz-plastic-glass-dome-lid',
-    categoryId: 'cups-drinkware',
-    name: '16OZ Plastic Glass with Dome Lid',
-    slug: '16oz-plastic-glass-dome-lid',
-    imageSlug: '16oz-plastic-glass-dome-lid',
-    capacity: '16OZ (Approx. 480ML)',
-    price: 19,
-    pack: 'Per piece',
-    sellingUnit: 'piece',
-    moq: 20,
-    step: 20,
-    packSize: 50,
-    pricePerUnit: 19,
-    material: 'Transparent plastic',
-    lid: 'Dome lid included',
-    colour: 'Clear',
-    suitableFor: 'Fresh juice, milkshakes, smoothies, slushes, falooda',
-    overview: 'Larger clear plastic glass with dome lid for generous cold-drink and dessert portions.',
-    description: 'A 16OZ transparent cup with matching dome lid — practical for higher-volume juice, shake and frozen-dessert service.',
-    idealFor: 'Juice bars, cafés, dessert shops and takeaway beverage businesses.',
+    variants: [
+      {
+        id: '12oz',
+        label: '12OZ (Approx. 350ML)',
+        capacity: '12OZ (Approx. 350ML)',
+        price: 15,
+        pricePerUnit: 15
+      },
+      {
+        id: '16oz',
+        label: '16OZ (Approx. 480ML)',
+        capacity: '16OZ (Approx. 480ML)',
+        price: 19,
+        pricePerUnit: 19
+      }
+    ],
     inStock: true
   },
 
