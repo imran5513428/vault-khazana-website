@@ -55,6 +55,28 @@ const getProductPriceBasis = (product, item = null) => {
   return 'per piece';
 };
 
+// Displays the correct singular or plural quantity label everywhere.
+const formatQuantity = (quantity, unitLabel) => {
+  const amount = Number(quantity) || 0;
+
+  if (unitLabel === 'kg') return `${amount} kg`;
+
+  const singularLabels = {
+    pieces: 'piece',
+    packs: 'pack',
+    rolls: 'roll',
+    cartons: 'carton',
+    units: 'unit'
+  };
+
+  const label =
+    amount === 1 && singularLabels[unitLabel]
+      ? singularLabels[unitLabel]
+      : unitLabel;
+
+  return `${amount} ${label}`;
+};
+
 const getProductUnitLabel = (product, item = null) => {
   if (!product) return 'units';
 
@@ -252,7 +274,7 @@ function CheckoutPage() {
           item.variantLabel
             ? `Selected option: ${item.variantLabel}`
             : null,
-          `Quantity: ${quantity} ${unitLabel}`,
+          `Quantity: ${formatQuantity(quantity, unitLabel)}`,
           `Price: ${formatPrice(unitPrice)} ${priceBasis}`,
           `Subtotal: ${formatPrice(lineTotal)}`
         ].filter(Boolean);
@@ -396,7 +418,7 @@ function CheckoutPage() {
         [
           `${index + 1}. ${item.name}`,
           item.variantLabel ? `   Option: ${item.variantLabel}` : '',
-          `   Quantity: ${item.quantity} ${item.unitLabel}`,
+          `   Quantity: ${formatQuantity(item.quantity, item.unitLabel)}`,
           `   Price: ${formatPrice(item.unitPrice)} ${item.priceBasis}`,
           `   Line total: ${formatPrice(item.lineTotal)}`
         ].filter(Boolean)
@@ -435,7 +457,7 @@ function CheckoutPage() {
 
     const productLines = receiptData.items.map((item, index) => {
       const option = item.variantLabel ? ` (${item.variantLabel})` : '';
-      return `${index + 1}. ${item.name}${option} — ${item.quantity} ${item.unitLabel}`;
+      return `${index + 1}. ${item.name}${option} — ${formatQuantity(item.quantity, item.unitLabel)}`;
     });
 
     const message = [
@@ -561,7 +583,7 @@ function CheckoutPage() {
                         </td>
 
                         <td>
-                          {item.quantity} {item.unitLabel}
+                          {formatQuantity(item.quantity, item.unitLabel)}
                         </td>
 
                         <td>{formatPrice(item.unitPrice)}</td>
@@ -936,7 +958,7 @@ function CheckoutPage() {
                       {item.variantLabel && <p>{item.variantLabel}</p>}
 
                       <p>
-                        {quantity} {getItemUnitLabel(item)}
+                        {formatQuantity(quantity, getItemUnitLabel(item))}
                       </p>
 
                       <small>
