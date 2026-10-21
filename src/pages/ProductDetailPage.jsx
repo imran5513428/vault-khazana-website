@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -41,12 +42,6 @@ function ProductDetailPage() {
 
   const category = getCategoryById(product.categoryId);
 
-  /*
-   * VARIANT SUPPORT
-   *
-   * Products without variants behave exactly as before.
-   * Products with variants use the first variant by default.
-   */
   const variants = Array.isArray(product.variants)
     ? product.variants
     : [];
@@ -60,12 +55,6 @@ function ProductDetailPage() {
       (variant) => variant.id === selectedVariantId
     ) || null;
 
-  /*
-   * PRODUCT SELLING RULES
-   *
-   * These values come directly from products.js.
-   * No category rules are hard-coded here.
-   */
   const sellingUnit = product.sellingUnit || 'piece';
   const moq = Number(product.moq) || 1;
   const step = Number(product.step) || 1;
@@ -73,11 +62,6 @@ function ProductDetailPage() {
     ? Number(product.packSize)
     : null;
 
-  /*
-   * Variant price takes priority when a variant is selected.
-   * Existing products without variants continue using
-   * product.pricePerUnit.
-   */
   const pricePerUnit =
     selectedVariant &&
     selectedVariant.pricePerUnit !== undefined
@@ -87,23 +71,13 @@ function ProductDetailPage() {
         ? Number(selectedVariant.price)
         : Number(product.pricePerUnit) || 0;
 
-  /*
-   * Variant dimensions take priority over base product
-   * dimensions when available.
-   */
   const displayedDimensions =
     selectedVariant?.dimensions ||
     product.dimensions;
 
-  /*
-   * Start at the product's actual minimum order quantity.
-   */
   const [selectedQuantity, setSelectedQuantity] =
     useState(moq);
 
-  /*
-   * Reset variant/quantity when the product changes.
-   */
   useEffect(() => {
     const nextVariants = Array.isArray(product?.variants)
       ? product.variants
@@ -135,31 +109,17 @@ function ProductDetailPage() {
   const displayedImage =
     product.images?.[selectedImage] || mainImage;
 
-  /*
-   * UNLIMITED PRODUCT IMAGE SYSTEM
-   *
-   * products.js controls the number of images.
-   */
   const galleryImages = product.images || [];
 
-  /*
-   * Current secondary image.
-   */
   const currentSecondaryImage =
     galleryImages[secondarySlide];
 
-  /*
-   * Other products from the same category.
-   */
   const relatedProducts = getProductsByCategory(
     product.categoryId
   ).filter(
     (relatedProduct) => relatedProduct.id !== product.id
   );
 
-  /*
-   * Quantity label shown to the customer.
-   */
   const getQuantityLabel = (value) => {
     if (sellingUnit === 'kg') {
       return `${value} kg`;
@@ -180,12 +140,6 @@ function ProductDetailPage() {
     return `${value} pieces`;
   };
 
-  /*
-   * Price basis label.
-   *
-   * Weight-based products can use variant-specific
-   * order quantities such as 250g, 500g or 1kg.
-   */
   const getPriceBasisLabel = () => {
     if (sellingUnit === 'kg') {
       return 'kg';
@@ -210,9 +164,6 @@ function ProductDetailPage() {
     return 'piece';
   };
 
-  /*
-   * Add quantity according to the product's step.
-   */
   const increaseQuantity = () => {
     setQuantityError('');
     setSelectedQuantity(
@@ -220,9 +171,6 @@ function ProductDetailPage() {
     );
   };
 
-  /*
-   * Reduce quantity according to the product's step.
-   */
   const decreaseQuantity = () => {
     setQuantityError('');
 
@@ -233,9 +181,6 @@ function ProductDetailPage() {
     });
   };
 
-  /*
-   * Direct quantity entry.
-   */
   const handleQuantityChange = (event) => {
     const value = event.target.value;
 
@@ -281,18 +226,12 @@ function ProductDetailPage() {
     setSelectedQuantity(numericValue);
   };
 
-  /*
-   * Variant selection.
-   */
   const handleVariantChange = (variantId) => {
     setSelectedVariantId(variantId);
     setQuantityError('');
     setIsAdded(false);
   };
 
-  /*
-   * Add product/selected variant to cart.
-   */
   const handleAddToCart = () => {
     setQuantityError('');
     setIsAdding(true);
@@ -436,19 +375,18 @@ function ProductDetailPage() {
     }
   };
 
-  /*
-   * DISPLAY PRICE
-   *
-   * Variant products use the selected variant price.
-   * Existing fixed-price products continue using
-   * their existing pricePerUnit.
-   */
   const displayUnitPrice =
     sellingUnit === 'pack' && packSize
       ? pricePerUnit / packSize
       : pricePerUnit;
 
   const packPrice = pricePerUnit;
+
+  // Live total uses the full selected selling-unit price.
+  // For packs, this is the full pack price, not the
+  // per-piece display price. Delivery is excluded.
+  const selectedQuantityTotal =
+    pricePerUnit * selectedQuantity;
 
   return (
     <div className="product-detail-page">
@@ -476,11 +414,7 @@ function ProductDetailPage() {
 
           <div className="product-detail-grid">
 
-            {/* ===== PRODUCT GALLERY ===== */}
-
             <div className="product-gallery">
-
-              {/* MAIN PRODUCT IMAGE */}
 
               <div
                 className="main-image"
@@ -542,8 +476,6 @@ function ProductDetailPage() {
                 />
               </div>
 
-              {/* UNLIMITED IMAGE GALLERY */}
-
               {galleryImages.length > 1 && (
                 <div className="thumbnails">
                   {galleryImages.map(
@@ -589,8 +521,6 @@ function ProductDetailPage() {
                   )}
                 </div>
               )}
-
-              {/* ===== SECONDARY IMAGE SLIDE ===== */}
 
               {currentSecondaryImage && (
                 <div className="secondary-image-showcase">
@@ -662,8 +592,6 @@ function ProductDetailPage() {
 
             </div>
 
-            {/* ===== PRODUCT INFORMATION ===== */}
-
             <div className="product-info">
 
               <p className="product-category">
@@ -708,8 +636,6 @@ function ProductDetailPage() {
                     </span>
                   </div>
                 )}
-
-              {/* ===== VARIANT / SIZE SELECTOR ===== */}
 
               {variants.length > 0 && (
                 <div className="product-variant-section">
@@ -808,8 +734,6 @@ function ProductDetailPage() {
 
               </div>
 
-              {/* ===== STOCK STATUS ===== */}
-
               <div className="stock-status">
                 {product.inStock ? (
                   <span className="in-stock">
@@ -821,8 +745,6 @@ function ProductDetailPage() {
                   </span>
                 )}
               </div>
-
-              {/* ===== QUANTITY + ADD TO CART ===== */}
 
               <div className="add-to-cart-section">
 
@@ -891,6 +813,37 @@ function ProductDetailPage() {
                     {getQuantityLabel(moq)}
                     {step > 1 &&
                       ` • Add in steps of ${step}`}
+                  </p>
+
+                  {/* LIVE ORDER TOTAL */}
+                  <p
+                    className="product-selected-total"
+                    aria-live="polite"
+                    style={{
+                      margin: '10px 0 0',
+                      fontSize: '1.05rem',
+                      fontWeight: 700,
+                      color: '#1F3A5C'
+                    }}
+                  >
+                    Order total: Rs{' '}
+                    {selectedQuantityTotal.toLocaleString(
+                      'en-PK',
+                      {
+                        maximumFractionDigits: 2
+                      }
+                    )}
+                    <span
+                      style={{
+                        display: 'block',
+                        marginTop: '3px',
+                        fontSize: '0.8rem',
+                        fontWeight: 400,
+                        color: '#667085'
+                      }}
+                    >
+                      Product total only; delivery charges are not included.
+                    </span>
                   </p>
 
                   {quantityError && (
@@ -1040,8 +993,6 @@ function ProductDetailPage() {
 
         </div>
       </section>
-
-      {/* ===== RELATED PRODUCTS ===== */}
 
       {relatedProducts.length > 0 && (
         <section className="section related-products-section">
