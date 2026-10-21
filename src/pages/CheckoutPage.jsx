@@ -244,7 +244,6 @@ function CheckoutPage() {
     });
 
     /*
-     * IMPORTANT:
      * Save the order details before clearing the cart.
      * The receipt must not depend on cart data after submission.
      */
@@ -359,6 +358,12 @@ function CheckoutPage() {
       ),
       '',
       `PRODUCT SUBTOTAL: ${formatPrice(receiptData.subtotal)}`,
+      '',
+      'BANK TRANSFER PAYMENT DETAILS',
+      'Bank: Meezan Bank Limited',
+      'Account Title: Raja Imran Yousaf',
+      'IBAN: PK76MEZN0003360111492134',
+      `Amount Payable: ${formatPrice(receiptData.subtotal)} (product subtotal; delivery charges confirmed separately)`,
       '',
       'IMPORTANT TERMS',
       '1. Full payment for the products is required before dispatch.',
@@ -499,6 +504,31 @@ function CheckoutPage() {
                 <span>Product Subtotal</span>
                 <strong>{formatPrice(receiptData.subtotal)}</strong>
               </div>
+            </section>
+
+            <section className="checkout-receipt-section checkout-receipt-bank-details">
+              <h3>Bank Transfer Payment Details</h3>
+              <p>
+                <strong>Bank:</strong> Meezan Bank Limited
+              </p>
+              <p>
+                <strong>Account Title:</strong> Raja Imran Yousaf
+              </p>
+              <p>
+                <strong>IBAN:</strong> PK76MEZN0003360111492134
+              </p>
+              <p>
+                <strong>Amount Payable:</strong>{' '}
+                {formatPrice(receiptData.subtotal)}{' '}
+                <small>
+                  (product subtotal; delivery charges confirmed separately)
+                </small>
+              </p>
+              <p>
+                Please verify the account title before transferring. Your
+                order remains awaiting full payment until VAULT KHAZANA
+                verifies receipt of funds.
+              </p>
             </section>
 
             <section className="checkout-receipt-section checkout-receipt-terms">
