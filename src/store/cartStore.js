@@ -3,15 +3,30 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { getProductById } from '../data/products';
 
-const getProductRules = (product) => {
+const getVariant = (product, variantId) => {
+  if (!product || !variantId || !Array.isArray(product.variants)) return null;
+  return product.variants.find((variant) => variant.id === variantId) || null;
+};
+
+const getProductRules = (product, variantId = null, cartItem = null) => {
   if (!product) return null;
 
+  const variant = getVariant(product, variantId || cartItem?.variantKey);
+  const isFoilRoll = product.id === 'aluminum-foil-sheet' && Boolean(variant);
+
   return {
-    sellingUnit: product.sellingUnit || 'piece',
+    sellingUnit: isFoilRoll ? 'roll' : (product.sellingUnit || 'piece'),
     moq: Number(product.moq) || 1,
     step: Number(product.step) || 1,
     packSize: product.packSize ?? null,
-    pricePerUnit: Number(product.pricePerUnit) || 0
+    pricePerUnit: Number(
+      cartItem?.pricePerUnit ??
+      variant?.pricePerUnit ??
+      variant?.price ??
+      product.pricePerUnit
+    ) || 0,
+    variantKey: variant?.id || null,
+    variantLabel: variant?.label || variant?.dimensions || ''
   };
 };
 
@@ -26,7 +41,7 @@ const getItemRules = (item, product) => {
     };
   }
 
-  return getProductRules(product);
+  return getProductRules(product, item?.variantKey, item);
 };
 
 const isValidQuantity = (quantity, rules) => {
@@ -134,22 +149,29 @@ const sanitizeCartItems = (items) => {
         };
       }
 
-      const rules = getProductRules(product);
+      const rules = getProductRules(product, item.variantKey, item);
 
       if (!rules) return null;
 
       const quantity = Number(item.quantity);
-
-      if (!isValidQuantity(quantity, rules)) {
-        return {
-          ...item,
-          quantity: rules.moq
-        };
-      }
+      const safeQuantity = isValidQuantity(quantity, rules)
+        ? quantity
+        : rules.moq;
 
       return {
         ...item,
-        quantity
+        quantity: safeQuantity,
+        ...(rules.variantKey
+          ? {
+              lineId:
+                item.lineId ||
+                `product:${item.productId}:${rules.variantKey}`,
+              variantKey: rules.variantKey,
+              variantLabel: item.variantLabel || rules.variantLabel,
+              sellingUnit: rules.sellingUnit,
+              pricePerUnit: rules.pricePerUnit
+            }
+          : {})
       };
     })
     .filter(Boolean);
@@ -160,10 +182,10 @@ const useCartStore = create(
     (set, get) => ({
       items: [],
 
-      // Existing catalogue products continue using their catalogue prices.
-      addToCart: (productId, quantity) => {
+      // Standard catalogue items preserve the selected variant, price and unit.
+      addToCart: (productId, quantity, variantId = null) => {
         const product = getProductById(productId);
-        const rules = getProductRules(product);
+        const rules = getProductRules(product, variantId);
 
         if (!product || !rules) {
           return {
@@ -182,8 +204,14 @@ const useCartStore = create(
           };
         }
 
+        const lineId = rules.variantKey
+          ? `product:${productId}:${rules.variantKey}`
+          : productId;
+
         const existingItem = get().items.find(
-          (item) => item.productId === productId && !item.isSpecialOffer
+          (item) =>
+            !item.isSpecialOffer &&
+            (item.lineId || item.productId) === lineId
         );
 
         if (existingItem) {
@@ -200,34 +228,32 @@ const useCartStore = create(
           set((state) => ({
             items: state.items.map((item) =>
               item === existingItem
-                ? {
-                    ...item,
-                    quantity: newQuantity
-                  }
+                ? { ...item, quantity: newQuantity }
                 : item
             )
           }));
-
-          return {
-            success: true,
-            error: ''
-          };
+        } else {
+          set((state) => ({
+            items: [
+              ...state.items,
+              {
+                productId,
+                quantity: requestedQuantity,
+                ...(rules.variantKey
+                  ? {
+                      lineId,
+                      variantKey: rules.variantKey,
+                      variantLabel: rules.variantLabel,
+                      sellingUnit: rules.sellingUnit,
+                      pricePerUnit: rules.pricePerUnit
+                    }
+                  : {})
+              }
+            ]
+          }));
         }
 
-        set((state) => ({
-          items: [
-            ...state.items,
-            {
-              productId,
-              quantity: requestedQuantity
-            }
-          ]
-        }));
-
-        return {
-          success: true,
-          error: ''
-        };
+        return { success: true, error: '' };
       },
 
       // Special offers use their own price and a separate cart line.
@@ -421,17 +447,29 @@ const useCartStore = create(
         );
       },
 
-      getQuantity: (productIdOrLineId) => {
-        const item = findItem(get().items, productIdOrLineId);
+      getQuantity: (productIdOrLineId, variantId = null) => {
+        if (variantId) {
+          const lineId = `product:${productIdOrLineId}:${variantId}`;
+          const variantItem = get().items.find(
+            (item) =>
+              !item.isSpecialOffer &&
+              ((item.lineId || item.productId) === lineId ||
+                (item.productId === productIdOrLineId &&
+                  item.variantKey === variantId))
+          );
 
+          return variantItem ? Number(variantItem.quantity) || 0 : 0;
+        }
+
+        const item = findItem(get().items, productIdOrLineId);
         return item ? Number(item.quantity) || 0 : 0;
       },
 
       getItems: () => get().items,
 
-      getProductRules: (productId) => {
+      getProductRules: (productId, variantId = null) => {
         const product = getProductById(productId);
-        return getProductRules(product);
+        return getProductRules(product, variantId);
       },
 
       getItemRules: (productIdOrLineId) => {
@@ -444,16 +482,16 @@ const useCartStore = create(
         return getProductRules(getProductById(productIdOrLineId));
       },
 
-      isQuantityValid: (productId, quantity) => {
+      isQuantityValid: (productId, quantity, variantId = null) => {
         const product = getProductById(productId);
-        const rules = getProductRules(product);
+        const rules = getProductRules(product, variantId);
 
         return isValidQuantity(quantity, rules);
       },
 
-      getQuantityError: (productId, quantity) => {
+      getQuantityError: (productId, quantity, variantId = null) => {
         const product = getProductById(productId);
-        const rules = getProductRules(product);
+        const rules = getProductRules(product, variantId);
 
         return getQuantityError(quantity, rules);
       }
