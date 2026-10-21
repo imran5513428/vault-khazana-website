@@ -1,8 +1,9 @@
+
 import React from 'react';
 import './shipping-policy.css';
 
 function TermsOfServicePage() {
-  const lastUpdated = '15 October 2026';
+  const lastUpdated = '21 October 2026';
 
   const contactMessage = encodeURIComponent(
     'Hello VAULT KHAZANA, I have a question about your terms of service or an order. Could you please help me?'
@@ -91,6 +92,15 @@ function TermsOfServicePage() {
           </p>
 
           <p>
+            An order summary, invoice or payment request issued
+            before payment is verified records the order details
+            and amount requested. It is not, by itself, proof
+            that payment has been received, that the order has
+            been paid in full, or that the products have been
+            dispatched.
+          </p>
+
+          <p>
             Please respond to confirmation messages and ensure
             that someone can receive the order at the agreed
             address and time.
@@ -129,6 +139,55 @@ function TermsOfServicePage() {
             requirements before dispatch. Customers should
             follow the payment instructions confirmed for
             their specific order.
+          </p>
+
+          <h3>Bank Transfer Deadline and Verification</h3>
+
+          <p>
+            For orders requiring bank transfer, full payment
+            must be made within 48 hours after the customer
+            receives the payment request, unless VAULT KHAZANA
+            agrees to a different deadline in writing.
+          </p>
+
+          <p>
+            Where the banking application provides a transaction
+            reference or payment description field, please
+            include your VAULT KHAZANA order reference to help
+            us identify the payment.
+          </p>
+
+          <p>
+            If that field is not available, you may share your
+            transaction receipt or confirmation with us.
+            However, a screenshot, transfer receipt, transaction
+            reference or payment request alone does not establish
+            that funds have been received in our bank account.
+          </p>
+
+          <p>
+            Payment is treated as received only after VAULT
+            KHAZANA verifies the funds in the designated bank
+            account. Products will be dispatched only after
+            the required payment has been verified and product
+            availability and delivery arrangements have been
+            confirmed.
+          </p>
+
+          <p>
+            If payment is not received within 48 hours, we may
+            contact you to ask whether you still wish to proceed.
+            If payment remains unreceived, the order may be
+            cancelled after appropriate notice, subject to any
+            specific arrangement agreed with you and applicable
+            law.
+          </p>
+
+          <p>
+            Please contact us if you have made a transfer but
+            it has not yet appeared in our account. Do not make
+            another payment without first checking with us
+            if you believe a transfer is already in progress.
           </p>
         </section>
 
@@ -177,9 +236,9 @@ function TermsOfServicePage() {
           <p>
             If actual outward or return transport costs have
             already been incurred, those costs may be deducted
-            from your advance payment. Any remaining balance
-            will be refunded. We will explain the applicable
-            deduction to you.
+            from your advance payment where the deduction is
+            lawful and applicable to the circumstances. We
+            will explain any proposed deduction to you.
           </p>
 
           <h3>Cancellation by VAULT KHAZANA</h3>
@@ -195,6 +254,8 @@ function TermsOfServicePage() {
             Refund arrangements will be communicated directly
             to the customer. Please contact us if you need
             clarification about a cancellation or refund.
+            Nothing in these terms limits any rights or remedies
+            available to customers under applicable law.
           </p>
         </section>
 
@@ -303,7 +364,8 @@ function TermsOfServicePage() {
           <p>
             The terms and order arrangements communicated
             and confirmed for your purchase will help
-            determine how that order is handled.
+            determine how that order is handled, subject
+            to applicable law.
           </p>
         </section>
 
