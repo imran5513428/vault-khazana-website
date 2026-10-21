@@ -1,9 +1,22 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
 import '../styles/checkout.css';
+
+const PAYMENT_DEADLINE_HOURS = 48;
+
+const PAYMENT_DEADLINE_TEXT =
+  'Payment deadline: Please complete the bank transfer within 48 hours of receiving this payment request.';
+
+const PAYMENT_REFERENCE_TEXT =
+  'Please include your Order Reference in the bank transfer transaction reference or notes field, where available. If your banking app does not provide this field, you may share the transaction receipt with us.';
+
+const PAYMENT_VERIFICATION_TEXT =
+  'A transfer receipt or screenshot alone does not confirm payment. Payment is confirmed only after VAULT KHAZANA verifies that the funds have been received in its bank account.';
+
+const PAYMENT_EXPIRY_TEXT =
+  'If payment is not received within 48 hours of your receiving this payment request, VAULT KHAZANA may contact you to confirm whether you still wish to proceed before taking any cancellation action, subject to applicable policies and consumer protection requirements.';
 
 const formatPrice = (value) =>
   `Rs ${Math.round(Number(value) || 0).toLocaleString('en-PK')}`;
@@ -225,11 +238,15 @@ function CheckoutPage() {
       .join('\n');
 
     const paymentMethod =
-      'Full advance payment for products is required before dispatch';
+      'Bank transfer — full advance payment for products required before dispatch';
 
     const orderNotes = [
       formData.notes.trim(),
       'Order submitted online. Full payment for products must be received and verified before dispatch. Shipping arrangements will be confirmed separately.',
+      PAYMENT_DEADLINE_TEXT,
+      PAYMENT_REFERENCE_TEXT,
+      PAYMENT_VERIFICATION_TEXT,
+      PAYMENT_EXPIRY_TEXT,
       hasBusinessOffer
         ? 'Customer confirmed the special business-offer advance-payment terms.'
         : ''
@@ -368,10 +385,14 @@ function CheckoutPage() {
       'IMPORTANT TERMS',
       '1. Full payment for the products is required before dispatch.',
       '2. This document is an order summary and payment request, not proof of payment.',
-      '3. Payment is confirmed only after VAULT KHAZANA verifies receipt of payment.',
-      '4. Products will be dispatched only after payment is verified and product availability is confirmed.',
-      '5. Shipping arrangements will be confirmed separately.',
-      '6. Order changes, cancellations and other issues are handled according to applicable VAULT KHAZANA policies and relevant consumer protection requirements.',
+      '3. Payment is confirmed only after VAULT KHAZANA verifies receipt of funds in its bank account.',
+      `4. ${PAYMENT_DEADLINE_TEXT}`,
+      `5. ${PAYMENT_REFERENCE_TEXT}`,
+      `6. ${PAYMENT_VERIFICATION_TEXT}`,
+      `7. ${PAYMENT_EXPIRY_TEXT}`,
+      '8. Products will be dispatched only after payment is verified and product availability is confirmed.',
+      '9. Shipping arrangements and delivery charges will be confirmed separately.',
+      '10. Order changes, cancellations and other issues are handled according to applicable VAULT KHAZANA policies and relevant consumer protection requirements.',
       '',
       'VAULT KHAZANA — Packaging & Food-Service Supplies'
     ];
@@ -405,7 +426,8 @@ function CheckoutPage() {
 
             <p className="checkout-success-text">
               We have received your order request. This document is not proof
-              of payment.
+              of payment. Please complete payment within 48 hours of receiving
+              this payment request.
             </p>
           </section>
 
@@ -529,6 +551,22 @@ function CheckoutPage() {
                 order remains awaiting full payment until VAULT KHAZANA
                 verifies receipt of funds.
               </p>
+              <p>
+                <strong>Payment deadline:</strong> Complete the bank transfer
+                within 48 hours of receiving this payment request.
+              </p>
+              <p>
+                <strong>Transfer reference:</strong> Include your Order
+                Reference in the bank transfer reference or notes field, where
+                available. If your banking app does not provide this field, you
+                may share the transaction receipt.
+              </p>
+              <p>
+                A transaction receipt or screenshot alone is not confirmation
+                of payment. Payment is confirmed only after the funds are
+                verified in VAULT KHAZANA's bank account.
+              </p>
+              <p>{PAYMENT_EXPIRY_TEXT}</p>
             </section>
 
             <section className="checkout-receipt-section checkout-receipt-terms">
@@ -544,7 +582,29 @@ function CheckoutPage() {
                   <strong>Payment verification:</strong> Placing an order or
                   receiving this document does not mean payment has been
                   received. Payment is confirmed separately by VAULT KHAZANA
-                  after verification.
+                  after funds are verified in its bank account.
+                </li>
+
+                <li>
+                  <strong>Payment deadline:</strong> Bank-transfer payment
+                  must be completed within 48 hours of the customer receiving
+                  this payment request.
+                </li>
+
+                <li>
+                  <strong>Transfer reference:</strong> Include the Order
+                  Reference in the bank transfer reference or notes field,
+                  where available. If unavailable, the customer may share the
+                  transaction receipt. A screenshot or receipt alone is not
+                  proof that funds have been received.
+                </li>
+
+                <li>
+                  <strong>Late payment:</strong> If payment is not received
+                  within 48 hours, VAULT KHAZANA may contact the customer to
+                  confirm whether they still wish to proceed before taking
+                  cancellation action, subject to applicable policies and
+                  consumer protection requirements.
                 </li>
 
                 <li>
@@ -554,9 +614,9 @@ function CheckoutPage() {
                 </li>
 
                 <li>
-                  <strong>Shipping arrangements:</strong> Shipping availability
-                  and arrangements will be confirmed separately with the
-                  customer.
+                  <strong>Shipping arrangements:</strong> Shipping availability,
+                  arrangements and delivery charges will be confirmed
+                  separately with the customer.
                 </li>
 
                 <li>
@@ -633,7 +693,8 @@ function CheckoutPage() {
           <h1>Complete Your Order</h1>
           <p>
             Enter your details to submit your order request. Full product
-            payment is required before dispatch.
+            payment is required before dispatch. For bank transfers, payment
+            must be completed within 48 hours of receiving the payment request.
           </p>
         </div>
 
@@ -850,8 +911,12 @@ function CheckoutPage() {
                   <strong>Full Advance Payment</strong>
                   <small>
                     Full payment for the products is required and must be
-                    verified before dispatch. Payment instructions and shipping
-                    arrangements will be confirmed with you.
+                    verified before dispatch. Complete bank-transfer payment
+                    within 48 hours of receiving the payment request. Include
+                    your Order Reference in the transfer reference field where
+                    available. A transfer receipt alone does not confirm
+                    payment. Payment instructions and shipping arrangements
+                    will be confirmed with you.
                   </small>
                 </span>
               </div>
