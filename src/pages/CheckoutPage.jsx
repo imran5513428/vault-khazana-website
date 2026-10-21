@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -90,8 +91,7 @@ function CheckoutPage() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderReference, setOrderReference] = useState('');
-  const [submittedBusinessOffer, setSubmittedBusinessOffer] =
-    useState(false);
+  const [receiptData, setReceiptData] = useState(null);
 
   useEffect(() => {
     if (orderReference) {
@@ -179,14 +179,14 @@ function CheckoutPage() {
 
     if (!['rawalpindi', 'islamabad'].includes(normalizedCity)) {
       setError(
-        'Delivery is currently available only in Islamabad and Rawalpindi. Please check your city. You can return to your cart while we expand our delivery coverage.'
+        'Delivery is currently available only in Islamabad and Rawalpindi. Please check your city.'
       );
       return;
     }
 
     if (hasBusinessOffer && !advancePaymentConfirmed) {
       setError(
-        'Please confirm that you understand the advance-payment and delivery-charge terms for business offers.'
+        'Please confirm that you understand the advance-payment and dispatch terms for business offers.'
       );
       return;
     }
@@ -204,7 +204,9 @@ function CheckoutPage() {
 
         const details = [
           `${index + 1}. ${name}`,
-          item.variantLabel ? `Selected option: ${item.variantLabel}` : null,
+          item.variantLabel
+            ? `Selected option: ${item.variantLabel}`
+            : null,
           `Quantity: ${quantity} ${unitLabel}`,
           `Price: ${formatPrice(unitPrice)} ${priceBasis}`,
           `Subtotal: ${formatPrice(lineTotal)}`
@@ -222,18 +224,58 @@ function CheckoutPage() {
       })
       .join('\n');
 
-    const paymentMethod = hasBusinessOffer
-      ? 'Advance payment required for business offers; payment arrangements to be confirmed'
-      : 'Payment method to be confirmed based on delivery arrangement';
+    const paymentMethod =
+      'Full advance payment for products is required before dispatch';
 
     const orderNotes = [
       formData.notes.trim(),
+      'Order submitted online. Full payment for products must be received and verified before dispatch. Shipping arrangements will be confirmed separately.',
       hasBusinessOffer
-        ? 'Customer confirmed business-offer terms. Advance payment is required. Delivery charges are extra and will be confirmed based on delivery area and order quantity.'
-        : 'Delivery charge and payment method must be confirmed with the customer before dispatch.'
+        ? 'Customer confirmed the special business-offer advance-payment terms.'
+        : ''
     ]
       .filter(Boolean)
       .join('\n');
+
+    const orderDate = new Date().toLocaleString('en-PK', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+      timeZone: 'Asia/Karachi'
+    });
+
+    /*
+     * IMPORTANT:
+     * Save the order details before clearing the cart.
+     * The receipt must not depend on cart data after submission.
+     */
+    const receiptItems = cartItems.map((item) => {
+      const quantity = Number(item.quantity) || 0;
+      const unitPrice = getItemPrice(item);
+
+      return {
+        name: getItemName(item),
+        variantLabel: item.variantLabel || '',
+        quantity,
+        unitLabel: getItemUnitLabel(item),
+        priceBasis: getItemPriceBasis(item),
+        unitPrice,
+        lineTotal: unitPrice * quantity
+      };
+    });
+
+    const receiptSnapshot = {
+      reference,
+      orderDate,
+      customer: {
+        fullName: formData.fullName.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        city: formData.city.trim(),
+        address: formData.address.trim()
+      },
+      items: receiptItems,
+      subtotal
+    };
 
     const formPayload = {
       access_key: '858a488b-0047-4d78-adb5-5ba47a8d2ca6',
@@ -247,8 +289,6 @@ function CheckoutPage() {
       payment_method: paymentMethod,
       order_reference: reference,
       order_subtotal: formatPrice(subtotal),
-      delivery_charges: 'Extra; to be confirmed based on area and quantity',
-      order_total_before_delivery: formatPrice(subtotal),
       order_details: orderDetails,
       notes: orderNotes,
       botcheck: ''
@@ -274,7 +314,7 @@ function CheckoutPage() {
         );
       }
 
-      setSubmittedBusinessOffer(hasBusinessOffer);
+      setReceiptData(receiptSnapshot);
       clearCart();
       setOrderReference(reference);
     } catch (submissionError) {
@@ -287,9 +327,68 @@ function CheckoutPage() {
     }
   };
 
-  if (orderReference) {
+  const buildReceiptText = () => {
+    if (!receiptData) return '';
+
+    const lines = [
+      'VAULT KHAZANA',
+      'ORDER SUMMARY & PAYMENT REQUEST',
+      '',
+      `Order Reference: ${receiptData.reference}`,
+      `Order Date: ${receiptData.orderDate}`,
+      'Order Status: AWAITING FULL PAYMENT',
+      '',
+      'CUSTOMER DETAILS',
+      `Name: ${receiptData.customer.fullName}`,
+      `Phone: ${receiptData.customer.phone}`,
+      receiptData.customer.email
+        ? `Email: ${receiptData.customer.email}`
+        : '',
+      `City: ${receiptData.customer.city}`,
+      `Address: ${receiptData.customer.address}`,
+      '',
+      'ORDERED PRODUCTS',
+      ...receiptData.items.flatMap((item, index) =>
+        [
+          `${index + 1}. ${item.name}`,
+          item.variantLabel ? `   Option: ${item.variantLabel}` : '',
+          `   Quantity: ${item.quantity} ${item.unitLabel}`,
+          `   Price: ${formatPrice(item.unitPrice)} ${item.priceBasis}`,
+          `   Line total: ${formatPrice(item.lineTotal)}`
+        ].filter(Boolean)
+      ),
+      '',
+      `PRODUCT SUBTOTAL: ${formatPrice(receiptData.subtotal)}`,
+      '',
+      'IMPORTANT TERMS',
+      '1. Full payment for the products is required before dispatch.',
+      '2. This document is an order summary and payment request, not proof of payment.',
+      '3. Payment is confirmed only after VAULT KHAZANA verifies receipt of payment.',
+      '4. Products will be dispatched only after payment is verified and product availability is confirmed.',
+      '5. Shipping arrangements will be confirmed separately.',
+      '6. Order changes, cancellations and other issues are handled according to applicable VAULT KHAZANA policies and relevant consumer protection requirements.',
+      '',
+      'VAULT KHAZANA — Packaging & Food-Service Supplies'
+    ];
+
+    return lines.filter((line) => line !== '').join('\n');
+  };
+
+  const handleShareReceipt = () => {
+    const text = buildReceiptText();
+
+    if (!text) return;
+
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(text)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  };
+
+  if (orderReference && receiptData) {
     return (
-      <main className="checkout-page">
+      <main className="checkout-page checkout-receipt-page">
         <div className="checkout-container">
           <section className="checkout-success">
             <div className="checkout-success-icon" aria-hidden="true">
@@ -297,47 +396,179 @@ function CheckoutPage() {
             </div>
 
             <p className="checkout-eyebrow">Order Received</p>
-            <h1>Thank You!</h1>
+            <h1>Your Order Summary</h1>
 
             <p className="checkout-success-text">
-              Your order has been submitted successfully. We will contact you
-              to confirm your order and delivery charges.
+              We have received your order request. This document is not proof
+              of payment.
             </p>
+          </section>
 
-            <div className="checkout-reference">
-              <span>Order Reference</span>
-              <strong>{orderReference}</strong>
+          <section
+            className="checkout-receipt"
+            id="printable-order-receipt"
+          >
+            <header className="checkout-receipt-header">
+              <p className="checkout-eyebrow">VAULT KHAZANA</p>
+              <h2>Order Summary &amp; Payment Request</h2>
+              <p>Packaging &amp; Food-Service Supplies</p>
+            </header>
+
+            <div className="checkout-receipt-status">
+              <span>Order Status</span>
+              <strong>AWAITING FULL PAYMENT</strong>
             </div>
 
-            <div className="checkout-success-details">
-              {submittedBusinessOffer ? (
-                <>
-                  <p>
-                    <strong>Payment:</strong> Advance payment required for
-                    business offers
-                  </p>
-                  <p>
-                    We will contact you to confirm payment arrangements and
-                    delivery charges before dispatch.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p>
-                    <strong>Payment:</strong> To be confirmed
-                  </p>
-                  <p>
-                    We’ll confirm the payment method and delivery charges with
-                    you before dispatch.
-                  </p>
-                </>
+            <div className="checkout-receipt-meta">
+              <div>
+                <span>Order Reference</span>
+                <strong>{receiptData.reference}</strong>
+              </div>
+
+              <div>
+                <span>Order Date</span>
+                <strong>{receiptData.orderDate}</strong>
+              </div>
+            </div>
+
+            <section className="checkout-receipt-section">
+              <h3>Customer Details</h3>
+              <p>
+                <strong>Name:</strong> {receiptData.customer.fullName}
+              </p>
+              <p>
+                <strong>Mobile / WhatsApp:</strong>{' '}
+                {receiptData.customer.phone}
+              </p>
+
+              {receiptData.customer.email && (
+                <p>
+                  <strong>Email:</strong> {receiptData.customer.email}
+                </p>
               )}
-            </div>
+
+              <p>
+                <strong>City:</strong> {receiptData.customer.city}
+              </p>
+              <p>
+                <strong>Delivery Address:</strong>{' '}
+                {receiptData.customer.address}
+              </p>
+            </section>
+
+            <section className="checkout-receipt-section">
+              <h3>Products Ordered</h3>
+
+              <div className="checkout-receipt-table-wrap">
+                <table className="checkout-receipt-table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Qty</th>
+                      <th>Unit Price</th>
+                      <th>Line Total</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {receiptData.items.map((item, index) => (
+                      <tr key={`${item.name}-${index}`}>
+                        <td>
+                          <strong>{item.name}</strong>
+
+                          {item.variantLabel && (
+                            <small>{item.variantLabel}</small>
+                          )}
+
+                          <small>{item.priceBasis}</small>
+                        </td>
+
+                        <td>
+                          {item.quantity} {item.unitLabel}
+                        </td>
+
+                        <td>{formatPrice(item.unitPrice)}</td>
+                        <td>{formatPrice(item.lineTotal)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="checkout-receipt-subtotal">
+                <span>Product Subtotal</span>
+                <strong>{formatPrice(receiptData.subtotal)}</strong>
+              </div>
+            </section>
+
+            <section className="checkout-receipt-section checkout-receipt-terms">
+              <h3>Important Terms &amp; Conditions</h3>
+
+              <ol>
+                <li>
+                  <strong>Advance payment:</strong> Full payment for the
+                  products is required before dispatch.
+                </li>
+
+                <li>
+                  <strong>Payment verification:</strong> Placing an order or
+                  receiving this document does not mean payment has been
+                  received. Payment is confirmed separately by VAULT KHAZANA
+                  after verification.
+                </li>
+
+                <li>
+                  <strong>Dispatch:</strong> Products will be dispatched only
+                  after full product payment is verified and product
+                  availability is confirmed.
+                </li>
+
+                <li>
+                  <strong>Shipping arrangements:</strong> Shipping availability
+                  and arrangements will be confirmed separately with the
+                  customer.
+                </li>
+
+                <li>
+                  <strong>Order changes:</strong> Changes, cancellations,
+                  refunds and other order issues are handled according to
+                  VAULT KHAZANA's applicable policies and relevant consumer
+                  protection requirements.
+                </li>
+              </ol>
+
+              <p className="checkout-receipt-disclaimer">
+                This document records the products requested and their product
+                cost only. It is not proof of payment, dispatch or delivery.
+              </p>
+            </section>
+
+            <footer className="checkout-receipt-footer">
+              VAULT KHAZANA — Packaging &amp; Food-Service Supplies
+            </footer>
+          </section>
+
+          <div className="checkout-receipt-actions no-print">
+            <button
+              type="button"
+              className="checkout-submit-button"
+              onClick={() => window.print()}
+            >
+              Print / Save as PDF
+            </button>
+
+            <button
+              type="button"
+              className="checkout-receipt-share-button"
+              onClick={handleShareReceipt}
+            >
+              Share via WhatsApp
+            </button>
 
             <Link to="/" className="checkout-primary-button">
               Continue Shopping
             </Link>
-          </section>
+          </div>
         </div>
       </main>
     );
@@ -371,7 +602,8 @@ function CheckoutPage() {
           <p className="checkout-eyebrow">Secure Checkout</p>
           <h1>Complete Your Order</h1>
           <p>
-            Enter your details and we will contact you to confirm your order.
+            Enter your details to submit your order request. Full product
+            payment is required before dispatch.
           </p>
         </div>
 
@@ -497,10 +729,10 @@ function CheckoutPage() {
                 <div className="checkout-business-terms">
                   <h3>Business Offer Terms</h3>
                   <p>
-                    Advance payment is required for F1 and F3 carton offers.
-                    Delivery charges are extra and will be confirmed based on
-                    your delivery area and order quantity.
+                    Full payment for these business offers is required before
+                    dispatch. Shipping arrangements will be confirmed separately.
                   </p>
+
                   <label className="checkout-business-confirmation">
                     <input
                       type="checkbox"
@@ -510,8 +742,8 @@ function CheckoutPage() {
                       }
                     />
                     <span>
-                      I understand and accept the advance-payment and delivery
-                      charge terms for these business offers.
+                      I understand and accept the advance-payment and dispatch
+                      terms for these business offers.
                     </span>
                   </label>
                 </div>
@@ -579,39 +811,25 @@ function CheckoutPage() {
 
             <div className="checkout-payment">
               <div className="checkout-payment-header">
-                <span>Payment Method</span>
+                <span>Payment Terms</span>
               </div>
 
               <div className="checkout-payment-option">
                 <span aria-hidden="true">✓</span>
                 <span>
-                  <strong>
-                    {hasBusinessOffer
-                      ? 'Advance Payment'
-                      : 'Confirmed Before Dispatch'}
-                  </strong>
+                  <strong>Full Advance Payment</strong>
                   <small>
-                    {hasBusinessOffer
-                      ? 'Advance payment is required for business offers. We will contact you to confirm arrangements.'
-                      : 'COD may be available with our own or trusted rider. Third-party courier orders may require advance payment. We’ll confirm with you before dispatch.'}
+                    Full payment for the products is required and must be
+                    verified before dispatch. Payment instructions and shipping
+                    arrangements will be confirmed with you.
                   </small>
                 </span>
               </div>
             </div>
 
             <div className="checkout-totals">
-              <div className="checkout-total-row">
-                <span>Subtotal</span>
-                <strong>{formatPrice(subtotal)}</strong>
-              </div>
-
-              <div className="checkout-total-row">
-                <span>Delivery</span>
-                <strong>Extra — to be confirmed</strong>
-              </div>
-
               <div className="checkout-total-row checkout-grand-total">
-                <span>Total before delivery</span>
+                <span>Product Subtotal</span>
                 <strong>{formatPrice(subtotal)}</strong>
               </div>
             </div>
