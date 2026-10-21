@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -18,8 +19,15 @@ const PAYMENT_VERIFICATION_TEXT =
 const PAYMENT_EXPIRY_TEXT =
   'If payment is not received within 48 hours of your receiving this payment request, VAULT KHAZANA may contact you to confirm whether you still wish to proceed before taking any cancellation action, subject to applicable policies and consumer protection requirements.';
 
-const formatPrice = (value) =>
-  `Rs ${Math.round(Number(value) || 0).toLocaleString('en-PK')}`;
+// FIX: Preserve fractional rupee prices instead of rounding them.
+const formatPrice = (value) => {
+  const amount = Number(value) || 0;
+
+  return `Rs ${amount.toLocaleString('en-PK', {
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2
+  })}`;
+};
 
 const getProductPriceBasis = (product) => {
   if (!product) return 'Price';
