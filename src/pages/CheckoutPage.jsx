@@ -28,22 +28,43 @@ const formatPrice = (value) => {
   })}`;
 };
 
-const getProductPriceBasis = (product) => {
-  if (!product) return 'Price';
+const getPackSize = (product) => {
+  if (product?.packSize) return product.packSize;
 
-  if (product.sellingUnit === 'pack' && product.packSize) {
-    return `per pack of ${product.packSize}`;
+  const packText = String(product?.pack || '');
+  const match = packText.match(/(\d+)\s*pieces?/i);
+
+  return match ? Number(match[1]) : null;
+};
+
+const getProductPriceBasis = (product, item = null) => {
+  if (!product) return 'per unit';
+
+  const sellingUnit = item?.sellingUnit || product.sellingUnit || 'piece';
+  const packSize = getPackSize(product);
+
+  if (sellingUnit === 'roll') return 'per roll';
+
+  if (sellingUnit === 'pack') {
+    return packSize ? `per pack of ${packSize} pieces` : 'per pack';
   }
 
-  if (product.sellingUnit === 'kg') return 'per kg';
+  if (sellingUnit === 'kg') return 'per kg';
+  if (sellingUnit === 'carton') return 'per carton';
 
   return 'per piece';
 };
 
-const getProductUnitLabel = (product) => {
-  if (!product) return 'pieces';
-  if (product.sellingUnit === 'pack') return 'packs';
-  if (product.sellingUnit === 'kg') return 'kg';
+const getProductUnitLabel = (product, item = null) => {
+  if (!product) return 'units';
+
+  const sellingUnit = item?.sellingUnit || product.sellingUnit || 'piece';
+
+  if (sellingUnit === 'pack') return 'packs';
+  if (sellingUnit === 'kg') return 'kg';
+  if (sellingUnit === 'carton') return 'cartons';
+  if (sellingUnit === 'roll') return 'rolls';
+
   return 'pieces';
 };
 
@@ -55,9 +76,10 @@ const getItemUnitLabel = (item) => {
     if (item.sellingUnit === 'carton') return 'cartons';
     if (item.sellingUnit === 'kg') return 'kg';
     if (item.sellingUnit === 'pack') return 'packs';
+    if (item.sellingUnit === 'roll') return 'rolls';
   }
 
-  return getProductUnitLabel(item.product);
+  return getProductUnitLabel(item.product, item);
 };
 
 const getItemPriceBasis = (item) => {
@@ -66,9 +88,10 @@ const getItemPriceBasis = (item) => {
     if (item.sellingUnit === 'carton') return 'per carton';
     if (item.sellingUnit === 'kg') return 'per kg';
     if (item.sellingUnit === 'pack') return 'per pack';
+    if (item.sellingUnit === 'roll') return 'per roll';
   }
 
-  return getProductPriceBasis(item.product);
+  return getProductPriceBasis(item.product, item);
 };
 
 const getItemImage = (item) =>
@@ -79,7 +102,9 @@ const getItemPrice = (item) => {
     return Number(item.pricePerUnit) || 0;
   }
 
-  return Number(item.product?.pricePerUnit) || 0;
+  return Number(
+    item.pricePerUnit ?? item.product?.pricePerUnit
+  ) || 0;
 };
 
 const createOrderReference = () => {
