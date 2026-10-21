@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
@@ -21,38 +22,59 @@ function getItemName(item) {
     : item.product?.name || 'Product';
 }
 
+function getPackSize(product) {
+  if (product?.packSize) return product.packSize;
+
+  const packText = String(product?.pack || '');
+  const match = packText.match(/(\d+)\s*pieces?/i);
+
+  return match ? Number(match[1]) : null;
+}
+
 function getUnitLabel(item) {
   const sellingUnit = item.sellingUnit || item.product?.sellingUnit || 'piece';
 
   if (sellingUnit === 'pack') return 'pack(s)';
   if (sellingUnit === 'kg') return 'kg';
   if (sellingUnit === 'carton') return 'carton(s)';
+  if (sellingUnit === 'roll') return 'roll(s)';
 
   return 'piece(s)';
 }
 
 function getPriceBasis(item) {
+  const price = Number(
+    item.pricePerUnit ?? item.product?.pricePerUnit
+  ) || 0;
+
   if (item.isSpecialOffer) {
     if (item.priceBasis) {
-      return `Rs ${formatPrice(item.pricePerUnit)} ${item.priceBasis}`;
+      return `Rs ${formatPrice(price)} ${item.priceBasis}`;
     }
 
-    return `Rs ${formatPrice(item.pricePerUnit)} per ${item.sellingUnit || 'unit'}`;
+    return `Rs ${formatPrice(price)} per ${item.sellingUnit || 'unit'}`;
   }
 
   const product = item.product;
-  const sellingUnit = product?.sellingUnit || 'piece';
-  const packSize = product?.packSize;
-  const price = Number(product?.pricePerUnit) || 0;
+  const sellingUnit = item.sellingUnit || product?.sellingUnit || 'piece';
+  const packSize = getPackSize(product);
+
+  if (sellingUnit === 'roll') {
+    return `Rs ${formatPrice(price)} / roll`;
+  }
 
   if (sellingUnit === 'pack') {
     return packSize
-      ? `Rs ${formatPrice(price)} / pack of ${packSize}`
+      ? `Rs ${formatPrice(price)} / pack of ${packSize} pieces`
       : `Rs ${formatPrice(price)} / pack`;
   }
 
   if (sellingUnit === 'kg') {
     return `Rs ${formatPrice(price)} / kg`;
+  }
+
+  if (sellingUnit === 'carton') {
+    return `Rs ${formatPrice(price)} / carton`;
   }
 
   return `Rs ${formatPrice(price)} / piece`;
@@ -72,10 +94,14 @@ function getQuantityDescription(item) {
   }
 
   const product = item.product;
-  const sellingUnit = product?.sellingUnit || 'piece';
+  const sellingUnit = item.sellingUnit || product?.sellingUnit || 'piece';
   const moq = Number(product?.moq) || 1;
   const step = Number(product?.step) || 1;
-  const packSize = product?.packSize;
+  const packSize = getPackSize(product);
+
+  if (sellingUnit === 'roll') {
+    return `Sold by the roll · Minimum ${moq} roll(s)`;
+  }
 
   if (sellingUnit === 'pack') {
     return packSize
@@ -106,7 +132,7 @@ function getItemRules(item) {
   return {
     moq: Number(item.product?.moq) || 1,
     step: Number(item.product?.step) || 1,
-    sellingUnit: item.product?.sellingUnit || 'piece'
+    sellingUnit: item.sellingUnit || item.product?.sellingUnit || 'piece'
   };
 }
 
@@ -127,6 +153,14 @@ function validateQuantity(quantity, item) {
       return `Minimum order is ${rules.moq} carton(s).`;
     }
 
+    if (rules.sellingUnit === 'pack') {
+      return `Minimum order is ${rules.moq} pack(s).`;
+    }
+
+    if (rules.sellingUnit === 'roll') {
+      return `Minimum order is ${rules.moq} roll(s).`;
+    }
+
     return `Minimum order is ${rules.moq} piece(s).`;
   }
 
@@ -138,7 +172,9 @@ function validateQuantity(quantity, item) {
           ? 'carton(s)'
           : rules.sellingUnit === 'pack'
             ? 'pack(s)'
-            : 'piece(s)';
+            : rules.sellingUnit === 'roll'
+              ? 'roll(s)'
+              : 'piece(s)';
 
     return `Quantity must increase in steps of ${rules.step} ${unit}.`;
   }
@@ -175,7 +211,7 @@ function CartPage() {
 
       const pricePerUnit = item.isSpecialOffer
         ? Number(item.pricePerUnit) || 0
-        : Number(product.pricePerUnit) || 0;
+        : Number(item.pricePerUnit ?? product.pricePerUnit) || 0;
 
       return {
         ...completeItem,
@@ -217,7 +253,11 @@ function CartPage() {
       return validateQuantity(quantity, item);
     }
 
-    return getQuantityError(item.productId, quantity);
+    return getQuantityError(
+      item.productId,
+      quantity,
+      item.variantKey || null
+    );
   };
 
   const handleQuantityChange = (item, value) => {
