@@ -19,7 +19,6 @@ const PAYMENT_VERIFICATION_TEXT =
 const PAYMENT_EXPIRY_TEXT =
   'If payment is not received within 48 hours of your receiving this payment request, VAULT KHAZANA may contact you to confirm whether you still wish to proceed before taking any cancellation action, subject to applicable policies and consumer protection requirements.';
 
-// FIX: Preserve fractional rupee prices instead of rounding them.
 const formatPrice = (value) => {
   const amount = Number(value) || 0;
 
@@ -268,10 +267,6 @@ function CheckoutPage() {
       timeZone: 'Asia/Karachi'
     });
 
-    /*
-     * Save the order details before clearing the cart.
-     * The receipt must not depend on cart data after submission.
-     */
     const receiptItems = cartItems.map((item) => {
       const quantity = Number(item.quantity) || 0;
       const unitPrice = getItemPrice(item);
@@ -408,16 +403,38 @@ function CheckoutPage() {
     return lines.filter((line) => line !== '').join('\n');
   };
 
+  // Opens a direct chat with VAULT KHAZANA and prepares a short order message.
+  // The customer must review and send the message in WhatsApp.
   const handleShareReceipt = () => {
-    const text = buildReceiptText();
+    if (!receiptData) return;
 
-    if (!text) return;
+    const productLines = receiptData.items.map((item, index) => {
+      const option = item.variantLabel ? ` (${item.variantLabel})` : '';
+      return `${index + 1}. ${item.name}${option} — ${item.quantity} ${item.unitLabel}`;
+    });
 
-    window.open(
-      `https://wa.me/?text=${encodeURIComponent(text)}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
+    const message = [
+      'Hello VAULT KHAZANA,',
+      '',
+      'I have submitted an order through your website.',
+      `Order Reference: ${receiptData.reference}`,
+      `Name: ${receiptData.customer.fullName}`,
+      '',
+      'Items:',
+      ...productLines,
+      '',
+      `Product Subtotal: ${formatPrice(receiptData.subtotal)}`,
+      '',
+      'Please confirm receipt of my order and advise me about delivery charges and shipping arrangements.',
+      'I understand that this order is awaiting full payment and that payment is confirmed only after the funds are received and verified.',
+      '',
+      'Thank you.'
+    ].join('\n');
+
+    const whatsappUrl =
+      `https://wa.me/923335513428?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   if (orderReference && receiptData) {
@@ -660,12 +677,18 @@ function CheckoutPage() {
               className="checkout-receipt-share-button"
               onClick={handleShareReceipt}
             >
-              Share via WhatsApp
+              Message VAULT KHAZANA on WhatsApp
             </button>
 
             <Link to="/" className="checkout-primary-button">
               Continue Shopping
             </Link>
+
+            <p className="checkout-whatsapp-note">
+              WhatsApp will open with a prepared message to VAULT KHAZANA.
+              Please tap Send to contact us. Your website order has already
+              been submitted.
+            </p>
           </div>
         </div>
       </main>
