@@ -1186,26 +1186,26 @@ export const PRODUCTS = [
     slug: 'aluminum-foil-sheet',
     imageSlug: 'aluminum-foil-sheet',
     imageFolder: 'aluminum-foil',
-    price: 200,
+    price: 250,
     sellingUnit: 'roll',
     moq: 1,
     step: 1,
     packSize: null,
-    pricePerUnit: 200,
+    pricePerUnit: 250,
     variants: [
       {
         id: '30x3-meter',
         label: '30 × 3 Meter',
         dimensions: '30 × 3 Meter',
-        price: 200,
-        pricePerUnit: 200
+        price: 250,
+        pricePerUnit: 250
       },
       {
         id: '45x3-meter',
         label: '45 × 3 Meter',
         dimensions: '45 × 3 Meter',
-        price: 300,
-        pricePerUnit: 300
+        price: 350,
+        pricePerUnit: 350
       }
     ],
     overview: 'Food-grade aluminum foil available in two practical roll sizes for cooking, baking, roasting, grilling and food wrapping.',
@@ -1223,7 +1223,7 @@ export const PRODUCTS = [
     imageSlug: 'food-cling-wrap-sheet',
     imageFolder: 'cling-sheet',
     price: 350,
-    sellingUnit: 'piece',
+    sellingUnit: 'roll',
     moq: 1,
     step: 1,
     packSize: null,
