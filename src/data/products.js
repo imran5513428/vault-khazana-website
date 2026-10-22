@@ -1187,7 +1187,7 @@ export const PRODUCTS = [
     imageSlug: 'aluminum-foil-sheet',
     imageFolder: 'aluminum-foil',
     price: 200,
-    sellingUnit: 'piece',
+    sellingUnit: 'roll',
     moq: 1,
     step: 1,
     packSize: null,
