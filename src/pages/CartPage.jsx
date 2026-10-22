@@ -31,20 +31,38 @@ function getPackSize(product) {
   return match ? Number(match[1]) : null;
 }
 
+function getSellingUnit(item) {
+  return item.sellingUnit || item.product?.sellingUnit || 'piece';
+}
+
 function getUnitLabel(item) {
-  const sellingUnit = item.sellingUnit || item.product?.sellingUnit || 'piece';
+  const sellingUnit = getSellingUnit(item);
 
-  if (sellingUnit === 'pack') return 'pack(s)';
+  if (sellingUnit === 'pack') return 'packs';
   if (sellingUnit === 'kg') return 'kg';
-  if (sellingUnit === 'carton') return 'carton(s)';
-  if (sellingUnit === 'roll') return 'roll(s)';
+  if (sellingUnit === 'carton') return 'cartons';
+  if (sellingUnit === 'roll') return 'rolls';
+  if (sellingUnit === 'set') return 'sets';
 
-  return 'piece(s)';
+  return 'pieces';
+}
+
+function getQuantityUnit(item, quantity) {
+  const sellingUnit = getSellingUnit(item);
+  const singular = Number(quantity) === 1;
+
+  if (sellingUnit === 'kg') return 'kg';
+  if (sellingUnit === 'pack') return singular ? 'pack' : 'packs';
+  if (sellingUnit === 'carton') return singular ? 'carton' : 'cartons';
+  if (sellingUnit === 'roll') return singular ? 'roll' : 'rolls';
+  if (sellingUnit === 'set') return singular ? 'set' : 'sets';
+
+  return singular ? 'piece' : 'pieces';
 }
 
 function getPriceBasis(item) {
   const price = Number(
-    item.pricePerUnit ?? item.product?.pricePerUnit
+    item.pricePerUnit ?? item.product?.pricePerUnit ?? item.product?.price
   ) || 0;
 
   if (item.isSpecialOffer) {
@@ -56,7 +74,7 @@ function getPriceBasis(item) {
   }
 
   const product = item.product;
-  const sellingUnit = item.sellingUnit || product?.sellingUnit || 'piece';
+  const sellingUnit = getSellingUnit(item);
   const packSize = getPackSize(product);
 
   if (sellingUnit === 'roll') {
@@ -67,6 +85,12 @@ function getPriceBasis(item) {
     return packSize
       ? `Rs ${formatPrice(price)} / pack of ${packSize} pieces`
       : `Rs ${formatPrice(price)} / pack`;
+  }
+
+  if (sellingUnit === 'set') {
+    return `Rs ${formatPrice(price)} / ${
+      product?.pack ? `set of ${product.pack}` : 'set'
+    }`;
   }
 
   if (sellingUnit === 'kg') {
@@ -94,30 +118,41 @@ function getQuantityDescription(item) {
   }
 
   const product = item.product;
-  const sellingUnit = item.sellingUnit || product?.sellingUnit || 'piece';
+  const sellingUnit = getSellingUnit(item);
   const moq = Number(product?.moq) || 1;
   const step = Number(product?.step) || 1;
   const packSize = getPackSize(product);
+  const minimumUnit = getQuantityUnit(item, moq);
 
   if (sellingUnit === 'roll') {
-    return `Sold by the roll · Minimum ${moq} roll(s)`;
+    return `Sold by the roll · Minimum ${moq} ${minimumUnit}`;
   }
 
   if (sellingUnit === 'pack') {
     return packSize
       ? `1 pack = ${packSize} pieces`
-      : `Minimum ${moq} pack(s)`;
+      : `Minimum ${moq} ${minimumUnit}`;
+  }
+
+  if (sellingUnit === 'set') {
+    return `Sold as ${
+      product?.pack ? `a set of ${product.pack}` : 'a set'
+    } · Minimum ${moq} ${minimumUnit}`;
   }
 
   if (sellingUnit === 'kg') {
     return `Minimum ${moq} kg`;
   }
 
-  if (step > 1) {
-    return `Minimum ${moq} pieces • Add in quantities of ${step}`;
+  if (sellingUnit === 'carton') {
+    return `Sold by the carton · Minimum ${moq} ${minimumUnit}`;
   }
 
-  return `Minimum ${moq} pieces`;
+  if (step > 1) {
+    return `Minimum ${moq} ${minimumUnit} • Add in quantities of ${step}`;
+  }
+
+  return `Minimum ${moq} ${minimumUnit}`;
 }
 
 function getItemRules(item) {
@@ -132,7 +167,7 @@ function getItemRules(item) {
   return {
     moq: Number(item.product?.moq) || 1,
     step: Number(item.product?.step) || 1,
-    sellingUnit: item.sellingUnit || item.product?.sellingUnit || 'piece'
+    sellingUnit: getSellingUnit(item)
   };
 }
 
@@ -140,43 +175,19 @@ function validateQuantity(quantity, item) {
   const rules = getItemRules(item);
   const value = Number(quantity);
 
-  if (!Number.isFinite(value)) {
-    return 'Please enter a valid quantity.';
+  if (!Number.isFinite(value) || !Number.isInteger(value)) {
+    return 'Please enter a valid whole-number quantity.';
   }
 
+  const unit = getQuantityUnit(item, rules.moq);
+
   if (value < rules.moq) {
-    if (rules.sellingUnit === 'kg') {
-      return `Minimum order is ${rules.moq} kg.`;
-    }
-
-    if (rules.sellingUnit === 'carton') {
-      return `Minimum order is ${rules.moq} carton(s).`;
-    }
-
-    if (rules.sellingUnit === 'pack') {
-      return `Minimum order is ${rules.moq} pack(s).`;
-    }
-
-    if (rules.sellingUnit === 'roll') {
-      return `Minimum order is ${rules.moq} roll(s).`;
-    }
-
-    return `Minimum order is ${rules.moq} piece(s).`;
+    return `Minimum order is ${rules.moq} ${unit}.`;
   }
 
   if ((value - rules.moq) % rules.step !== 0) {
-    const unit =
-      rules.sellingUnit === 'kg'
-        ? 'kg'
-        : rules.sellingUnit === 'carton'
-          ? 'carton(s)'
-          : rules.sellingUnit === 'pack'
-            ? 'pack(s)'
-            : rules.sellingUnit === 'roll'
-              ? 'roll(s)'
-              : 'piece(s)';
-
-    return `Quantity must increase in steps of ${rules.step} ${unit}.`;
+    const stepUnit = getQuantityUnit(item, rules.step);
+    return `Quantity must increase in steps of ${rules.step} ${stepUnit}.`;
   }
 
   return '';
@@ -211,7 +222,9 @@ function CartPage() {
 
       const pricePerUnit = item.isSpecialOffer
         ? Number(item.pricePerUnit) || 0
-        : Number(item.pricePerUnit ?? product.pricePerUnit) || 0;
+        : Number(
+            item.pricePerUnit ?? product.pricePerUnit ?? product.price
+          ) || 0;
 
       return {
         ...completeItem,
@@ -225,8 +238,7 @@ function CartPage() {
     0
   );
 
-  // Prepare a WhatsApp enquiry using the current cart contents.
-  // This only opens a draft message; it does not place an order.
+  // This creates a WhatsApp draft only; it does not place an order.
   const whatsappCartMessage = [
     'Hello VAULT KHAZANA, I have a question about my cart:',
     '',
@@ -235,8 +247,9 @@ function CartPage() {
       const option = item.variantLabel
         ? ` — ${item.variantLabel}`
         : '';
+      const quantityUnit = getQuantityUnit(item, item.quantity);
 
-      return `${index + 1}. ${itemName}${option} | Quantity: ${item.quantity} ${getUnitLabel(item)} | Subtotal: Rs ${formatPrice(item.subtotal)}`;
+      return `${index + 1}. ${itemName}${option} | Quantity: ${item.quantity} ${quantityUnit} | Subtotal: Rs ${formatPrice(item.subtotal)}`;
     }),
     '',
     `Subtotal before delivery: Rs ${formatPrice(cartTotal)}`,
