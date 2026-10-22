@@ -49,6 +49,10 @@ const getProductPriceBasis = (product, item = null) => {
     return packSize ? `per pack of ${packSize} pieces` : 'per pack';
   }
 
+  if (sellingUnit === 'set') {
+    return product.pack ? `per set of ${product.pack}` : 'per set';
+  }
+
   if (sellingUnit === 'kg') return 'per kg';
   if (sellingUnit === 'carton') return 'per carton';
 
@@ -65,6 +69,7 @@ const formatQuantity = (quantity, unitLabel) => {
     pieces: 'piece',
     packs: 'pack',
     rolls: 'roll',
+    sets: 'set',
     cartons: 'carton',
     units: 'unit'
   };
@@ -86,6 +91,7 @@ const getProductUnitLabel = (product, item = null) => {
   if (sellingUnit === 'kg') return 'kg';
   if (sellingUnit === 'carton') return 'cartons';
   if (sellingUnit === 'roll') return 'rolls';
+  if (sellingUnit === 'set') return 'sets';
 
   return 'pieces';
 };
@@ -99,6 +105,7 @@ const getItemUnitLabel = (item) => {
     if (item.sellingUnit === 'kg') return 'kg';
     if (item.sellingUnit === 'pack') return 'packs';
     if (item.sellingUnit === 'roll') return 'rolls';
+    if (item.sellingUnit === 'set') return 'sets';
   }
 
   return getProductUnitLabel(item.product, item);
@@ -111,6 +118,7 @@ const getItemPriceBasis = (item) => {
     if (item.sellingUnit === 'kg') return 'per kg';
     if (item.sellingUnit === 'pack') return 'per pack';
     if (item.sellingUnit === 'roll') return 'per roll';
+    if (item.sellingUnit === 'set') return 'per set';
   }
 
   return getProductPriceBasis(item.product, item);
@@ -125,7 +133,9 @@ const getItemPrice = (item) => {
   }
 
   return Number(
-    item.pricePerUnit ?? item.product?.pricePerUnit
+    item.pricePerUnit ??
+      item.product?.pricePerUnit ??
+      item.product?.price
   ) || 0;
 };
 
