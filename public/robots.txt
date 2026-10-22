@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://imran5513428.github.io/vault-khazana-website/sitemap.xml
