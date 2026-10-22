@@ -1,0 +1,153 @@
+/* ============================================================
+   VAULT KHAZANA — Desktop layout fixes
+   Scope: desktop/tablet improvements only where noted.
+   Mobile (max-width 767px) visual system is intentionally preserved.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1) PRODUCT QUANTITY CONTROL (class name bug)
+   ProductDetailPage uses .quantity-controls
+   Existing styles only targeted .quantity-control (cart)
+   Result on desktop: stacked − / full-width input / + 
+   Fix: style the real class as a compact horizontal control.
+   Safe on mobile too (correct control, not a redesign).
+   ------------------------------------------------------------ */
+
+.product-quantity-section .quantity-controls,
+.quantity-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid #d8dce1;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-quantity-section .quantity-controls .qty-btn,
+.quantity-controls .qty-btn {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: #f5f6f7;
+  color: #1f3a5c;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.product-quantity-section .quantity-controls .qty-btn:hover:not(:disabled),
+.quantity-controls .qty-btn:hover:not(:disabled) {
+  background: #e9edf1;
+}
+
+.product-quantity-section .quantity-controls .qty-btn:disabled,
+.quantity-controls .qty-btn:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.product-quantity-section .quantity-controls .qty-input,
+.quantity-controls .qty-input {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 64px;
+  min-width: 64px;
+  max-width: 80px;
+  height: 40px;
+  padding: 0 6px;
+  border: 0;
+  border-left: 1px solid #d8dce1;
+  border-right: 1px solid #d8dce1;
+  outline: none;
+  background: #fff;
+  color: #222;
+  font-size: 15px;
+  text-align: center;
+  /* prevent full-row stretch from parent width */
+  align-self: stretch;
+}
+
+.product-quantity-section .quantity-controls .qty-input:focus,
+.quantity-controls .qty-input:focus {
+  box-shadow: inset 0 0 0 2px rgba(31, 58, 92, 0.18);
+}
+
+/* ------------------------------------------------------------
+   2) HOME CATEGORY GRID — desktop only
+   9 categories in 4 columns leaves a lonely last card + large
+   empty white space. Use 3 columns for an even 3×3 on desktop.
+   Mobile/tablet rules in pages.css remain unchanged.
+   ------------------------------------------------------------ */
+
+@media (min-width: 1024px) {
+  .home-page .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  /* Override responsive.css 5-col rule if it wins cascade */
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .home-page .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ------------------------------------------------------------
+   3) PRODUCT DETAIL — desktop spacing polish
+   Keep two-column layout balanced; avoid huge empty right of qty
+   ------------------------------------------------------------ */
+
+@media (min-width: 768px) {
+  .product-detail-grid {
+    align-items: start;
+  }
+
+  .product-info .add-to-cart-section {
+    max-width: 420px;
+  }
+
+  .product-info .product-quantity-section {
+    max-width: 280px;
+  }
+}
+
+/* ------------------------------------------------------------
+   4) CATEGORY PRODUCT GRID — even columns on large screens
+   ------------------------------------------------------------ */
+
+@media (min-width: 1024px) {
+  .category-page .product-grid,
+  .category-products .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+/* ------------------------------------------------------------
+   5) GOOD FINDS cards — reduce empty image void on desktop
+   ------------------------------------------------------------ */
+
+@media (min-width: 768px) {
+  .good-finds-card-image {
+    min-height: 180px;
+  }
+
+  .good-finds-card-image > img {
+    height: 180px;
+  }
+}
