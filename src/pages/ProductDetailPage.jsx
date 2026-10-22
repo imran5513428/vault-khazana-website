@@ -69,7 +69,7 @@ function ProductDetailPage() {
       : selectedVariant &&
           selectedVariant.price !== undefined
         ? Number(selectedVariant.price)
-        : Number(product.pricePerUnit) || 0;
+        : Number(product.pricePerUnit ?? product.price) || 0;
 
   const displayedDimensions =
     selectedVariant?.dimensions ||
@@ -137,7 +137,19 @@ function ProductDetailPage() {
       return `${value} ${packLabel}`;
     }
 
-    return `${value} pieces`;
+    if (sellingUnit === 'roll') {
+      return `${value} ${value === 1 ? 'roll' : 'rolls'}`;
+    }
+
+    if (sellingUnit === 'set') {
+      return `${value} ${value === 1 ? 'set' : 'sets'}`;
+    }
+
+    if (sellingUnit === 'carton') {
+      return `${value} ${value === 1 ? 'carton' : 'cartons'}`;
+    }
+
+    return `${value} ${value === 1 ? 'piece' : 'pieces'}`;
   };
 
   const getPriceBasisLabel = () => {
@@ -159,6 +171,18 @@ function ProductDetailPage() {
 
     if (sellingUnit === 'pack') {
       return 'pack';
+    }
+
+    if (sellingUnit === 'roll') {
+      return 'roll';
+    }
+
+    if (sellingUnit === 'set') {
+      return product.pack ? `set of ${product.pack}` : 'set';
+    }
+
+    if (sellingUnit === 'carton') {
+      return 'carton';
     }
 
     return 'piece';
@@ -204,8 +228,14 @@ function ProductDetailPage() {
           sellingUnit === 'kg'
             ? 'kg'
             : sellingUnit === 'pack'
-              ? 'pack'
-              : 'pieces'
+              ? moq === 1 ? 'pack' : 'packs'
+              : sellingUnit === 'roll'
+                ? moq === 1 ? 'roll' : 'rolls'
+                : sellingUnit === 'set'
+                  ? moq === 1 ? 'set' : 'sets'
+                  : sellingUnit === 'carton'
+                    ? moq === 1 ? 'carton' : 'cartons'
+                    : moq === 1 ? 'piece' : 'pieces'
         }.`
       );
       return;
@@ -815,7 +845,6 @@ function ProductDetailPage() {
                       ` • Add in steps of ${step}`}
                   </p>
 
-                  {/* LIVE ORDER TOTAL */}
                   <p
                     className="product-selected-total"
                     aria-live="polite"
@@ -1085,7 +1114,18 @@ function ProductDetailPage() {
                                     ''
                                   )
                                 : 'pack'
-                              : 'piece'}
+                              : relatedProduct.sellingUnit ===
+                                'roll'
+                                ? 'roll'
+                                : relatedProduct.sellingUnit ===
+                                  'set'
+                                  ? relatedProduct.pack
+                                    ? `set of ${relatedProduct.pack}`
+                                    : 'set'
+                                  : relatedProduct.sellingUnit ===
+                                    'carton'
+                                    ? 'carton'
+                                    : 'piece'}
                       </p>
                     </div>
                   </Link>
