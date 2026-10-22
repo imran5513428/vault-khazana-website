@@ -8,6 +8,7 @@ import {
 
 import './App.css';
 import './styles/cart-product-polish.css';
+import './styles/desktop-layout-fix.css';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
