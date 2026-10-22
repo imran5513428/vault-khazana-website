@@ -29,22 +29,9 @@ function CategoryPage() {
   }
 
   const getDisplayPrice = (product) => {
-    const sellingUnit = product.sellingUnit || 'piece';
-    const packSize = product.packSize
-      ? Number(product.packSize)
-      : null;
-
-    const pricePerUnit =
-      Number(product.pricePerUnit) || 0;
-
-    if (
-      sellingUnit === 'pack' &&
-      packSize
-    ) {
-      return pricePerUnit / packSize;
-    }
-
-    return pricePerUnit;
+    // Always show the selling-unit price (pack, roll, piece, set, etc.).
+    // Do not convert pack prices into a per-piece figure on category cards.
+    return Number(product.pricePerUnit) || 0;
   };
 
   const getDisplayUnit = (product) => {
@@ -62,12 +49,7 @@ function CategoryPage() {
       return '250g';
     }
 
-    // Legacy pack products that have packSize → show per piece
-    if (sellingUnit === 'pack' && packSize) {
-      return 'piece';
-    }
-
-    // New pack products without packSize → show per pack
+    // Pack products: always show "per pack" (full pack price)
     if (sellingUnit === 'pack') {
       return 'pack';
     }
@@ -94,9 +76,12 @@ function CategoryPage() {
       ? Number(product.packSize)
       : null;
 
-    if (sellingUnit === 'pack' && packSize) {
-      const minimumPieces = moq * packSize;
-      return `Minimum ${minimumPieces} pieces`;
+    if (sellingUnit === 'pack') {
+      const packWord = moq === 1 ? 'pack' : 'packs';
+      if (packSize) {
+        return `Minimum ${moq} ${packWord} (${packSize} pieces each)`;
+      }
+      return `Minimum ${moq} ${packWord}`;
     }
 
     if (sellingUnit === 'kg' || sellingUnit === 'weight') {
@@ -105,10 +90,6 @@ function CategoryPage() {
 
     if (sellingUnit === '250g') {
       return `Minimum ${moq} × 250g`;
-    }
-
-    if (sellingUnit === 'pack') {
-      return `Minimum ${moq} ${moq === 1 ? 'pack' : 'packs'}`;
     }
 
     if (sellingUnit === 'pair') {
