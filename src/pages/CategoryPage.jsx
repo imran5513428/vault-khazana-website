@@ -80,6 +80,10 @@ function CategoryPage() {
       return 'set';
     }
 
+    if (sellingUnit === 'roll') {
+      return 'roll';
+    }
+
     return 'piece';
   };
 
@@ -113,6 +117,10 @@ function CategoryPage() {
 
     if (sellingUnit === 'set') {
       return `Minimum ${moq} ${moq === 1 ? 'set' : 'sets'}`;
+    }
+
+    if (sellingUnit === 'roll') {
+      return `Minimum ${moq} ${moq === 1 ? 'roll' : 'rolls'}`;
     }
 
     return `Minimum ${moq} ${moq === 1 ? 'piece' : 'pieces'}`;
