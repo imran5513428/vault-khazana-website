@@ -1,8 +1,219 @@
+Skip to main content
+Product Catalog Analysis and Data Tasks
+Grok
+
+Worked for 18s
+File 3 — src/pages/CartPage.jsx
+
+File 4 — src/pages/CheckoutPage.jsx
+
+File 5 — src/pages/ProductDetailPage.jsx
+
+Tap each file above to open or download it.
+
+Where to put them:
+
+File 3 → src/pages/CartPage.jsx
+File 4 → src/pages/CheckoutPage.jsx
+File 5 → src/pages/ProductDetailPage.jsx
+If any file still won’t open, say which number (3, 4, or 5) and I’ll paste that one as full raw text in the chat.
+
+You
+Still sake better you provide them in copy paste format
+
+Grok
+
+Worked for 36s
+Full files are too long for one chat paste on mobile. Here are only the exact edits to copy-paste into each file (smaller and safer).
+
+File 3 — src/pages/CartPage.jsx
+Edit A — import (near top)
+Find:
+
+import {
+  getProductById
+} from '../data/products';
+(or whatever your current products import looks like)
+
+Replace with:
+
+import {
+  getProductById,
+  getProductLineTotal
+} from '../data/products';
+Edit B — line subtotal (inside cartItemsWithDetails map)
+Find:
+
+const pricePerUnit = item.isSpecialOffer
+        ? Number(item.pricePerUnit) || 0
+        : Number(
+            item.pricePerUnit ?? product.pricePerUnit ?? product.price
+          ) || 0;
+
+      return {
+        ...completeItem,
+        subtotal: pricePerUnit * Number(item.quantity || 0)
+      };
+Replace with:
+
+const pricePerUnit = item.isSpecialOffer
+        ? Number(item.pricePerUnit) || 0
+        : Number(
+            item.pricePerUnit ?? product.pricePerUnit ?? product.price
+          ) || 0;
+
+      const qty = Number(item.quantity || 0);
+      const subtotal =
+        !item.isSpecialOffer && product.pairOffer
+          ? getProductLineTotal(product, qty)
+          : pricePerUnit * qty;
+
+      return {
+        ...completeItem,
+        subtotal
+      };
+File 4 — src/pages/CheckoutPage.jsx
+Edit A — import
+Add getProductLineTotal to the products import:
+
+import {
+  getProductById,
+  getProductLineTotal
+} from '../data/products';
+Edit B — after getItemPrice function, add:
+const getItemLineTotal = (item) => {
+  const qty = Number(item.quantity) || 0;
+  if (!item.isSpecialOffer && item.product?.pairOffer) {
+    return getProductLineTotal(item.product, qty);
+  }
+  return getItemPrice(item) * qty;
+};
+Edit C — subtotal
+Find:
+
+const subtotal = cartItems.reduce((total, item) => {
+    return total + getItemPrice(item) * (Number(item.quantity) || 0);
+  }, 0);
+Replace with:
+
+const subtotal = cartItems.reduce((total, item) => {
+    return total + getItemLineTotal(item);
+  }, 0);
+Edit D — every lineTotal: unitPrice * quantity or const lineTotal = unitPrice * quantity
+Replace with:
+
+const lineTotal = getItemLineTotal(item);
+(or lineTotal: getItemLineTotal(item) if it’s an object property)
+
+File 5 — src/pages/ProductDetailPage.jsx
+Edit A — import
+Add getProductLineTotal to the products import.
+
+Edit B — live total
+Find:
+
+const selectedQuantityTotal =
+    pricePerUnit * selectedQuantity;
+Replace with:
+
+const selectedQuantityTotal = product.pairOffer
+    ? getProductLineTotal(product, selectedQuantity)
+    : pricePerUnit * selectedQuantity;
+Edit C — offer banner (paste just before <div className="stock-status">)
+{product.pairOffer && (
+                <div className="product-pair-offer" style={{
+                  marginTop: '12px',
+                  marginBottom: '12px',
+                  padding: '12px 14px',
+                  borderRadius: '10px',
+                  background: '#FFF7ED',
+                  border: '1px solid #FDBA74'
+                }}>
+                  <strong style={{ color: '#C2410C', display: 'block', marginBottom: '4px' }}>
+                    {product.pairOffer.label || 'Special Offer: 2 Pieces for Rs 360'}
+                  </strong>
+                  <span style={{ fontSize: '0.92rem', color: '#9A3412' }}>
+                    {product.pairOffer.note ||
+                      '1 piece = Rs 190. 2 or more pieces = Rs 180 each (2 pieces = Rs 360).'}
+                  </span>
+                  <div style={{ fontSize: '0.85rem', color: '#7C2D12', marginTop: '6px' }}>
+                    1 → Rs 190 · 2 → Rs 360 · 3 → Rs 540 · 4 → Rs 720 · 5 → Rs 900
+                  </div>
+                </div>
+              )}
+Still required
+File 1 products.js and File 2 cartStore.js from the earlier message (full replace those two).
+Image path: src/assets/products/insulated-roti-chapati-warmer/01.jpg
+If you want, next message I can send only File 4 edits or only File 5 again, one screen at a time.
+
+You
+I need complete replacement start with file 3
+
+Grok
+
+Worked for 53s
+File 3 complete — src/pages/CartPage.jsx
+
+How to build the file
+Create/open src/pages/CartPage.jsx
+Paste Part 1 (in my previous message block)
+Paste Part 2 immediately after (no blank line gap needed between parts)
+Paste Part 3
+Paste Part 4
+Paste Part 5
+Paste Part 6
+Paste Part 7
+Paste Part 8 (ends with export default CartPage;)
+Important:
+
+Part 1 starts with import React...
+Part 2 starts with       return 'Sold by the carton'; (continues the function from Part 1)
+Part 8 ends with export default CartPage;
+If any part is hard to copy from the chat, say “resend part X” and I will paste that part alone again.
+
+When File 3 is done, say “file 4” and I will send CheckoutPage.jsx the same way (in parts).
+
+You
+Why you are giving in patches and parts i need complete file not in parts
+
+Grok
+
+Worked for 15s
+Complete File 3 — one file (not parts)
+Path in repo: src/pages/CartPage.jsx
+
+Tap/open this file — it is the full complete file in one piece:
+
+
+If download still fails on your phone
+Use GitHub instead (most reliable on Android):
+
+Open your repo on GitHub
+Go to src/pages/CartPage.jsx
+Click the pencil (Edit)
+On a computer, open the file above, Select All → Copy → paste over the whole file on GitHub → Commit
+Or from a computer, download the file from the link above and upload it into the repo.
+
+I will do the same for File 4 and File 5: one complete file each, not parts.
+
+Reply “file 4” when you want CheckoutPage.jsx as a single complete file the same way.
+
+Ask anything
+
+
+Grok finished responding
+
+CartPage.jsx
+
+Files
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
-import { getProductById } from '../data/products';
+import {
+  getProductById,
+  getProductLineTotal
+} from '../data/products';
 import '../styles/cart.css';
 
 const BAG_OPTIONS = [
@@ -226,9 +437,15 @@ function CartPage() {
             item.pricePerUnit ?? product.pricePerUnit ?? product.price
           ) || 0;
 
+      const qty = Number(item.quantity || 0);
+      const subtotal =
+        !item.isSpecialOffer && product.pairOffer
+          ? getProductLineTotal(product, qty)
+          : pricePerUnit * qty;
+
       return {
         ...completeItem,
-        subtotal: pricePerUnit * Number(item.quantity || 0)
+        subtotal
       };
     })
     .filter(Boolean);
