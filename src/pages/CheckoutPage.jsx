@@ -5,6 +5,10 @@ import useCartStore from '../store/cartStore';
 import { getProductById } from '../data/products';
 import '../styles/checkout.css';
 
+const ROTI_WARMER_ID = 'insulated-roti-chapati-warmer';
+const ROTI_WARMER_FIRST_PRICE = 190;
+const ROTI_WARMER_ADDITIONAL_PRICE = 180;
+
 const PAYMENT_DEADLINE_HOURS = 48;
 
 const PAYMENT_DEADLINE_TEXT =
@@ -112,6 +116,10 @@ const getItemUnitLabel = (item) => {
 };
 
 const getItemPriceBasis = (item) => {
+  if (!item.isSpecialOffer && item.product?.id === ROTI_WARMER_ID) {
+    return 'first piece Rs 190; each additional piece Rs 180';
+  }
+
   if (item.isSpecialOffer) {
     if (item.priceBasis) return item.priceBasis;
     if (item.sellingUnit === 'carton') return 'per carton';
@@ -137,6 +145,31 @@ const getItemPrice = (item) => {
       item.product?.pricePerUnit ??
       item.product?.price
   ) || 0;
+};
+
+// Calculates the full line total, applying the warmer's special pricing
+// only to this product. Every other product retains its existing pricing.
+const getItemLineTotal = (item) => {
+  const quantity = Number(item.quantity) || 0;
+
+  if (quantity <= 0) return 0;
+
+  if (!item.isSpecialOffer && item.product?.id === ROTI_WARMER_ID) {
+    return (
+      ROTI_WARMER_FIRST_PRICE +
+      (quantity - 1) * ROTI_WARMER_ADDITIONAL_PRICE
+    );
+  }
+
+  return getItemPrice(item) * quantity;
+};
+
+const getItemPriceDescription = (item) => {
+  if (!item.isSpecialOffer && item.product?.id === ROTI_WARMER_ID) {
+    return 'First piece Rs 190; each additional piece Rs 180';
+  }
+
+  return `${formatPrice(getItemPrice(item))} ${getItemPriceBasis(item)}`;
 };
 
 const createOrderReference = () => {
@@ -203,7 +236,7 @@ function CheckoutPage() {
   );
 
   const subtotal = cartItems.reduce((total, item) => {
-    return total + getItemPrice(item) * (Number(item.quantity) || 0);
+    return total + getItemLineTotal(item);
   }, 0);
 
   const handleChange = (event) => {
@@ -273,19 +306,16 @@ function CheckoutPage() {
     const orderDetails = cartItems
       .map((item, index) => {
         const quantity = Number(item.quantity) || 0;
-        const unitPrice = getItemPrice(item);
-        const lineTotal = unitPrice * quantity;
+        const lineTotal = getItemLineTotal(item);
         const name = getItemName(item);
-        const unitLabel = getItemUnitLabel(item);
-        const priceBasis = getItemPriceBasis(item);
 
         const details = [
           `${index + 1}. ${name}`,
           item.variantLabel
             ? `Selected option: ${item.variantLabel}`
             : null,
-          `Quantity: ${formatQuantity(quantity, unitLabel)}`,
-          `Price: ${formatPrice(unitPrice)} ${priceBasis}`,
+          `Quantity: ${formatQuantity(quantity, getItemUnitLabel(item))}`,
+          `Price: ${getItemPriceDescription(item)}`,
           `Subtotal: ${formatPrice(lineTotal)}`
         ].filter(Boolean);
 
@@ -325,17 +355,14 @@ function CheckoutPage() {
     });
 
     const receiptItems = cartItems.map((item) => {
-      const quantity = Number(item.quantity) || 0;
-      const unitPrice = getItemPrice(item);
-
       return {
         name: getItemName(item),
         variantLabel: item.variantLabel || '',
-        quantity,
+        quantity: Number(item.quantity) || 0,
         unitLabel: getItemUnitLabel(item),
-        priceBasis: getItemPriceBasis(item),
-        unitPrice,
-        lineTotal: unitPrice * quantity
+        priceBasis: getItemPriceDescription(item),
+        unitPrice: getItemPrice(item),
+        lineTotal: getItemLineTotal(item)
       };
     });
 
@@ -429,7 +456,7 @@ function CheckoutPage() {
           `${index + 1}. ${item.name}`,
           item.variantLabel ? `   Option: ${item.variantLabel}` : '',
           `   Quantity: ${formatQuantity(item.quantity, item.unitLabel)}`,
-          `   Price: ${formatPrice(item.unitPrice)} ${item.priceBasis}`,
+          `   Price: ${item.priceBasis}`,
           `   Line total: ${formatPrice(item.lineTotal)}`
         ].filter(Boolean)
       ),
@@ -467,7 +494,7 @@ function CheckoutPage() {
 
     const productLines = receiptData.items.map((item, index) => {
       const option = item.variantLabel ? ` (${item.variantLabel})` : '';
-      return `${index + 1}. ${item.name}${option} — ${formatQuantity(item.quantity, item.unitLabel)}`;
+      return `${index + 1}. ${item.name}${option} — ${formatQuantity(item.quantity, item.unitLabel)} — ${formatPrice(item.lineTotal)}`;
     });
 
     const message = [
@@ -574,7 +601,7 @@ function CheckoutPage() {
                     <tr>
                       <th>Product</th>
                       <th>Qty</th>
-                      <th>Unit Price</th>
+                      <th>Pricing</th>
                       <th>Line Total</th>
                     </tr>
                   </thead>
@@ -588,15 +615,16 @@ function CheckoutPage() {
                           {item.variantLabel && (
                             <small>{item.variantLabel}</small>
                           )}
-
-                          <small>{item.priceBasis}</small>
                         </td>
 
                         <td>
                           {formatQuantity(item.quantity, item.unitLabel)}
                         </td>
 
-                        <td>{formatPrice(item.unitPrice)}</td>
+                        <td>
+                          <small>{item.priceBasis}</small>
+                        </td>
+
                         <td>{formatPrice(item.lineTotal)}</td>
                       </tr>
                     ))}
@@ -942,8 +970,7 @@ function CheckoutPage() {
             <div className="checkout-items">
               {cartItems.map((item) => {
                 const quantity = Number(item.quantity) || 0;
-                const unitPrice = getItemPrice(item);
-                const lineTotal = unitPrice * quantity;
+                const lineTotal = getItemLineTotal(item);
                 const name = getItemName(item);
                 const image = getItemImage(item);
 
@@ -971,9 +998,7 @@ function CheckoutPage() {
                         {formatQuantity(quantity, getItemUnitLabel(item))}
                       </p>
 
-                      <small>
-                        {formatPrice(unitPrice)} {getItemPriceBasis(item)}
-                      </small>
+                      <small>{getItemPriceDescription(item)}</small>
 
                       {item.requiresAdvancePayment && (
                         <small>Advance payment required</small>
