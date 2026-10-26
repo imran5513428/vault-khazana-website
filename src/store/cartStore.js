@@ -1,7 +1,7 @@
 
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
-import { getProductById } from '../data/products';
+import { getProductById, getProductLineTotal } from '../data/products';
 
 const getVariant = (product, variantId) => {
   if (!product || !variantId || !Array.isArray(product.variants)) return null;
@@ -434,10 +434,16 @@ const useCartStore = create(
         return get().items.reduce((total, item) => {
           const product = getProductById(item.productId);
           const rules = getItemRules(item, product);
+          const qty = Number(item.quantity || 0);
 
           if (!rules) return total;
 
-          return total + rules.pricePerUnit * Number(item.quantity || 0);
+          // Pair / multi-buy offers (e.g. 2 for Rs 360)
+          if (!item.isSpecialOffer && product?.pairOffer) {
+            return total + getProductLineTotal(product, qty);
+          }
+
+          return total + rules.pricePerUnit * qty;
         }, 0);
       },
 
