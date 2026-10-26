@@ -2060,7 +2060,53 @@ export const PRODUCTS = [
     suitableFor: 'Hand and face care, guest bathrooms and household use',
     idealFor: 'Everyday personal and guest use',
     inStock: true
-  }
+  },
+  {
+    id: 'insulated-roti-chapati-warmer',
+    categoryId: 'food-service-essentials',
+    name: 'Insulated Roti & Chapati Warmer',
+    slug: 'insulated-roti-chapati-warmer',
+    imageFolder: 'insulated-roti-chapati-warmer',
+    imageSlug: 'insulated-roti-chapati-warmer',
+    price: 190,
+    pack: '1 piece',
+    sellingUnit: 'piece',
+    moq: 1,
+    step: 1,
+    packSize: null,
+    pricePerUnit: 190,
+    material: 'Insulated fabric with zip closure',
+    shape: 'Round — foldable',
+    colour: 'Assorted printed designs',
+    overview: 'Keep Every Roti Ready to Serve',
+    description:
+      'Make serving fresh rotis and chapatis easier with this insulated fabric warmer. Its spacious, round design provides room for everyday flatbreads, while the insulated lining helps retain warmth for longer. The zip closure helps keep the contents covered, and the lightweight, foldable design makes the warmer easy to store when not in use. Its printed fabric exterior and sturdy stitching make it a practical addition to everyday meals, family gatherings, picnics and travel.',
+    suitableFor:
+      'Rotis, chapatis, parathas, naan and similar flatbreads',
+    idealFor:
+      'Everyday home use, family gatherings, picnics and travel',
+    recommendation:
+      'Practical insulated warmer for households that serve fresh breads.',
+    features: [
+      'Insulated lining to help retain warmth',
+      'Spacious round shape for rotis, chapatis, parathas and naan',
+      'Zip closure to keep the contents covered',
+      'Foldable and space-saving design',
+      'Lightweight and portable',
+      'Printed fabric exterior with sturdy stitching',
+      'Suitable for everyday home use and gatherings'
+    ],
+    care:
+      'Follow the care instructions supplied with the product. Do not machine-wash or expose to high heat unless the supplier confirms it is safe.',
+    pairOffer: {
+      unitPrice: 190,
+      pairPrice: 360,
+      additionalUnitPrice: 180,
+      label: 'Special Offer: 2 Pieces for Rs 360',
+      note: '1 piece = Rs 190. 2 or more pieces = Rs 180 each (2 pieces = Rs 360).'
+    },
+    inStock: true
+  },
 
 ];
 
@@ -2104,6 +2150,38 @@ export const getCategoryBySlug = (slug) => {
   return CATEGORIES.find(
     (category) => category.slug === slug
   );
+};
+
+
+/**
+ * Line subtotal for a product quantity.
+ * Supports pairOffer: Math.floor(qty/2)*pairPrice + (qty%2)*unitPrice
+ * Delivery is never included.
+ */
+export const getProductLineTotal = (product, quantity) => {
+  const qty = Number(quantity) || 0;
+  if (!product || qty <= 0) return 0;
+
+  if (product.pairOffer) {
+    // Verified totals:
+    // 1 → 190 | 2 → 360 | 3 → 540 | 4 → 720 | 5 → 900 | 6 → 1080
+    // Rule: 1 piece = unitPrice; 2 or more = qty × additionalUnitPrice (180)
+    const unit = Number(
+      product.pairOffer.unitPrice ?? product.pricePerUnit ?? product.price
+    ) || 0;
+
+    let additional = Number(product.pairOffer.additionalUnitPrice);
+    if (!Number.isFinite(additional) || additional <= 0) {
+      const pair = Number(product.pairOffer.pairPrice);
+      additional = Number.isFinite(pair) && pair > 0 ? pair / 2 : 180;
+    }
+
+    if (qty === 1) return unit;
+    return qty * additional;
+  }
+
+  const unitPrice = Number(product.pricePerUnit ?? product.price) || 0;
+  return unitPrice * qty;
 };
 
 export const formatPrice = (price) => {
