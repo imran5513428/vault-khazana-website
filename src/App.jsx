@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
@@ -32,6 +33,8 @@ import {
 } from './data/products';
 
 const SITE_NAME = 'VAULT KHAZANA';
+const SITE_URL = 'https://vaultkhazana.com';
+const SOCIAL_IMAGE = `${SITE_URL}/images/vault-khazana-og-image.jpg`;
 
 const DEFAULT_DESCRIPTION =
   'Shop packaging and food-service supplies for homes, restaurants, cafes and businesses. Local delivery in Islamabad and Rawalpindi.';
@@ -48,6 +51,20 @@ function updateMetaTag(attribute, key, content) {
   }
 
   element.setAttribute('content', content);
+}
+
+function updateCanonicalLink(url) {
+  let element = document.head.querySelector(
+    'link[rel="canonical"]'
+  );
+
+  if (!element) {
+    element = document.createElement('link');
+    element.setAttribute('rel', 'canonical');
+    document.head.appendChild(element);
+  }
+
+  element.setAttribute('href', url);
 }
 
 function getPageMetadata(pathname) {
@@ -171,10 +188,14 @@ function RouteMetadata() {
   useEffect(() => {
     const metadata = getPageMetadata(location.pathname);
 
-    const description = String(metadata.description || DEFAULT_DESCRIPTION)
+    const description = String(
+      metadata.description || DEFAULT_DESCRIPTION
+    )
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 160);
+
+    const canonicalUrl = `${SITE_URL}${location.pathname}`;
 
     document.title = metadata.title;
 
@@ -186,14 +207,30 @@ function RouteMetadata() {
       metadata.indexable ? 'index, follow' : 'noindex, nofollow'
     );
 
+    updateCanonicalLink(canonicalUrl);
+
     updateMetaTag('property', 'og:site_name', SITE_NAME);
     updateMetaTag('property', 'og:type', 'website');
+    updateMetaTag('property', 'og:url', canonicalUrl);
     updateMetaTag('property', 'og:title', metadata.title);
     updateMetaTag('property', 'og:description', description);
+    updateMetaTag('property', 'og:image', SOCIAL_IMAGE);
+    updateMetaTag('property', 'og:image:width', '1200');
+    updateMetaTag('property', 'og:image:height', '630');
+    updateMetaTag(
+      'property',
+      'og:image:alt',
+      'VAULT KHAZANA - From Packaging to Brand'
+    );
 
-    updateMetaTag('name', 'twitter:card', 'summary');
+    updateMetaTag(
+      'name',
+      'twitter:card',
+      'summary_large_image'
+    );
     updateMetaTag('name', 'twitter:title', metadata.title);
     updateMetaTag('name', 'twitter:description', description);
+    updateMetaTag('name', 'twitter:image', SOCIAL_IMAGE);
   }, [location.pathname]);
 
   return null;
