@@ -231,7 +231,16 @@ function RouteMetadata() {
     updateMetaTag('name', 'twitter:title', metadata.title);
     updateMetaTag('name', 'twitter:description', description);
     updateMetaTag('name', 'twitter:image', SOCIAL_IMAGE);
-  }, [location.pathname]);
+
+    // Track each page view in Google Analytics 4.
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_title: metadata.title,
+        page_location: window.location.href,
+        page_path: `${location.pathname}${location.search}`
+      });
+    }
+  }, [location.pathname, location.search]);
 
   return null;
 }
