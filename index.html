@@ -1,86 +1,398 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSM0MP0YM9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GSM0MP0YM9');
-  </script>
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation
+} from 'react-router-dom';
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+import './App.css';
+import './styles/cart-product-polish.css';
+import './styles/desktop-layout-fix.css';
 
-  <title>VAULT KHAZANA | Packaging &amp; Food-Service Supplies</title>
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 
-  <meta
-    name="description"
-    content="Shop packaging and food-service supplies for homes, restaurants, cafes and businesses. Local delivery in Islamabad and Rawalpindi."
-  >
+import HomePage from './pages/HomePage';
+import AboutUsPage from './pages/AboutUsPage';
+import CategoryPage from './pages/CategoryPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
+import BusinessSolutionsPage from './pages/BusinessSolutionsPage';
+import ShippingPolicyPage from './pages/ShippingPolicyPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import NotFoundPage from './pages/NotFoundPage';
 
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#1F3A5C">
+import {
+  getProductById,
+  getCategoryById,
+  getCategoryBySlug
+} from './data/products';
 
-  <link rel="canonical" href="https://vaultkhazana.com/">
+const SITE_NAME = 'VAULT KHAZANA';
+const SITE_URL = 'https://vaultkhazana.com';
+const SOCIAL_IMAGE = `${SITE_URL}/images/vault-khazana-og-image.jpg`;
 
-  <meta property="og:site_name" content="VAULT KHAZANA">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vaultkhazana.com/">
+const DEFAULT_DESCRIPTION =
+  'Shop packaging and food-service supplies for homes, restaurants, cafes and businesses. Local delivery in Islamabad and Rawalpindi.';
 
-  <meta
-    property="og:title"
-    content="VAULT KHAZANA | Packaging &amp; Food-Service Supplies"
-  >
+function updateMetaTag(attribute, key, content) {
+  let element = document.head.querySelector(
+    `meta[${attribute}="${key}"]`
+  );
 
-  <meta
-    property="og:description"
-    content="Shop everyday food-service packaging or explore custom packaging and branding solutions for your business."
-  >
+  if (!element) {
+    element = document.createElement('meta');
+    element.setAttribute(attribute, key);
+    document.head.appendChild(element);
+  }
 
-  <meta
-    property="og:image"
-    content="https://vaultkhazana.com/images/vault-khazana-og-image.jpg"
-  >
+  element.setAttribute('content', content);
+}
 
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+function updateCanonicalLink(url) {
+  let element = document.head.querySelector(
+    'link[rel="canonical"]'
+  );
 
-  <meta
-    property="og:image:alt"
-    content="VAULT KHAZANA - From Packaging to Brand"
-  >
+  if (!element) {
+    element = document.createElement('link');
+    element.setAttribute('rel', 'canonical');
+    document.head.appendChild(element);
+  }
 
-  <meta property="og:locale" content="en_PK">
+  element.setAttribute('href', url);
+}
 
-  <meta name="twitter:card" content="summary_large_image">
+function getPageMetadata(pathname) {
+  if (pathname === '/') {
+    return {
+      title: `${SITE_NAME} | Packaging & Food-Service Supplies`,
+      description: DEFAULT_DESCRIPTION,
+      indexable: true
+    };
+  }
 
-  <meta
-    name="twitter:title"
-    content="VAULT KHAZANA | Packaging &amp; Food-Service Supplies"
-  >
+  const categoryMatch = pathname.match(/^\/category\/([^/]+)/);
 
-  <meta
-    name="twitter:description"
-    content="Packaging and food-service supplies with local delivery in Islamabad and Rawalpindi."
-  >
+  if (categoryMatch) {
+    const category = getCategoryBySlug(
+      decodeURIComponent(categoryMatch[1])
+    );
 
-  <meta
-    name="twitter:image"
-    content="https://vaultkhazana.com/images/vault-khazana-og-image.jpg"
-  >
+    if (category) {
+      return {
+        title: `${category.name} | ${SITE_NAME}`,
+        description:
+          `${category.description}. Shop packaging and food-service ` +
+          'supplies with local delivery in Islamabad and Rawalpindi.',
+        indexable: true
+      };
+    }
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/images/favicon-32.png">
-  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    return {
+      title: `Category Not Found | ${SITE_NAME}`,
+      description: 'This product category could not be found.',
+      indexable: false
+    };
+  }
 
-  <link rel="stylesheet" href="./local-delivery.css">
-</head>
+  const productMatch = pathname.match(/^\/product\/([^/]+)/);
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="./src/main.jsx"></script>
-</body>
-</html>
+  if (productMatch) {
+    const product = getProductById(
+      decodeURIComponent(productMatch[1])
+    );
+
+    if (product) {
+      const category = getCategoryById(product.categoryId);
+
+      const productDescription =
+        product.overview ||
+        product.description ||
+        `${product.name} available from VAULT KHAZANA.`;
+
+      return {
+        title: `${product.name} | ${SITE_NAME}`,
+        description:
+          `${productDescription} ` +
+          'Local delivery in Islamabad and Rawalpindi.',
+        indexable: true,
+        categoryName: category?.name || ''
+      };
+    }
+
+    return {
+      title: `Product Not Found | ${SITE_NAME}`,
+      description: 'This product could not be found.',
+      indexable: false
+    };
+  }
+
+  const pages = {
+    '/about-us': {
+      title: `About Us | ${SITE_NAME}`,
+      description:
+        'Learn about VAULT KHAZANA and our packaging and food-service supplies.',
+      indexable: true
+    },
+    '/business-solutions': {
+      title: `Custom Packaging & Branding | ${SITE_NAME}`,
+      description:
+        'Explore custom packaging, printed cups, branded bags, labels and printing support for your business.',
+      indexable: true
+    },
+    '/shipping-policy': {
+      title: `Shipping & Payment Policy | ${SITE_NAME}`,
+      description:
+        'Read VAULT KHAZANA delivery coverage, delivery charges and payment information.',
+      indexable: true
+    },
+    '/privacy-policy': {
+      title: `Privacy Policy | ${SITE_NAME}`,
+      description:
+        'Read how VAULT KHAZANA handles information submitted through its website.',
+      indexable: true
+    },
+    '/terms-of-service': {
+      title: `Terms of Service | ${SITE_NAME}`,
+      description:
+        'Review the terms for using the VAULT KHAZANA website and placing orders.',
+      indexable: true
+    },
+    '/cart': {
+      title: `Your Cart | ${SITE_NAME}`,
+      description: 'Review your selected VAULT KHAZANA products.',
+      indexable: false
+    },
+    '/checkout': {
+      title: `Checkout | ${SITE_NAME}`,
+      description: 'Submit your VAULT KHAZANA order details.',
+      indexable: false
+    }
+  };
+
+  return pages[pathname] || {
+    title: `Page Not Found | ${SITE_NAME}`,
+    description: 'The requested VAULT KHAZANA page could not be found.',
+    indexable: false
+  };
+}
+
+function RouteMetadata() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const metadata = getPageMetadata(location.pathname);
+
+    const description = String(
+      metadata.description || DEFAULT_DESCRIPTION
+    )
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 160);
+
+    const canonicalUrl = `${SITE_URL}${location.pathname}`;
+
+    document.title = metadata.title;
+
+    updateMetaTag('name', 'description', description);
+
+    updateMetaTag(
+      'name',
+      'robots',
+      metadata.indexable ? 'index, follow' : 'noindex, nofollow'
+    );
+
+    updateCanonicalLink(canonicalUrl);
+
+    updateMetaTag('property', 'og:site_name', SITE_NAME);
+    updateMetaTag('property', 'og:type', 'website');
+    updateMetaTag('property', 'og:url', canonicalUrl);
+    updateMetaTag('property', 'og:title', metadata.title);
+    updateMetaTag('property', 'og:description', description);
+    updateMetaTag('property', 'og:image', SOCIAL_IMAGE);
+    updateMetaTag('property', 'og:image:width', '1200');
+    updateMetaTag('property', 'og:image:height', '630');
+    updateMetaTag(
+      'property',
+      'og:image:alt',
+      'VAULT KHAZANA - From Packaging to Brand'
+    );
+
+    updateMetaTag(
+      'name',
+      'twitter:card',
+      'summary_large_image'
+    );
+    updateMetaTag('name', 'twitter:title', metadata.title);
+    updateMetaTag('name', 'twitter:description', description);
+    updateMetaTag('name', 'twitter:image', SOCIAL_IMAGE);
+
+    // Track each page view in Google Analytics 4.
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_title: metadata.title,
+        page_location: window.location.href,
+        page_path: `${location.pathname}${location.search}`
+      });
+    }
+  }, [location.pathname, location.search]);
+
+  return null;
+}
+
+function RouteScrollManager() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo === 'shop-by-category') {
+      const scrollToCategory = () => {
+        const target = document.getElementById('shop-by-category');
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+          return true;
+        }
+
+        return false;
+      };
+
+      let attempts = 0;
+
+      const tryScroll = () => {
+        attempts += 1;
+
+        if (!scrollToCategory() && attempts < 10) {
+          requestAnimationFrame(tryScroll);
+        }
+      };
+
+      requestAnimationFrame(tryScroll);
+    } else {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto'
+      });
+    }
+  }, [location]);
+
+  return null;
+}
+
+function DeliveryAnnouncement() {
+  return (
+    <div
+      className="delivery-announcement"
+      role="region"
+      aria-label="Delivery information"
+    >
+      <div
+        className="delivery-announcement__track"
+        aria-hidden="true"
+      >
+        <span className="delivery-announcement__message">
+          LOCAL DELIVERY ONLY — ISLAMABAD &amp; RAWALPINDI
+        </span>
+
+        <span className="delivery-announcement__message delivery-announcement__message--second">
+          DELIVERY CHARGES CONFIRMED BEFORE DISPATCH
+        </span>
+      </div>
+
+      <p className="delivery-announcement__accessible">
+        Local delivery only in Islamabad and Rawalpindi.
+        Delivery charges are confirmed before dispatch.
+      </p>
+    </div>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  return (
+    <div className="app">
+      <RouteMetadata />
+      <RouteScrollManager />
+
+      <Header />
+
+      {isHomePage && <DeliveryAnnouncement />}
+
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+
+          <Route
+            path="/about-us"
+            element={<AboutUsPage />}
+          />
+
+          <Route
+            path="/category/:slug"
+            element={<CategoryPage />}
+          />
+
+          <Route
+            path="/product/:id"
+            element={<ProductDetailPage />}
+          />
+
+          <Route path="/cart" element={<CartPage />} />
+
+          <Route
+            path="/checkout"
+            element={<CheckoutPage />}
+          />
+
+          <Route
+            path="/business-solutions"
+            element={<BusinessSolutionsPage />}
+          />
+
+          <Route
+            path="/shipping-policy"
+            element={<ShippingPolicyPage />}
+          />
+
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicyPage />}
+          />
+
+          <Route
+            path="/terms-of-service"
+            element={<TermsOfServicePage />}
+          />
+
+          <Route
+            path="*"
+            element={<NotFoundPage />}
+          />
+        </Routes>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+export default App;
